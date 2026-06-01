@@ -64,6 +64,62 @@
         .luxury-gradient {
             background: radial-gradient(circle at 50% -20%, #0F1A2C 0%, #020613 100%);
         }
+
+        /* Print Media CSS Overrides for Pristine PDF Export */
+        @media print {
+            body {
+                background: white !important;
+                color: #0f172a !important;
+                font-family: "Montserrat", sans-serif !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .luxury-gradient {
+                background: none !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            .print-card {
+                background: white !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                color: #0f172a !important;
+            }
+            .print-card * {
+                color: #0f172a !important;
+                border-color: #cbd5e1 !important;
+                text-shadow: none !important;
+                box-shadow: none !important;
+            }
+            .print-card-header {
+                border-bottom: 2px solid #1e40af !important;
+                padding-bottom: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .print-pill {
+                background: #f1f5f9 !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #1e40af !important;
+            }
+            .print-accent {
+                color: #1e40af !important;
+            }
+            .print-divider {
+                border-color: #e2e8f0 !important;
+            }
+            @page {
+                size: portrait;
+                margin: 15mm;
+            }
+        }
     </style>
 </head>
 <body class="luxury-gradient text-slate-100 antialiased selection:bg-brandBlue-600 selection:text-white min-h-screen">
@@ -75,26 +131,28 @@
     <script type="text/babel">
         const { useState, useMemo } = React;
 
-        // HIGH FIDELITY LOGO (Gear integrated with Rising Bar Chart inside an interlocking shield layout)
-        const IconWebsiteLogo = () => (
-            <svg class="w-12 h-12 text-brandBlue-400" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Outer Circular Shield Base */}
-                <path d="M50 12 L85 24 V55 C85 75 70 87 50 92 C30 87 15 75 15 55 V24 L50 12 Z" fill="#09111F" stroke="#2563EB" stroke-width="4" stroke-linejoin="round"/>
+        // HIGH FIDELITY LOGO (Pristine match to the Shield, Cogwheel, and Checkmark logo uploaded)
+        const IconWebsiteLogo = ({ className = "w-12 h-12" }) => (
+            <svg class={`${className} transition-colors duration-250`} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Shield Outline Base */}
+                <path d="M50 10 C70 14 86 20 86 20 V54 C86 74 71 87 50 92 C29 87 14 74 14 54 V20 C14 20 30 14 50 10 Z" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="4.5" stroke-linejoin="round"/>
                 
-                {/* Embedded Growth Chart Bars */}
-                <rect x="36" y="52" width="6" height="18" rx="1.5" fill="#2563EB" opacity="0.8"/>
-                <rect x="47" y="42" width="6" height="28" rx="1.5" fill="#60A1FA"/>
-                <rect x="58" y="32" width="6" height="38" rx="1.5" fill="#99C4FF"/>
+                {/* Cogwheel (Gear Ring & 8 clean teeth) */}
+                <g class="opacity-90">
+                    <circle cx="50" cy="52" r="22" fill="none" stroke="currentColor" stroke-width="4.5" />
+                    {/* Teeth positioned uniformly at 45 degree intervals around the common center */}
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(45 50 52)" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(90 50 52)" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(135 50 52)" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(180 50 52)" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(225 50 52)" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(270 50 52)" />
+                    <rect x="47.5" y="24.5" width="5" height="6" rx="1" fill="currentColor" transform="rotate(315 50 52)" />
+                </g>
                 
-                {/* Interlocking Gear Outline Teeth on left quadrant */}
-                <path d="M26 44 L22 42" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                <path d="M24 53 L20 53" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                <path d="M26 62 L22 64" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                <path d="M32 69 L29 73" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
-                
-                {/* Connecting Trend Vector line */}
-                <path d="M33 56 L47 43 L61 31" stroke="#E0EDFF" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="61" cy="31" r="3.5" fill="#F0F6FF" stroke="#2563EB" stroke-width="1.5"/>
+                {/* Thick Blue Corporate Compliance Checkmark */}
+                <path d="M38 52 L47 61 L64 39" stroke="#2563EB" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" class="print-accent"/>
             </svg>
         );
 
@@ -107,6 +165,8 @@
         const IconCopy = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>;
         const IconCheckCircle = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5 text-emerald-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>;
         const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brandBlue-400 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
+        const IconPrint = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>;
+        const IconEdit = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>;
 
         const INITIAL_TASKS = [
             { id: 'diag-1', category: '1. Operational Diagnostics', deliverable: 'Preparation & Onboarding', description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', minHours: 3, maxHours: 4, rate: 2500, selected: true },
@@ -139,6 +199,16 @@
             const [copied, setCopied] = useState(false);
             const [activePreset, setActivePreset] = useState('diagnostics'); 
             
+            // View Switcher state
+            const [activeView, setActiveView] = useState('sandbox'); // 'sandbox' | 'quotation'
+
+            // Client Quotation form states
+            const [clientCompany, setClientCompany] = useState('Acme Corporation PH');
+            const [clientRep, setClientRep] = useState('Juan dela Cruz');
+            const [quoteId, setQuoteId] = useState('KC-2026-4402');
+            const [quoteDate, setQuoteDate] = useState('June 1, 2026');
+            const [quoteValidity, setQuoteValidity] = useState('30 Days');
+
             // Strategic Adjustments State Variables (From PH Audit File)
             const [frictionBuffer, setFrictionBuffer] = useState(15); // Friction and Hirit Buffer slider (+0% to +30%)
             const [delegatePercent, setDelegatePercent] = useState(60); // % of hours delegated to Associates (Cost: ₱350/hr) vs Principal (₱1,500/hr)
@@ -204,14 +274,13 @@
             // Enhanced Summary Calculation Block factoring in PH Friction & Resource Delegation Mix
             const summary = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
-                
-                const rawMinHours = selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0);
-                const rawMaxHours = selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0);
+                const minHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0);
+                const maxHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0);
                 
                 // 1. Friction & Hirit Buffer Multiplier
                 const bufferMultiplier = 1 + (frictionBuffer / 100);
-                const minHours = Math.round(rawMinHours * bufferMultiplier);
-                const maxHours = Math.round(rawMaxHours * bufferMultiplier);
+                const minHours = Math.round(minHoursTotal * bufferMultiplier);
+                const maxHours = Math.round(maxHoursTotal * bufferMultiplier);
                 
                 // Dynamic client-facing project values with buffer integration
                 const minCost = Math.round(selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0) * bufferMultiplier);
@@ -235,8 +304,8 @@
                 
                 return {
                     count: selectedTasks.length,
-                    rawMinHours,
-                    rawMaxHours,
+                    rawMinHours: minHoursTotal,
+                    rawMaxHours: maxHoursTotal,
                     minHours,
                     maxHours,
                     minCost,
@@ -284,13 +353,17 @@
                 setTimeout(() => setCopied(false), 2000);
             };
 
+            const handlePrint = () => {
+                window.print();
+            };
+
             return (
                 <div class="font-sans min-h-screen">
-                    {/* Aligned Internal Executive Header */}
-                    <header class="border-b border-brandNavy-700 bg-brandNavy-900/90 backdrop-blur-md sticky top-0 z-50">
+                    {/* Aligned Internal Executive Header (hidden when printing) */}
+                    <header class="border-b border-brandNavy-700 bg-brandNavy-900/90 backdrop-blur-md sticky top-0 z-50 no-print">
                         <div class="max-w-[1600px] mx-auto px-6 sm:px-8 h-24 flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                <IconWebsiteLogo />
+                                <IconWebsiteLogo className="w-12 h-12 text-brandBlue-400" />
                                 <div>
                                     <span class="font-sans font-extrabold tracking-wider text-xl uppercase block text-slate-100">
                                         KOLTHOFF <span class="text-brandBlue-400">CONSULTING</span>
@@ -319,8 +392,8 @@
 
                     <div class="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
                         
-                        {/* Internal Executive Workstation Banner */}
-                        <div class="mb-10 text-center py-6 relative">
+                        {/* Internal Executive Workstation Banner (hidden when printing) */}
+                        <div class="mb-6 text-center py-4 relative no-print">
                             <span class="text-xs font-mono font-bold tracking-[0.3em] text-brandBlue-400 uppercase bg-brandBlue-950/40 border border-brandBlue-900/30 px-3.5 py-1.5 rounded-md inline-block mb-3">
                                 CONFIDENTIAL WORKING DOCUMENT
                             </span>
@@ -332,285 +405,304 @@
                             </p>
                         </div>
 
-                        {/* Top Global Parameter Controller */}
-                        <div class="mb-8 bg-brandNavy-800/60 border border-brandNavy-700/80 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-                            <div class="flex items-center gap-3">
-                                <div class="p-2.5 rounded-lg bg-brandBlue-500/10 text-brandBlue-400 border border-brandBlue-500/20">
-                                    <IconCalculator className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <h3 class="text-xs font-bold font-mono tracking-wider text-slate-400 uppercase">Consultant Billing Base</h3>
-                                    <p class="text-xs text-slate-500 mt-0.5">Toggle rate basis between associate-led, senior-led, and principal executive frameworks.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex gap-2">
-                                {[1500, 2500, 3500].map((rate) => (
-                                    <button 
-                                        key={rate} 
-                                        onClick={() => applyGlobalRate(rate)} 
-                                        class={`px-5 py-2.5 text-xs font-bold rounded border transition-all ${globalRate === rate ? 'bg-gradient-to-r from-brandBlue-600 to-brandBlue-500 text-slate-950 border-brandBlue-400 shadow-md shadow-brandBlue-950/20 font-extrabold' : 'bg-brandNavy-950 text-slate-400 border-brandNavy-700 hover:border-brandNavy-700 hover:text-slate-200'}`}
-                                    >
-                                        ₱{rate.toLocaleString()} / hr
-                                    </button>
-                                ))}
+                        {/* View Switcher Tabs (hidden when printing) */}
+                        <div class="mb-8 flex justify-center border-b border-brandNavy-700/60 pb-1 no-print">
+                            <div class="bg-brandNavy-950/80 p-1.5 rounded-lg border border-brandNavy-700 flex gap-2">
+                                <button
+                                    onClick={() => setActiveView('sandbox')}
+                                    class={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'sandbox' ? 'bg-brandBlue-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                                >
+                                    <IconCalculator className="" /> Scoping Sandbox
+                                </button>
+                                <button
+                                    onClick={() => setActiveView('quotation')}
+                                    class={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'quotation' ? 'bg-brandBlue-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                                >
+                                    <IconPrint /> Formal Client Quotation
+                                </button>
                             </div>
                         </div>
 
-                        {/* App Grid */}
-                        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-                            
-                            {/* Table Container (9 Columns width on XL) */}
-                            <div class="xl:col-span-9 bg-brandNavy-900/30 border border-brandNavy-700/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm">
-                                
-                                {/* Preset Controls Bar */}
-                                <div class="p-5 bg-brandNavy-950/80 border-b border-brandNavy-700/80 flex flex-wrap gap-3 items-center justify-between">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-brandBlue-500 animate-pulse"></span>
-                                        <span class="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
-                                    </div>
-                                    <div class="flex flex-wrap gap-2">
-                                        <button 
-                                            onClick={() => handleSelectPackage('diagnostics')} 
-                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'diagnostics' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                        >
-                                            Diagnostics Audit
-                                        </button>
-                                        <button 
-                                            onClick={() => handleSelectPackage('sop')} 
-                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'sop' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                        >
-                                            SOP Foundations
-                                        </button>
-                                        <button 
-                                            onClick={() => handleSelectPackage('transformation')} 
-                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'transformation' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                        >
-                                            90-Day Sprint
-                                        </button>
-                                        <button 
-                                            onClick={() => handleSelectPackage('coo')} 
-                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'coo' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                        >
-                                            Fractional COO
-                                        </button>
-                                        <span class="text-slate-800 py-1 font-light self-center">|</span>
-                                        <button 
-                                            onClick={() => handleSelectPackage('all')} 
-                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'all' ? 'bg-slate-100 text-slate-950 font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                        >
-                                            Select All
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Main Task Grid Table */}
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-left border-collapse min-w-[1000px] table-fixed">
-                                        <thead>
-                                            <tr class="bg-brandNavy-950/80 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-brandNavy-700">
-                                                <th class="py-4 px-5 text-center w-[5%]">Active</th>
-                                                <th class="py-4 px-4 w-[16%]">Category</th>
-                                                <th class="py-4 px-4 w-[38%]">Deliverable Specifications</th>
-                                                <th class="py-4 px-4 text-center w-[14%]">Hours (Min - Max)</th>
-                                                <th class="py-4 px-4 text-center w-[11%]">Rate Basis</th>
-                                                <th class="py-4 px-5 text-right w-[14%] font-bold text-brandBlue-400">Base Price (Unbuffered)</th>
-                                                <th class="py-4 px-4 text-center w-[3%]"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-brandNavy-700/40">
-                                            {tasks.map((task) => (
-                                                <tr key={task.id} class={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
-                                                    <td class="py-4 px-5 text-center">
-                                                        <button onClick={() => toggleTask(task.id)} class="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
-                                                            {task.selected ? <IconCheckSquare /> : <IconSquare />}
-                                                        </button>
-                                                    </td>
-                                                    <td class="py-4 px-4">
-                                                        <span class="text-[10px] font-mono bg-brandNavy-950 px-2.5 py-1 rounded border border-brandNavy-700/80 text-brandBlue-400 font-bold tracking-wide block text-center truncate">
-                                                            {task.category.replace(/^\d+\.\s/, '')}
-                                                        </span>
-                                                    </td>
-                                                    <td class="py-4 px-4">
-                                                        <h4 class="font-bold text-sm text-slate-200">{task.deliverable}</h4>
-                                                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{task.description}</p>
-                                                    </td>
-                                                    <td class="py-4 px-4">
-                                                        <div class="flex items-center justify-center gap-1.5">
-                                                            <input 
-                                                                type="number" 
-                                                                min="0" 
-                                                                value={task.minHours} 
-                                                                onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} 
-                                                                class="w-12 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" 
-                                                                disabled={!task.selected} 
-                                                            />
-                                                            <span class="text-slate-600 font-bold">-</span>
-                                                            <input 
-                                                                type="number" 
-                                                                min="0" 
-                                                                value={task.maxHours} 
-                                                                onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} 
-                                                                class="w-12 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" 
-                                                                disabled={!task.selected} 
-                                                            />
-                                                        </div>
-                                                    </td>
-                                                    <td class="py-4 px-4">
-                                                        <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-20 mx-auto bg-brandNavy-950 border border-brandNavy-700 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200 block focus:border-brandBlue-500 focus:outline-none" disabled={!task.selected} />
-                                                    </td>
-                                                    <td class="py-4 px-5 text-right">
-                                                        <span class="text-xs font-mono font-bold text-slate-100 whitespace-nowrap">
-                                                            {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
-                                                        </span>
-                                                    </td>
-                                                    <td class="py-4 px-4 text-center">
-                                                        <button onClick={() => removeTask(task.id)} class="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"><IconTrash /></button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                {/* Custom Scoped Task Row Form */}
-                                <form onSubmit={addNewTask} class="p-5 bg-brandNavy-950/80 border-t border-brandNavy-700 grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-                                    <div class="md:col-span-3">
-                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Target Category</label>
-                                        <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500">
-                                            <option value="1. Operational Diagnostics">1. Diagnostics</option>
-                                            <option value="2. Scale-Ready SOPs & HR">2. SOPs & HR</option>
-                                            <option value="3. 90-Day Transformation Sprint">3. 90-Day Sprint</option>
-                                            <option value="4. Fractional COO (Monthly Engagement)">4. Monthly COO</option>
-                                        </select>
-                                    </div>
-                                    <div class="md:col-span-3">
-                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">New Task / Deliverable</label>
-                                        <input type="text" placeholder="e.g., Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" />
-                                    </div>
-                                    <div class="md:col-span-4">
-                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Operational SOW Description</label>
-                                        <input type="text" placeholder="Scope constraints & outcomes..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" />
-                                    </div>
-                                    <div class="md:col-span-1">
-                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Min/Max</label>
-                                        <div class="flex gap-1">
-                                            <input type="number" value={newTaskMin} onChange={(e) => setNewTaskMin(e.target.value)} class="w-12 bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500" />
-                                            <input type="number" value={newTaskMax} onChange={(e) => setNewTaskMax(e.target.value)} class="w-12 bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500" />
+                        {/* 1. PORTFOLIO & ESTIMATION SANDBOX VIEW */}
+                        {activeView === 'sandbox' && (
+                            <div class="no-print">
+                                {/* Top Global Parameter Controller */}
+                                <div class="mb-8 bg-brandNavy-800/60 border border-brandNavy-700/80 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2.5 rounded-lg bg-brandBlue-500/10 text-brandBlue-400 border border-brandBlue-500/20">
+                                            <IconCalculator className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <h3 class="text-xs font-bold font-mono tracking-wider text-slate-400 uppercase">Consultant Billing Base</h3>
+                                            <p class="text-xs text-slate-500 mt-0.5">Toggle rate basis between associate-led, senior-led, and principal executive frameworks.</p>
                                         </div>
                                     </div>
-                                    <div class="md:col-span-1">
-                                        <button type="submit" class="w-full bg-slate-100 hover:bg-brandBlue-500 hover:text-slate-950 text-slate-950 font-bold py-2 rounded text-xs transition-all flex items-center justify-center shrink-0"><IconPlus /> Add</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            {/* Summary & Markdown Exporter (3 Columns width on XL) */}
-                            <div class="xl:col-span-3 space-y-6">
-                                
-                                {/* Calculations Panel */}
-                                <div class="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-sm">
-                                    <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue-500/5 blur-2xl rounded-full" />
                                     
-                                    <h3 class="text-xs font-bold tracking-wider text-brandBlue-400 uppercase font-mono mb-4 flex items-center gap-2">
-                                        <IconCalculator className="text-brandBlue-400" /> Internal Scoping Audit
-                                    </h3>
-
-                                    <div class="space-y-4 pb-6 border-b border-brandNavy-700 text-xs">
-                                        <div class="flex justify-between items-center">
-                                            <span class="text-slate-400">Total Tasks Selected:</span>
-                                            <span class="text-slate-100 font-bold font-mono bg-brandNavy-950 px-2 py-0.5 rounded">{summary.count} / {tasks.length}</span>
-                                        </div>
-                                        <div class="flex justify-between items-center">
-                                            <span class="text-slate-400">Cumulative Effort:</span>
-                                            <span class="text-slate-100 font-bold font-mono flex items-center gap-1">
-                                                <IconClock className="text-brandBlue-400" /> {summary.minHours} - {summary.maxHours} Target Hrs
-                                            </span>
-                                        </div>
-                                        <div class="flex justify-between items-center text-slate-500 text-[10px]">
-                                            <span>Base hours (unbuffered):</span>
-                                            <span>{summary.rawMinHours} - {summary.rawMaxHours} hrs</span>
-                                        </div>
-                                        <div class="flex justify-between items-center">
-                                            <span class="text-slate-400">Baseline Rate Basis:</span>
-                                            <span class="text-slate-100 font-bold font-mono">₱{globalRate.toLocaleString()}/hr</span>
-                                        </div>
+                                    <div class="flex gap-2">
+                                        {[1500, 2500, 3500].map((rate) => (
+                                            <button 
+                                                key={rate} 
+                                                onClick={() => applyGlobalRate(rate)} 
+                                                class={`px-5 py-2.5 text-xs font-bold rounded border transition-all ${globalRate === rate ? 'bg-gradient-to-r from-brandBlue-600 to-brandBlue-500 text-slate-950 border-brandBlue-400 shadow-md shadow-brandBlue-950/20 font-extrabold' : 'bg-brandNavy-950 text-slate-400 border-brandNavy-700 hover:border-brandNavy-700 hover:text-slate-200'}`}
+                                            >
+                                                ₱{rate.toLocaleString()} / hr
+                                            </button>
+                                        ))}
                                     </div>
+                                </div>
 
-                                    {/* PH Market Buffer Tuning Section */}
-                                    <div class="py-4 border-b border-brandNavy-700">
-                                        <div class="flex justify-between items-center mb-1.5">
-                                            <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Friction / Hirit Buffer</span>
-                                            <span class="text-xs font-mono font-bold text-brandBlue-300">+{frictionBuffer}%</span>
-                                        </div>
-                                        <input 
-                                            type="range" 
-                                            min="0" 
-                                            max="30" 
-                                            step="5"
-                                            value={frictionBuffer} 
-                                            onChange={(e) => setFrictionBuffer(parseInt(e.target.value))}
-                                            class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
-                                        />
-                                        <span class="text-[9px] text-slate-500 mt-1 block">Insulates against PH client delays and scope-creep.</span>
-                                    </div>
-
-                                    {/* Financial Valuations */}
-                                    <div class="py-5 border-b border-brandNavy-700">
-                                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Buffered Proposal Range</span>
-                                        <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent mt-1.5 block leading-none">
-                                            {formatCurrency(summary.minCost)}
-                                        </span>
-                                        <span class="text-xs text-slate-500 font-mono block my-1">to</span>
-                                        <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent block leading-none">
-                                            {formatCurrency(summary.maxCost)}
-                                        </span>
-                                    </div>
-
-                                    {/* INTERNAL DELEGATION & MARGIN PLANNER */}
-                                    <div class="py-5 border-b border-brandNavy-700">
-                                        <div class="flex justify-between items-center mb-1.5">
-                                            <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Delegation (Associate %)</span>
-                                            <span class="text-xs font-mono font-bold text-brandBlue-300">{delegatePercent}%</span>
-                                        </div>
-                                        <input 
-                                            type="range" 
-                                            min="0" 
-                                            max="100" 
-                                            step="10"
-                                            value={delegatePercent} 
-                                            onChange={(e) => setDelegatePercent(parseInt(e.target.value))}
-                                            class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
-                                        />
-                                        <div class="mt-3 space-y-1.5 text-[11px] text-slate-400">
-                                            <div class="flex justify-between">
-                                                <span>Associate Effort (₱350/hr):</span>
-                                                <span class="font-bold text-slate-200">{Math.round(summary.minHours * (delegatePercent/100))} hrs</span>
-                                            </div>
-                                            <div class="flex justify-between">
-                                                <span>Principal Effort (₱1,500/hr):</span>
-                                                <span class="font-bold text-slate-200">{Math.round(summary.minHours * (1 - delegatePercent/100))} hrs</span>
-                                            </div>
-                                            <div class="flex justify-between pt-1 border-t border-brandNavy-750 font-semibold">
-                                                <span>Est. Execution Cost:</span>
-                                                <span class="text-rose-400 font-mono">{formatCurrency(summary.minInternalCost)}</span>
-                                            </div>
-                                        </div>
+                                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                                    {/* Table Container (9 Columns width on XL) */}
+                                    <div class="xl:col-span-9 bg-brandNavy-900/30 border border-brandNavy-700/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm">
                                         
-                                        <div class="mt-4 pt-3 border-t border-brandNavy-750">
-                                            <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Confidential Gross Profit ({summary.profitMarginPercent}%)</span>
-                                            <span class="text-xl font-bold text-emerald-400 mt-1 block">
-                                                {formatCurrency(summary.minNetProfit)} – {formatCurrency(summary.maxNetProfit)}
-                                            </span>
+                                        {/* Preset Controls Bar */}
+                                        <div class="p-5 bg-brandNavy-950/80 border-b border-brandNavy-700/80 flex flex-wrap gap-3 items-center justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-brandBlue-500 animate-pulse"></span>
+                                                <span class="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
+                                            </div>
+                                            <div class="flex flex-wrap gap-2">
+                                                <button 
+                                                    onClick={() => handleSelectPackage('diagnostics')} 
+                                                    class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'diagnostics' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                >
+                                                    Diagnostics Audit
+                                                </button>
+                                                <button 
+                                                    onClick={() => handleSelectPackage('sop')} 
+                                                    class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'sop' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                >
+                                                    SOP Foundations
+                                                </button>
+                                                <button 
+                                                    onClick={() => handleSelectPackage('transformation')} 
+                                                    class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'transformation' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                >
+                                                    90-Day Sprint
+                                                </button>
+                                                <button 
+                                                    onClick={() => handleSelectPackage('coo')} 
+                                                    class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'coo' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                >
+                                                    Fractional COO
+                                                </button>
+                                                <span class="text-slate-800 py-1 font-light self-center">|</span>
+                                                <button 
+                                                    onClick={() => handleSelectPackage('all')} 
+                                                    class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'all' ? 'bg-slate-100 text-slate-950 font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                >
+                                                    Select All
+                                                </button>
+                                            </div>
                                         </div>
+
+                                        {/* Main Task Grid Table */}
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full text-left border-collapse min-w-[1000px] table-fixed">
+                                                <thead>
+                                                    <tr class="bg-brandNavy-950/80 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-brandNavy-700">
+                                                        <th class="py-4 px-5 text-center w-[5%]">Active</th>
+                                                        <th class="py-4 px-4 w-[16%]">Category</th>
+                                                        <th class="py-4 px-4 w-[38%]">Deliverable Specifications</th>
+                                                        <th class="py-4 px-4 text-center w-[14%]">Hours (Min - Max)</th>
+                                                        <th class="py-4 px-4 text-center w-[11%]">Rate Basis</th>
+                                                        <th class="py-4 px-5 text-right w-[14%] font-bold text-brandBlue-400">Base Price (Unbuffered)</th>
+                                                        <th class="py-4 px-4 text-center w-[3%]"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-brandNavy-700/40">
+                                                    {tasks.map((task) => (
+                                                        <tr key={task.id} class={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
+                                                            <td class="py-4 px-5 text-center">
+                                                                <button onClick={() => toggleTask(task.id)} class="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
+                                                                    {task.selected ? <IconCheckSquare /> : <IconSquare />}
+                                                                </button>
+                                                            </td>
+                                                            <td class="py-4 px-4">
+                                                                <span class="text-[10px] font-mono bg-brandNavy-950 px-2.5 py-1 rounded border border-brandNavy-700/80 text-brandBlue-400 font-bold tracking-wide block text-center truncate">
+                                                                    {task.category.replace(/^\d+\.\s/, '')}
+                                                                </span>
+                                                            </td>
+                                                            <td class="py-4 px-4">
+                                                                <h4 class="font-bold text-sm text-slate-200">{task.deliverable}</h4>
+                                                                <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{task.description}</p>
+                                                            </td>
+                                                            <td class="py-4 px-4">
+                                                                <div class="flex items-center justify-center gap-1.5">
+                                                                    <input 
+                                                                        type="number" 
+                                                                        min="0" 
+                                                                        value={task.minHours} 
+                                                                        onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} 
+                                                                        class="w-12 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" 
+                                                                        disabled={!task.selected} 
+                                                                    />
+                                                                    <span class="text-slate-600 font-bold">-</span>
+                                                                    <input 
+                                                                        type="number" 
+                                                                        min="0" 
+                                                                        value={task.maxHours} 
+                                                                        onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} 
+                                                                        class="w-12 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" 
+                                                                        disabled={!task.selected} 
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                            <td class="py-4 px-4">
+                                                                <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-20 mx-auto bg-brandNavy-950 border border-brandNavy-700 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200 block focus:border-brandBlue-500 focus:outline-none" disabled={!task.selected} />
+                                                            </td>
+                                                            <td class="py-4 px-5 text-right">
+                                                                <span class="text-xs font-mono font-bold text-slate-100 whitespace-nowrap">
+                                                                    {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
+                                                                </span>
+                                                            </td>
+                                                            <td class="py-4 px-4 text-center">
+                                                                <button onClick={() => removeTask(task.id)} class="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"><IconTrash /></button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {/* Custom Scoped Task Row Form */}
+                                        <form onSubmit={addNewTask} class="p-5 bg-brandNavy-950/80 border-t border-brandNavy-700 grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                                            <div class="md:col-span-3">
+                                                <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Target Category</label>
+                                                <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500">
+                                                    <option value="1. Operational Diagnostics">1. Diagnostics</option>
+                                                    <option value="2. Scale-Ready SOPs & HR">2. SOPs & HR</option>
+                                                    <option value="3. 90-Day Transformation Sprint">3. 90-Day Sprint</option>
+                                                    <option value="4. Fractional COO (Monthly Engagement)">4. Monthly COO</option>
+                                                </select>
+                                            </div>
+                                            <div class="md:col-span-3">
+                                                <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">New Task / Deliverable</label>
+                                                <input type="text" placeholder="e.g., Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" />
+                                            </div>
+                                            <div class="md:col-span-4">
+                                                <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Operational SOW Description</label>
+                                                <input type="text" placeholder="Scope constraints & outcomes..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" />
+                                            </div>
+                                            <div class="md:col-span-1">
+                                                <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Min/Max</label>
+                                                <div class="flex gap-1">
+                                                    <input type="number" value={newTaskMin} onChange={(e) => setNewTaskMin(e.target.value)} class="w-12 bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500" />
+                                                    <input type="number" value={newTaskMax} onChange={(e) => setNewTaskMax(e.target.value)} class="w-12 bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500" />
+                                                </div>
+                                            </div>
+                                            <div class="md:col-span-1">
+                                                <button type="submit" class="w-full bg-slate-100 hover:bg-brandBlue-500 hover:text-slate-950 text-slate-950 font-bold py-2 rounded text-xs transition-all flex items-center justify-center shrink-0"><IconPlus /> Add</button>
+                                            </div>
+                                        </form>
                                     </div>
 
-                                    {/* 30-40-30 MILESTONE BILLING SCHEDULE */}
-                                    <div class="py-5">
-                                        <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block mb-3">Milestone Schedule (30-40-30)</span>
-                                        <div class="space-y-2 text-xs">
-                                            <div class="bg-brandNavy-950/40 p-2 rounded border border-brandNavy-750">
-                                                <div class="flex justify-between font-bold text-slate-200">
+                                    {/* Summary & Markdown Exporter (3 Columns width on XL) */}
+                                    <div class="xl:col-span-3 space-y-6">
+                                        
+                                        {/* Calculations Panel */}
+                                        <div class="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+                                            <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue-500/5 blur-2xl rounded-full" />
+                                            
+                                            <h3 class="text-xs font-bold tracking-wider text-brandBlue-400 uppercase font-mono mb-4 flex items-center gap-2">
+                                                <IconCalculator className="text-brandBlue-400" /> Internal Scoping Audit
+                                            </h3>
+
+                                            <div class="space-y-4 pb-6 border-b border-brandNavy-700 text-xs">
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-slate-400">Total Tasks Selected:</span>
+                                                    <span class="text-slate-100 font-bold font-mono bg-brandNavy-950 px-2 py-0.5 rounded">{summary.count} / {tasks.length}</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-slate-400">Cumulative Effort:</span>
+                                                    <span class="text-slate-100 font-bold font-mono flex items-center gap-1">
+                                                        <IconClock className="text-brandBlue-400" /> {summary.minHours} - {summary.maxHours} Target Hrs
+                                                    </span>
+                                                </div>
+                                                <div class="flex justify-between items-center text-slate-500 text-[10px]">
+                                                    <span>Base hours (unbuffered):</span>
+                                                    <span>{summary.rawMinHours} - {summary.rawMaxHours} hrs</span>
+                                                </div>
+                                                <div class="flex justify-between items-center">
+                                                    <span class="text-slate-400">Baseline Rate Basis:</span>
+                                                    <span class="text-slate-100 font-bold font-mono">₱{globalRate.toLocaleString()}/hr</span>
+                                                </div>
+                                            </div>
+
+                                            {/* PH Market Buffer Tuning Section */}
+                                            <div class="py-4 border-b border-brandNavy-700">
+                                                <div class="flex justify-between items-center mb-1.5">
+                                                    <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Friction / Hirit Buffer</span>
+                                                    <span class="text-xs font-mono font-bold text-brandBlue-300">+{frictionBuffer}%</span>
+                                                </div>
+                                                <input 
+                                                    type="range" 
+                                                    min="0" 
+                                                    max="30" 
+                                                    step="5"
+                                                    value={frictionBuffer} 
+                                                    onChange={(e) => setFrictionBuffer(parseInt(e.target.value))}
+                                                    class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
+                                                />
+                                                <span class="text-[9px] text-slate-500 mt-1 block">Insulates against PH client delays and scope-creep.</span>
+                                            </div>
+
+                                            {/* Financial Valuations */}
+                                            <div class="py-5 border-b border-brandNavy-700">
+                                                <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Buffered Proposal Range</span>
+                                                <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent mt-1.5 block leading-none">
+                                                    {formatCurrency(summary.minCost)}
+                                                </span>
+                                                <span class="text-xs text-slate-500 font-mono block my-1">to</span>
+                                                <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent block leading-none">
+                                                    {formatCurrency(summary.maxCost)}
+                                                </span>
+                                            </div>
+
+                                            {/* INTERNAL DELEGATION & MARGIN PLANNER */}
+                                            <div class="py-5 border-b border-brandNavy-700">
+                                                <div class="flex justify-between items-center mb-1.5">
+                                                    <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Delegation (Associate %)</span>
+                                                    <span class="text-xs font-mono font-bold text-brandBlue-300">{delegatePercent}%</span>
+                                                </div>
+                                                <input 
+                                                    type="range" 
+                                                    min="0" 
+                                                    max="100" 
+                                                    step="10"
+                                                    value={delegatePercent} 
+                                                    onChange={(e) => setDelegatePercent(parseInt(e.target.value))}
+                                                    class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
+                                                />
+                                                <div class="mt-3 space-y-1.5 text-[11px] text-slate-400">
+                                                    <div class="flex justify-between">
+                                                        <span>Associate Effort (₱350/hr):</span>
+                                                        <span class="font-bold text-slate-200">{Math.round(summary.minHours * (delegatePercent/100))} hrs</span>
+                                                    </div>
+                                                    <div class="flex justify-between">
+                                                        <span>Principal Effort (₱1,500/hr):</span>
+                                                        <span class="font-bold text-slate-200">{Math.round(summary.minHours * (1 - delegatePercent/100))} hrs</span>
+                                                    </div>
+                                                    <div class="flex justify-between pt-1 border-t border-brandNavy-750 font-semibold">
+                                                        <span>Est. Execution Cost:</span>
+                                                        <span class="text-rose-400 font-mono">{formatCurrency(summary.minInternalCost)}</span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="mt-4 pt-3 border-t border-brandNavy-750">
+                                                    <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Confidential Gross Profit ({summary.profitMarginPercent}%)</span>
+                                                    <span class="text-xl font-bold text-emerald-400 mt-1 block">
+                                                        {formatCurrency(summary.minNetProfit)} – {formatCurrency(summary.maxNetProfit)}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* 30-40-30 MILESTONE BILLING SCHEDULE */}
+                                            <div class="py-5">
+                                                <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block mb-3">Milestone Schedule (30-40-30)</span>
+                                                <div class="space-y-2 text-xs">
+                                                    <div class="bg-brandNavy-950/40 p-2 rounded border border-brandNavy-750">
+                                                        <div class="flex justify-between font-bold text-slate-200">
                                                     <span>1. Kickoff / Mobilization (30%)</span>
                                                 </div>
                                                 <span class="text-[10px] font-mono text-brandBlue-300 block mt-0.5">
@@ -632,34 +724,285 @@
                                                 <span class="text-[10px] font-mono text-brandBlue-300 block mt-0.5">
                                                     {formatCurrency(summary.minCost * 0.3)} - {formatCurrency(summary.maxCost * 0.3)}
                                                 </span>
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </div>
+
+                                        {/* Statement of Work Markdown Exporter */}
+                                        <div class="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl space-y-4 backdrop-blur-sm">
+                                            <div class="flex justify-between items-center">
+                                                <h3 class="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">
+                                                    SOW Document Generator
+                                                </h3>
+                                                <button 
+                                                    onClick={copyToClipboard} 
+                                                    class="px-3 py-1.5 bg-brandNavy-950 hover:bg-brandNavy-800 rounded text-xs font-bold flex items-center transition-all text-brandBlue-400 border border-brandBlue-900/40"
+                                                >
+                                                    {copied ? <IconCheckCircle /> : <IconCopy />}
+                                                    {copied ? 'Copy SOW' : 'Copy SOW'}
+                                                </button>
+                                            </div>
+                                            <div class="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
+                                                {proposalSummaryText}
+                                            </div>
+                                            <p class="text-[10px] text-slate-500 leading-relaxed text-center">
+                                                Click Copy to grab the SOW structure to drop directly into standard Google Docs or proposal decks.
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        )}
 
-                                {/* Statement of Work Markdown Exporter */}
-                                <div class="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl space-y-4 backdrop-blur-sm">
-                                    <div class="flex justify-between items-center">
-                                        <h3 class="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">
-                                            SOW Document Generator
-                                        </h3>
-                                        <button 
-                                            onClick={copyToClipboard} 
-                                            class="px-3 py-1.5 bg-brandNavy-950 hover:bg-brandNavy-800 rounded text-xs font-bold flex items-center transition-all text-brandBlue-400 border border-brandBlue-900/40"
-                                        >
-                                            {copied ? <IconCheckCircle /> : <IconCopy />}
-                                            {copied ? 'Copy SOW' : 'Copy SOW'}
-                                        </button>
-                                    </div>
-                                    <div class="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
-                                        {proposalSummaryText}
-                                    </div>
-                                    <p class="text-[10px] text-slate-500 leading-relaxed text-center">
-                                        Click Copy to grab the buffered SOW scope structure directly to your clipboard.
+                        {/* 2. FORMAL CLIENT QUOTATION VIEW */}
+                        {activeView === 'quotation' && (
+                            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                                
+                                {/* Left Side: Quote Configuration Editor Panel (hidden when printing) */}
+                                <div class="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
+                                    <h3 class="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2">
+                                        <IconEdit /> Customize Quotation Fields
+                                    </h3>
+                                    <p class="text-xs text-slate-400 leading-relaxed">
+                                        Changes made to the parameters below will dynamically adjust and format the printable proposal stationary sheet on the right in real time.
                                     </p>
+
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label>
+                                            <input 
+                                                type="text" 
+                                                value={clientCompany} 
+                                                onChange={(e) => setClientCompany(e.target.value)}
+                                                class="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label>
+                                            <input 
+                                                type="text" 
+                                                value={clientRep} 
+                                                onChange={(e) => setClientRep(e.target.value)}
+                                                class="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                            />
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote ID Reference</label>
+                                                <input 
+                                                    type="text" 
+                                                    value={quoteId} 
+                                                    onChange={(e) => setQuoteId(e.target.value)}
+                                                    class="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote Date</label>
+                                                <input 
+                                                    type="text" 
+                                                    value={quoteDate} 
+                                                    onChange={(e) => setQuoteDate(e.target.value)}
+                                                    class="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] font-mono text-slate-400 uppercase block mb-1">Proposal Validity</label>
+                                            <input 
+                                                type="text" 
+                                                value={quoteValidity} 
+                                                onChange={(e) => setQuoteValidity(e.target.value)}
+                                                class="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Action Printing Module */}
+                                    <div class="pt-4 border-t border-brandNavy-700">
+                                        <button
+                                            onClick={handlePrint}
+                                            class="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center transition-all shadow-lg shadow-brandBlue-950/20"
+                                        >
+                                            <IconPrint /> Print or Save as PDF
+                                        </button>
+                                        <p class="text-[10px] text-slate-500 leading-relaxed text-center mt-3">
+                                            Make sure to select <strong class="text-slate-400">Save as PDF</strong> inside your browser print dialog. Toggle background graphics on to secure brand colors.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Right Side: Formal B2B Quotation Stationery Sheet */}
+                                <div class="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card">
+                                    
+                                    {/* Document Header (Matched Website Branding) */}
+                                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandBlue-500 mb-8 print-card-header gap-6">
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-tr from-brandBlue-700 to-brandBlue-500 rounded flex items-center justify-center shrink-0">
+                                                {/* Printable Unified SVG Logo */}
+                                                <IconWebsiteLogo className="w-10 h-10 text-white" />
+                                            </div>
+                                            <div>
+                                                <h1 class="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">
+                                                    KOLTHOFF <span class="text-brandBlue-600 print-accent">CONSULTING</span>
+                                                </h1>
+                                                <span class="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-left sm:text-right font-mono text-[11px] text-slate-600 space-y-1">
+                                            <div class="text-slate-900 font-bold text-sm tracking-wide">OFFICIAL QUOTATION</div>
+                                            <div>Reference: <span class="font-bold text-slate-950">{quoteId}</span></div>
+                                            <div>Date Issued: {quoteDate}</div>
+                                            <div>Validity: {quoteValidity}</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Sender vs Recipient metadata */}
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm">
+                                        <div class="space-y-1.5">
+                                            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span>
+                                            <div class="font-bold text-slate-950 text-base">{clientRep}</div>
+                                            <div class="text-slate-700 font-semibold">{clientCompany}</div>
+                                            <div class="text-xs text-slate-500">Republic of the Philippines</div>
+                                        </div>
+                                        <div class="space-y-1.5 md:text-right">
+                                            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span>
+                                            <div class="font-bold text-slate-950 text-base">Kolthoff Consulting Partner Portal</div>
+                                            <div class="text-slate-700">Operations & Logistics Advisory</div>
+                                            <div class="text-xs text-slate-500">Manila, Philippines | contact@kolthoff-consulting.com</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-xs text-slate-500 mb-6 italic leading-relaxed">
+                                        We are pleased to submit our formal scope proposal and flat-rate pricing estimates for the operational and systemic optimization of your organization's workflows:
+                                    </div>
+
+                                    {/* Scope Itemized Table */}
+                                    <div class="border border-slate-200 rounded-lg overflow-hidden mb-8 print-divider">
+                                        <table class="w-full text-left border-collapse text-xs">
+                                            <thead>
+                                                <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-mono text-[9px] tracking-wider font-bold">
+                                                    <th class="py-3 px-4 w-[25%]">Service Category</th>
+                                                    <th class="py-3 px-4 w-[55%]">SOW Deliverables & Objectives</th>
+                                                    <th class="py-3 px-4 text-center w-[10%]">Hours</th>
+                                                    <th class="py-3 px-4 text-right w-[10%]">Base Range</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="divide-y divide-slate-100">
+                                                {tasks.filter(t => t.selected).map((task) => (
+                                                    <tr key={task.id} class="hover:bg-slate-50/50">
+                                                        <td class="py-3 px-4 align-top font-bold text-slate-700 text-[10px]">
+                                                            {task.category.replace(/^\d+\.\s/, '')}
+                                                        </td>
+                                                        <td class="py-3 px-4 align-top">
+                                                            <div class="font-bold text-slate-900">{task.deliverable}</div>
+                                                            <div class="text-[10px] text-slate-500 mt-0.5 leading-relaxed">{task.description}</div>
+                                                        </td>
+                                                        <td class="py-3 px-4 align-top text-center font-mono text-slate-700">
+                                                            {Math.round(task.minHours * (1 + frictionBuffer/100))} - {Math.round(task.maxHours * (1 + frictionBuffer/100))}
+                                                        </td>
+                                                        <td class="py-3 px-4 align-top text-right font-mono font-bold text-slate-900 whitespace-nowrap">
+                                                            {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                                {tasks.filter(t => t.selected).length === 0 && (
+                                                    <tr>
+                                                        <td colspan="4" class="py-8 px-4 text-center text-slate-400 italic">No project deliverables currently selected. Return to Sandbox to build your SOW.</td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    {/* Subtotal and Grand Valuation Sheet */}
+                                    <div class="flex flex-col sm:flex-row sm:justify-between items-end gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm">
+                                        <div class="text-xs text-slate-500 max-w-md leading-relaxed text-left">
+                                            <strong class="text-slate-700 block mb-1">PH Market Safety & Scope Buffer Notice:</strong>
+                                            Pricing reflects a configured <strong>+{frictionBuffer}% local friction buffer</strong> ensuring zero delivery scope-creep modifications or billing recalculations during active sprint lifecycles.
+                                        </div>
+                                        <div class="text-right space-y-1.5 shrink-0 min-w-[250px]">
+                                            <div class="flex justify-between items-center text-slate-600 font-mono text-xs">
+                                                <span>Scoping Hours (Buffered):</span>
+                                                <span class="font-bold text-slate-900">{summary.minHours} - {summary.maxHours} Target Hrs</span>
+                                            </div>
+                                            <div class="flex justify-between items-center text-slate-600 font-mono text-xs pb-1.5 border-b border-slate-100">
+                                                <span>Friction Add-on Rate:</span>
+                                                <span>+{frictionBuffer}%</span>
+                                            </div>
+                                            <div class="flex justify-between items-center text-base font-bold text-slate-900 pt-1">
+                                                <span>Calculated Fee Range:</span>
+                                                <span class="text-brandBlue-600 print-accent text-lg font-serif">
+                                                    {formatCurrency(summary.minCost)} – {formatCurrency(summary.maxCost)}
+                                                </span>
+                                            </div>
+                                            <p class="text-[9px] text-slate-400 block italic">Total net flat-fee range. Excludes standard local VAT.</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Milestone Billing Grid */}
+                                    <div class="mb-8">
+                                        <h4 class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">Structured Billing Milestones (30-40-30 schedule)</h4>
+                                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
+                                            <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                                                <div class="font-bold text-slate-800">1. Kickoff Mobilization (30%)</div>
+                                                <span class="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
+                                                    {formatCurrency(summary.minCost * 0.3)} - {formatCurrency(summary.maxCost * 0.3)}
+                                                </span>
+                                            </div>
+                                            <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                                                <div class="font-bold text-slate-800">2. Mid-point SOP Handover (40%)</div>
+                                                <span class="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
+                                                    {formatCurrency(summary.minCost * 0.4)} - {formatCurrency(summary.maxCost * 0.4)}
+                                                </span>
+                                            </div>
+                                            <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                                                <div class="font-bold text-slate-800">3. Handover & Live Launch (30%)</div>
+                                                <span class="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
+                                                    {formatCurrency(summary.minCost * 0.3)} - {formatCurrency(summary.maxCost * 0.3)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Terms and Conditions Section */}
+                                    <div class="text-[9px] text-slate-500 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed">
+                                        <strong class="text-slate-700 block text-[10px] uppercase font-mono">Standard Professional Terms</strong>
+                                        <p>1. <strong>Confidentiality / NDA:</strong> Kolthoff Consulting guarantees full structural safety and non-disclosure of internal files, accounts registries, and process metrics.</p>
+                                        <p>2. <strong>Delivery Guardrail:</strong> Project scopes are fixed on signature kickoff. Sub-task additions outside this SOW block are billed as separate modular contract addenda.</p>
+                                        <p>3. <strong>Payment Terms & Bank Details:</strong> Invoices are issued at milestone handovers. Payments are expected within seven (7) calendar business days of invoice receipt via direct bank transfer to:</p>
+                                        <div class="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-700 space-y-0.5 bg-slate-50 py-1.5 rounded">
+                                            <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
+                                            <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
+                                            <div>Account Number: <strong>0039 5019 0761</strong></div>
+                                        </div>
+                                    </div>
+
+                                    {/* Sign-off Agreement Blocks */}
+                                    <div class="pt-8 text-xs">
+                                        <div class="grid grid-cols-2 gap-12 sm:gap-24">
+                                            <div class="space-y-12">
+                                                <p class="text-slate-600 font-medium">Approved and Accepted by:</p>
+                                                <div class="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
+                                                    <div class="font-bold text-slate-900">{clientRep}</div>
+                                                    <div class="text-slate-500">Representative, {clientCompany}</div>
+                                                    <div class="text-slate-400">Date: ________________________</div>
+                                                </div>
+                                            </div>
+                                            <div class="space-y-12">
+                                                <p class="text-slate-600 font-medium">Submitted by:</p>
+                                                <div class="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
+                                                    <div class="font-bold text-slate-900 font-sans">Kolthoff Consulting Partner</div>
+                                                    <div class="text-slate-500">Operational Architecture Practice</div>
+                                                    <div class="text-slate-400">Date: {quoteDate}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             );
