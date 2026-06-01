@@ -161,37 +161,367 @@
         const IconCalculator = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x1="16" y1="6" y2="6"/><line x1="16" x1="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>;
         const IconClock = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" className={className}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
         const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x1="10" y1="11" y2="17"/><line x1="14" x1="14" y1="11" y2="17"/></svg>;
-        const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" stroke-linejoin="round" className="mr-1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>;
-        const IconCopy = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-1.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>;
-        const IconCheckCircle = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-1.5 text-emerald-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>;
-        const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="text-brandBlue-400 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
+        const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" className="mr-1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>;
+        const IconCopy = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" className="mr-1.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>;
+        const IconCheckCircle = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" className="mr-1.5 text-emerald-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>;
+        const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" className="text-brandBlue-400 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
         const IconPrint = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-1.5"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>;
         const IconEdit = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>;
-        const IconFileText = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>;
+        const IconFileText = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" className={className}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>;
 
         const INITIAL_TASKS = [
-            { id: 'diag-1', category: '1. Operational Diagnostics', deliverable: 'Preparation & Onboarding', description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', minHours: 3, maxHours: 4, rate: 2500, selected: true },
-            { id: 'diag-2', category: '1. Operational Diagnostics', deliverable: 'Stakeholder Discovery', description: 'Friction-Adjusted discovery loop (structured interviews with 4-6 key leadership roles, accounts, and desk operators).', minHours: 8, maxHours: 12, rate: 2500, selected: true },
-            { id: 'diag-3', category: '1. Operational Diagnostics', deliverable: 'On-Site Observation Audit', description: 'Two continuous days of in-person workflow shadowing, step-timing, and bottleneck mapping.', minHours: 16, maxHours: 20, rate: 2500, selected: true },
-            { id: 'diag-4', category: '1. Operational Diagnostics', deliverable: 'Forensic Systemic Audit', description: 'Compliance gap review (DOLE liability exposures) & technology subscription license audit.', minHours: 8, maxHours: 12, rate: 2500, selected: true },
-            { id: 'diag-5', category: '1. Operational Diagnostics', deliverable: 'Risk Matrix Formulation', description: 'Synthesis of raw observation data into a highly prioritized B2B Operational Risk Matrix.', minHours: 5, maxHours: 8, rate: 2500, selected: true },
-            { id: 'diag-6', category: '1. Operational Diagnostics', deliverable: 'Debrief & Roadmap Handover', description: 'Boardroom-ready presentation of audit discoveries, immediate quick wins, and strategic options.', minHours: 4, maxHours: 6, rate: 2500, selected: true },
-            { id: 'sop-1', category: '2. Scale-Ready SOPs & HR', deliverable: 'Role Inventory & Scope Map', description: 'Systematic inventory of current state boundaries, functional responsibilities, and structural loops.', minHours: 10, maxHours: 15, rate: 2500, selected: false },
-            { id: 'sop-2', category: '2. Scale-Ready SOPs & HR', deliverable: 'Swimlane Process Mapping', description: 'Friction-Adjusted mapping of high-fidelity, cross-functional swimlane diagrams (up to 5 core business workflows).', minHours: 45, maxHours: 55, rate: 2500, selected: false },
-            { id: 'sop-3', category: '2. Scale-Ready SOPs & HR', deliverable: 'HR Templates & Compliance', description: 'Reviewing local contract standards, drafting standard employment templates and onboarding forms.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
-            { id: 'sop-4', category: '2. Scale-Ready SOPs & HR', deliverable: 'Employee Handbook Assembly', description: 'Friction-Adjusted compilation of compliant behavioral rules, leaves, local benefits, and code of conduct manuals.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
-            { id: 'sop-5', category: '2. Scale-Ready SOPs & HR', deliverable: 'Operations Playbook Launch', description: 'Indexing, publishing, and organizing digital documentation ready for internal training deployment.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'sop-6', category: '2. Scale-Ready SOPs & HR', deliverable: 'Handover & Training Workshops', description: 'Interactive leadership alignment workshops to secure swift corporate adoption.', minHours: 5, maxHours: 8, rate: 2500, selected: false },
-            { id: 'trans-1', category: '3. 90-Day Transformation Sprint', deliverable: 'Value Stream Mapping (VSM)', description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
-            { id: 'trans-2', category: '3. 90-Day Transformation Sprint', deliverable: 'Waste & Backlog Elimination', description: 'Conducting target sprints focusing on reducing administrative waste and re-routing slow paths.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'trans-3', category: '3. 90-Day Transformation Sprint', deliverable: 'Core Metric & KPI Tuning', description: 'Re-engineering custom, clean key performance indicators across major organizational divisions.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'trans-4', category: '3. 90-Day Transformation Sprint', deliverable: 'Process Re-engineering', description: 'Complete hands-on overhaul of slow processing steps, documents, routing tools, and integrations.', minHours: 40, maxHours: 50, rate: 2500, selected: false },
-            { id: 'trans-5', category: '3. 90-Day Transformation Sprint', deliverable: 'Implementation Coaching', description: 'Side-by-side coaching alongside process champions to manage team friction during rollouts.', minHours: 50, maxHours: 60, rate: 2500, selected: false },
-            { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Friction-Adjusted setup of Visually automated, live tracking metrics and dashboards for leadership review.', minHours: 25, maxHours: 35, rate: 2500, selected: false },
-            { id: 'coo-1', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Operations Alignment Meetings', description: 'Directing weekly leadership alignment loops, metrics tracking, and project accountability.', minHours: 6, maxHours: 8, rate: 2500, selected: false },
-            { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating monthly departmental execution scores and managing core governance KPIs.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
-            { id: 'coo-3', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Continuous Optimization Sprints', description: 'Auditing ongoing processes to continue manual step reduction and automate workflows.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
-            { id: 'coo-4', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'High-Level C-Suite Advisory', description: 'Direct, on-demand executive consulting, labor compliance advisory, and long-term scaling strategy.', minHours: 4, maxHours: 6, rate: 2500, selected: false }
+            // 1. Operational Diagnostics
+            { 
+                id: 'diag-1', 
+                category: '1. Operational Diagnostics', 
+                deliverable: 'Preparation & Onboarding', 
+                description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', 
+                minHours: 3, 
+                maxHours: 4, 
+                rate: 2500, 
+                selected: true,
+                scopeDetails: {
+                    activities: "Establish secure virtual data room; host kickoff alignment sync; dispatch comprehensive Information Request List (IRL).",
+                    expectations: "Client to assign an internal project coordinator (POC) and upload requested high-level charts & records within 3 business days.",
+                    output: "Operationalized shared workspace, mutual NDA, and finalized discovery roadmap calendar."
+                }
+            },
+            { 
+                id: 'diag-2', 
+                category: '1. Operational Diagnostics', 
+                deliverable: 'Stakeholder Discovery', 
+                description: 'Friction-Adjusted discovery loop (structured interviews with 4-6 key leadership roles, accounts, and desk operators).', 
+                minHours: 8, 
+                maxHours: 12, 
+                rate: 2500, 
+                selected: true,
+                scopeDetails: {
+                    activities: "Conduct structured 1-on-1 interviews with 4-6 designated leadership, account, and operational roles to map processes.",
+                    expectations: "Sponsors to ensure designated stakeholders are cleared of operational duties for their scheduled 60-minute interview blocks.",
+                    output: "Synthesized interview transcript summaries, bottleneck log, and operational pain-point catalog."
+                }
+            },
+            { 
+                id: 'diag-3', 
+                category: '1. Operational Diagnostics', 
+                deliverable: 'On-Site Observation Audit', 
+                description: 'Two continuous days of in-person workflow shadowing, step-timing, and bottleneck mapping.', 
+                minHours: 16, 
+                maxHours: 20, 
+                rate: 2500, 
+                selected: true,
+                scopeDetails: {
+                    activities: "Two days of continuous on-site workflow shadowing, step-timing, and physical asset/information routing audits.",
+                    expectations: "On-site access permissions for consultants; staff briefed to show standard work without modifying behaviors.",
+                    output: "Step-timing metrics table, spaghetti diagrams of physical movements, and immediate bottleneck maps."
+                }
+            },
+            { 
+                id: 'diag-4', 
+                category: '1. Operational Diagnostics', 
+                deliverable: 'Compliance & Technology Audit', 
+                description: 'Comprehensive audit of regulatory labor compliance (DOLE exposures) and technology software stack/subscription under-utilization.', 
+                minHours: 8, 
+                maxHours: 12, 
+                rate: 2500, 
+                selected: true,
+                scopeDetails: {
+                    activities: "Audit active software subscriptions (unused licenses, SaaS sprawl) and verify HR records against standard DOLE compliance policies.",
+                    expectations: "Provide admin-level software access list, sample employment contracts, pay structures, and leave record logs.",
+                    output: "Software cost-leakage report and DOLE compliance audit checklist showing risk levels."
+                }
+            },
+            { 
+                id: 'diag-5', 
+                category: '1. Operational Diagnostics', 
+                deliverable: 'Risk Matrix Formulation', 
+                description: 'Synthesis of raw observation data into a highly prioritized B2B Operational Risk Matrix.', 
+                minHours: 5, 
+                maxHours: 8, 
+                rate: 2500, 
+                selected: true,
+                scopeDetails: {
+                    activities: "Compile raw research and shadow data into an actionable, prioritized impact-vs-feasibility matrix.",
+                    expectations: "Consultants analyze internally; no client participation required during this compilation phase.",
+                    output: "B2B Operational Risk Matrix highlighting instant 'quick wins' vs. strategic multi-phase projects."
+                }
+            },
+            { 
+                id: 'diag-6', 
+                category: '1. Operational Diagnostics', 
+                deliverable: 'Debrief & Roadmap Handover', 
+                description: 'Boardroom-ready presentation of audit discoveries, immediate quick wins, and strategic options.', 
+                minHours: 4, 
+                maxHours: 6, 
+                rate: 2500, 
+                selected: true,
+                scopeDetails: {
+                    activities: "Host an executive-level board meeting to present findings, walk through the risk matrix, and evaluate proposed solutions.",
+                    expectations: "Presence of the primary project sponsors, COO, and key executive decision-makers for a 90-minute debrief.",
+                    output: "Finished audit slide deck, strategic roadmap options, and authorized scoping priorities."
+                }
+            },
+
+            // 2. Scale-Ready SOPs
+            { 
+                id: 'sop-1', 
+                category: '2. Scale-Ready SOPs & HR', 
+                deliverable: 'Org Structure & RACI Mapping', 
+                description: 'Systematic mapping of operational reporting lines, functional hierarchies, and cross-departmental RACI matrices.', 
+                minHours: 10, 
+                maxHours: 15, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Analyze current reporting lines and design high-leverage RACI matrices to clarify task ownership and remove functional duplicates.",
+                    expectations: "Department heads to review and validate proposed functional boundaries during a 1-hour workshop.",
+                    output: "Clean functional organigram and cross-departmental RACI Matrix."
+                }
+            },
+            { 
+                id: 'sop-2', 
+                category: '2. Scale-Ready SOPs & HR', 
+                deliverable: 'Swimlane Process Mapping', 
+                description: 'Friction-Adjusted mapping of high-fidelity, cross-functional swimlane diagrams (up to 5 core business workflows).', 
+                minHours: 45, 
+                maxHours: 55, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Develop process maps using horizontal swimlanes to detail exact handoffs, decision gates, and systems links for up to 5 core business paths.",
+                    expectations: "Active participation of department champions during iterative process validation reviews.",
+                    output: "Visual, high-resolution Swimlane Process Diagrams (PDF/Miro format)."
+                }
+            },
+            { 
+                id: 'sop-3', 
+                category: '2. Scale-Ready SOPs & HR', 
+                deliverable: 'HR Templates & Compliance', 
+                description: 'Drafting DOLE-compliant contract templates, professional onboarding checklists, and formal employee file audit standards.', 
+                minHours: 15, 
+                maxHours: 25, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Standardize operational employment contracts, modern onboarding checklists, and formal employee file compliance indexes.",
+                    expectations: "Provide current HR policy files and existing contract templates for professional alignment reviews.",
+                    output: "Pack of DOLE-aligned employment contracts, checklists, and 201 file management standards."
+                }
+            },
+            { 
+                id: 'sop-4', 
+                category: '2. Scale-Ready SOPs & HR', 
+                deliverable: 'Employee Handbook Assembly', 
+                description: 'Friction-Adjusted compilation of compliant behavioral regulations, local leaves, statutory benefits, and code of conduct manuals.', 
+                minHours: 20, 
+                maxHours: 30, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Compile local labor rules, statutory benefits, leaves, code of conduct, and disciplinary actions into a unified company manual.",
+                    expectations: "Management review of proposed handbook sections to ensure alignment with corporate culture and values.",
+                    output: "Draft Employee Handbook Document ready for corporate distribution."
+                }
+            },
+            { 
+                id: 'sop-5', 
+                category: '2. Scale-Ready SOPs & HR', 
+                deliverable: 'Operations Playbook Launch', 
+                description: 'Indexing, publishing, and organizing digital documentation ready for internal training deployment.', 
+                minHours: 15, 
+                maxHours: 20, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Compile, index, and organize all process diagrams, contracts, checklists, and manuals into a unified physical and digital directory.",
+                    expectations: "Provide internal server or cloud storage credentials to host the completed digital knowledge base.",
+                    output: "Finished, cross-indexed digital Operations Playbook (Notion, PDF, or cloud drive)."
+                }
+            },
+            { 
+                id: 'sop-6', 
+                category: '2. Scale-Ready SOPs & HR', 
+                deliverable: 'Handover & Training Workshops', 
+                description: 'Interactive leadership alignment workshops to secure swift corporate adoption.', 
+                minHours: 5, 
+                maxHours: 8, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Conduct structured training and alignment workshops with department leaders to secure smooth implementation.",
+                    expectations: "Coordination of workshop calendars to ensure 100% attendance of designated supervisors.",
+                    output: "Training completion report, recorded session material, and supervisor alignment certifications."
+                }
+            },
+
+            // 3. 90-Day Transformation
+            { 
+                id: 'trans-1', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Value Stream Mapping (VSM)', 
+                description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', 
+                minHours: 20, 
+                maxHours: 30, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Lead intensive value stream mapping workshops to trace physical/informational paths and flag lean process wastes.",
+                    expectations: "Assembling cross-functional team members for a continuous 4-hour mapping session.",
+                    output: "High-fidelity current and future state Value Stream Maps."
+                }
+            },
+            { 
+                id: 'trans-2', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Cycle-Time Bottleneck Sprint', 
+                description: 'Targeted tactical sprints focusing on reducing administrative waste and re-routing slow paths.', 
+                minHours: 15, 
+                maxHours: 20, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Run rapid improvement sprints targeting high-rework paths and operational bottleneck traces.",
+                    expectations: "Operational team leads authorized to test modified workflows under direct consultant guidance.",
+                    output: "Elimination of targeted rework steps and documented speed improvements."
+                }
+            },
+            { 
+                id: 'trans-3', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Core Metric & KPI Tuning', 
+                description: 'Re-engineering custom, clean key performance indicators across major organizational divisions.', 
+                minHours: 15, 
+                maxHours: 20, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Design, calculate, and implement custom key performance indicators across critical organizational divisions.",
+                    expectations: "Consult with executive team to map corporate OKRs to operational department KPIs.",
+                    output: "Standard KPI Definition Manual showing calculation methods, target scores, and ownership."
+                }
+            },
+            { 
+                id: 'trans-4', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Process Re-engineering', 
+                description: 'Complete hands-on overhaul of slow processing steps, documents, routing tools, and integrations.', 
+                minHours: 40, 
+                maxHours: 50, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Re-engineer and rebuild slow execution paths, templates, manual routing forms, and technical tools.",
+                    expectations: "Full cooperation of team members in trying and validating new streamlined process paths.",
+                    output: "Complete re-engineered workflow system containing streamlined forms and optimized processing routes."
+                }
+            },
+            { 
+                id: 'trans-5', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Implementation Coaching', 
+                description: 'Side-by-side coaching alongside process champions to manage team friction during rollouts.', 
+                minHours: 50, 
+                maxHours: 60, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "On-site, shoulder-to-shoulder coaching with process champions during rollout of optimized workflows.",
+                    expectations: "Immediate supervisor support to enforce new workflow practices among staff.",
+                    output: "Weekly coaching logs, compliance audits, and behavioral change assessments."
+                }
+            },
+            { 
+                id: 'trans-6', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Dashboard Integration', 
+                description: 'Friction-Adjusted setup of Visually automated, live tracking metrics and dashboards for leadership review.', 
+                minHours: 25, 
+                maxHours: 35, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Connect and visually automate raw tracking spreadsheets into intuitive real-time performance dashboards.",
+                    expectations: "Access to current reporting tools and raw operational data inputs.",
+                    output: "Live, visually automated performance tracking dashboard."
+                }
+            },
+            { 
+                id: 'trans-7', 
+                category: '3. 90-Day Transformation Sprint', 
+                deliverable: 'Sustenance Governance & Kaizen', 
+                description: 'Establishing continuous improvement rituals, review cadences, and operational handover protocols.', 
+                minHours: 10, 
+                maxHours: 15, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Establishing continuous improvement rituals, review cadences, and operational handover protocols.",
+                    expectations: "Leadership commitment to maintain weekly and monthly operational review cadences.",
+                    output: "Kaizen Governance Protocol manual, meeting templates, and long-term compliance audit framework."
+                }
+            },
+
+            // 4. Fractional COO
+            { 
+                id: 'coo-1', 
+                category: '4. Fractional COO (Monthly Engagement)', 
+                deliverable: 'Operations Alignment Meetings', 
+                description: 'Directing weekly leadership alignment loops, metrics tracking, and project accountability.', 
+                minHours: 6, 
+                maxHours: 8, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Chair weekly team leadership alignment syncs to track metrics, review blockers, and manage operational accountability.",
+                    expectations: "Mandatory attendance of department leads with updated weekly metrics sheets.",
+                    output: "Weekly meeting action items, progress log, and active blocker tracker."
+                }
+            },
+            { 
+                id: 'coo-2', 
+                category: '4. Fractional COO (Monthly Engagement)', 
+                deliverable: 'KPI & OKR Metric Governance', 
+                description: 'Evaluating monthly departmental execution scores and managing core governance KPIs.', 
+                minHours: 8, 
+                maxHours: 10, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Conduct formal monthly reviews of team performance scores, auditing results against targets.",
+                    expectations: "Provide operational raw data logs 48 hours prior to the monthly governance meeting.",
+                    output: "Monthly performance audit scorecard and variance mitigation plan."
+                }
+            },
+            { 
+                id: 'coo-3', 
+                category: '4. Fractional COO (Monthly Engagement)', 
+                deliverable: 'Continuous Optimization Sprints', 
+                description: 'Auditing ongoing processes to continue manual step reduction and automate workflows.', 
+                minHours: 8, 
+                maxHours: 10, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Iterative, ongoing workflow checkups to identify new manual bottlenecks and propose ongoing automation.",
+                    expectations: "Unrestricted access to team processes to observe post-implementation work patterns.",
+                    output: "Quarterly optimization roadmap and micro-automation proposals."
+                }
+            },
+            { 
+                id: 'coo-4', 
+                category: '4. Fractional COO (Monthly Engagement)', 
+                deliverable: 'High-Level C-Suite Advisory', 
+                description: 'Direct, on-demand executive consulting, labor compliance advisory, and long-term scaling strategy.', 
+                minHours: 4, 
+                maxHours: 6, 
+                rate: 2500, 
+                selected: false,
+                scopeDetails: {
+                    activities: "Provide strategic on-demand business consulting, labor advisory, crisis management, and long-term scaling guidance.",
+                    expectations: "Weekly scheduled 60-minute partner/executive advisory session and emergency telephone access.",
+                    output: "Advisory brief logs, strategic board decks, and labor/legal hazard mapping."
+                }
+            }
         ];
 
         function App() {
@@ -275,7 +605,12 @@
                     minHours: Number(newTaskMin),
                     maxHours: Number(newTaskMax),
                     rate: globalRate,
-                    selected: true
+                    selected: true,
+                    scopeDetails: {
+                        activities: "Execute customized development tasks and operational scoping as requested by project champions.",
+                        expectations: "Client to provide dedicated points of contact and database credential access within 3 business days of request.",
+                        output: "Tailored deliverable assets mapped directly to custom SOW specifications."
+                    }
                 };
 
                 setTasks(prev => [...prev, newTask]);
@@ -340,7 +675,7 @@
 
             const proposalSummaryText = useMemo(() => {
                 const activeOnes = tasks.filter(t => t.selected);
-                let output = `### PROPOSAL ESTIMATE SUMMARY - KOLTHOFF CONSULTING\n`;
+                let output = `### PROPOSAL SUMMARY - KOLTHOFF CONSULTING\n`;
                 output += `* **Total Selected Tasks**: ${summary.count}\n`;
                 output += `* **Friction-Buffered Scope Effort**: ${summary.minHours} - ${summary.maxHours} Target Hours\n`;
                 output += `* **Estimated Project Timeline**: ${projectTimeline}\n`;
@@ -440,7 +775,7 @@
                                     onClick={() => setActiveView('quotation')}
                                     className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'quotation' ? 'bg-brandBlue-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
                                 >
-                                    <IconPrint /> Formal Client Quotation
+                                    <IconPrint className="" /> Formal Client Quotation
                                 </button>
                             </div>
                         </div>
@@ -795,25 +1130,25 @@
 
                         {/* 2. FORMAL CLIENT SOW PROPOSAL VIEW (BEFORE QUOTATION) */}
                         {activeView === 'proposal' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 
                                 {/* Left Side: Proposal Metadata Customization Panel (hidden when printing) */}
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2">
                                         <IconEdit /> Draft Proposal Settings
                                     </h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                    <p className="text-xs text-slate-400 leading-relaxed font-sans">
                                         Refine SOW objectives, project sponsors, and cooperation dependencies to align alignment points prior to outputting formal prices.
                                     </p>
 
-                                    <div className="space-y-4 text-xs">
+                                    <div className="space-y-4 text-xs font-sans">
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label>
                                             <input 
                                                 type="text" 
                                                 value={clientCompany} 
                                                 onChange={(e) => setClientCompany(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div>
@@ -822,7 +1157,7 @@
                                                 type="text" 
                                                 value={proposalSponsor} 
                                                 onChange={(e) => setProposalSponsor(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div>
@@ -894,12 +1229,12 @@
 
                                     {/* Meta Fields Block */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm border-b border-slate-150 pb-6 print-divider">
-                                        <div className="space-y-1.5">
+                                        <div className="space-y-1.5 font-sans">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Client Target:</span>
                                             <div className="font-bold text-slate-950 text-base">{clientCompany}</div>
                                             <div className="text-xs text-slate-600"><span className="font-semibold">Key Sponsor:</span> {proposalSponsor}</div>
                                         </div>
-                                        <div className="space-y-1.5 md:text-right">
+                                        <div className="space-y-1.5 md:text-right font-sans">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Engagement Lead:</span>
                                             <div className="font-bold text-slate-950 text-base">Kolthoff Consulting Group</div>
                                             <div className="text-xs text-slate-600"><span className="font-semibold">Planned Launch:</span> {targetStartDate}</div>
@@ -907,48 +1242,62 @@
                                     </div>
 
                                     {/* Executive Objectives */}
-                                    <div className="mb-8">
+                                    <div className="mb-8 font-sans">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4>
                                         <p className="text-xs text-slate-700 leading-relaxed font-sans bg-slate-50 p-4 rounded border border-slate-100 print-pill">
                                             {proposalObjectives}
                                         </p>
                                     </div>
 
-                                    {/* SOW Deliverables Block (without prices) */}
-                                    <div className="mb-8">
-                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">2. Detailed Scoping Particulars & Action Items</h4>
-                                        <div className="border border-slate-200 rounded-lg overflow-hidden">
-                                            <table className="w-full text-left border-collapse text-xs table-fixed">
-                                                <thead>
-                                                    <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-mono text-[9px] tracking-wider font-bold">
-                                                        <th className="py-3 px-4 w-[30%]">Service Area</th>
-                                                        <th className="py-3 px-4 w-[70%]">SOW Deliverables & Key Tasks</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-slate-100">
-                                                    {tasks.filter(t => t.selected).map((task) => (
-                                                        <tr key={task.id} className="hover:bg-slate-50/50">
-                                                            <td className="py-3 px-4 align-top font-bold text-slate-700 text-[10px]">
+                                    {/* SOW Deliverables Block (Now formatted in a high-fidelity specifications breakdown for elite client clarity) */}
+                                    <div className="mb-8 font-sans">
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">2. Detailed Scoping Particulars & Action Items</h4>
+                                        
+                                        <div className="space-y-5">
+                                            {tasks.filter(t => t.selected).map((task) => {
+                                                const details = task.scopeDetails || {
+                                                    activities: "Execute planned task steps and deliverable milestones in coordination with designated managers.",
+                                                    expectations: "Provide timely inputs, process data access, and constructive feedback on drafted materials.",
+                                                    output: "Finished deliverable asset aligned with custom SOW scope specifications."
+                                                };
+
+                                                return (
+                                                    <div key={task.id} className="border border-slate-200 rounded-lg p-5 bg-slate-50/40 shadow-sm print-pill">
+                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-200 mb-3 gap-2">
+                                                            <h5 className="font-bold text-sm text-brandBlue-600 print-accent">{task.deliverable}</h5>
+                                                            <span className="text-[9px] font-mono uppercase tracking-wider bg-slate-200 text-slate-600 px-2 py-0.5 rounded-md self-start print-pill">
                                                                 {task.category.replace(/^\d+\.\s/, '')}
-                                                            </td>
-                                                            <td className="py-3 px-4 align-top">
-                                                                <div className="font-bold text-slate-900">{task.deliverable}</div>
-                                                                <div className="text-[10px] text-slate-500 mt-0.5 leading-relaxed">{task.description}</div>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                    {tasks.filter(t => t.selected).length === 0 && (
-                                                        <tr>
-                                                            <td colSpan="2" className="py-8 px-4 text-center text-slate-400 italic">No project deliverables currently selected. Return to Sandbox to build your SOW.</td>
-                                                        </tr>
-                                                    )}
-                                                </tbody>
-                                            </table>
+                                                            </span>
+                                                        </div>
+                                                        <p className="text-xs text-slate-600 leading-relaxed mb-4">{task.description}</p>
+                                                        
+                                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1 text-[11px] font-sans">
+                                                            <div className="space-y-1">
+                                                                <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Consultant Execution Tasks:</span>
+                                                                <p className="text-slate-800 leading-relaxed font-medium">{details.activities}</p>
+                                                            </div>
+                                                            <div className="space-y-1">
+                                                                <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Client Action Required:</span>
+                                                                <p className="text-slate-800 leading-relaxed font-medium">{details.expectations}</p>
+                                                            </div>
+                                                            <div className="space-y-1">
+                                                                <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Expected Handover Asset:</span>
+                                                                <p className="text-slate-800 leading-relaxed font-medium">{details.output}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                            {tasks.filter(t => t.selected).length === 0 && (
+                                                <div className="py-8 text-center text-slate-400 italic border border-slate-200 rounded-lg">
+                                                    No project deliverables currently selected. Return to Sandbox to build your SOW.
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
 
                                     {/* Collaboration Phases */}
-                                    <div className="mb-8">
+                                    <div className="mb-8 font-sans">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">3. Estimated Execution Blueprint</h4>
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                                             <div className="p-3 bg-slate-50 rounded border border-slate-200">
@@ -973,18 +1322,18 @@
                                     </div>
 
                                     {/* Client cooperation prerequisites */}
-                                    <div className="mb-8">
+                                    <div className="mb-8 font-sans">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">4. Client Prerequisite Dependencies</h4>
-                                        <p className="text-xs text-slate-700 leading-relaxed font-sans bg-slate-50 p-4 rounded border border-slate-100 print-pill">
+                                        <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">
                                             {clientPrereqs}
                                         </p>
-                                        <span className="text-[9px] text-slate-400 block mt-2 italic">
+                                        <span className="text-[9px] text-slate-400 block mt-2 italic leading-relaxed">
                                             * Note: In alignment with B2B PH management practices, project timelines remain suspended if critical data dependencies or stakeholder calendars are delayed by more than 5 business days.
                                         </span>
                                     </div>
 
                                     {/* Confirmation signature block */}
-                                    <div className="pt-8 border-t border-slate-200 print-divider text-xs">
+                                    <div className="pt-8 border-t border-slate-200 print-divider text-xs font-sans">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12">
                                                 <p className="text-slate-600 font-medium">Scope Confirmed & Accepted by:</p>
@@ -1011,25 +1360,25 @@
 
                         {/* 3. FORMAL CLIENT QUOTATION VIEW */}
                         {activeView === 'quotation' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 
                                 {/* Left Side: Quote Configuration Editor Panel (hidden when printing) */}
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2">
                                         <IconEdit /> Customize Quotation Fields
                                     </h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                    <p className="text-xs text-slate-400 leading-relaxed font-sans">
                                         Changes made to the parameters below will dynamically adjust and format the printable proposal sheet on the right in real time.
                                     </p>
 
-                                    <div className="space-y-4">
+                                    <div className="space-y-4 text-xs font-sans">
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label>
                                             <input 
                                                 type="text" 
                                                 value={clientCompany} 
                                                 onChange={(e) => setClientCompany(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div>
@@ -1038,7 +1387,7 @@
                                                 type="text" 
                                                 value={clientRep} 
                                                 onChange={(e) => setClientRep(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
@@ -1057,7 +1406,7 @@
                                                     type="text" 
                                                     value={quoteDate} 
                                                     onChange={(e) => setQuoteDate(e.target.value)}
-                                                    className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                    className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                                 />
                                             </div>
                                         </div>
@@ -1067,7 +1416,7 @@
                                                 type="text" 
                                                 value={projectTimeline} 
                                                 onChange={(e) => setProjectTimeline(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono"
                                             />
                                         </div>
                                         <div>
@@ -1076,7 +1425,7 @@
                                                 type="text" 
                                                 value={quoteValidity} 
                                                 onChange={(e) => setQuoteValidity(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                     </div>
@@ -1089,7 +1438,7 @@
                                         >
                                             <IconPrint /> Print or Save as PDF
                                         </button>
-                                        <p className="text-[10px] text-slate-500 leading-relaxed text-center mt-3">
+                                        <p className="text-[10px] text-slate-500 leading-relaxed text-center mt-3 font-sans">
                                             Make sure to select <strong className="text-slate-400">Save as PDF</strong> inside your browser print dialog. Toggle background graphics on to secure brand colors.
                                         </p>
                                     </div>
@@ -1122,7 +1471,7 @@
                                     </div>
 
                                     {/* Sender vs Recipient metadata */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm font-sans">
                                         <div className="space-y-1.5">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span>
                                             <div className="font-bold text-slate-950 text-base">{clientRep}</div>
@@ -1137,12 +1486,12 @@
                                         </div>
                                     </div>
 
-                                    <div className="text-xs text-slate-500 mb-6 italic leading-relaxed">
+                                    <div className="text-xs text-slate-500 mb-6 italic leading-relaxed font-sans">
                                         We are pleased to submit our formal scope proposal and flat-rate pricing estimates for the operational and systemic optimization of your organization's workflows:
                                     </div>
 
                                     {/* Scope Itemized Table */}
-                                    <div className="border border-slate-200 rounded-lg overflow-hidden mb-8 print-divider">
+                                    <div className="border border-slate-200 rounded-lg overflow-hidden mb-8 print-divider font-sans">
                                         <table className="w-full text-left border-collapse text-xs table-fixed">
                                             <thead>
                                                 <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-mono text-[9px] tracking-wider font-bold">
@@ -1174,7 +1523,7 @@
                                     </div>
 
                                     {/* Subtotal and Grand Valuation Sheet */}
-                                    <div className="flex flex-col sm:flex-row sm:justify-between items-end gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm">
+                                    <div className="flex flex-col sm:flex-row sm:justify-between items-end gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm font-sans">
                                         <div className="text-xs text-slate-500 max-w-md leading-relaxed text-left">
                                             <strong className="text-slate-700 block mb-1">Fixed Flat-Rate Guarantee:</strong>
                                             All engagement pricing is flat-rate and outcome-driven, ensuring zero scope-creep adjustments, hourly calculations, or invoice surprises during project lifecycles.
@@ -1195,7 +1544,7 @@
                                     </div>
 
                                     {/* Milestone Billing Grid */}
-                                    <div className="mb-8">
+                                    <div className="mb-8 font-sans">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">Structured Billing Milestones (30-40-30 schedule)</h4>
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
                                             <div className="p-3 bg-slate-50 rounded border border-slate-200">
@@ -1220,7 +1569,7 @@
                                     </div>
 
                                     {/* Terms and Conditions Section */}
-                                    <div className="text-[9px] text-slate-500 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed">
+                                    <div className="text-[9px] text-slate-500 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed font-sans">
                                         <strong className="text-slate-700 block text-[10px] uppercase font-mono">Standard Professional Terms</strong>
                                         <p>1. <strong>Scope of Services & Scope Variations (Change Orders):</strong> Services are strictly limited to the SOW items selected. Any modifications, additions, or iterations requested by the Client outside this contract shall require a signed Change Order specifying additional hours, timeline extensions, and a separate service fee billed at ₱2,500/hr (or the agreed rate basis).</p>
                                         <p>2. <strong>Client Cooperation & Operational Timelines:</strong> The project timeline is dependent on prompt access to Client data, registries, systems, and personnel. Kolthoff Consulting is not liable for project delays caused by Client-side bottlenecks. If the Client delays requested data or cancels scheduled stakeholder sessions by more than five (5) business days, Kolthoff Consulting reserves the right to adjust delivery deadlines proportionally.</p>
@@ -1241,7 +1590,7 @@
                                     </div>
 
                                     {/* Sign-off Agreement Blocks */}
-                                    <div className="pt-8 text-xs">
+                                    <div className="pt-8 text-xs font-sans">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12">
                                                 <p className="text-slate-600 font-medium">Approved and Accepted by:</p>
