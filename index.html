@@ -1,730 +1,367 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  CheckSquare, 
-  Square, 
-  Calculator, 
-  DollarSign, 
-  Clock, 
-  Layers, 
-  Copy, 
-  CheckCircle, 
-  Settings, 
-  HelpCircle, 
-  Trash2, 
-  PlusCircle, 
-  FileText, 
-  ChevronRight,
-  RefreshCw,
-  Info
-} from 'lucide-react';
-
-const INITIAL_TASKS = [
-  // 1. Operational Diagnostics
-  {
-    id: 'diag-1',
-    category: '1. Operational Diagnostics',
-    deliverable: 'Preparation & Onboarding',
-    description: 'Client kickoff meeting, security briefing, and initial corporate data collection.',
-    minHours: 3,
-    maxHours: 4,
-    rate: 2500,
-    selected: true
-  },
-  {
-    id: 'diag-2',
-    category: '1. Operational Diagnostics',
-    deliverable: 'Stakeholder Discovery',
-    description: 'Executive stakeholder interviews (structured 1-on-1s with 4-6 core staff).',
-    minHours: 4,
-    maxHours: 6,
-    rate: 2500,
-    selected: true
-  },
-  {
-    id: 'diag-3',
-    category: '1. Operational Diagnostics',
-    deliverable: 'On-Site Observation Audit',
-    description: 'Two full days of in-person workflow shadowing, step-timing, and bottlenecks trace.',
-    minHours: 16,
-    maxHours: 20,
-    rate: 2500,
-    selected: true
-  },
-  {
-    id: 'diag-4',
-    category: '1. Operational Diagnostics',
-    deliverable: 'Forensic Systemic Audit',
-    description: 'Compliance gap mapping (DOLE exposure) & technology stack subscription review.',
-    minHours: 8,
-    maxHours: 12,
-    rate: 2500,
-    selected: true
-  },
-  {
-    id: 'diag-5',
-    category: '1. Operational Diagnostics',
-    deliverable: 'Risk Matrix Formulation',
-    description: 'Synthesizing data into a prioritized Operational Risk Matrix with Quick-Wins.',
-    minHours: 5,
-    maxHours: 8,
-    rate: 2500,
-    selected: true
-  },
-  {
-    id: 'diag-6',
-    category: '1. Operational Diagnostics',
-    deliverable: 'Debrief & Roadmap Handover',
-    description: 'Executive presentation of findings and strategic delivery phase options.',
-    minHours: 4,
-    maxHours: 6,
-    rate: 2500,
-    selected: true
-  },
-
-  // 2. Scale-Ready SOPs
-  {
-    id: 'sop-1',
-    category: '2. Scale-Ready SOPs & HR',
-    deliverable: 'Role Inventory & Scope Map',
-    description: 'Mapping current state boundaries, functional responsibilities, and structural loops.',
-    minHours: 10,
-    maxHours: 15,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'sop-2',
-    category: '2. Scale-Ready SOPs & HR',
-    deliverable: 'Swimlane Process Mapping',
-    description: 'Drafting high-fidelity, cross-functional Swimlane flow diagrams (up to 5 processes).',
-    minHours: 30,
-    maxHours: 40,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'sop-3',
-    category: '2. Scale-Ready SOPs & HR',
-    deliverable: 'HR Templates & Compliance',
-    description: 'Vetting local contracts, drafting standard agreements & employment templates.',
-    minHours: 15,
-    maxHours: 25,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'sop-4',
-    category: '2. Scale-Ready SOPs & HR',
-    deliverable: 'Employee Handbook Assembly',
-    description: 'Compiling core behavioral rules, leaves, benefits, and standard conduct codes.',
-    minHours: 15,
-    maxHours: 20,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'sop-5',
-    category: '2. Scale-Ready SOPs & HR',
-    deliverable: 'Operations Playbook Launch',
-    description: 'Publishing and indexing physical and digital documentation ready for internal training.',
-    minHours: 15,
-    maxHours: 20,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'sop-6',
-    category: '2. Scale-Ready SOPs & HR',
-    deliverable: 'Handover & Training Workshops',
-    description: 'Interactive leadership alignment sessions to ensure immediate systems adoption.',
-    minHours: 5,
-    maxHours: 8,
-    rate: 2500,
-    selected: false
-  },
-
-  // 3. 90-Day Transformation
-  {
-    id: 'trans-1',
-    category: '3. 90-Day Transformation Sprint',
-    deliverable: 'Value Stream Mapping (VSM)',
-    description: 'Hosting continuous value-mapping sprints to expose systemic operational wastes.',
-    minHours: 20,
-    maxHours: 30,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'trans-2',
-    category: '3. 90-Day Transformation Sprint',
-    deliverable: 'Waste & Backlog Elimination',
-    description: 'Conducting tactical sprints targeting excess re-work and bottlenecks in routing loops.',
-    minHours: 15,
-    maxHours: 20,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'trans-3',
-    category: '3. 90-Day Transformation Sprint',
-    deliverable: 'Core Metric & KPI Tuning',
-    description: 'Re-engineering custom performance parameters across major team departments.',
-    minHours: 15,
-    maxHours: 20,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'trans-4',
-    category: '3. 90-Day Transformation Sprint',
-    deliverable: 'Process Re-engineering',
-    description: 'Complete hands-on overhaul of slow execution paths, templates, and tech links.',
-    minHours: 40,
-    maxHours: 50,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'trans-5',
-    category: '3. 90-Day Transformation Sprint',
-    deliverable: 'Implementation Coaching',
-    description: 'On-site coaching alongside process champions to manage team change friction.',
-    minHours: 50,
-    maxHours: 60,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'trans-6',
-    category: '3. 90-Day Transformation Sprint',
-    deliverable: 'Dashboard Integration',
-    description: 'Setting up live, visually automated tracking matrices for leadership visibility.',
-    minHours: 15,
-    maxHours: 25,
-    rate: 2500,
-    selected: false
-  },
-
-  // 4. Fractional COO
-  {
-    id: 'coo-1',
-    category: '4. Fractional COO (Monthly Engagement)',
-    deliverable: 'Operations Alignment Meetings',
-    description: 'Facilitating critical weekly alignment loops and management checkpoint audits.',
-    minHours: 6,
-    maxHours: 8,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'coo-2',
-    category: '4. Fractional COO (Monthly Engagement)',
-    deliverable: 'KPI & OKR Metric Governance',
-    description: 'Evaluating team execution scores and auditing cross-functional performance.',
-    minHours: 8,
-    maxHours: 10,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'coo-3',
-    category: '4. Fractional COO (Monthly Engagement)',
-    deliverable: 'Continuous Optimization Sprints',
-    description: 'Iterative audits of workflow efficiency and ongoing manual-step removal.',
-    minHours: 8,
-    maxHours: 10,
-    rate: 2500,
-    selected: false
-  },
-  {
-    id: 'coo-4',
-    category: '4. Fractional COO (Monthly Engagement)',
-    deliverable: 'High-Level C-Suite Advisory',
-    description: 'Direct executive mentorship, strategic scaling plans, and labor advisory.',
-    minHours: 4,
-    maxHours: 6,
-    rate: 2500,
-    selected: false
-  }
-];
-
-export default function App() {
-  const [tasks, setTasks] = useState(INITIAL_TASKS);
-  const [globalRate, setGlobalRate] = useState(2500);
-  const [copied, setCopied] = useState(false);
-  
-  // Custom new task parameters
-  const [newTaskCategory, setNewTaskCategory] = useState('1. Operational Diagnostics');
-  const [newTaskDeliv, setNewTaskDeliv] = useState('');
-  const [newTaskDesc, setNewTaskDesc] = useState('');
-  const [newTaskMin, setNewTaskMin] = useState(5);
-  const [newTaskMax, setNewTaskMax] = useState(10);
-
-  // Quick Preset Handlers
-  const handleSelectPackage = (packageName) => {
-    setTasks(prev => prev.map(t => {
-      let isSelected = false;
-      if (packageName === 'diagnostics' && t.category.includes('1. Operational Diagnostics')) {
-        isSelected = true;
-      } else if (packageName === 'sop' && t.category.includes('2. Scale-Ready SOPs')) {
-        isSelected = true;
-      } else if (packageName === 'transformation' && t.category.includes('3. 90-Day Transformation')) {
-        isSelected = true;
-      } else if (packageName === 'coo' && t.category.includes('4. Fractional COO')) {
-        isSelected = true;
-      } else if (packageName === 'all') {
-        isSelected = true;
-      }
-      return { ...t, selected: isSelected };
-    }));
-  };
-
-  // Set all tasks' rates simultaneously
-  const applyGlobalRate = (rate) => {
-    setGlobalRate(rate);
-    setTasks(prev => prev.map(t => ({ ...t, rate: rate })));
-  };
-
-  // Toggle single row inclusion
-  const toggleTask = (id) => {
-    setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
-  };
-
-  // Modify task hours/rates on the fly
-  const updateTaskField = (id, field, value) => {
-    setTasks(prev => prev.map(t => {
-      if (t.id === id) {
-        return { ...t, [field]: Number(value) };
-      }
-      return t;
-    }));
-  };
-
-  // Add custom line item dynamically
-  const addNewTask = (e) => {
-    e.preventDefault();
-    if (!newTaskDeliv) return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolthoff Consulting - Proposal Estimate Architect</title>
     
-    const newTask = {
-      id: `custom-${Date.now()}`,
-      category: newTaskCategory,
-      deliverable: newTaskDeliv,
-      description: newTaskDesc || 'Bespoke client scope requirement.',
-      minHours: Number(newTaskMin),
-      maxHours: Number(newTaskMax),
-      rate: globalRate,
-      selected: true
-    };
-
-    setTasks(prev => [...prev, newTask]);
-    setNewTaskDeliv('');
-    setNewTaskDesc('');
-  };
-
-  // Delete a line item
-  const removeTask = (id) => {
-    setTasks(prev => prev.filter(t => t.id !== id));
-  };
-
-  // Formatted sums & counts
-  const summary = useMemo(() => {
-    const selectedTasks = tasks.filter(t => t.selected);
-    const minHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0);
-    const maxHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0);
-    const minCostTotal = selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0);
-    const maxCostTotal = selectedTasks.reduce((acc, curr) => acc + (curr.maxHours * curr.rate), 0);
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    return {
-      count: selectedTasks.length,
-      minHours: minHoursTotal,
-      maxHours: maxHoursTotal,
-      minCost: minCostTotal,
-      maxCost: maxCostTotal
-    };
-  }, [tasks]);
-
-  // Format currency output
-  const formatCurrency = (val) => {
-    return new Intl.NumberFormat('en-PH', {
-      style: 'currency',
-      currency: 'PHP',
-      maximumFractionDigits: 0
-    }).format(val);
-  };
-
-  // Generate markdown output of custom scope for copying to clipboard
-  const proposalSummaryText = useMemo(() => {
-    const activeOnes = tasks.filter(t => t.selected);
-    let output = `### PROPOSAL ESTIMATE SUMMARY - KOLTHOFF CONSULTING\n`;
-    output += `* **Total Selected Tasks**: ${summary.count}\n`;
-    output += `* **Estimated Hours Scope**: ${summary.minHours} - ${summary.maxHours} Target Hours\n`;
-    output += `* **Total Estimated Investment**: ${formatCurrency(summary.minCost)} to ${formatCurrency(summary.maxCost)} (PHP Ex-Tax)\n\n`;
-    output += `#### SCOPE OF INCLUDED WORK ITEMS:\n`;
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     
-    let currentCat = '';
-    activeOnes.forEach(t => {
-      if (t.category !== currentCat) {
-        currentCat = t.category;
-        output += `\n**${currentCat.toUpperCase()}**\n`;
-      }
-      output += `- [x] **${t.deliverable}**: ${t.description} (${t.minHours}-${t.maxHours} hrs @ ${formatCurrency(t.rate)}/hr)\n`;
-    });
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    output += `\n*Proposal estimate built via custom hours matrix. Validity standard: 30 days.*`;
-    return output;
-  }, [tasks, summary]);
+    <style>
+        /* Custom scrollbar adjustments for premium aesthetics */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
 
-  // Handle Clipboard copies (fallback to older execCommand to guarantee iframe-neutral compliance)
-  const copyToClipboard = () => {
-    const el = document.createElement('textarea');
-    el.value = proposalSummaryText;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    <div id="root"></div>
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 lg:p-8 font-sans antialiased selection:bg-sky-500 selection:text-white">
-      {/* Top Banner */}
-      <div className="max-w-7xl mx-auto mb-8 bg-gradient-to-r from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 relative overflow-hidden shadow-xl">
-        <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-sky-500/5 to-transparent pointer-events-none" />
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <span className="text-xs font-mono font-semibold tracking-wider text-sky-400 uppercase bg-sky-950/60 border border-sky-800/40 px-2.5 py-1 rounded-full">
-              Interactive B2B Proposal Modeler
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-100 tracking-tight mt-3">
-              Proposal Estimate Architect
-            </h1>
-            <p className="text-sm text-slate-400 mt-1 max-w-2xl">
-              Check tasks, adjust hours, and scale rates to align with a client's budget. Overcome price friction by creating visual, itemized scope variations on the fly.
-            </p>
-          </div>
-          
-          {/* Rate Controller Presets */}
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-850 text-center md:text-right shrink-0">
-            <span className="text-xs text-slate-400 block font-semibold mb-2">Global Hourly Rate Framework (PHP):</span>
-            <div className="flex gap-2 justify-center">
-              {[1500, 2500, 3500].map((rate) => (
-                <button
-                  key={rate}
-                  onClick={() => applyGlobalRate(rate)}
-                  className={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${
-                    globalRate === rate 
-                      ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md' 
-                      : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700'
-                  }`}
-                >
-                  ₱{rate.toLocaleString()}/hr
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+    <script type="text/babel">
+        const { useState, useMemo } = React;
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* LEFT COLUMN: LIVE WORKBOOK TABLE */}
-        <div className="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-          {/* Preset Buttons Bar */}
-          <div className="p-4 bg-slate-950/60 border-b border-slate-800 flex flex-wrap gap-2 items-center justify-between">
-            <span className="text-xs font-mono tracking-wider text-slate-400 uppercase">Load Scope Presets:</span>
-            <div className="flex flex-wrap gap-1.5">
-              <button 
-                onClick={() => handleSelectPackage('diagnostics')}
-                className="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all"
-              >
-                1. Diagnostics Only
-              </button>
-              <button 
-                onClick={() => handleSelectPackage('sop')}
-                className="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all"
-              >
-                2. SOPs Setup
-              </button>
-              <button 
-                onClick={() => handleSelectPackage('transformation')}
-                className="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all"
-              >
-                3. Transformation
-              </button>
-              <button 
-                onClick={() => handleSelectPackage('coo')}
-                className="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all"
-              >
-                4. COO Retainer
-              </button>
-              <button 
-                onClick={() => handleSelectPackage('all')}
-                className="px-3 py-1 text-xs font-semibold bg-sky-950 text-sky-400 hover:bg-sky-900 rounded-lg border border-sky-850 transition-all"
-              >
-                Select All
-              </button>
-            </div>
-          </div>
+        // Custom Inline Icons
+        const IconCheckSquare = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400"><path d="m9 11 3 3 7-7"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>;
+        const IconSquare = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>;
+        const IconCalculator = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={className}><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x1="16" y1="6" y2="6"/><line x1="16" x1="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>;
+        const IconClock = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={className}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+        const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x1="10" y1="11" y2="17"/><line x1="14" x1="14" y1="11" y2="17"/></svg>;
+        const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>;
+        const IconCopy = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>;
+        const IconCheckCircle = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5 text-emerald-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>;
+        const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
 
-          {/* Core Calculation Grid */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[700px]">
-              <thead>
-                <tr className="bg-slate-950 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-slate-850">
-                  <th className="py-4 px-4 text-center w-12">Incl?</th>
-                  <th className="py-4 px-4 w-44">Work Area</th>
-                  <th className="py-4 px-4">Task Deliverable</th>
-                  <th className="py-4 px-4 text-center w-24">Min Hrs</th>
-                  <th className="py-4 px-4 text-center w-24">Max Hrs</th>
-                  <th className="py-4 px-4 text-center w-28">Rate (PHP)</th>
-                  <th className="py-4 px-4 text-right w-32">Total Cost Range</th>
-                  <th className="py-4 px-4 text-center w-10"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-850/60">
-                {tasks.map((task) => (
-                  <tr 
-                    key={task.id} 
-                    className={`transition-colors duration-150 ${task.selected ? 'bg-slate-900/90' : 'bg-slate-900/25 opacity-40 hover:opacity-75'}`}
-                  >
-                    {/* Checkbox */}
-                    <td className="py-4 px-4 text-center">
-                      <button 
-                        onClick={() => toggleTask(task.id)}
-                        className="p-1 rounded text-slate-400 hover:text-sky-400 inline-flex"
-                      >
-                        {task.selected ? (
-                          <CheckSquare className="w-5 h-5 text-sky-400" />
-                        ) : (
-                          <Square className="w-5 h-5" />
-                        )}
-                      </button>
-                    </td>
+        const INITIAL_TASKS = [
+            { id: 'diag-1', category: '1. Operational Diagnostics', deliverable: 'Preparation & Onboarding', description: 'Client kickoff meeting, security briefing, and initial corporate data collection.', minHours: 3, maxHours: 4, rate: 2500, selected: true },
+            { id: 'diag-2', category: '1. Operational Diagnostics', deliverable: 'Stakeholder Discovery', description: 'Executive stakeholder interviews (structured 1-on-1s with 4-6 core staff).', minHours: 4, maxHours: 6, rate: 2500, selected: true },
+            { id: 'diag-3', category: '1. Operational Diagnostics', deliverable: 'On-Site Observation Audit', description: 'Two full days of in-person workflow shadowing, step-timing, and bottlenecks trace.', minHours: 16, maxHours: 20, rate: 2500, selected: true },
+            { id: 'diag-4', category: '1. Operational Diagnostics', deliverable: 'Forensic Systemic Audit', description: 'Compliance gap mapping (DOLE exposure) & technology stack subscription review.', minHours: 8, maxHours: 12, rate: 2500, selected: true },
+            { id: 'diag-5', category: '1. Operational Diagnostics', deliverable: 'Risk Matrix Formulation', description: 'Synthesizing data into a prioritized Operational Risk Matrix with Quick-Wins.', minHours: 5, maxHours: 8, rate: 2500, selected: true },
+            { id: 'diag-6', category: '1. Operational Diagnostics', deliverable: 'Debrief & Roadmap Handover', description: 'Executive presentation of findings and strategic delivery phase options.', minHours: 4, maxHours: 6, rate: 2500, selected: true },
+            { id: 'sop-1', category: '2. Scale-Ready SOPs & HR', deliverable: 'Role Inventory & Scope Map', description: 'Mapping current state boundaries, functional responsibilities, and structural loops.', minHours: 10, maxHours: 15, rate: 2500, selected: false },
+            { id: 'sop-2', category: '2. Scale-Ready SOPs & HR', deliverable: 'Swimlane Process Mapping', description: 'Drafting high-fidelity, cross-functional Swimlane flow diagrams (up to 5 processes).', minHours: 30, maxHours: 40, rate: 2500, selected: false },
+            { id: 'sop-3', category: '2. Scale-Ready SOPs & HR', deliverable: 'HR Templates & Compliance', description: 'Vetting local contracts, drafting standard agreements & employment templates.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
+            { id: 'sop-4', category: '2. Scale-Ready SOPs & HR', deliverable: 'Employee Handbook Assembly', description: 'Compiling core behavioral rules, leaves, benefits, and standard conduct codes.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'sop-5', category: '2. Scale-Ready SOPs & HR', deliverable: 'Operations Playbook Launch', description: 'Publishing and indexing physical and digital documentation ready for internal training.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'sop-6', category: '2. Scale-Ready SOPs & HR', deliverable: 'Handover & Training Workshops', description: 'Interactive leadership alignment sessions to ensure immediate systems adoption.', minHours: 5, maxHours: 8, rate: 2500, selected: false },
+            { id: 'trans-1', category: '3. 90-Day Transformation Sprint', deliverable: 'Value Stream Mapping (VSM)', description: 'Hosting continuous value-mapping sprints to expose systemic operational wastes.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
+            { id: 'trans-2', category: '3. 90-Day Transformation Sprint', deliverable: 'Waste & Backlog Elimination', description: 'Conducting tactical sprints targeting excess re-work and bottlenecks in routing loops.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'trans-3', category: '3. 90-Day Transformation Sprint', deliverable: 'Core Metric & KPI Tuning', description: 'Re-engineering custom performance parameters across major team departments.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'trans-4', category: '3. 90-Day Transformation Sprint', deliverable: 'Process Re-engineering', description: 'Complete hands-on overhaul of slow execution paths, templates, and tech links.', minHours: 40, maxHours: 50, rate: 2500, selected: false },
+            { id: 'trans-5', category: '3. 90-Day Transformation Sprint', deliverable: 'Implementation Coaching', description: 'On-site coaching alongside process champions to manage team change friction.', minHours: 50, maxHours: 60, rate: 2500, selected: false },
+            { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Setting up live, visually automated tracking matrices for leadership visibility.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
+            { id: 'coo-1', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Operations Alignment Meetings', description: 'Facilitating critical weekly alignment loops and management checkpoint audits.', minHours: 6, maxHours: 8, rate: 2500, selected: false },
+            { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating team execution scores and auditing cross-functional performance.', minHours: 8, height: 10, minHours: 8, maxHours: 10, rate: 2500, selected: false },
+            { id: 'coo-3', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Continuous Optimization Sprints', description: 'Iterative audits of workflow efficiency and ongoing manual-step removal.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
+            { id: 'coo-4', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'High-Level C-Suite Advisory', description: 'Direct executive mentorship, strategic scaling plans, and labor advisory.', minHours: 4, maxHours: 6, rate: 2500, selected: false }
+        ];
 
-                    {/* Category Label */}
-                    <td className="py-4 px-4">
-                      <span className="text-[10px] font-mono bg-slate-950 px-2.5 py-1 rounded-full text-slate-400 font-semibold border border-slate-850 block text-center truncate">
-                        {task.category.replace(/^\d+\.\s/, '')}
-                      </span>
-                    </td>
-
-                    {/* Deliverable details */}
-                    <td className="py-4 px-4 max-w-xs">
-                      <h4 className="font-bold text-sm text-slate-100">{task.deliverable}</h4>
-                      <p className="text-[11px] text-slate-500 mt-0.5 leading-normal line-clamp-2">{task.description}</p>
-                    </td>
-
-                    {/* Min Hours */}
-                    <td className="py-4 px-4">
-                      <input 
-                        type="number"
-                        min="0"
-                        value={task.minHours}
-                        onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)}
-                        className="w-16 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200"
-                        disabled={!task.selected}
-                      />
-                    </td>
-
-                    {/* Max Hours */}
-                    <td className="py-4 px-4">
-                      <input 
-                        type="number"
-                        min="0"
-                        value={task.maxHours}
-                        onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)}
-                        className="w-16 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200"
-                        disabled={!task.selected}
-                      />
-                    </td>
-
-                    {/* Hourly Rate */}
-                    <td className="py-4 px-4">
-                      <input 
-                        type="number"
-                        step="100"
-                        value={task.rate}
-                        onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)}
-                        className="w-24 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200"
-                        disabled={!task.selected}
-                      />
-                    </td>
-
-                    {/* Estimated Cost Range */}
-                    <td className="py-4 px-4 text-right">
-                      <span className="text-xs font-mono font-bold text-slate-200">
-                        {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
-                      </span>
-                    </td>
-
-                    {/* Action Trash (Delete) */}
-                    <td className="py-4 px-4 text-center">
-                      <button 
-                        onClick={() => removeTask(task.id)}
-                        className="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Add custom Row Form */}
-          <form onSubmit={addNewTask} className="p-4 bg-slate-950/40 border-t border-slate-800 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-            <div className="md:col-span-3">
-              <label className="text-[10px] font-mono text-slate-500 uppercase block mb-1">Target Category</label>
-              <select 
-                value={newTaskCategory}
-                onChange={(e) => setNewTaskCategory(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-slate-300"
-              >
-                <option value="1. Operational Diagnostics">1. Diagnostics</option>
-                <option value="2. Scale-Ready SOPs & HR">2. SOPs & HR</option>
-                <option value="3. 90-Day Transformation Sprint">3. 90-Day Sprint</option>
-                <option value="4. Fractional COO (Monthly Engagement)">4. Monthly COO</option>
-              </select>
-            </div>
+        function App() {
+            const [tasks, setTasks] = useState(INITIAL_TASKS);
+            const [globalRate, setGlobalRate] = useState(2500);
+            const [copied, setCopied] = useState(false);
             
-            <div className="md:col-span-3">
-              <label className="text-[10px] font-mono text-slate-500 uppercase block mb-1">Custom Task Name</label>
-              <input 
-                type="text" 
-                placeholder="e.g., Extended ERP Audits"
-                value={newTaskDeliv}
-                onChange={(e) => setNewTaskDeliv(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600"
-              />
-            </div>
+            const [newTaskCategory, setNewTaskCategory] = useState('1. Operational Diagnostics');
+            const [newTaskDeliv, setNewTaskDeliv] = useState('');
+            const [newTaskDesc, setNewTaskDesc] = useState('');
+            const [newTaskMin, setNewTaskMin] = useState(5);
+            const [newTaskMax, setNewTaskMax] = useState(10);
 
-            <div className="md:col-span-4">
-              <label className="text-[10px] font-mono text-slate-500 uppercase block mb-1">Brief Description (Optional)</label>
-              <input 
-                type="text" 
-                placeholder="Specific scope notes..."
-                value={newTaskDesc}
-                onChange={(e) => setNewTaskDesc(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600"
-              />
-            </div>
+            const handleSelectPackage = (packageName) => {
+                setTasks(prev => prev.map(t => {
+                    let isSelected = false;
+                    if (packageName === 'diagnostics' && t.category.includes('1. Operational Diagnostics')) isSelected = true;
+                    else if (packageName === 'sop' && t.category.includes('2. Scale-Ready SOPs')) isSelected = true;
+                    else if (packageName === 'transformation' && t.category.includes('3. 90-Day Transformation')) isSelected = true;
+                    else if (packageName === 'coo' && t.category.includes('4. Fractional COO')) isSelected = true;
+                    else if (packageName === 'all') isSelected = true;
+                    return { ...t, selected: isSelected };
+                }));
+            };
 
-            <div className="md:col-span-1">
-              <label className="text-[10px] font-mono text-slate-500 uppercase block mb-1">Min/Max</label>
-              <div className="flex gap-1">
-                <input 
-                  type="number" 
-                  value={newTaskMin}
-                  onChange={(e) => setNewTaskMin(e.target.value)}
-                  className="w-12 bg-slate-900 border border-slate-800 rounded-lg py-1.5 text-center text-xs text-slate-200"
-                />
-                <input 
-                  type="number" 
-                  value={newTaskMax}
-                  onChange={(e) => setNewTaskMax(e.target.value)}
-                  className="w-12 bg-slate-900 border border-slate-800 rounded-lg py-1.5 text-center text-xs text-slate-200"
-                />
-              </div>
-            </div>
+            const applyGlobalRate = (rate) => {
+                setGlobalRate(rate);
+                setTasks(prev => prev.map(t => ({ ...t, rate: rate })));
+            };
 
-            <div className="md:col-span-1">
-              <button 
-                type="submit"
-                className="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-1.5 px-2 rounded-lg text-xs transition-colors flex items-center justify-center gap-1 shrink-0"
-              >
-                <PlusCircle className="w-3.5 h-3.5" /> Add
-              </button>
-            </div>
-          </form>
-        </div>
+            const toggleTask = (id) => {
+                setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
+            };
 
-        {/* RIGHT COLUMN: REALTIME COST SUMMARY CARD */}
-        <div className="lg:col-span-4 space-y-6">
-          
-          {/* Main cost readout */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-sky-500/5 blur-2xl rounded-full" />
-            
-            <h3 className="text-sm font-bold tracking-wider text-slate-300 uppercase font-mono mb-4 flex items-center gap-2">
-              <Calculator className="w-4 h-4 text-sky-400" /> Proposal Math Model
-            </h3>
+            const updateTaskField = (id, field, value) => {
+                setTasks(prev => prev.map(t => t.id === id ? { ...t, [field]: Number(value) } : t));
+            };
 
-            <div className="space-y-4 pb-6 border-b border-slate-800">
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-500">Included Line Tasks:</span>
-                <span className="text-slate-200 font-bold font-mono">{summary.count} / {tasks.length} items</span>
-              </div>
-              
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-500">Estimated Target Effort:</span>
-                <span className="text-slate-200 font-bold font-mono flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-sky-400" /> {summary.minHours} - {summary.maxHours} hours
-                </span>
-              </div>
+            const addNewTask = (e) => {
+                e.preventDefault();
+                if (!newTaskDeliv) return;
+                
+                const newTask = {
+                    id: `custom-${Date.now()}`,
+                    category: newTaskCategory,
+                    deliverable: newTaskDeliv,
+                    description: newTaskDesc || 'Bespoke client scope requirement.',
+                    minHours: Number(newTaskMin),
+                    maxHours: Number(newTaskMax),
+                    rate: globalRate,
+                    selected: true
+                };
 
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-500">Weighted Average Rate:</span>
-                <span className="text-slate-200 font-bold font-mono">₱{globalRate.toLocaleString()}/hr</span>
-              </div>
-            </div>
+                setTasks(prev => [...prev, newTask]);
+                setNewTaskDeliv('');
+                setNewTaskDesc('');
+            };
 
-            {/* Combined Calculated Output */}
-            <div className="py-6">
-              <span className="text-[10px] font-mono tracking-widest text-slate-500 uppercase block">Calculated Package Valuation</span>
-              <span className="text-2xl sm:text-3xl font-black text-sky-400 mt-1 block">
-                {formatCurrency(summary.minCost)} – {formatCurrency(summary.maxCost)}
-              </span>
-              <span className="text-[10px] text-slate-400 block mt-1">Excludes VAT and incidental travel expenses.</span>
-            </div>
+            const removeTask = (id) => {
+                setTasks(prev => prev.filter(t => t.id !== id));
+            };
 
-            {/* PH Market Billing Strategy Note */}
-            <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-850">
-              <div className="flex gap-2">
-                <Info className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-[10px] font-bold text-amber-500 uppercase block">Recommended Deal Anchor</span>
-                  <p className="text-[10px] text-slate-400 mt-1 leading-normal">
-                    "Mr. Client, based on standard estimates, resolving this custom scope will require roughly {summary.minHours}-{summary.maxHours} hours of structured analyst work. Rather than charging hourly, we've locked it at a flat project rate of {formatCurrency((summary.minCost + summary.maxCost) / 2)} so there are zero invoice surprises."
-                  </p>
+            const summary = useMemo(() => {
+                const selectedTasks = tasks.filter(t => t.selected);
+                return {
+                    count: selectedTasks.length,
+                    minHours: selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0),
+                    maxHours: selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0),
+                    minCost: selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0),
+                    maxCost: selectedTasks.reduce((acc, curr) => acc + (curr.maxHours * curr.rate), 0)
+                };
+            }, [tasks]);
+
+            const formatCurrency = (val) => {
+                return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(val);
+            };
+
+            const proposalSummaryText = useMemo(() => {
+                const activeOnes = tasks.filter(t => t.selected);
+                let output = `### PROPOSAL ESTIMATE SUMMARY - KOLTHOFF CONSULTING\n`;
+                output += `* **Total Selected Tasks**: ${summary.count}\n`;
+                output += `* **Estimated Hours Scope**: ${summary.minHours} - ${summary.maxHours} Target Hours\n`;
+                output += `* **Total Estimated Investment**: ${formatCurrency(summary.minCost)} to ${formatCurrency(summary.maxCost)} (PHP Ex-Tax)\n\n`;
+                output += `#### SCOPE OF INCLUDED WORK ITEMS:\n`;
+                
+                let currentCat = '';
+                activeOnes.forEach(t => {
+                    if (t.category !== currentCat) {
+                        currentCat = t.category;
+                        output += `\n**${currentCat.toUpperCase()}**\n`;
+                    }
+                    output += `- [x] **${t.deliverable}**: ${t.description} (${t.minHours}-${t.maxHours} hrs @ ${formatCurrency(t.rate)}/hr)\n`;
+                });
+                return output;
+            }, [tasks, summary]);
+
+            const copyToClipboard = () => {
+                const el = document.createElement('textarea');
+                el.value = proposalSummaryText;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+
+            return (
+                <div class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+                    {/* Top Header Card */}
+                    <div class="mb-8 bg-gradient-to-r from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 relative overflow-hidden shadow-xl">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                            <div>
+                                <span class="text-xs font-mono font-semibold tracking-wider text-sky-400 uppercase bg-sky-950/60 border border-sky-800/40 px-2.5 py-1 rounded-full">
+                                    Interactive B2B Proposal Modeler
+                                </span>
+                                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-100 tracking-tight mt-3">Proposal Estimate Architect</h1>
+                                <p class="text-sm text-slate-400 mt-1 max-w-2xl">
+                                    Check tasks, adjust hours, and scale rates to align with a client's budget. Overcome price friction by creating visual, itemized scope variations on the fly.
+                                </p>
+                            </div>
+                            
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 text-center md:text-right shrink-0">
+                                <span class="text-xs text-slate-400 block font-semibold mb-2">Global Hourly Rate Framework (PHP):</span>
+                                <div class="flex gap-2 justify-center">
+                                    {[1500, 2500, 3500].map((rate) => (
+                                        <button key={rate} onClick={() => applyGlobalRate(rate)} class={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${globalRate === rate ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700'}`}>
+                                            ₱{rate.toLocaleString()}/hr
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* App Grid */}
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        {/* Table Framework */}
+                        <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+                            <div class="p-4 bg-slate-950/60 border-b border-slate-800 flex flex-wrap gap-2 items-center justify-between">
+                                <span class="text-xs font-mono tracking-wider text-slate-400 uppercase">Load Scope Presets:</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <button onClick={() => handleSelectPackage('diagnostics')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">1. Diagnostics Only</button>
+                                    <button onClick={() => handleSelectPackage('sop')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">2. SOPs Setup</button>
+                                    <button onClick={() => handleSelectPackage('transformation')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">3. Transformation</button>
+                                    <button onClick={() => handleSelectPackage('coo')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">4. COO Retainer</button>
+                                    <button onClick={() => handleSelectPackage('all')} class="px-3 py-1 text-xs font-semibold bg-sky-950 text-sky-400 hover:bg-sky-900 rounded-lg border border-sky-850 transition-all">Select All</button>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse min-w-[700px]">
+                                    <thead>
+                                        <tr class="bg-slate-950 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-slate-850">
+                                            <th class="py-4 px-4 text-center w-12">Incl?</th>
+                                            <th class="py-4 px-4 w-44">Work Area</th>
+                                            <th class="py-4 px-4">Task Deliverable</th>
+                                            <th class="py-4 px-4 text-center w-24">Min Hrs</th>
+                                            <th class="py-4 px-4 text-center w-24">Max Hrs</th>
+                                            <th class="py-4 px-4 text-center w-28">Rate (PHP)</th>
+                                            <th class="py-4 px-4 text-right w-32">Total Range</th>
+                                            <th class="py-4 px-4 text-center w-10"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-850/60">
+                                        {tasks.map((task) => (
+                                            <tr key={task.id} class={`transition-colors duration-150 ${task.selected ? 'bg-slate-900/90' : 'bg-slate-900/25 opacity-40 hover:opacity-75'}`}>
+                                                <td class="py-4 px-4 text-center">
+                                                    <button onClick={() => toggleTask(task.id)} class="p-1 rounded text-slate-400 hover:text-sky-400 inline-flex">
+                                                        {task.selected ? <IconCheckSquare /> : <IconSquare />}
+                                                    </button>
+                                                </td>
+                                                <td class="py-4 px-4">
+                                                    <span class="text-[10px] font-mono bg-slate-950 px-2.5 py-1 rounded-full text-slate-400 font-semibold border border-slate-850 block text-center truncate">
+                                                        {task.category.replace(/^\d+\.\s/, '')}
+                                                    </span>
+                                                </td>
+                                                <td class="py-4 px-4">
+                                                    <h4 class="font-bold text-sm text-slate-100">{task.deliverable}</h4>
+                                                    <p class="text-[11px] text-slate-500 mt-0.5 leading-normal line-clamp-2">{task.description}</p>
+                                                </td>
+                                                <td class="py-4 px-4">
+                                                    <input type="number" min="0" value={task.minHours} onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} class="w-16 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
+                                                </td>
+                                                <td class="py-4 px-4">
+                                                    <input type="number" min="0" value={task.maxHours} onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} class="w-16 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
+                                                </td>
+                                                <td class="py-4 px-4">
+                                                    <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-24 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
+                                                </td>
+                                                <td class="py-4 px-4 text-right">
+                                                    <span class="text-xs font-mono font-bold text-slate-200">
+                                                        {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
+                                                    </span>
+                                                </td>
+                                                <td class="py-4 px-4 text-center">
+                                                    <button onClick={() => removeTask(task.id)} class="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"><IconTrash /></button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Add Item Row Form */}
+                            <form onSubmit={addNewTask} class="p-4 bg-slate-950/40 border-t border-slate-800 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                                <div class="md:col-span-3">
+                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Target Category</label>
+                                    <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} class="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-slate-300">
+                                        <option value="1. Operational Diagnostics">1. Diagnostics</option>
+                                        <option value="2. Scale-Ready SOPs & HR">2. SOPs & HR</option>
+                                        <option value="3. 90-Day Transformation Sprint">3. 90-Day Sprint</option>
+                                        <option value="4. Fractional COO (Monthly Engagement)">4. Monthly COO</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-3">
+                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Custom Task Name</label>
+                                    <input type="text" placeholder="e.g., Extended ERP Audits" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} class="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600" />
+                                </div>
+                                <div class="md:col-span-4">
+                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Brief Description</label>
+                                    <input type="text" placeholder="Specific scope notes..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} class="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600" />
+                                </div>
+                                <div class="md:col-span-1">
+                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Min/Max</label>
+                                    <div class="flex gap-1">
+                                        <input type="number" value={newTaskMin} onChange={(e) => setNewTaskMin(e.target.value)} class="w-12 bg-slate-900 border border-slate-800 rounded-lg py-1.5 text-center text-xs text-slate-200" />
+                                        <input type="number" value={newTaskMax} onChange={(e) => setNewTaskMax(e.target.value)} class="w-12 bg-slate-900 border border-slate-800 rounded-lg py-1.5 text-center text-xs text-slate-200" />
+                                    </div>
+                                </div>
+                                <div class="md:col-span-1">
+                                    <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-1.5 px-2 rounded-lg text-xs transition-colors flex items-center justify-center shrink-0"><IconPlus /> Add</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        {/* Summary Widget Side Panel */}
+                        <div class="lg:col-span-4 space-y-6">
+                            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                                <h3 class="text-sm font-bold tracking-wider text-slate-300 uppercase font-mono mb-4 flex items-center gap-2">
+                                    <IconCalculator className="text-sky-400" /> Proposal Calculations
+                                </h3>
+
+                                <div class="space-y-4 pb-6 border-b border-slate-800 text-xs">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-500">Included Line Tasks:</span>
+                                        <span class="text-slate-200 font-bold font-mono">{summary.count} / {tasks.length} items</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-500">Estimated Effort:</span>
+                                        <span class="text-slate-200 font-bold font-mono flex items-center gap-1">
+                                            <IconClock className="text-sky-400" /> {summary.minHours} - {summary.maxHours} hours
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-500">Hourly Rate Basis:</span>
+                                        <span class="text-slate-200 font-bold font-mono">₱{globalRate.toLocaleString()}/hr</span>
+                                    </div>
+                                </div>
+
+                                <div class="py-6">
+                                    <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block">Calculated Package Valuation</span>
+                                    <span class="text-2xl sm:text-3xl font-black text-sky-400 mt-1 block">
+                                        {formatCurrency(summary.minCost)} – {formatCurrency(summary.maxCost)}
+                                    </span>
+                                    <span class="text-[10px] text-slate-400 block mt-1">Excludes local structural VAT taxes.</span>
+                                </div>
+
+                                <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-850 flex gap-2">
+                                    <IconInfo />
+                                    <div>
+                                        <span class="text-[10px] font-bold text-amber-500 uppercase block">Flat-Pricing Conversions Strategy</span>
+                                        <p class="text-[10px] text-slate-400 mt-1 leading-normal">
+                                            Present this total variance range as a predictable flat-rate contract to prevent systemic buyer friction over ticking hour frameworks.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Markdown Exporter */}
+                            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">SOW Proposal Markdown</h3>
+                                    <button onClick={copyToClipboard} class="px-3 py-1.5 bg-slate-950 hover:bg-slate-850 rounded-lg text-xs font-semibold flex items-center transition-all text-sky-400 border border-sky-950">
+                                        {copied ? <IconCheckCircle /> : <IconCopy />}
+                                        {copied ? 'Copied!' : 'Copy SOW Text'}
+                                    </button>
+                                </div>
+                                <div class="bg-slate-950 rounded-xl p-4 border border-slate-850 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
+                                    {proposalSummaryText}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            );
+        }
 
-          {/* Proposal Live Copy/Exporter */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex justify-between items-center">
-              <h3 className="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">
-                SOW Proposal Markdown
-              </h3>
-              <button
-                onClick={copyToClipboard}
-                className="px-3 py-1.5 bg-slate-950 hover:bg-slate-850 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all text-sky-400 border border-sky-950"
-              >
-                {copied ? (
-                  <>
-                    <CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" /> Copy SOW Text
-                  </>
-                )}
-              </button>
-            </div>
-
-            <div className="bg-slate-950 rounded-xl p-4 border border-slate-850 text-xs text-slate-400 font-mono overflow-y-auto max-h-60 leading-relaxed whitespace-pre-line">
-              {proposalSummaryText}
-            </div>
-            
-            <p className="text-[10px] text-slate-500 text-center leading-normal">
-              Click "Copy SOW Text" to instantly grab a clean, formatted Markdown list of deliverables to drop straight into your proposal email drafts or Doc manuals.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
-}
+        // Render the React components inside the virtual DOM mount standard
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
