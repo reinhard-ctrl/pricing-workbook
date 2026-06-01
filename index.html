@@ -3,10 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kolthoff Consulting - Proposal Estimate Architect</title>
+    <title>Kolthoff Consulting - Internal Pricing Engine</title>
     
-    <!-- Tailwind CSS CDN -->
+    <!-- Google Fonts: Montserrat (Website Primary) & Playfair Display (Editorial Accents) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN with Custom Brand Palette Config -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandNavy: {
+                            950: '#020613', // Ultra-dark corporate space
+                            900: '#09111F', // Rich navy base
+                            800: '#0F1A2C', // Deep card background
+                            700: '#1B2C46', // Panel borders and dividers
+                            600: '#2E4567', // Subdued text and inactive strokes
+                        },
+                        brandBlue: {
+                            50: '#F0F6FF',
+                            100: '#E0EDFF',
+                            200: '#C2DBFF',
+                            300: '#99C4FF',
+                            400: '#60A1FA', // Highlighting element
+                            500: '#2563EB', // Premium solid corporate blue
+                            600: '#1D4ED8',
+                            700: '#1E40AF',
+                            850: '#0F2963', // Internal container accents
+                            950: '#0B1731', // Deep glow shadows
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Montserrat"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
     
     <!-- React and ReactDOM CDNs -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -16,14 +54,19 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-        /* Custom scrollbar adjustments for premium aesthetics */
+        /* Custom scrollbar adjustments matching new luxury blue palette */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        ::-webkit-scrollbar-track { background: #020613; }
+        ::-webkit-scrollbar-thumb { background: #0F1A2C; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563EB; }
+        
+        /* Premium Soft Radial Background Gradient */
+        .luxury-gradient {
+            background: radial-gradient(circle at 50% -20%, #0F1A2C 0%, #020613 100%);
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+<body class="luxury-gradient text-slate-100 antialiased selection:bg-brandBlue-600 selection:text-white min-h-screen">
 
     <!-- Target mount node for React -->
     <div id="root"></div>
@@ -32,47 +75,72 @@
     <script type="text/babel">
         const { useState, useMemo } = React;
 
-        // Custom Inline Icons
-        const IconCheckSquare = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400"><path d="m9 11 3 3 7-7"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>;
-        const IconSquare = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>;
+        // HIGH FIDELITY LOGO (Gear integrated with Rising Bar Chart inside an interlocking shield layout)
+        const IconWebsiteLogo = () => (
+            <svg class="w-12 h-12 text-brandBlue-400" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Outer Circular Shield Base */}
+                <path d="M50 12 L85 24 V55 C85 75 70 87 50 92 C30 87 15 75 15 55 V24 L50 12 Z" fill="#09111F" stroke="#2563EB" stroke-width="4" stroke-linejoin="round"/>
+                
+                {/* Embedded Growth Chart Bars */}
+                <rect x="36" y="52" width="6" height="18" rx="1.5" fill="#2563EB" opacity="0.8"/>
+                <rect x="47" y="42" width="6" height="28" rx="1.5" fill="#60A1FA"/>
+                <rect x="58" y="32" width="6" height="38" rx="1.5" fill="#99C4FF"/>
+                
+                {/* Interlocking Gear Outline Teeth on left quadrant */}
+                <path d="M26 44 L22 42" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+                <path d="M24 53 L20 53" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+                <path d="M26 62 L22 64" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+                <path d="M32 69 L29 73" stroke="#2563EB" stroke-width="3" stroke-linecap="round"/>
+                
+                {/* Connecting Trend Vector line */}
+                <path d="M33 56 L47 43 L61 31" stroke="#E0EDFF" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="61" cy="31" r="3.5" fill="#F0F6FF" stroke="#2563EB" stroke-width="1.5"/>
+            </svg>
+        );
+
+        const IconCheckSquare = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brandBlue-400"><path d="m9 11 3 3 7-7"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>;
+        const IconSquare = () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>;
         const IconCalculator = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={className}><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x1="16" y1="6" y2="6"/><line x1="16" x1="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg>;
         const IconClock = ({className}) => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={className}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
-        const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x1="10" y1="11" y2="17"/><line x1="14" x1="14" y1="11" y2="17"/></svg>;
-        const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>;
+        const IconTrash = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x1="10" y1="11" y2="17"/><line x1="14" x1="14" y1="11" y2="17"/></svg>;
+        const IconPlus = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>;
         const IconCopy = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>;
         const IconCheckCircle = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1.5 text-emerald-400"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>;
-        const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
+        const IconInfo = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brandBlue-400 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
 
         const INITIAL_TASKS = [
-            { id: 'diag-1', category: '1. Operational Diagnostics', deliverable: 'Preparation & Onboarding', description: 'Client kickoff meeting, security briefing, and initial corporate data collection.', minHours: 3, maxHours: 4, rate: 2500, selected: true },
-            { id: 'diag-2', category: '1. Operational Diagnostics', deliverable: 'Stakeholder Discovery', description: 'Executive stakeholder interviews (structured 1-on-1s with 4-6 core staff).', minHours: 4, maxHours: 6, rate: 2500, selected: true },
-            { id: 'diag-3', category: '1. Operational Diagnostics', deliverable: 'On-Site Observation Audit', description: 'Two full days of in-person workflow shadowing, step-timing, and bottlenecks trace.', minHours: 16, maxHours: 20, rate: 2500, selected: true },
-            { id: 'diag-4', category: '1. Operational Diagnostics', deliverable: 'Forensic Systemic Audit', description: 'Compliance gap mapping (DOLE exposure) & technology stack subscription review.', minHours: 8, maxHours: 12, rate: 2500, selected: true },
-            { id: 'diag-5', category: '1. Operational Diagnostics', deliverable: 'Risk Matrix Formulation', description: 'Synthesizing data into a prioritized Operational Risk Matrix with Quick-Wins.', minHours: 5, maxHours: 8, rate: 2500, selected: true },
-            { id: 'diag-6', category: '1. Operational Diagnostics', deliverable: 'Debrief & Roadmap Handover', description: 'Executive presentation of findings and strategic delivery phase options.', minHours: 4, maxHours: 6, rate: 2500, selected: true },
-            { id: 'sop-1', category: '2. Scale-Ready SOPs & HR', deliverable: 'Role Inventory & Scope Map', description: 'Mapping current state boundaries, functional responsibilities, and structural loops.', minHours: 10, maxHours: 15, rate: 2500, selected: false },
-            { id: 'sop-2', category: '2. Scale-Ready SOPs & HR', deliverable: 'Swimlane Process Mapping', description: 'Drafting high-fidelity, cross-functional Swimlane flow diagrams (up to 5 processes).', minHours: 30, maxHours: 40, rate: 2500, selected: false },
-            { id: 'sop-3', category: '2. Scale-Ready SOPs & HR', deliverable: 'HR Templates & Compliance', description: 'Vetting local contracts, drafting standard agreements & employment templates.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
-            { id: 'sop-4', category: '2. Scale-Ready SOPs & HR', deliverable: 'Employee Handbook Assembly', description: 'Compiling core behavioral rules, leaves, benefits, and standard conduct codes.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'sop-5', category: '2. Scale-Ready SOPs & HR', deliverable: 'Operations Playbook Launch', description: 'Publishing and indexing physical and digital documentation ready for internal training.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'sop-6', category: '2. Scale-Ready SOPs & HR', deliverable: 'Handover & Training Workshops', description: 'Interactive leadership alignment sessions to ensure immediate systems adoption.', minHours: 5, maxHours: 8, rate: 2500, selected: false },
-            { id: 'trans-1', category: '3. 90-Day Transformation Sprint', deliverable: 'Value Stream Mapping (VSM)', description: 'Hosting continuous value-mapping sprints to expose systemic operational wastes.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
-            { id: 'trans-2', category: '3. 90-Day Transformation Sprint', deliverable: 'Waste & Backlog Elimination', description: 'Conducting tactical sprints targeting excess re-work and bottlenecks in routing loops.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'trans-3', category: '3. 90-Day Transformation Sprint', deliverable: 'Core Metric & KPI Tuning', description: 'Re-engineering custom performance parameters across major team departments.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
-            { id: 'trans-4', category: '3. 90-Day Transformation Sprint', deliverable: 'Process Re-engineering', description: 'Complete hands-on overhaul of slow execution paths, templates, and tech links.', minHours: 40, maxHours: 50, rate: 2500, selected: false },
-            { id: 'trans-5', category: '3. 90-Day Transformation Sprint', deliverable: 'Implementation Coaching', description: 'On-site coaching alongside process champions to manage team change friction.', minHours: 50, maxHours: 60, rate: 2500, selected: false },
-            { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Setting up live, visually automated tracking matrices for leadership visibility.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
-            { id: 'coo-1', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Operations Alignment Meetings', description: 'Facilitating critical weekly alignment loops and management checkpoint audits.', minHours: 6, maxHours: 8, rate: 2500, selected: false },
-            { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating team execution scores and auditing cross-functional performance.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
-            { id: 'coo-3', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Continuous Optimization Sprints', description: 'Iterative audits of workflow efficiency and ongoing manual-step removal.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
-            { id: 'coo-4', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'High-Level C-Suite Advisory', description: 'Direct executive mentorship, strategic scaling plans, and labor advisory.', minHours: 4, maxHours: 6, rate: 2500, selected: false }
+            { id: 'diag-1', category: '1. Operational Diagnostics', deliverable: 'Preparation & Onboarding', description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', minHours: 3, maxHours: 4, rate: 2500, selected: true },
+            { id: 'diag-2', category: '1. Operational Diagnostics', deliverable: 'Stakeholder Discovery', description: 'Bespoke stakeholder discovery loop (structured interviews with 4-6 key leadership roles).', minHours: 4, maxHours: 6, rate: 2500, selected: true },
+            { id: 'diag-3', category: '1. Operational Diagnostics', deliverable: 'On-Site Observation Audit', description: 'Two continuous days of in-person workflow shadowing, step-timing, and bottleneck mapping.', minHours: 16, maxHours: 20, rate: 2500, selected: true },
+            { id: 'diag-4', category: '1. Operational Diagnostics', deliverable: 'Forensic Systemic Audit', description: 'Compliance gap review (DOLE liability exposures) & technology subscription license audit.', minHours: 8, maxHours: 12, rate: 2500, selected: true },
+            { id: 'diag-5', category: '1. Operational Diagnostics', deliverable: 'Risk Matrix Formulation', description: 'Synthesis of raw observation data into a highly prioritized B2B Operational Risk Matrix.', minHours: 5, maxHours: 8, rate: 2500, selected: true },
+            { id: 'diag-6', category: '1. Operational Diagnostics', deliverable: 'Debrief & Roadmap Handover', description: 'Boardroom-ready presentation of audit discoveries, immediate quick wins, and strategic options.', minHours: 4, maxHours: 6, rate: 2500, selected: true },
+            { id: 'sop-1', category: '2. Scale-Ready SOPs & HR', deliverable: 'Role Inventory & Scope Map', description: 'Systematic inventory of current state boundaries, functional responsibilities, and structural loops.', minHours: 10, maxHours: 15, rate: 2500, selected: false },
+            { id: 'sop-2', category: '2. Scale-Ready SOPs & HR', deliverable: 'Swimlane Process Mapping', description: 'Drafting high-fidelity, cross-functional Swimlane flow diagrams (up to 5 key processes).', minHours: 30, maxHours: 40, rate: 2500, selected: false },
+            { id: 'sop-3', category: '2. Scale-Ready SOPs & HR', deliverable: 'HR Templates & Compliance', description: 'Reviewing local contract standards, drafting standard employment templates and onboarding forms.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
+            { id: 'sop-4', category: '2. Scale-Ready SOPs & HR', deliverable: 'Employee Handbook Assembly', description: 'Compiling standard behavioral regulations, leaves, benefits, and standard code of conduct manuals.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'sop-5', category: '2. Scale-Ready SOPs & HR', deliverable: 'Operations Playbook Launch', description: 'Indexing, publishing, and organizing digital documentation ready for internal training deployment.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'sop-6', category: '2. Scale-Ready SOPs & HR', deliverable: 'Handover & Training Workshops', description: 'Interactive leadership alignment workshops to secure swift corporate adoption.', minHours: 5, maxHours: 8, rate: 2500, selected: false },
+            { id: 'trans-1', category: '3. 90-Day Transformation Sprint', deliverable: 'Value Stream Mapping (VSM)', description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
+            { id: 'trans-2', category: '3. 90-Day Transformation Sprint', deliverable: 'Waste & Backlog Elimination', description: 'Conducting target sprints focusing on reducing administrative waste and re-routing slow paths.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'trans-3', category: '3. 90-Day Transformation Sprint', deliverable: 'Core Metric & KPI Tuning', description: 'Re-engineering custom, clean key performance indicators across major organizational divisions.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'trans-4', category: '3. 90-Day Transformation Sprint', deliverable: 'Process Re-engineering', description: 'Complete hands-on overhaul of slow processing steps, documents, routing tools, and integrations.', minHours: 40, maxHours: 50, rate: 2500, selected: false },
+            { id: 'trans-5', category: '3. 90-Day Transformation Sprint', deliverable: 'Implementation Coaching', description: 'Side-by-side coaching alongside process champions to manage team friction during rollouts.', minHours: 50, maxHours: 60, rate: 2500, selected: false },
+            { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Constructing visually automated, live tracking metrics and dashboards for leadership review.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
+            { id: 'coo-1', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Operations Alignment Meetings', description: 'Directing weekly leadership alignment loops, metrics tracking, and project accountability.', minHours: 6, maxHours: 8, rate: 2500, selected: false },
+            { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating monthly departmental execution scores and managing core governance KPIs.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
+            { id: 'coo-3', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Continuous Optimization Sprints', description: 'Auditing ongoing processes to continue manual step reduction and automate workflows.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
+            { id: 'coo-4', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'High-Level C-Suite Advisory', description: 'Direct, on-demand executive consulting, labor compliance advisory, and long-term scaling strategy.', minHours: 4, maxHours: 6, rate: 2500, selected: false }
         ];
 
         function App() {
             const [tasks, setTasks] = useState(INITIAL_TASKS);
             const [globalRate, setGlobalRate] = useState(2500);
             const [copied, setCopied] = useState(false);
-            const [activePreset, setActivePreset] = useState('diagnostics'); // Keeps track of active highlight
+            const [activePreset, setActivePreset] = useState('diagnostics'); 
+            
+            // Internal Cost & Margin Tuning Parameters
+            const [overheadPercentage, setOverheadPercentage] = useState(20); // Contractor / Internal execution overhead cost %
             
             const [newTaskCategory, setNewTaskCategory] = useState('1. Operational Diagnostics');
             const [newTaskDeliv, setNewTaskDeliv] = useState('');
@@ -81,7 +149,7 @@
             const [newTaskMax, setNewTaskMax] = useState(10);
 
             const handleSelectPackage = (packageName) => {
-                setActivePreset(packageName); // Updates active UI class logic
+                setActivePreset(packageName); 
                 setTasks(prev => prev.map(t => {
                     let isSelected = false;
                     if (packageName === 'diagnostics' && t.category.includes('1. Operational Diagnostics')) isSelected = true;
@@ -99,7 +167,7 @@
             };
 
             const toggleTask = (id) => {
-                setActivePreset('custom'); // Shift highlight state if manual changes occur
+                setActivePreset('custom'); 
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
             };
 
@@ -134,14 +202,25 @@
 
             const summary = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
+                const minHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0);
+                const maxHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0);
+                const minCostTotal = selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0);
+                const maxCostTotal = selectedTasks.reduce((acc, curr) => acc + (curr.maxHours * curr.rate), 0);
+                
+                // Margin Calculations
+                const minOverhead = minCostTotal * (overheadPercentage / 100);
+                const maxOverhead = maxCostTotal * (overheadPercentage / 100);
+                
                 return {
                     count: selectedTasks.length,
-                    minHours: selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0),
-                    maxHours: selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0),
-                    minCost: selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0),
-                    maxCost: selectedTasks.reduce((acc, curr) => acc + (curr.maxHours * curr.rate), 0)
+                    minHours: minHoursTotal,
+                    maxHours: maxHoursTotal,
+                    minCost: minCostTotal,
+                    maxCost: maxCostTotal,
+                    minNetProfit: minCostTotal - minOverhead,
+                    maxNetProfit: maxCostTotal - maxOverhead
                 };
-            }, [tasks]);
+            }, [tasks, overheadPercentage]);
 
             const formatCurrency = (val) => {
                 return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(val);
@@ -161,7 +240,7 @@
                         currentCat = t.category;
                         output += `\n**${currentCat.toUpperCase()}**\n`;
                     }
-                    output += `- [x] **${t.deliverable}**: ${t.description} (${t.minHours}-${t.maxHours} hrs @ ${formatCurrency(t.rate)}/hr)\n`;
+                    output += `- [x] **${t.deliverable}**: ${t.description} (${t.minHours}-${t.maxHours} hrs)\n`;
                 });
                 return output;
             }, [tasks, summary]);
@@ -178,229 +257,322 @@
             };
 
             return (
-                <div class="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
-                    {/* Top Header Card */}
-                    <div class="mb-8 bg-gradient-to-r from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 relative overflow-hidden shadow-xl">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                            <div>
-                                <span class="text-xs font-mono font-semibold tracking-wider text-sky-400 uppercase bg-sky-950/60 border border-sky-800/40 px-2.5 py-1 rounded-full">
-                                    Interactive B2B Proposal Modeler
+                <div class="font-sans min-h-screen">
+                    {/* Aligned Internal Executive Header */}
+                    <header class="border-b border-brandNavy-700 bg-brandNavy-900/90 backdrop-blur-md sticky top-0 z-50">
+                        <div class="max-w-[1600px] mx-auto px-6 sm:px-8 h-24 flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                {/* Fully matched website logo gear/trend vector icon */}
+                                <IconWebsiteLogo />
+                                <div>
+                                    <span class="font-sans font-extrabold tracking-wider text-xl uppercase block text-slate-100">
+                                        KOLTHOFF <span class="text-brandBlue-400">CONSULTING</span>
+                                    </span>
+                                    <span class="text-[10px] text-brandBlue-400 font-mono tracking-[0.25em] uppercase block -mt-1 font-bold">Internal Partner Operations Portal</span>
+                                </div>
+                            </div>
+                            
+                            {/* Internal Navigation links */}
+                            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide">
+                                <a href="https://kolthoff-consulting.com/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-brandBlue-400 transition-colors">Go to Public Site</a>
+                                <span class="text-brandNavy-600 select-none">|</span>
+                                <span class="text-brandBlue-400 font-semibold flex items-center gap-1.5 bg-brandBlue-500/10 px-3.5 py-1.5 rounded border border-brandBlue-500/20 text-xs tracking-wider uppercase font-mono">
+                                    <span class="w-1.5 h-1.5 bg-brandBlue-400 rounded-full animate-pulse"></span>
+                                    Confidential Scope Planner
                                 </span>
-                                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-100 tracking-tight mt-3">Proposal Estimate Architect</h1>
-                                <p class="text-sm text-slate-400 mt-1 max-w-2xl">
-                                    Check tasks, adjust hours, and scale rates to align with a client's budget. Overcome price friction by creating visual, itemized scope variations on the fly.
-                                </p>
+                            </nav>
+
+                            <div class="flex items-center gap-4">
+                                <span class="px-3.5 py-1.5 bg-brandNavy-950 border border-red-500/30 text-rose-400 font-mono text-[10px] font-bold tracking-widest uppercase rounded">
+                                    Internal Use Only
+                                </span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <div class="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
+                        
+                        {/* Internal Executive Workstation Banner */}
+                        <div class="mb-10 text-center py-6 relative">
+                            <span class="text-xs font-mono font-bold tracking-[0.3em] text-brandBlue-400 uppercase bg-brandBlue-950/40 border border-brandBlue-900/30 px-3.5 py-1.5 rounded-md inline-block mb-3">
+                                CONFIDENTIAL WORKING DOCUMENT
+                            </span>
+                            <h2 class="text-2xl sm:text-4xl font-sans font-black tracking-tight text-slate-100 max-w-4xl mx-auto leading-tight">
+                                Proposal Scope & Margin Calibration Engine
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-3 max-w-2xl mx-auto leading-relaxed">
+                                Use this sandbox to toggle specific contract deliverables, adjust baseline execution hours, scale consultant rates, and audit target project profitability parameters.
+                            </p>
+                        </div>
+
+                        {/* Top Global Parameter Controller */}
+                        <div class="mb-8 bg-brandNavy-800/60 border border-brandNavy-700/80 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2.5 rounded-lg bg-brandBlue-500/10 text-brandBlue-400 border border-brandBlue-500/20">
+                                    <IconCalculator className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-bold font-mono tracking-wider text-slate-400 uppercase">Consultant Billing Base</h3>
+                                    <p class="text-xs text-slate-500 mt-0.5">Toggle rate basis between associate-led, senior-led, and principal executive frameworks.</p>
+                                </div>
                             </div>
                             
-                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 text-center md:text-right shrink-0">
-                                <span class="text-xs text-slate-400 block font-semibold mb-2">Global Hourly Rate Framework (PHP):</span>
-                                <div class="flex gap-2 justify-center">
-                                    {[1500, 2500, 3500].map((rate) => (
-                                        <button key={rate} onClick={() => applyGlobalRate(rate)} class={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${globalRate === rate ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'text-slate-400 border-slate-800 hover:border-slate-700'}`}>
-                                            ₱{rate.toLocaleString()}/hr
+                            <div class="flex gap-2">
+                                {[1500, 2500, 3500].map((rate) => (
+                                    <button 
+                                        key={rate} 
+                                        onClick={() => applyGlobalRate(rate)} 
+                                        class={`px-5 py-2.5 text-xs font-bold rounded border transition-all ${globalRate === rate ? 'bg-gradient-to-r from-brandBlue-600 to-brandBlue-500 text-slate-950 border-brandBlue-400 shadow-md shadow-brandBlue-950/20 font-extrabold' : 'bg-brandNavy-950 text-slate-400 border-brandNavy-700 hover:border-brandNavy-700 hover:text-slate-200'}`}
+                                    >
+                                        ₱{rate.toLocaleString()} / hr
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* App Grid */}
+                        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                            
+                            {/* Table Container (9 Columns width on XL) */}
+                            <div class="xl:col-span-9 bg-brandNavy-900/30 border border-brandNavy-700/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm">
+                                
+                                {/* Preset Controls Bar */}
+                                <div class="p-5 bg-brandNavy-950/80 border-b border-brandNavy-700/80 flex flex-wrap gap-3 items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-brandBlue-500 animate-pulse"></span>
+                                        <span class="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button 
+                                            onClick={() => handleSelectPackage('diagnostics')} 
+                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'diagnostics' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                        >
+                                            Diagnostics Audit
                                         </button>
-                                    ))}
+                                        <button 
+                                            onClick={() => handleSelectPackage('sop')} 
+                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'sop' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                        >
+                                            SOP Foundations
+                                        </button>
+                                        <button 
+                                            onClick={() => handleSelectPackage('transformation')} 
+                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'transformation' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                        >
+                                            90-Day Sprint
+                                        </button>
+                                        <button 
+                                            onClick={() => handleSelectPackage('coo')} 
+                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'coo' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                        >
+                                            Fractional COO
+                                        </button>
+                                        <span class="text-slate-800 py-1 font-light self-center">|</span>
+                                        <button 
+                                            onClick={() => handleSelectPackage('all')} 
+                                            class={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'all' ? 'bg-slate-100 text-slate-950 font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                        >
+                                            Select All
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* App Grid */}
-                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-                        {/* Table Framework */}
-                        <div class="xl:col-span-9 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-                            
-                            {/* PRESET HIGHLIGHT SECTION */}
-                            <div class="p-4 bg-slate-950/60 border-b border-slate-800 flex flex-wrap gap-2 items-center justify-between">
-                                <span class="text-xs font-mono tracking-wider text-slate-400 uppercase">Load Scope Presets:</span>
-                                <div class="flex flex-wrap gap-1.5">
-                                    <button 
-                                        onClick={() => handleSelectPackage('diagnostics')} 
-                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'diagnostics' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
-                                    >
-                                        1. Diagnostics Only
-                                    </button>
-                                    <button 
-                                        onClick={() => handleSelectPackage('sop')} 
-                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'sop' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
-                                    >
-                                        2. SOPs Setup
-                                    </button>
-                                    <button 
-                                        onClick={() => handleSelectPackage('transformation')} 
-                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'transformation' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
-                                    >
-                                        3. Transformation
-                                    </button>
-                                    <button 
-                                        onClick={() => handleSelectPackage('coo')} 
-                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'coo' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
-                                    >
-                                        4. COO Retainer
-                                    </button>
-                                    <button 
-                                        onClick={() => handleSelectPackage('all')} 
-                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'all' ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md font-extrabold' : 'bg-slate-900 text-emerald-400 border-slate-800 hover:bg-slate-850'}`}
-                                    >
-                                        Select All
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left border-collapse min-w-[1000px] table-fixed">
-                                    <thead>
-                                        <tr class="bg-slate-950 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-slate-850">
-                                            <th class="py-4 px-4 text-center w-[5%]">Incl?</th>
-                                            <th class="py-4 px-4 w-[15%]">Work Area</th>
-                                            <th class="py-4 px-4 w-[38%]">Task Deliverable</th>
-                                            <th class="py-4 px-4 text-center w-[14%]">Hours (Min - Max)</th>
-                                            <th class="py-4 px-4 text-center w-[11%]">Rate (PHP)</th>
-                                            <th class="py-4 px-4 text-right w-[14%] font-bold text-sky-400">Total Range</th>
-                                            <th class="py-4 px-4 text-center w-[3%]"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-slate-850/60">
-                                        {tasks.map((task) => (
-                                            <tr key={task.id} class={`transition-colors duration-150 ${task.selected ? 'bg-slate-900/90' : 'bg-slate-900/25 opacity-40 hover:opacity-75'}`}>
-                                                <td class="py-3 px-4 text-center">
-                                                    <button onClick={() => toggleTask(task.id)} class="p-1 rounded text-slate-400 hover:text-sky-400 inline-flex">
-                                                        {task.selected ? <IconCheckSquare /> : <IconSquare />}
-                                                    </button>
-                                                </td>
-                                                <td class="py-3 px-4">
-                                                    <span class="text-[10px] font-mono bg-slate-950 px-2.5 py-1 rounded-md text-slate-300 font-semibold border border-slate-800 block text-center truncate">
-                                                        {task.category.replace(/^\d+\.\s/, '')}
-                                                    </span>
-                                                </td>
-                                                <td class="py-3 px-4">
-                                                    <h4 class="font-bold text-sm text-slate-100">{task.deliverable}</h4>
-                                                    <p class="text-[11px] text-slate-400 mt-0.5 leading-normal line-clamp-2">{task.description}</p>
-                                                </td>
-                                                <td class="py-3 px-4">
-                                                    <div class="flex items-center justify-center gap-1.5">
-                                                        <input 
-                                                            type="number" 
-                                                            min="0" 
-                                                            value={task.minHours} 
-                                                            onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} 
-                                                            class="w-12 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200" 
-                                                            disabled={!task.selected} 
-                                                        />
-                                                        <span class="text-slate-600 font-bold">-</span>
-                                                        <input 
-                                                            type="number" 
-                                                            min="0" 
-                                                            value={task.maxHours} 
-                                                            onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} 
-                                                            class="w-12 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200" 
-                                                            disabled={!task.selected} 
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td class="py-3 px-4">
-                                                    <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-20 mx-auto bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200 block" disabled={!task.selected} />
-                                                </td>
-                                                <td class="py-3 px-4 text-right">
-                                                    <span class="text-xs font-mono font-bold text-slate-200 whitespace-nowrap">
-                                                        {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
-                                                    </span>
-                                                </td>
-                                                <td class="py-3 px-4 text-center">
-                                                    <button onClick={() => removeTask(task.id)} class="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"><IconTrash /></button>
-                                                </td>
+                                {/* Main Task Grid Table */}
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left border-collapse min-w-[1000px] table-fixed">
+                                        <thead>
+                                            <tr class="bg-brandNavy-950/80 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-brandNavy-700">
+                                                <th class="py-4 px-5 text-center w-[5%]">Active</th>
+                                                <th class="py-4 px-4 w-[16%]">Category</th>
+                                                <th class="py-4 px-4 w-[38%]">Deliverable Specifications</th>
+                                                <th class="py-4 px-4 text-center w-[14%]">Hours (Min - Max)</th>
+                                                <th class="py-4 px-4 text-center w-[11%]">Rate Basis</th>
+                                                <th class="py-4 px-5 text-right w-[14%] font-bold text-brandBlue-400">Est. Price Range</th>
+                                                <th class="py-4 px-4 text-center w-[3%]"></th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody class="divide-y divide-brandNavy-700/40">
+                                            {tasks.map((task) => (
+                                                <tr key={task.id} class={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
+                                                    <td class="py-4 px-5 text-center">
+                                                        <button onClick={() => toggleTask(task.id)} class="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
+                                                            {task.selected ? <IconCheckSquare /> : <IconSquare />}
+                                                        </button>
+                                                    </td>
+                                                    <td class="py-4 px-4">
+                                                        <span class="text-[10px] font-mono bg-brandNavy-950 px-2.5 py-1 rounded border border-brandNavy-700/80 text-brandBlue-400 font-bold tracking-wide block text-center truncate">
+                                                            {task.category.replace(/^\d+\.\s/, '')}
+                                                        </span>
+                                                    </td>
+                                                    <td class="py-4 px-4">
+                                                        <h4 class="font-bold text-sm text-slate-200">{task.deliverable}</h4>
+                                                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed line-clamp-2">{task.description}</p>
+                                                    </td>
+                                                    <td class="py-4 px-4">
+                                                        <div class="flex items-center justify-center gap-1.5">
+                                                            <input 
+                                                                type="number" 
+                                                                min="0" 
+                                                                value={task.minHours} 
+                                                                onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} 
+                                                                class="w-12 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" 
+                                                                disabled={!task.selected} 
+                                                            />
+                                                            <span class="text-slate-600 font-bold">-</span>
+                                                            <input 
+                                                                type="number" 
+                                                                min="0" 
+                                                                value={task.maxHours} 
+                                                                onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} 
+                                                                class="w-12 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" 
+                                                                disabled={!task.selected} 
+                                                            />
+                                                        </div>
+                                                    </td>
+                                                    <td class="py-4 px-4">
+                                                        <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-20 mx-auto bg-brandNavy-950 border border-brandNavy-700 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200 block focus:border-brandBlue-500 focus:outline-none" disabled={!task.selected} />
+                                                    </td>
+                                                    <td class="py-4 px-5 text-right">
+                                                        <span class="text-xs font-mono font-bold text-slate-100 whitespace-nowrap">
+                                                            {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
+                                                        </span>
+                                                    </td>
+                                                    <td class="py-4 px-4 text-center">
+                                                        <button onClick={() => removeTask(task.id)} class="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"><IconTrash /></button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {/* Custom Scoped Task Row Form */}
+                                <form onSubmit={addNewTask} class="p-5 bg-brandNavy-950/80 border-t border-brandNavy-700 grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                                    <div class="md:col-span-3">
+                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Target Category</label>
+                                        <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500">
+                                            <option value="1. Operational Diagnostics">1. Diagnostics</option>
+                                            <option value="2. Scale-Ready SOPs & HR">2. SOPs & HR</option>
+                                            <option value="3. 90-Day Transformation Sprint">3. 90-Day Sprint</option>
+                                            <option value="4. Fractional COO (Monthly Engagement)">4. Monthly COO</option>
+                                        </select>
+                                    </div>
+                                    <div class="md:col-span-3">
+                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">New Task / Deliverable</label>
+                                        <input type="text" placeholder="e.g., Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" />
+                                    </div>
+                                    <div class="md:col-span-4">
+                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Operational SOW Description</label>
+                                        <input type="text" placeholder="Scope constraints & outcomes..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} class="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" />
+                                    </div>
+                                    <div class="md:col-span-1">
+                                        <label class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1">Min/Max</label>
+                                        <div class="flex gap-1">
+                                            <input type="number" value={newTaskMin} onChange={(e) => setNewTaskMin(e.target.value)} class="w-12 bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500" />
+                                            <input type="number" value={newTaskMax} onChange={(e) => setNewTaskMax(e.target.value)} class="w-12 bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500" />
+                                        </div>
+                                    </div>
+                                    <div class="md:col-span-1">
+                                        <button type="submit" class="w-full bg-slate-100 hover:bg-brandBlue-500 hover:text-slate-950 text-slate-950 font-bold py-2 rounded text-xs transition-all flex items-center justify-center shrink-0"><IconPlus /> Add</button>
+                                    </div>
+                                </form>
                             </div>
 
-                            {/* Add Item Row Form */}
-                            <form onSubmit={addNewTask} class="p-4 bg-slate-950/40 border-t border-slate-800 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                                <div class="md:col-span-3">
-                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Target Category</label>
-                                    <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} class="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-slate-300">
-                                        <option value="1. Operational Diagnostics">1. Diagnostics</option>
-                                        <option value="2. Scale-Ready SOPs & HR">2. SOPs & HR</option>
-                                        <option value="3. 90-Day Transformation Sprint">3. 90-Day Sprint</option>
-                                        <option value="4. Fractional COO (Monthly Engagement)">4. Monthly COO</option>
-                                    </select>
-                                </div>
-                                <div class="md:col-span-3">
-                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Custom Task Name</label>
-                                    <input type="text" placeholder="e.g., Extended ERP Audits" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} class="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600" />
-                                </div>
-                                <div class="md:col-span-4">
-                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Brief Description</label>
-                                    <input type="text" placeholder="Specific scope notes..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} class="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600" />
-                                </div>
-                                <div class="md:col-span-1">
-                                    <label class="text-[10px] font-mono text-slate-500 uppercase block mb-1">Min/Max</label>
-                                    <div class="flex gap-1">
-                                        <input type="number" value={newTaskMin} onChange={(e) => setNewTaskMin(e.target.value)} class="w-12 bg-slate-900 border border-slate-800 rounded-lg py-1.5 text-center text-xs text-slate-200" />
-                                        <input type="number" value={newTaskMax} onChange={(e) => setNewTaskMax(e.target.value)} class="w-12 bg-slate-900 border border-slate-800 rounded-lg py-1.5 text-center text-xs text-slate-200" />
-                                    </div>
-                                </div>
-                                <div class="md:col-span-1">
-                                    <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-1.5 px-2 rounded-lg text-xs transition-colors flex items-center justify-center shrink-0"><IconPlus /> Add</button>
-                                </div>
-                            </form>
-                        </div>
+                            {/* Summary & Markdown Exporter (3 Columns width on XL) */}
+                            <div class="xl:col-span-3 space-y-6">
+                                
+                                {/* Calculations Panel */}
+                                <div class="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+                                    <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue-500/5 blur-2xl rounded-full" />
+                                    
+                                    <h3 class="text-xs font-bold tracking-wider text-brandBlue-400 uppercase font-mono mb-4 flex items-center gap-2">
+                                        <IconCalculator className="text-brandBlue-400" /> Internal Calibration
+                                    </h3>
 
-                        {/* Summary Widget Side Panel */}
-                        <div class="xl:col-span-3 space-y-6">
-                            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-                                <h3 class="text-sm font-bold tracking-wider text-slate-300 uppercase font-mono mb-4 flex items-center gap-2">
-                                    <IconCalculator className="text-sky-400" /> Proposal Calculations
-                                </h3>
-
-                                <div class="space-y-4 pb-6 border-b border-slate-800 text-xs">
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-slate-500">Included Line Tasks:</span>
-                                        <span class="text-slate-200 font-bold font-mono">{summary.count} / {tasks.length} items</span>
+                                    <div class="space-y-4 pb-6 border-b border-brandNavy-700 text-xs">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-slate-400">Total Tasks Selected:</span>
+                                            <span class="text-slate-100 font-bold font-mono bg-brandNavy-950 px-2 py-0.5 rounded">{summary.count} / {tasks.length}</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-slate-400">Cumulative Effort:</span>
+                                            <span class="text-slate-100 font-bold font-mono flex items-center gap-1">
+                                                <IconClock className="text-brandBlue-400" /> {summary.minHours} - {summary.maxHours} hrs
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-slate-400">Baseline Rate Basis:</span>
+                                            <span class="text-slate-100 font-bold font-mono">₱{globalRate.toLocaleString()}/hr</span>
+                                        </div>
                                     </div>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-slate-500">Estimated Effort:</span>
-                                        <span class="text-slate-200 font-bold font-mono flex items-center gap-1">
-                                            <IconClock className="text-sky-400" /> {summary.minHours} - {summary.maxHours} hours
+
+                                    {/* Financial Valuations */}
+                                    <div class="py-6 border-b border-brandNavy-700">
+                                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Target Client Price Range</span>
+                                        <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent mt-1.5 block leading-none">
+                                            {formatCurrency(summary.minCost)}
+                                        </span>
+                                        <span class="text-xs text-slate-500 font-mono block my-1">to</span>
+                                        <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent block leading-none">
+                                            {formatCurrency(summary.maxCost)}
                                         </span>
                                     </div>
+
+                                    {/* INTERNAL PROFITABILITY METRIC SECTION */}
+                                    <div class="py-5">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-[10px] font-mono tracking-widest text-rose-400 uppercase block">Est. Cost of Delivery ({overheadPercentage}%)</span>
+                                            <span class="text-xs font-mono font-bold text-slate-300">{formatCurrency(summary.minCost * (overheadPercentage/100))}</span>
+                                        </div>
+                                        
+                                        <input 
+                                            type="range" 
+                                            min="10" 
+                                            max="70" 
+                                            step="5"
+                                            value={overheadPercentage} 
+                                            onChange={(e) => setOverheadPercentage(parseInt(e.target.value))}
+                                            class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer mb-4"
+                                        />
+                                        
+                                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Confidential Net Margin (Gross)</span>
+                                        <span class="text-xl font-bold text-emerald-400 mt-1 block">
+                                            {formatCurrency(summary.minNetProfit)} – {formatCurrency(summary.maxNetProfit)}
+                                        </span>
+                                        <span class="text-[9px] text-slate-500 block mt-1">Recovers consultant salaries and execution overhead.</span>
+                                    </div>
+
+                                    <div class="p-4 bg-brandNavy-950/60 rounded border border-brandNavy-700/80 flex gap-2">
+                                        <IconInfo />
+                                        <div>
+                                            <span class="text-[10px] font-bold text-brandBlue-400 uppercase block">Internal Pricing Guardrail</span>
+                                            <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
+                                                Confirm target margin checks before exporting scope boundaries. Maintain a minimum 30% margin buffer on external outsourcing lines.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Statement of Work Markdown Exporter */}
+                                <div class="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl space-y-4 backdrop-blur-sm">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-slate-500">Hourly Rate Basis:</span>
-                                        <span class="text-slate-200 font-bold font-mono">₱{globalRate.toLocaleString()}/hr</span>
+                                        <h3 class="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">
+                                            SOW Document Generator
+                                        </h3>
+                                        <button 
+                                            onClick={copyToClipboard} 
+                                            class="px-3 py-1.5 bg-brandNavy-950 hover:bg-brandNavy-800 rounded text-xs font-bold flex items-center transition-all text-brandBlue-400 border border-brandBlue-900/40"
+                                        >
+                                            {copied ? <IconCheckCircle /> : <IconCopy />}
+                                            {copied ? 'Copied!' : 'Copy SOW'}
+                                        </button>
                                     </div>
-                                </div>
-
-                                <div class="py-6">
-                                    <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block">Calculated Package Valuation</span>
-                                    <span class="text-2xl sm:text-3xl font-black text-sky-400 mt-1 block leading-tight">
-                                        {formatCurrency(summary.minCost)} <span class="text-xs text-slate-500 font-normal block my-1">to</span> {formatCurrency(summary.maxCost)}
-                                    </span>
-                                    <span class="text-[10px] text-slate-400 block mt-1">Excludes local structural VAT taxes.</span>
-                                </div>
-
-                                <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-850 flex gap-2">
-                                    <IconInfo />
-                                    <div>
-                                        <span class="text-[10px] font-bold text-amber-500 uppercase block">Flat-Pricing Strategy</span>
-                                        <p class="text-[10px] text-slate-400 mt-1 leading-normal">
-                                            Present this total variance range as a predictable flat-rate contract to prevent systemic buyer friction over ticking hour frameworks.
-                                        </p>
+                                    <div class="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
+                                        {proposalSummaryText}
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* Markdown Exporter */}
-                            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <h3 class="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">SOW Proposal Markdown</h3>
-                                    <button onClick={copyToClipboard} class="px-3 py-1.5 bg-slate-950 hover:bg-slate-850 rounded-lg text-xs font-semibold flex items-center transition-all text-sky-400 border border-sky-950">
-                                        {copied ? <IconCheckCircle /> : <IconCopy />}
-                                        {copied ? 'Copied!' : 'Copy SOW Text'}
-                                    </button>
-                                </div>
-                                <div class="bg-slate-950 rounded-xl p-4 border border-slate-850 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
-                                    {proposalSummaryText}
+                                    <p class="text-[10px] text-slate-500 leading-relaxed text-center">
+                                        Click Copy to grab the SOW structure to drop directly into standard Google Docs or proposal decks.
+                                    </p>
                                 </div>
                             </div>
                         </div>
