@@ -54,7 +54,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
-        /* Custom scrollbar adjustments matching new luxury blue palette */
+        /* Custom scrollbar adjustments matching brand navy palette */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #020613; }
         ::-webkit-scrollbar-thumb { background: #0F1A2C; border-radius: 4px; }
@@ -110,15 +110,15 @@
 
         const INITIAL_TASKS = [
             { id: 'diag-1', category: '1. Operational Diagnostics', deliverable: 'Preparation & Onboarding', description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', minHours: 3, maxHours: 4, rate: 2500, selected: true },
-            { id: 'diag-2', category: '1. Operational Diagnostics', deliverable: 'Stakeholder Discovery', description: 'Bespoke stakeholder discovery loop (structured interviews with 4-6 key leadership roles).', minHours: 4, maxHours: 6, rate: 2500, selected: true },
+            { id: 'diag-2', category: '1. Operational Diagnostics', deliverable: 'Stakeholder Discovery', description: 'Friction-Adjusted discovery loop (structured interviews with 4-6 key leadership roles, accounts, and desk operators).', minHours: 8, maxHours: 12, rate: 2500, selected: true },
             { id: 'diag-3', category: '1. Operational Diagnostics', deliverable: 'On-Site Observation Audit', description: 'Two continuous days of in-person workflow shadowing, step-timing, and bottleneck mapping.', minHours: 16, maxHours: 20, rate: 2500, selected: true },
             { id: 'diag-4', category: '1. Operational Diagnostics', deliverable: 'Forensic Systemic Audit', description: 'Compliance gap review (DOLE liability exposures) & technology subscription license audit.', minHours: 8, maxHours: 12, rate: 2500, selected: true },
             { id: 'diag-5', category: '1. Operational Diagnostics', deliverable: 'Risk Matrix Formulation', description: 'Synthesis of raw observation data into a highly prioritized B2B Operational Risk Matrix.', minHours: 5, maxHours: 8, rate: 2500, selected: true },
             { id: 'diag-6', category: '1. Operational Diagnostics', deliverable: 'Debrief & Roadmap Handover', description: 'Boardroom-ready presentation of audit discoveries, immediate quick wins, and strategic options.', minHours: 4, maxHours: 6, rate: 2500, selected: true },
             { id: 'sop-1', category: '2. Scale-Ready SOPs & HR', deliverable: 'Role Inventory & Scope Map', description: 'Systematic inventory of current state boundaries, functional responsibilities, and structural loops.', minHours: 10, maxHours: 15, rate: 2500, selected: false },
-            { id: 'sop-2', category: '2. Scale-Ready SOPs & HR', deliverable: 'Swimlane Process Mapping', description: 'Drafting high-fidelity, cross-functional Swimlane flow diagrams (up to 5 key processes).', minHours: 30, maxHours: 40, rate: 2500, selected: false },
+            { id: 'sop-2', category: '2. Scale-Ready SOPs & HR', deliverable: 'Swimlane Process Mapping', description: 'Friction-Adjusted mapping of high-fidelity, cross-functional swimlane diagrams (up to 5 core business workflows).', minHours: 45, maxHours: 55, rate: 2500, selected: false },
             { id: 'sop-3', category: '2. Scale-Ready SOPs & HR', deliverable: 'HR Templates & Compliance', description: 'Reviewing local contract standards, drafting standard employment templates and onboarding forms.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
-            { id: 'sop-4', category: '2. Scale-Ready SOPs & HR', deliverable: 'Employee Handbook Assembly', description: 'Compiling standard behavioral regulations, leaves, benefits, and standard code of conduct manuals.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
+            { id: 'sop-4', category: '2. Scale-Ready SOPs & HR', deliverable: 'Employee Handbook Assembly', description: 'Friction-Adjusted compilation of compliant behavioral rules, leaves, local benefits, and code of conduct manuals.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
             { id: 'sop-5', category: '2. Scale-Ready SOPs & HR', deliverable: 'Operations Playbook Launch', description: 'Indexing, publishing, and organizing digital documentation ready for internal training deployment.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
             { id: 'sop-6', category: '2. Scale-Ready SOPs & HR', deliverable: 'Handover & Training Workshops', description: 'Interactive leadership alignment workshops to secure swift corporate adoption.', minHours: 5, maxHours: 8, rate: 2500, selected: false },
             { id: 'trans-1', category: '3. 90-Day Transformation Sprint', deliverable: 'Value Stream Mapping (VSM)', description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', minHours: 20, maxHours: 30, rate: 2500, selected: false },
@@ -126,7 +126,7 @@
             { id: 'trans-3', category: '3. 90-Day Transformation Sprint', deliverable: 'Core Metric & KPI Tuning', description: 'Re-engineering custom, clean key performance indicators across major organizational divisions.', minHours: 15, maxHours: 20, rate: 2500, selected: false },
             { id: 'trans-4', category: '3. 90-Day Transformation Sprint', deliverable: 'Process Re-engineering', description: 'Complete hands-on overhaul of slow processing steps, documents, routing tools, and integrations.', minHours: 40, maxHours: 50, rate: 2500, selected: false },
             { id: 'trans-5', category: '3. 90-Day Transformation Sprint', deliverable: 'Implementation Coaching', description: 'Side-by-side coaching alongside process champions to manage team friction during rollouts.', minHours: 50, maxHours: 60, rate: 2500, selected: false },
-            { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Constructing visually automated, live tracking metrics and dashboards for leadership review.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
+            { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Friction-Adjusted setup of Visually automated, live tracking metrics and dashboards for leadership review.', minHours: 25, maxHours: 35, rate: 2500, selected: false },
             { id: 'coo-1', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Operations Alignment Meetings', description: 'Directing weekly leadership alignment loops, metrics tracking, and project accountability.', minHours: 6, maxHours: 8, rate: 2500, selected: false },
             { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating monthly departmental execution scores and managing core governance KPIs.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
             { id: 'coo-3', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Continuous Optimization Sprints', description: 'Auditing ongoing processes to continue manual step reduction and automate workflows.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
@@ -139,8 +139,9 @@
             const [copied, setCopied] = useState(false);
             const [activePreset, setActivePreset] = useState('diagnostics'); 
             
-            // Internal Cost & Margin Tuning Parameters
-            const [overheadPercentage, setOverheadPercentage] = useState(20); // Contractor / Internal execution overhead cost %
+            // Strategic Adjustments State Variables (From PH Audit File)
+            const [frictionBuffer, setFrictionBuffer] = useState(15); // Friction and Hirit Buffer slider (+0% to +30%)
+            const [delegatePercent, setDelegatePercent] = useState(60); // % of hours delegated to Associates (Cost: ₱350/hr) vs Principal (₱1,500/hr)
             
             const [newTaskCategory, setNewTaskCategory] = useState('1. Operational Diagnostics');
             const [newTaskDeliv, setNewTaskDeliv] = useState('');
@@ -200,27 +201,53 @@
                 setTasks(prev => prev.filter(t => t.id !== id));
             };
 
+            // Enhanced Summary Calculation Block factoring in PH Friction & Resource Delegation Mix
             const summary = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
-                const minHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0);
-                const maxHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0);
-                const minCostTotal = selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0);
-                const maxCostTotal = selectedTasks.reduce((acc, curr) => acc + (curr.maxHours * curr.rate), 0);
                 
-                // Margin Calculations
-                const minOverhead = minCostTotal * (overheadPercentage / 100);
-                const maxOverhead = maxCostTotal * (overheadPercentage / 100);
+                const rawMinHours = selectedTasks.reduce((acc, curr) => acc + curr.minHours, 0);
+                const rawMaxHours = selectedTasks.reduce((acc, curr) => acc + curr.maxHours, 0);
+                
+                // 1. Friction & Hirit Buffer Multiplier
+                const bufferMultiplier = 1 + (frictionBuffer / 100);
+                const minHours = Math.round(rawMinHours * bufferMultiplier);
+                const maxHours = Math.round(rawMaxHours * bufferMultiplier);
+                
+                // Dynamic client-facing project values with buffer integration
+                const minCost = Math.round(selectedTasks.reduce((acc, curr) => acc + (curr.minHours * curr.rate), 0) * bufferMultiplier);
+                const maxCost = Math.round(selectedTasks.reduce((acc, curr) => acc + (curr.maxHours * curr.rate), 0) * bufferMultiplier);
+                
+                // 2. Junior-Senior Delivery Leverage Calculations
+                const assocRate = 350;      // Junior Associate Cost/Hr
+                const principalRate = 1500;  // Your partner execution value/Hr
+                
+                const assocRatio = delegatePercent / 100;
+                const principalRatio = 1 - assocRatio;
+                
+                // Estimated real cost to execute (deliver) based on hourly split
+                const minInternalCost = Math.round((minHours * assocRatio * assocRate) + (minHours * principalRatio * principalRate));
+                const maxInternalCost = Math.round((maxHours * assocRatio * assocRate) + (maxHours * principalRatio * principalRate));
+                
+                // Profit margin parameters
+                const minNetProfit = minCost - minInternalCost;
+                const maxNetProfit = maxCost - maxInternalCost;
+                const profitMarginPercent = minCost > 0 ? Math.round((minNetProfit / minCost) * 100) : 0;
                 
                 return {
                     count: selectedTasks.length,
-                    minHours: minHoursTotal,
-                    maxHours: maxHoursTotal,
-                    minCost: minCostTotal,
-                    maxCost: maxCostTotal,
-                    minNetProfit: minCostTotal - minOverhead,
-                    maxNetProfit: maxCostTotal - maxOverhead
+                    rawMinHours,
+                    rawMaxHours,
+                    minHours,
+                    maxHours,
+                    minCost,
+                    maxCost,
+                    minInternalCost,
+                    maxInternalCost,
+                    minNetProfit,
+                    maxNetProfit,
+                    profitMarginPercent
                 };
-            }, [tasks, overheadPercentage]);
+            }, [tasks, frictionBuffer, delegatePercent]);
 
             const formatCurrency = (val) => {
                 return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(val);
@@ -230,7 +257,8 @@
                 const activeOnes = tasks.filter(t => t.selected);
                 let output = `### PROPOSAL ESTIMATE SUMMARY - KOLTHOFF CONSULTING\n`;
                 output += `* **Total Selected Tasks**: ${summary.count}\n`;
-                output += `* **Estimated Hours Scope**: ${summary.minHours} - ${summary.maxHours} Target Hours\n`;
+                output += `* **Scoping Hours (Buffered)**: ${summary.minHours} - ${summary.maxHours} Target Hours\n`;
+                output += `* **Friction & Hirit Safety Buffer**: +${frictionBuffer}%\n`;
                 output += `* **Total Estimated Investment**: ${formatCurrency(summary.minCost)} to ${formatCurrency(summary.maxCost)} (PHP Ex-Tax)\n\n`;
                 output += `#### SCOPE OF INCLUDED WORK ITEMS:\n`;
                 
@@ -240,10 +268,10 @@
                         currentCat = t.category;
                         output += `\n**${currentCat.toUpperCase()}**\n`;
                     }
-                    output += `- [x] **${t.deliverable}**: ${t.description} (${t.minHours}-${t.maxHours} hrs)\n`;
+                    output += `- [x] **${t.deliverable}**: ${t.description} (Approx. ${Math.round(t.minHours * (1 + frictionBuffer/100))}-${Math.round(t.maxHours * (1 + frictionBuffer/100))} hrs)\n`;
                 });
                 return output;
-            }, [tasks, summary]);
+            }, [tasks, summary, frictionBuffer]);
 
             const copyToClipboard = () => {
                 const el = document.createElement('textarea');
@@ -262,7 +290,6 @@
                     <header class="border-b border-brandNavy-700 bg-brandNavy-900/90 backdrop-blur-md sticky top-0 z-50">
                         <div class="max-w-[1600px] mx-auto px-6 sm:px-8 h-24 flex items-center justify-between">
                             <div class="flex items-center gap-4">
-                                {/* Fully matched website logo gear/trend vector icon */}
                                 <IconWebsiteLogo />
                                 <div>
                                     <span class="font-sans font-extrabold tracking-wider text-xl uppercase block text-slate-100">
@@ -301,7 +328,7 @@
                                 Proposal Scope & Margin Calibration Engine
                             </h2>
                             <p class="text-xs sm:text-sm text-slate-400 mt-3 max-w-2xl mx-auto leading-relaxed">
-                                Use this sandbox to toggle specific contract deliverables, adjust baseline execution hours, scale consultant rates, and audit target project profitability parameters.
+                                Sandbox tool integrating the PH Friction & scope creep audit. Toggle deliverables, calibrate hirit buffers, and model staff delegation metrics.
                             </p>
                         </div>
 
@@ -387,7 +414,7 @@
                                                 <th class="py-4 px-4 w-[38%]">Deliverable Specifications</th>
                                                 <th class="py-4 px-4 text-center w-[14%]">Hours (Min - Max)</th>
                                                 <th class="py-4 px-4 text-center w-[11%]">Rate Basis</th>
-                                                <th class="py-4 px-5 text-right w-[14%] font-bold text-brandBlue-400">Est. Price Range</th>
+                                                <th class="py-4 px-5 text-right w-[14%] font-bold text-brandBlue-400">Base Price (Unbuffered)</th>
                                                 <th class="py-4 px-4 text-center w-[3%]"></th>
                                             </tr>
                                         </thead>
@@ -486,7 +513,7 @@
                                     <div class="absolute top-0 right-0 w-24 h-24 bg-brandBlue-500/5 blur-2xl rounded-full" />
                                     
                                     <h3 class="text-xs font-bold tracking-wider text-brandBlue-400 uppercase font-mono mb-4 flex items-center gap-2">
-                                        <IconCalculator className="text-brandBlue-400" /> Internal Calibration
+                                        <IconCalculator className="text-brandBlue-400" /> Internal Scoping Audit
                                     </h3>
 
                                     <div class="space-y-4 pb-6 border-b border-brandNavy-700 text-xs">
@@ -497,8 +524,12 @@
                                         <div class="flex justify-between items-center">
                                             <span class="text-slate-400">Cumulative Effort:</span>
                                             <span class="text-slate-100 font-bold font-mono flex items-center gap-1">
-                                                <IconClock className="text-brandBlue-400" /> {summary.minHours} - {summary.maxHours} hrs
+                                                <IconClock className="text-brandBlue-400" /> {summary.minHours} - {summary.maxHours} Target Hrs
                                             </span>
+                                        </div>
+                                        <div class="flex justify-between items-center text-slate-500 text-[10px]">
+                                            <span>Base hours (unbuffered):</span>
+                                            <span>{summary.rawMinHours} - {summary.rawMaxHours} hrs</span>
                                         </div>
                                         <div class="flex justify-between items-center">
                                             <span class="text-slate-400">Baseline Rate Basis:</span>
@@ -506,9 +537,27 @@
                                         </div>
                                     </div>
 
+                                    {/* PH Market Buffer Tuning Section */}
+                                    <div class="py-4 border-b border-brandNavy-700">
+                                        <div class="flex justify-between items-center mb-1.5">
+                                            <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Friction / Hirit Buffer</span>
+                                            <span class="text-xs font-mono font-bold text-brandBlue-300">+{frictionBuffer}%</span>
+                                        </div>
+                                        <input 
+                                            type="range" 
+                                            min="0" 
+                                            max="30" 
+                                            step="5"
+                                            value={frictionBuffer} 
+                                            onChange={(e) => setFrictionBuffer(parseInt(e.target.value))}
+                                            class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
+                                        />
+                                        <span class="text-[9px] text-slate-500 mt-1 block">Insulates against PH client delays and scope-creep.</span>
+                                    </div>
+
                                     {/* Financial Valuations */}
-                                    <div class="py-6 border-b border-brandNavy-700">
-                                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Target Client Price Range</span>
+                                    <div class="py-5 border-b border-brandNavy-700">
+                                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Buffered Proposal Range</span>
                                         <span class="text-2xl sm:text-3xl font-serif font-black bg-gradient-to-r from-brandBlue-200 via-brandBlue-400 to-brandBlue-500 bg-clip-text text-transparent mt-1.5 block leading-none">
                                             {formatCurrency(summary.minCost)}
                                         </span>
@@ -518,37 +567,72 @@
                                         </span>
                                     </div>
 
-                                    {/* INTERNAL PROFITABILITY METRIC SECTION */}
-                                    <div class="py-5">
-                                        <div class="flex justify-between items-center mb-2">
-                                            <span class="text-[10px] font-mono tracking-widest text-rose-400 uppercase block">Est. Cost of Delivery ({overheadPercentage}%)</span>
-                                            <span class="text-xs font-mono font-bold text-slate-300">{formatCurrency(summary.minCost * (overheadPercentage/100))}</span>
+                                    {/* INTERNAL DELEGATION & MARGIN PLANNER */}
+                                    <div class="py-5 border-b border-brandNavy-700">
+                                        <div class="flex justify-between items-center mb-1.5">
+                                            <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Delegation (Associate %)</span>
+                                            <span class="text-xs font-mono font-bold text-brandBlue-300">{delegatePercent}%</span>
                                         </div>
-                                        
                                         <input 
                                             type="range" 
-                                            min="10" 
-                                            max="70" 
-                                            step="5"
-                                            value={overheadPercentage} 
-                                            onChange={(e) => setOverheadPercentage(parseInt(e.target.value))}
-                                            class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer mb-4"
+                                            min="0" 
+                                            max="100" 
+                                            step="10"
+                                            value={delegatePercent} 
+                                            onChange={(e) => setDelegatePercent(parseInt(e.target.value))}
+                                            class="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
                                         />
+                                        <div class="mt-3 space-y-1.5 text-[11px] text-slate-400">
+                                            <div class="flex justify-between">
+                                                <span>Associate Effort (₱350/hr):</span>
+                                                <span class="font-bold text-slate-200">{Math.round(summary.minHours * (delegatePercent/100))} hrs</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>Principal Effort (₱1,500/hr):</span>
+                                                <span class="font-bold text-slate-200">{Math.round(summary.minHours * (1 - delegatePercent/100))} hrs</span>
+                                            </div>
+                                            <div class="flex justify-between pt-1 border-t border-brandNavy-750 font-semibold">
+                                                <span>Est. Execution Cost:</span>
+                                                <span class="text-rose-400 font-mono">{formatCurrency(summary.minInternalCost)}</span>
+                                            </div>
+                                        </div>
                                         
-                                        <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Confidential Net Margin (Gross)</span>
-                                        <span class="text-xl font-bold text-emerald-400 mt-1 block">
-                                            {formatCurrency(summary.minNetProfit)} – {formatCurrency(summary.maxNetProfit)}
-                                        </span>
-                                        <span class="text-[9px] text-slate-500 block mt-1">Recovers consultant salaries and execution overhead.</span>
+                                        <div class="mt-4 pt-3 border-t border-brandNavy-750">
+                                            <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Confidential Gross Profit ({summary.profitMarginPercent}%)</span>
+                                            <span class="text-xl font-bold text-emerald-400 mt-1 block">
+                                                {formatCurrency(summary.minNetProfit)} – {formatCurrency(summary.maxNetProfit)}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <div class="p-4 bg-brandNavy-950/60 rounded border border-brandNavy-700/80 flex gap-2">
-                                        <IconInfo />
-                                        <div>
-                                            <span class="text-[10px] font-bold text-brandBlue-400 uppercase block">Internal Pricing Guardrail</span>
-                                            <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
-                                                Confirm target margin checks before exporting scope boundaries. Maintain a minimum 30% margin buffer on external outsourcing lines.
-                                            </p>
+                                    {/* 30-40-30 MILESTONE BILLING SCHEDULE */}
+                                    <div class="py-5">
+                                        <span class="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block mb-3">Milestone Schedule (30-40-30)</span>
+                                        <div class="space-y-2 text-xs">
+                                            <div class="bg-brandNavy-950/40 p-2 rounded border border-brandNavy-750">
+                                                <div class="flex justify-between font-bold text-slate-200">
+                                                    <span>1. Kickoff / Mobilization (30%)</span>
+                                                </div>
+                                                <span class="text-[10px] font-mono text-brandBlue-300 block mt-0.5">
+                                                    {formatCurrency(summary.minCost * 0.3)} - {formatCurrency(summary.maxCost * 0.3)}
+                                                </span>
+                                            </div>
+                                            <div class="bg-brandNavy-950/40 p-2 rounded border border-brandNavy-750">
+                                                <div class="flex justify-between font-bold text-slate-200">
+                                                    <span>2. Mid-point SOP Mapping (40%)</span>
+                                                </div>
+                                                <span class="text-[10px] font-mono text-brandBlue-300 block mt-0.5">
+                                                    {formatCurrency(summary.minCost * 0.4)} - {formatCurrency(summary.maxCost * 0.4)}
+                                                </span>
+                                            </div>
+                                            <div class="bg-brandNavy-950/40 p-2 rounded border border-brandNavy-750">
+                                                <div class="flex justify-between font-bold text-slate-200">
+                                                    <span>3. Handover & Training (30%)</span>
+                                                </div>
+                                                <span class="text-[10px] font-mono text-brandBlue-300 block mt-0.5">
+                                                    {formatCurrency(summary.minCost * 0.3)} - {formatCurrency(summary.maxCost * 0.3)}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -564,14 +648,14 @@
                                             class="px-3 py-1.5 bg-brandNavy-950 hover:bg-brandNavy-800 rounded text-xs font-bold flex items-center transition-all text-brandBlue-400 border border-brandBlue-900/40"
                                         >
                                             {copied ? <IconCheckCircle /> : <IconCopy />}
-                                            {copied ? 'Copied!' : 'Copy SOW'}
+                                            {copied ? 'Copy SOW' : 'Copy SOW'}
                                         </button>
                                     </div>
                                     <div class="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
                                         {proposalSummaryText}
                                     </div>
                                     <p class="text-[10px] text-slate-500 leading-relaxed text-center">
-                                        Click Copy to grab the SOW structure to drop directly into standard Google Docs or proposal decks.
+                                        Click Copy to grab the buffered SOW scope structure directly to your clipboard.
                                     </p>
                                 </div>
                             </div>
