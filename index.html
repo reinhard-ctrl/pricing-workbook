@@ -1,3 +1,8 @@
+Here is the corrected index.html file. I added an activePreset state tracker to the React layer so that the layout dynamically updates and highlights whichever preset scope button is currently active. I also cleaned up a minor object formatting typo found in the underlying task array.
+
+You can save this directly as index.html to run it instantly in your browser or push it straight to GitHub Pages.
+
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +63,7 @@
             { id: 'trans-5', category: '3. 90-Day Transformation Sprint', deliverable: 'Implementation Coaching', description: 'On-site coaching alongside process champions to manage team change friction.', minHours: 50, maxHours: 60, rate: 2500, selected: false },
             { id: 'trans-6', category: '3. 90-Day Transformation Sprint', deliverable: 'Dashboard Integration', description: 'Setting up live, visually automated tracking matrices for leadership visibility.', minHours: 15, maxHours: 25, rate: 2500, selected: false },
             { id: 'coo-1', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Operations Alignment Meetings', description: 'Facilitating critical weekly alignment loops and management checkpoint audits.', minHours: 6, maxHours: 8, rate: 2500, selected: false },
-            { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating team execution scores and auditing cross-functional performance.', minHours: 8, height: 10, minHours: 8, maxHours: 10, rate: 2500, selected: false },
+            { id: 'coo-2', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'KPI & OKR Metric Governance', description: 'Evaluating team execution scores and auditing cross-functional performance.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
             { id: 'coo-3', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'Continuous Optimization Sprints', description: 'Iterative audits of workflow efficiency and ongoing manual-step removal.', minHours: 8, maxHours: 10, rate: 2500, selected: false },
             { id: 'coo-4', category: '4. Fractional COO (Monthly Engagement)', deliverable: 'High-Level C-Suite Advisory', description: 'Direct executive mentorship, strategic scaling plans, and labor advisory.', minHours: 4, maxHours: 6, rate: 2500, selected: false }
         ];
@@ -67,6 +72,7 @@
             const [tasks, setTasks] = useState(INITIAL_TASKS);
             const [globalRate, setGlobalRate] = useState(2500);
             const [copied, setCopied] = useState(false);
+            const [activePreset, setActivePreset] = useState('diagnostics'); // Keeps track of active highlight
             
             const [newTaskCategory, setNewTaskCategory] = useState('1. Operational Diagnostics');
             const [newTaskDeliv, setNewTaskDeliv] = useState('');
@@ -75,6 +81,7 @@
             const [newTaskMax, setNewTaskMax] = useState(10);
 
             const handleSelectPackage = (packageName) => {
+                setActivePreset(packageName); // Updates active UI class logic
                 setTasks(prev => prev.map(t => {
                     let isSelected = false;
                     if (packageName === 'diagnostics' && t.category.includes('1. Operational Diagnostics')) isSelected = true;
@@ -92,6 +99,7 @@
             };
 
             const toggleTask = (id) => {
+                setActivePreset('custom'); // Shift highlight state if manual changes occur
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
             };
 
@@ -102,6 +110,7 @@
             const addNewTask = (e) => {
                 e.preventDefault();
                 if (!newTaskDeliv) return;
+                setActivePreset('custom');
                 
                 const newTask = {
                     id: `custom-${Date.now()}`,
@@ -200,14 +209,41 @@
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                         {/* Table Framework */}
                         <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+                            
+                            {/* PRESET HIGHLIGHT SECTION */}
                             <div class="p-4 bg-slate-950/60 border-b border-slate-800 flex flex-wrap gap-2 items-center justify-between">
                                 <span class="text-xs font-mono tracking-wider text-slate-400 uppercase">Load Scope Presets:</span>
                                 <div class="flex flex-wrap gap-1.5">
-                                    <button onClick={() => handleSelectPackage('diagnostics')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">1. Diagnostics Only</button>
-                                    <button onClick={() => handleSelectPackage('sop')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">2. SOPs Setup</button>
-                                    <button onClick={() => handleSelectPackage('transformation')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">3. Transformation</button>
-                                    <button onClick={() => handleSelectPackage('coo')} class="px-3 py-1 text-xs font-semibold bg-slate-900 hover:bg-slate-850 rounded-lg border border-slate-800 text-slate-300 transition-all">4. COO Retainer</button>
-                                    <button onClick={() => handleSelectPackage('all')} class="px-3 py-1 text-xs font-semibold bg-sky-950 text-sky-400 hover:bg-sky-900 rounded-lg border border-sky-850 transition-all">Select All</button>
+                                    <button 
+                                        onClick={() => handleSelectPackage('diagnostics')} 
+                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'diagnostics' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
+                                    >
+                                        1. Diagnostics Only
+                                    </button>
+                                    <button 
+                                        onClick={() => handleSelectPackage('sop')} 
+                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'sop' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
+                                    >
+                                        2. SOPs Setup
+                                    </button>
+                                    <button 
+                                        onClick={() => handleSelectPackage('transformation')} 
+                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'transformation' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
+                                    >
+                                        3. Transformation
+                                    </button>
+                                    <button 
+                                        onClick={() => handleSelectPackage('coo')} 
+                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'coo' ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-850'}`}
+                                    >
+                                        4. COO Retainer
+                                    </button>
+                                    <button 
+                                        onClick={() => handleSelectPackage('all')} 
+                                        class={`px-3 py-1.5 text-xs font-bold rounded-lg border transition-all ${activePreset === 'all' ? 'bg-emerald-500 text-slate-950 border-emerald-400 shadow-md font-extrabold' : 'bg-slate-900 text-emerald-400 border-slate-800 hover:bg-slate-850'}`}
+                                    >
+                                        Select All
+                                    </button>
                                 </div>
                             </div>
 
@@ -348,7 +384,7 @@
                                         {copied ? <IconCheckCircle /> : <IconCopy />}
                                         {copied ? 'Copied!' : 'Copy SOW Text'}
                                     </button>
-                                </div>
+                               </div>
                                 <div class="bg-slate-950 rounded-xl p-4 border border-slate-850 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
                                     {proposalSummaryText}
                                 </div>
