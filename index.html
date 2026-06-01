@@ -1,8 +1,3 @@
-Here is the corrected index.html file. I added an activePreset state tracker to the React layer so that the layout dynamically updates and highlights whichever preset scope button is currently active. I also cleaned up a minor object formatting typo found in the underlying task array.
-
-You can save this directly as index.html to run it instantly in your browser or push it straight to GitHub Pages.
-
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +5,14 @@ HTML
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kolthoff Consulting - Proposal Estimate Architect</title>
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- React and ReactDOM CDNs -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     
+    <!-- Babel CDN (Compiles JSX inside the browser dynamically) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
@@ -27,8 +25,10 @@ HTML
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
 
+    <!-- Target mount node for React -->
     <div id="root"></div>
 
+    <!-- Inline SVGs mapped as React components to prevent CDN asset mapping issues -->
     <script type="text/babel">
         const { useState, useMemo } = React;
 
@@ -178,7 +178,7 @@ HTML
             };
 
             return (
-                <div class="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+                <div class="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
                     {/* Top Header Card */}
                     <div class="mb-8 bg-gradient-to-r from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 relative overflow-hidden shadow-xl">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -196,7 +196,7 @@ HTML
                                 <span class="text-xs text-slate-400 block font-semibold mb-2">Global Hourly Rate Framework (PHP):</span>
                                 <div class="flex gap-2 justify-center">
                                     {[1500, 2500, 3500].map((rate) => (
-                                        <button key={rate} onClick={() => applyGlobalRate(rate)} class={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${globalRate === rate ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md' : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700'}`}>
+                                        <button key={rate} onClick={() => applyGlobalRate(rate)} class={`px-4 py-2 text-xs font-bold rounded-lg border transition-all ${globalRate === rate ? 'bg-sky-500 text-slate-950 border-sky-400 shadow-md font-extrabold' : 'text-slate-400 border-slate-800 hover:border-slate-700'}`}>
                                             ₱{rate.toLocaleString()}/hr
                                         </button>
                                     ))}
@@ -206,9 +206,9 @@ HTML
                     </div>
 
                     {/* App Grid */}
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
                         {/* Table Framework */}
-                        <div class="lg:col-span-8 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+                        <div class="xl:col-span-9 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
                             
                             {/* PRESET HIGHLIGHT SECTION */}
                             <div class="p-4 bg-slate-950/60 border-b border-slate-800 flex flex-wrap gap-2 items-center justify-between">
@@ -248,51 +248,65 @@ HTML
                             </div>
 
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left border-collapse min-w-[700px]">
+                                <table class="w-full text-left border-collapse min-w-[850px]">
                                     <thead>
                                         <tr class="bg-slate-950 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-slate-850">
-                                            <th class="py-4 px-4 text-center w-12">Incl?</th>
-                                            <th class="py-4 px-4 w-44">Work Area</th>
-                                            <th class="py-4 px-4">Task Deliverable</th>
-                                            <th class="py-4 px-4 text-center w-24">Min Hrs</th>
-                                            <th class="py-4 px-4 text-center w-24">Max Hrs</th>
-                                            <th class="py-4 px-4 text-center w-28">Rate (PHP)</th>
-                                            <th class="py-4 px-4 text-right w-32">Total Range</th>
-                                            <th class="py-4 px-4 text-center w-10"></th>
+                                            <th class="py-4 px-4 text-center w-[5%]">Incl?</th>
+                                            <th class="py-4 px-4 w-[18%]">Work Area</th>
+                                            <th class="py-4 px-4 w-[45%]">Task Deliverable</th>
+                                            <th class="py-4 px-4 text-center w-[14%]">Hours (Min - Max)</th>
+                                            <th class="py-4 px-4 text-center w-[10%]">Rate (PHP)</th>
+                                            <th class="py-4 px-4 text-right w-[15%]">Total Range</th>
+                                            <th class="py-4 px-4 text-center w-[3%]"></th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-850/60">
                                         {tasks.map((task) => (
                                             <tr key={task.id} class={`transition-colors duration-150 ${task.selected ? 'bg-slate-900/90' : 'bg-slate-900/25 opacity-40 hover:opacity-75'}`}>
-                                                <td class="py-4 px-4 text-center">
+                                                <td class="py-3 px-4 text-center">
                                                     <button onClick={() => toggleTask(task.id)} class="p-1 rounded text-slate-400 hover:text-sky-400 inline-flex">
                                                         {task.selected ? <IconCheckSquare /> : <IconSquare />}
                                                     </button>
                                                 </td>
-                                                <td class="py-4 px-4">
-                                                    <span class="text-[10px] font-mono bg-slate-950 px-2.5 py-1 rounded-full text-slate-400 font-semibold border border-slate-850 block text-center truncate">
+                                                <td class="py-3 px-4">
+                                                    <span class="text-[10px] font-mono bg-slate-950 px-2.5 py-1 rounded-md text-slate-300 font-semibold border border-slate-800 block text-center truncate">
                                                         {task.category.replace(/^\d+\.\s/, '')}
                                                     </span>
                                                 </td>
-                                                <td class="py-4 px-4">
+                                                <td class="py-3 px-4">
                                                     <h4 class="font-bold text-sm text-slate-100">{task.deliverable}</h4>
-                                                    <p class="text-[11px] text-slate-500 mt-0.5 leading-normal line-clamp-2">{task.description}</p>
+                                                    <p class="text-[11px] text-slate-400 mt-0.5 leading-normal line-clamp-2">{task.description}</p>
                                                 </td>
-                                                <td class="py-4 px-4">
-                                                    <input type="number" min="0" value={task.minHours} onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} class="w-16 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
+                                                <td class="py-3 px-4">
+                                                    <div class="flex items-center justify-center gap-1.5">
+                                                        <input 
+                                                            type="number" 
+                                                            min="0" 
+                                                            value={task.minHours} 
+                                                            onChange={(e) => updateTaskField(task.id, 'minHours', e.target.value)} 
+                                                            class="w-12 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200" 
+                                                            disabled={!task.selected} 
+                                                        />
+                                                        <span class="text-slate-600 font-bold">-</span>
+                                                        <input 
+                                                            type="number" 
+                                                            min="0" 
+                                                            value={task.maxHours} 
+                                                            onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} 
+                                                            class="w-12 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200" 
+                                                            disabled={!task.selected} 
+                                                        />
+                                                    </div>
                                                 </td>
-                                                <td class="py-4 px-4">
-                                                    <input type="number" min="0" value={task.maxHours} onChange={(e) => updateTaskField(task.id, 'maxHours', e.target.value)} class="w-16 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
+                                                <td class="py-3 px-4">
+                                                    <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-20 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
                                                 </td>
-                                                <td class="py-4 px-4">
-                                                    <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} class="w-24 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200" disabled={!task.selected} />
-                                                </td>
-                                                <td class="py-4 px-4 text-right">
-                                                    <span class="text-xs font-mono font-bold text-slate-200">
+                                                <td class="py-3 px-4 text-right">
+                                                    <span class="text-xs font-mono font-bold text-slate-200 whitespace-nowrap">
                                                         {formatCurrency(task.minHours * task.rate)} - {formatCurrency(task.maxHours * task.rate)}
                                                     </span>
                                                 </td>
-                                                <td class="py-4 px-4 text-center">
+                                                <td class="py-3 px-4 text-center">
                                                     <button onClick={() => removeTask(task.id)} class="p-1 text-slate-600 hover:text-rose-400 rounded transition-colors inline-flex"><IconTrash /></button>
                                                 </td>
                                             </tr>
@@ -334,7 +348,7 @@ HTML
                         </div>
 
                         {/* Summary Widget Side Panel */}
-                        <div class="lg:col-span-4 space-y-6">
+                        <div class="xl:col-span-3 space-y-6">
                             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
                                 <h3 class="text-sm font-bold tracking-wider text-slate-300 uppercase font-mono mb-4 flex items-center gap-2">
                                     <IconCalculator className="text-sky-400" /> Proposal Calculations
@@ -359,8 +373,8 @@ HTML
 
                                 <div class="py-6">
                                     <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase block">Calculated Package Valuation</span>
-                                    <span class="text-2xl sm:text-3xl font-black text-sky-400 mt-1 block">
-                                        {formatCurrency(summary.minCost)} – {formatCurrency(summary.maxCost)}
+                                    <span class="text-2xl sm:text-3xl font-black text-sky-400 mt-1 block leading-tight">
+                                        {formatCurrency(summary.minCost)} <span class="text-xs text-slate-500 font-normal block my-1">to</span> {formatCurrency(summary.maxCost)}
                                     </span>
                                     <span class="text-[10px] text-slate-400 block mt-1">Excludes local structural VAT taxes.</span>
                                 </div>
@@ -368,7 +382,7 @@ HTML
                                 <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-850 flex gap-2">
                                     <IconInfo />
                                     <div>
-                                        <span class="text-[10px] font-bold text-amber-500 uppercase block">Flat-Pricing Conversions Strategy</span>
+                                        <span class="text-[10px] font-bold text-amber-500 uppercase block">Flat-Pricing Strategy</span>
                                         <p class="text-[10px] text-slate-400 mt-1 leading-normal">
                                             Present this total variance range as a predictable flat-rate contract to prevent systemic buyer friction over ticking hour frameworks.
                                         </p>
@@ -384,7 +398,7 @@ HTML
                                         {copied ? <IconCheckCircle /> : <IconCopy />}
                                         {copied ? 'Copied!' : 'Copy SOW Text'}
                                     </button>
-                               </div>
+                                </div>
                                 <div class="bg-slate-950 rounded-xl p-4 border border-slate-850 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
                                     {proposalSummaryText}
                                 </div>
