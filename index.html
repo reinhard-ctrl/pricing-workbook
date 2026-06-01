@@ -721,6 +721,12 @@
                 window.print();
             };
 
+            // Dynamic Checkbox highlight values for 360 Visual Portfolio Map
+            const isStep1Active = activePreset === 'diagnostics' || activePreset === 'all' || activePreset === 'custom';
+            const isStep2Active = activePreset === 'sop' || activePreset === 'all';
+            const isStep3Active = activePreset === 'transformation' || activePreset === 'all';
+            const isStep4Active = activePreset === 'coo' || activePreset === 'all';
+
             return (
                 <div className="font-sans min-h-screen">
                     {/* Aligned Internal Executive Header (hidden when printing) */}
@@ -1197,7 +1203,7 @@
                                                 type="text" 
                                                 value={targetStartDate} 
                                                 onChange={(e) => setTargetStartDate(e.target.value)}
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono"
                                             />
                                         </div>
                                         <div>
@@ -1293,9 +1299,56 @@
                                         </p>
                                     </div>
 
+                                    {/* Visual 360° Operational Partnership Roadmap (NEW INTEGRATION) */}
+                                    <div className="mb-8 font-sans">
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">
+                                            2. The 360° Operational Partnership Framework
+                                        </h4>
+                                        <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 print-pill">
+                                            <p className="text-xs text-slate-600 mb-6 leading-relaxed">
+                                                At Kolthoff Consulting, we structure enterprise scaling into highly disciplined, modular phases. Every partnership begins with our mandatory <strong>Operational Diagnostics</strong> baseline. From there, clients expand into custom SOP engineering, transformation sprints, or long-term Fractional COO governance to complete their operational architecture.
+                                            </p>
+                                            
+                                            {/* Visual Process Stepper */}
+                                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+                                                {/* Step 1 */}
+                                                <div className={`flex flex-col items-center text-center p-4 bg-white rounded-lg border transition-all ${isStep1Active ? 'border-brandBlue-500 shadow-sm ring-1 ring-brandBlue-500/10' : 'border-slate-200 opacity-60'} relative z-10`}>
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep1Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>01</div>
+                                                    <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep1Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 1: Baseline {isStep1Active && '✓'}</span>
+                                                    <h5 className="font-bold text-[11px] text-slate-900 mt-1">Operational Diagnostics</h5>
+                                                    <p className="text-[10px] text-slate-500 mt-2 leading-relaxed">Mandatory health & risk audit. Uncovers process leaks, compliance gaps, and technology overheads.</p>
+                                                </div>
+                                                
+                                                {/* Step 2 */}
+                                                <div className={`flex flex-col items-center text-center p-4 bg-white rounded-lg border transition-all ${isStep2Active ? 'border-brandBlue-500 shadow-sm ring-1 ring-brandBlue-500/10' : 'border-slate-200 opacity-60'} relative z-10`}>
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep2Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>02</div>
+                                                    <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep2Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 2: Expansion {isStep2Active && '✓'}</span>
+                                                    <h5 className="font-bold text-[11px] text-slate-900 mt-1">Scale-Ready SOPs</h5>
+                                                    <p className="text-[10px] text-slate-500 mt-2 leading-relaxed">Optional Module. Systematizes reporting lines, RACI mapping, process swimlanes, and employee handbooks.</p>
+                                                </div>
+                                                
+                                                {/* Step 3 */}
+                                                <div className={`flex flex-col items-center text-center p-4 bg-white rounded-lg border transition-all ${isStep3Active ? 'border-brandBlue-500 shadow-sm ring-1 ring-brandBlue-500/10' : 'border-slate-200 opacity-60'} relative z-10`}>
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep3Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>03</div>
+                                                    <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep3Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 3: Acceleration {isStep3Active && '✓'}</span>
+                                                    <h5 className="font-bold text-[11px] text-slate-900 mt-1">90-Day Transformation</h5>
+                                                    <p className="text-[10px] text-slate-500 mt-2 leading-relaxed">Optional Module. Structured Lean Six Sigma sprints to eliminate waste and launch live metrics dashboards.</p>
+                                                </div>
+                                                
+                                                {/* Step 4 */}
+                                                <div className={`flex flex-col items-center text-center p-4 bg-white rounded-lg border transition-all ${isStep4Active ? 'border-brandBlue-500 shadow-sm ring-1 ring-brandBlue-500/10' : 'border-slate-200 opacity-60'} relative z-10`}>
+                                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep4Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>04</div>
+                                                    <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep4Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 4: Continuity {isStep4Active && '✓'}</span>
+                                                    <h5 className="font-bold text-[11px] text-slate-900 mt-1">Fractional COO Retainer</h5>
+                                                    <p className="text-[10px] text-slate-500 mt-2 leading-relaxed">Continuous 360° governance. Weekly alignment, OKR management, performance audits, and executive advisory.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {/* Pre-Diagnostic Requirements Section (Truth Mode Strategic Addition) */}
                                     <div className="mb-8 font-sans">
-                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">2. Pre-Diagnostic Information Requirements</h4>
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">3. Pre-Diagnostic Information Requirements</h4>
                                         <div className="text-xs text-slate-700 leading-relaxed font-sans bg-slate-50 p-5 rounded border border-slate-150 print-pill whitespace-pre-wrap">
                                             {preDiagnosticList}
                                         </div>
@@ -1306,7 +1359,7 @@
 
                                     {/* SOW Deliverables Block */}
                                     <div className="mb-8 font-sans">
-                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">3. Detailed Scoping Particulars & Action Items</h4>
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">4. Detailed Scoping Particulars & Action Items</h4>
                                         
                                         <div className="space-y-5">
                                             {tasks.filter(t => t.selected).map((task) => {
@@ -1353,7 +1406,7 @@
 
                                     {/* Collaboration Phases */}
                                     <div className="mb-8 font-sans">
-                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">4. Estimated Execution Blueprint</h4>
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">5. Estimated Execution Blueprint</h4>
                                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
                                             <div className="p-3 bg-slate-50 rounded border border-slate-200">
                                                 <div className="font-semibold text-slate-800">Phase 1: Assess (30%)</div>
@@ -1378,7 +1431,7 @@
 
                                     {/* Client cooperation prerequisites */}
                                     <div className="mb-8 font-sans">
-                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">5. Client Prerequisite Dependencies</h4>
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">6. Client Prerequisite Dependencies</h4>
                                         <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">
                                             {clientPrereqs}
                                         </p>
