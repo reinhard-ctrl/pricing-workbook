@@ -546,6 +546,9 @@
             const [associateRate, setAssociateRate] = useState(savedRates.associate);
             const [partnerRate, setPartnerRate] = useState(savedRates.partner);
 
+            // CACHED ACTIVE PRESETS RESTORATION
+            const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['diagnostics']));
+
             const savedMeta = useMemo(() => loadSavedData('kc_planner_meta', {
                 clientCompany: 'Acme Corporation PH',
                 clientRep: 'Juan dela Cruz',
@@ -611,6 +614,10 @@
             }, [principalRate, seniorRate, associateRate, partnerRate]);
 
             useEffect(() => {
+                localStorage.setItem('kc_planner_active_presets', JSON.stringify(activePresets));
+            }, [activePresets]);
+
+            useEffect(() => {
                 localStorage.setItem('kc_planner_meta', JSON.stringify({
                     clientCompany,
                     clientRep,
@@ -640,6 +647,7 @@
             const executeResetWorkbook = () => {
                 localStorage.removeItem('kc_planner_tasks');
                 localStorage.removeItem('kc_planner_rates');
+                localStorage.removeItem('kc_planner_active_presets');
                 localStorage.removeItem('kc_planner_meta');
                 window.location.reload();
             };
@@ -699,6 +707,26 @@
                 setTasks(prev => prev.filter(t => t.id !== id));
             };
 
+            // Helper function to dynamically adjust timeline details based on selected preset profiles
+            const calculateTimeline = (presets) => {
+                if (presets.includes('coo') || presets.includes('msp')) {
+                    return "Ongoing (Monthly Retainer)";
+                }
+                if (presets.includes('transformation')) {
+                    return "12 Weeks (90 Days)";
+                }
+                let count = presets.length;
+                if (count === 0) return "N/A";
+                if (count === 1) {
+                    if (presets.includes('diagnostics')) return "1 - 2 Weeks";
+                    if (presets.includes('sop')) return "4 - 6 Weeks";
+                    if (presets.includes('lark')) return "2 - 3 Weeks";
+                    if (presets.includes('pm')) return "3 - 4 Weeks";
+                }
+                if (count <= 3) return "6 - 8 Weeks";
+                return "12 - 16 Weeks";
+            };
+
             // Preset Trigger Logic
             const handleTogglePreset = (presetName) => {
                 let updatedPresets = activePresets.includes(presetName) 
@@ -710,13 +738,13 @@
 
                 setTasks(prev => prev.map(t => {
                     let matchesAnyActive = false;
-                    if (updatedPresets.includes('diagnostics') && t.category.includes('1. Operational Diagnostics')) matchesAnyActive = true;
-                    if (updatedPresets.includes('sop') && t.category.includes('2. Scale-Ready SOPs')) matchesAnyActive = true;
-                    if (updatedPresets.includes('transformation') && t.category.includes('3. 90-Day Transformation')) matchesAnyActive = true;
-                    if (updatedPresets.includes('coo') && t.category.includes('4. Fractional COO')) matchesAnyActive = true;
-                    if (updatedPresets.includes('lark') && t.category.includes('5. Lark Suite')) matchesAnyActive = true;
-                    if (updatedPresets.includes('pm') && t.category.includes('6. Project Management Training')) matchesAnyActive = true;
-                    if (updatedPresets.includes('msp') && t.category.includes('7. Managed Service Provider')) matchesAnyActive = true;
+                    if (updatedPresets.includes('diagnostics') && t.category.includes('1. Operational Diagnostics')) matchesActive = true;
+                    if (updatedPresets.includes('sop') && t.category.includes('2. Scale-Ready SOPs')) matchesActive = true;
+                    if (updatedPresets.includes('transformation') && t.category.includes('3. 90-Day Transformation')) matchesActive = true;
+                    if (updatedPresets.includes('coo') && t.category.includes('4. Fractional COO')) matchesActive = true;
+                    if (updatedPresets.includes('lark') && t.category.includes('5. Lark Suite')) matchesActive = true;
+                    if (updatedPresets.includes('pm') && t.category.includes('6. Project Management Training')) matchesActive = true;
+                    if (updatedPresets.includes('msp') && t.category.includes('7. Managed Service Provider')) matchesActive = true;
                     
                     return { ...t, selected: matchesAnyActive };
                 }));
@@ -830,6 +858,22 @@
                 return output;
             }, [tasks, updatedSummary, frictionBuffer, projectTimeline, includeTax]);
 
+            // SOW Markdown Copy block
+            const copyToClipboard = () => {
+                const el = document.createElement('textarea');
+                el.value = proposalSummaryText;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+
+            const handlePrint = () => {
+                window.print();
+            };
+
             return (
                 <div className="font-sans min-h-screen text-slate-300 bg-brandNavy-950">
                     
@@ -847,7 +891,7 @@
                             </div>
                             
                             <nav className="flex items-center gap-4 sm:gap-6">
-                                <button onClick={() => setView('sandbox')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-950 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
+                                <button onClick={() => setView('sandbox')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
                                 <button onClick={() => setView('proposal')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
                                 <button onClick={() => setView('quotation')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quote Sheet</button>
                             </nav>
@@ -920,7 +964,7 @@
                                         <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div className="flex gap-1.5 items-center">
-                                                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">Strategic IT Partner</span>
+                                                    <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Strategic IT Partner</span>
                                                     <span className="text-[8px] text-emerald-400 bg-emerald-500/10 px-1.5 rounded uppercase font-mono font-bold font-sans">Arbitrage</span>
                                                 </div>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{partnerRate.toLocaleString()} / hr</span>
@@ -1055,7 +1099,7 @@
                                                     </div>
                                                     <div className="md:col-span-2">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Billing Tier</label>
-                                                        <select value={newTaskTier} onChange={(e) => setNewTaskTier(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono">
+                                                        <select value={newTaskTier} onChange={(e) => setNewTaskTier(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-505 font-mono">
                                                             <option value="associate">Associate</option>
                                                             <option value="senior">Senior</option>
                                                             <option value="principal">Principal</option>
@@ -1449,13 +1493,13 @@
                                                 <p className="text-slate-655 font-bold font-sans">Approved and Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-500">{clientCompany} Representative</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
                                             <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
-                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
+                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
