@@ -531,7 +531,7 @@
             const [projectTimeline, setProjectTimeline] = useState("1 - 2 Weeks");
             const [showResetConfirm, setShowResetConfirm] = useState(false);
 
-            // 1. STATE INITIALIZATION DELEGATED TO LOCAL STORAGE AT LEAST CYCLE 1
+            // 1. STATE INITIALIZATION DELEGATED TO LOCAL STORAGE
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
 
             const savedRates = useMemo(() => loadSavedData('kc_planner_rates', {
@@ -738,13 +738,13 @@
 
                 setTasks(prev => prev.map(t => {
                     let matchesAnyActive = false;
-                    if (updatedPresets.includes('diagnostics') && t.category.includes('1. Operational Diagnostics')) matchesActive = true;
-                    if (updatedPresets.includes('sop') && t.category.includes('2. Scale-Ready SOPs')) matchesActive = true;
-                    if (updatedPresets.includes('transformation') && t.category.includes('3. 90-Day Transformation')) matchesActive = true;
-                    if (updatedPresets.includes('coo') && t.category.includes('4. Fractional COO')) matchesActive = true;
-                    if (updatedPresets.includes('lark') && t.category.includes('5. Lark Suite')) matchesActive = true;
-                    if (updatedPresets.includes('pm') && t.category.includes('6. Project Management Training')) matchesActive = true;
-                    if (updatedPresets.includes('msp') && t.category.includes('7. Managed Service Provider')) matchesActive = true;
+                    if (updatedPresets.includes('diagnostics') && t.category.includes('1. Operational Diagnostics')) matchesAnyActive = true;
+                    if (updatedPresets.includes('sop') && t.category.includes('2. Scale-Ready SOPs')) matchesAnyActive = true;
+                    if (updatedPresets.includes('transformation') && t.category.includes('3. 90-Day Transformation')) matchesAnyActive = true;
+                    if (updatedPresets.includes('coo') && t.category.includes('4. Fractional COO')) matchesAnyActive = true;
+                    if (updatedPresets.includes('lark') && t.category.includes('5. Lark Suite')) matchesAnyActive = true;
+                    if (updatedPresets.includes('pm') && t.category.includes('6. Project Management Training')) matchesAnyActive = true;
+                    if (updatedPresets.includes('msp') && t.category.includes('7. Managed Service Provider')) matchesAnyActive = true;
                     
                     return { ...t, selected: matchesAnyActive };
                 }));
@@ -916,9 +916,9 @@
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-2">
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
-                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">Principal Strategy Advisor</span>
+                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Principal Strategy Advisor</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{principalRate.toLocaleString()} / hr</span>
                                             </div>
                                             <input 
@@ -933,7 +933,7 @@
                                         </div>
                                         <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
-                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">Senior Systems Architect</span>
+                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Senior Systems Architect</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{seniorRate.toLocaleString()} / hr</span>
                                             </div>
                                             <input 
@@ -946,9 +946,9 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
-                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold">Operations Associate</span>
+                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Operations Associate</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{associateRate.toLocaleString()} / hr</span>
                                             </div>
                                             <input 
@@ -1145,7 +1145,7 @@
                                             <div className="py-4 border-b border-brandNavy-700">
                                                 <div className="flex justify-between items-center mb-1.5"><span className="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold">Strategic Operational Risk Contingency</span><span className="text-xs font-mono font-bold text-brandBlue-300">+{frictionBuffer}%</span></div>
                                                 <input type="range" min="0" max="30" step="5" value={frictionBuffer} onChange={(e) => setFrictionBuffer(parseInt(e.target.value))} className="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer" />
-                                                <span className="text-[9px] text-slate-505 block leading-relaxed mt-1 font-mono">Converts to "Operational Risk Contingency Reserve" on SOW.</span>
+                                                <span className="text-[9px] text-slate-500 block leading-relaxed mt-1 font-mono">Converts to "Operational Risk Contingency Reserve" on SOW.</span>
                                             </div>
 
                                             {/* WATERFALL DELEGATION SLIDERS */}
@@ -1368,7 +1368,7 @@
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote ID</label><input type="text" value={quoteId} onChange={(e) => setQuoteId(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono" /></div>
-                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote Date</label><input type="text" value={quoteDate} onChange={(e) => setQuoteDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono" /></div>
+                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote Date</label><input type="text" value={quoteDate} onChange={(e) => setQuoteDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200" /></div>
                                         </div>
                                     </div>
                                     <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center"><IconPrint className="w-4 h-4 mr-1.5" /> Print or Save as PDF</button>
@@ -1430,7 +1430,7 @@
                                             <strong className="text-slate-700 block mb-1 font-bold font-sans">Fixed Flat-Rate Guarantee:</strong> All pricing is flat-rate and outcome-driven, ensuring zero scope-creep modifications or hourly calculation overruns.
                                             
                                             {frictionBuffer > 0 && (
-                                                <div className="mt-2 text-slate-505 text-[10px] font-sans">
+                                                <div className="mt-2 text-slate-555 text-[10px] font-sans">
                                                     * Grand total includes a built-in <strong className="text-slate-700 font-sans font-bold">+{frictionBuffer}% Operational Risk Contingency Reserve</strong> to cover potential timeline and requirements variance during client discovery sprint loops.
                                                 </div>
                                             )}
@@ -1451,7 +1451,7 @@
                                         {updatedSummary.isRetainerOnly ? (
                                             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 print-pill">
                                                 <div className="flex justify-between items-center font-bold text-slate-800 text-sm"><span>Ongoing Monthly Retainer Service</span><span className="text-brandBlue-600 print-accent font-mono font-bold">{formatCurrency(updatedSummary.totalCost)} / Month</span></div>
-                                                <p className="text-xs text-slate-505 mt-2 leading-relaxed">This operational service structure consists entirely of continuous advisory and systems management. Billing is conducted flat-rate at the beginning of each active service month with a defined initial commitment period of <strong>six (6) months</strong>.</p>
+                                                <p className="text-xs text-slate-555 mt-2 leading-relaxed">This operational service structure consists entirely of continuous advisory and systems management. Billing is conducted flat-rate at the beginning of each active service month with a defined initial commitment period of <strong>six (6) months</strong>.</p>
                                             </div>
                                         ) : isUnder4Weeks ? (
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans font-medium">
