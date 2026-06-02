@@ -263,6 +263,12 @@
             </svg>
         );
 
+        const IconCheck = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+        );
+
         const INITIAL_TASKS = [
             // 1. Operational Diagnostics
             { 
@@ -695,7 +701,9 @@
             const [tasks, setTasks] = useState(INITIAL_TASKS);
             const [globalRate, setGlobalRate] = useState(2500);
             const [copied, setCopied] = useState(false);
-            const [activePreset, setActivePreset] = useState('diagnostics'); 
+            
+            // Re-architected preset multi-selection state array
+            const [activePresets, setActivePresets] = useState(['diagnostics']); 
             
             // View Switcher state
             const [activeView, setActiveView] = useState('sandbox'); // 'sandbox' | 'proposal' | 'quotation'
@@ -739,25 +747,63 @@
             const [newTaskDesc, setNewTaskDesc] = useState('');
             const [newTaskHours, setNewTaskHours] = useState(12);
 
-            const handleSelectPackage = (packageName) => {
-                setActivePreset(packageName); 
-                
-                // Set auto timelines based on target presets
-                if (packageName === 'diagnostics') setProjectTimeline("1 - 2 Weeks");
-                else if (packageName === 'sop') setProjectTimeline("4 - 6 Weeks");
-                else if (packageName === 'transformation') setProjectTimeline("12 Weeks (90 Days)");
-                else if (packageName === 'coo') setProjectTimeline("Ongoing (Monthly)");
-                else if (packageName === 'all') setProjectTimeline("16 Weeks");
+            // Dynamic Timeline Auto-Adjust Logic
+            const calculateTimeline = (presets) => {
+                if (presets.includes('coo') || presets.includes('msp')) {
+                    return "Ongoing (Monthly Retainer)";
+                }
+                if (presets.includes('transformation')) {
+                    return "12 Weeks (90 Days)";
+                }
+                let count = presets.length;
+                if (count === 0) return "N/A";
+                if (count === 1) {
+                    if (presets.includes('diagnostics')) return "1 - 2 Weeks";
+                    if (presets.includes('sop')) return "4 - 6 Weeks";
+                    if (presets.includes('lark')) return "2 - 3 Weeks";
+                    if (presets.includes('pm')) return "3 - 4 Weeks";
+                }
+                if (count <= 3) return "6 - 8 Weeks";
+                return "12 - 16 Weeks";
+            };
 
+            // Re-engineered multi-select toggle function
+            const handleTogglePreset = (presetName) => {
+                let updatedPresets;
+                if (activePresets.includes(presetName)) {
+                    updatedPresets = activePresets.filter(p => p !== presetName);
+                } else {
+                    updatedPresets = [...activePresets, presetName];
+                }
+                setActivePresets(updatedPresets);
+                setProjectTimeline(calculateTimeline(updatedPresets));
+
+                // Batch toggle selected tasks belonging to these categories
                 setTasks(prev => prev.map(t => {
-                    let isSelected = false;
-                    if (packageName === 'diagnostics' && t.category.includes('1. Operational Diagnostics')) isSelected = true;
-                    else if (packageName === 'sop' && t.category.includes('2. Scale-Ready SOPs')) isSelected = true;
-                    else if (packageName === 'transformation' && t.category.includes('3. 90-Day Transformation')) isSelected = true;
-                    else if (packageName === 'coo' && t.category.includes('4. Fractional COO')) isSelected = true;
-                    else if (packageName === 'all') isSelected = true;
-                    return { ...t, selected: isSelected };
+                    let matchesAnyActive = false;
+                    if (updatedPresets.includes('diagnostics') && t.category.includes('1. Operational Diagnostics')) matchesAnyActive = true;
+                    if (updatedPresets.includes('sop') && t.category.includes('2. Scale-Ready SOPs')) matchesAnyActive = true;
+                    if (updatedPresets.includes('transformation') && t.category.includes('3. 90-Day Transformation')) matchesAnyActive = true;
+                    if (updatedPresets.includes('coo') && t.category.includes('4. Fractional COO')) matchesAnyActive = true;
+                    if (updatedPresets.includes('lark') && t.category.includes('5. Lark Suite Management')) matchesAnyActive = true;
+                    if (updatedPresets.includes('pm') && t.category.includes('6. Project Management Training')) matchesAnyActive = true;
+                    if (updatedPresets.includes('msp') && t.category.includes('7. Managed Service Provider')) matchesAnyActive = true;
+                    
+                    return { ...t, selected: matchesAnyActive };
                 }));
+            };
+
+            const handleSelectAllPresets = () => {
+                const all = ['diagnostics', 'sop', 'transformation', 'coo', 'lark', 'pm', 'msp'];
+                setActivePresets(all);
+                setProjectTimeline("16 Weeks");
+                setTasks(prev => prev.map(t => ({ ...t, selected: true })));
+            };
+
+            const handleClearAllPresets = () => {
+                setActivePresets([]);
+                setProjectTimeline("N/A");
+                setTasks(prev => prev.map(t => ({ ...t, selected: false })));
             };
 
             const applyGlobalRate = (rate) => {
@@ -766,7 +812,7 @@
             };
 
             const toggleTask = (id) => {
-                setActivePreset('custom'); 
+                // If a user manually changes task selections, preset profiles set to custom
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
             };
 
@@ -777,7 +823,6 @@
             const addNewTask = (e) => {
                 e.preventDefault();
                 if (!newTaskDeliv) return;
-                setActivePreset('custom');
                 
                 const newTask = {
                     id: `custom-${Date.now()}`,
@@ -887,11 +932,11 @@
                 window.print();
             };
 
-            // Dynamic Checkbox highlight values for 360 Visual Portfolio Map
-            const isStep1Active = activePreset === 'diagnostics' || activePreset === 'all' || activePreset === 'custom';
-            const isStep2Active = activePreset === 'sop' || activePreset === 'all';
-            const isStep3Active = activePreset === 'transformation' || activePreset === 'all';
-            const isStep4Active = activePreset === 'coo' || activePreset === 'all';
+            // Dynamic Step highlight logic linked directly to active task categories
+            const isStep1Active = tasks.some(t => t.category.includes('1. Operational Diagnostics') && t.selected);
+            const isStep2Active = tasks.some(t => t.category.includes('2. Scale-Ready SOPs') && t.selected) || tasks.some(t => t.category.includes('5. Lark Suite') && t.selected);
+            const isStep3Active = tasks.some(t => t.category.includes('3. 90-Day Transformation') && t.selected) || tasks.some(t => t.category.includes('6. Project Management') && t.selected);
+            const isStep4Active = tasks.some(t => t.category.includes('4. Fractional COO') && t.selected) || tasks.some(t => t.category.includes('7. Managed Service') && t.selected);
 
             return (
                 <div className="font-sans min-h-screen">
@@ -968,7 +1013,7 @@
                         {/* 1. PORTFOLIO & ESTIMATION SANDBOX VIEW */}
                         {activeView === 'sandbox' && (
                             <div className="no-print">
-                                {/* Top Global Parameter Controller (Truth-Mode rate-toggle base) */}
+                                {/* Top Global Parameter Controller (Truth-Mode rate-toggle base & RATE SLIDER) */}
                                 <div className="mb-8 bg-brandNavy-800/60 border border-brandNavy-700/80 rounded-xl p-5 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
                                     <div className="flex items-center gap-3">
                                         <div className="p-2.5 rounded-lg bg-brandBlue-500/10 text-brandBlue-400 border border-brandBlue-500/20">
@@ -1006,44 +1051,51 @@
                                     {/* Table Container (9 Columns width on XL) */}
                                     <div className="xl:col-span-9 bg-brandNavy-900/30 border border-brandNavy-700/80 rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm">
                                         
-                                        {/* Preset Controls Bar */}
-                                        <div className="p-5 bg-brandNavy-950/80 border-b border-brandNavy-700/80 flex flex-wrap gap-3 items-center justify-between">
-                                            <div className="flex items-center gap-2">
-                                                <span className="w-1.5 h-1.5 rounded-full bg-brandBlue-500 animate-pulse"></span>
-                                                <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
+                                        {/* Re-architected MULTI-SELECT Preset Controls Bar */}
+                                        <div className="p-5 bg-brandNavy-950/80 border-b border-brandNavy-700/80 flex flex-col gap-4">
+                                            <div className="flex items-center justify-between border-b border-brandNavy-700/50 pb-2">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-brandBlue-500 animate-pulse"></span>
+                                                    <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles (Multi-Selection)</span>
+                                                </div>
+                                                <div className="flex gap-2">
+                                                    <button 
+                                                        onClick={handleSelectAllPresets} 
+                                                        className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-slate-100 text-slate-950 hover:bg-brandBlue-500 hover:text-slate-950"
+                                                    >
+                                                        Select All
+                                                    </button>
+                                                    <button 
+                                                        onClick={handleClearAllPresets} 
+                                                        className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-950 text-slate-400 border border-brandNavy-700 hover:text-slate-200"
+                                                    >
+                                                        Clear All
+                                                    </button>
+                                                </div>
                                             </div>
+                                            
                                             <div className="flex flex-wrap gap-2">
-                                                <button 
-                                                    onClick={() => handleSelectPackage('diagnostics')} 
-                                                    className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'diagnostics' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                                >
-                                                    Diagnostics Audit
-                                                </button>
-                                                <button 
-                                                    onClick={() => handleSelectPackage('sop')} 
-                                                    className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'sop' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                                >
-                                                    SOP Foundations
-                                                </button>
-                                                <button 
-                                                    onClick={() => handleSelectPackage('transformation')} 
-                                                    className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'transformation' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                                >
-                                                    90-Day Sprint
-                                                </button>
-                                                <button 
-                                                    onClick={() => handleSelectPackage('coo')} 
-                                                    className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'coo' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                                >
-                                                    Fractional COO
-                                                </button>
-                                                <span className="text-slate-855 py-1 font-light self-center">|</span>
-                                                <button 
-                                                    onClick={() => handleSelectPackage('all')} 
-                                                    className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all ${activePreset === 'all' ? 'bg-slate-100 text-slate-950 font-extrabold' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
-                                                >
-                                                    Select All
-                                                </button>
+                                                {[
+                                                    { name: 'diagnostics', label: 'Diagnostics Audit' },
+                                                    { name: 'sop', label: 'SOP Foundations' },
+                                                    { name: 'transformation', label: '90-Day Sprint' },
+                                                    { name: 'coo', label: 'Fractional COO' },
+                                                    { name: 'lark', label: 'Lark Workspace' },
+                                                    { name: 'pm', label: 'HERMES PM Training' },
+                                                    { name: 'msp', label: 'Managed MSP' }
+                                                ].map(preset => {
+                                                    const isActive = activePresets.includes(preset.name);
+                                                    return (
+                                                        <button 
+                                                            key={preset.name}
+                                                            onClick={() => handleTogglePreset(preset.name)} 
+                                                            className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                        >
+                                                            {isActive ? <IconCheck className="w-3 h-3 text-slate-950" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />}
+                                                            {preset.label}
+                                                        </button>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
 
@@ -1244,7 +1296,7 @@
                                             </div>
 
                                             {/* 30-40-30 MILESTONE BILLING SCHEDULE */}
-                                            <div className="py-5">
+                                            <div className="py-5 font-sans">
                                                 <span className="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block mb-3">Milestone Schedule (30-40-30)</span>
                                                 <div className="space-y-2 text-xs">
                                                     <div className="bg-brandNavy-950/40 p-2 rounded border border-brandNavy-750">
@@ -1277,7 +1329,7 @@
 
                                         {/* Statement of Work Markdown Exporter */}
                                         <div className="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl space-y-4 backdrop-blur-sm">
-                                            <div className="flex justify-between items-center">
+                                            <div className="flex justify-between items-center font-sans">
                                                 <h3 className="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">
                                                     SOW Document Generator
                                                 </h3>
@@ -1292,7 +1344,7 @@
                                             <div className="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
                                                 {proposalSummaryText}
                                             </div>
-                                            <p className="text-[10px] text-slate-500 leading-relaxed text-center">
+                                            <p className="text-[10px] text-slate-500 leading-relaxed text-center font-sans">
                                                 Click Copy to grab the SOW structure to drop directly into standard Google Docs or proposal decks.
                                             </p>
                                         </div>
@@ -1404,7 +1456,7 @@
                                 </div>
 
                                 {/* Right Side: SOW Proposal Stationery Sheet */}
-                                <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card">
+                                <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans">
                                     
                                     {/* Header Section */}
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandBlue-500 mb-8 print-card-header gap-6">
@@ -1484,7 +1536,7 @@
                                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep2Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>02</div>
                                                     <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep2Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 2: Expansion {isStep2Active && '✓'}</span>
                                                     <h5 className="font-bold text-[11px] text-slate-900 mt-1">Scale-Ready SOPs</h5>
-                                                    <p className="text-[10px] text-slate-650 mt-2 leading-relaxed">Optional Module. Systematizes reporting lines, RACI mapping, process swimlanes, and employee handbooks.</p>
+                                                    <p className="text-[10px] text-slate-655 mt-2 leading-relaxed">Optional Module. Systematizes reporting lines, RACI mapping, process swimlanes, and employee handbooks.</p>
                                                 </div>
                                                 
                                                 {/* Step 3 */}
@@ -1492,7 +1544,7 @@
                                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep3Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>03</div>
                                                     <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep3Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 3: Acceleration {isStep3Active && '✓'}</span>
                                                     <h5 className="font-bold text-[11px] text-slate-900 mt-1">90-Day Transformation</h5>
-                                                    <p className="text-[10px] text-slate-650 mt-2 leading-relaxed">Optional Module. Structured Lean Six Sigma sprints to eliminate waste and launch live metrics dashboards.</p>
+                                                    <p className="text-[10px] text-slate-655 mt-2 leading-relaxed">Optional Module. Structured Lean Six Sigma sprints to eliminate waste and launch live metrics dashboards.</p>
                                                 </div>
                                                 
                                                 {/* Step 4 */}
@@ -1500,7 +1552,7 @@
                                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3 ${isStep4Active ? 'bg-brandBlue-500 text-white' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>04</div>
                                                     <span className={`text-[10px] font-mono uppercase tracking-wider font-bold block ${isStep4Active ? 'text-brandBlue-600' : 'text-slate-400'}`}>Step 4: Continuity {isStep4Active && '✓'}</span>
                                                     <h5 className="font-bold text-[11px] text-slate-900 mt-1">Fractional COO Retainer</h5>
-                                                    <p className="text-[10px] text-slate-650 mt-2 leading-relaxed">Continuous 360° governance. Weekly alignment, OKR management, performance audits, and executive advisory.</p>
+                                                    <p className="text-[10px] text-slate-655 mt-2 leading-relaxed">Continuous 360° governance. Weekly alignment, OKR management, performance audits, and executive advisory.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -1592,10 +1644,10 @@
                                     {/* Client cooperation prerequisites */}
                                     <div className="mb-8 font-sans">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">6. Client Prerequisite Dependencies</h4>
-                                        <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">
+                                        <p className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill font-sans">
                                             {clientPrereqs}
                                         </p>
-                                        <span className="text-[9px] text-slate-400 block mt-2 italic leading-relaxed">
+                                        <span className="text-[9px] text-slate-400 block mt-2 italic leading-relaxed font-sans">
                                             * Note: In alignment with B2B PH management practices, project timelines remain suspended if critical data dependencies or stakeholder calendars are delayed by more than 5 business days.
                                         </span>
                                     </div>
@@ -1604,7 +1656,7 @@
                                     <div className="pt-8 border-t border-slate-200 print-divider text-xs font-sans">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12">
-                                                <p className="text-slate-600 font-medium">Scope Confirmed & Accepted by:</p>
+                                                <p className="text-slate-600 font-medium font-sans">Scope Confirmed & Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
                                                     <div className="text-slate-500">Representative, {clientCompany}</div>
@@ -1612,7 +1664,7 @@
                                                 </div>
                                             </div>
                                             <div className="space-y-12">
-                                                <p className="text-slate-600 font-medium">Drafted & Calibrated by:</p>
+                                                <p className="text-slate-600 font-medium font-sans">Drafted & Calibrated by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-500">{preparerTitle}, Kolthoff Consulting</div>
@@ -1697,7 +1749,7 @@
                                                     type="text" 
                                                     value={quoteId} 
                                                     onChange={(e) => setQuoteId(e.target.value)}
-                                                    className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono"
+                                                    className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-mono"
                                                 />
                                             </div>
                                             <div>
@@ -1706,7 +1758,7 @@
                                                     type="text" 
                                                     value={quoteDate} 
                                                     onChange={(e) => setQuoteDate(e.target.value)}
-                                                    className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500"
+                                                    className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                                 />
                                             </div>
                                         </div>
@@ -1745,7 +1797,7 @@
                                 </div>
 
                                 {/* Right Side: Formal B2B Quotation Stationery Sheet */}
-                                <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card">
+                                <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans">
                                     
                                     {/* Document Header (Matched Website Branding) */}
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandBlue-500 mb-8 print-card-header gap-6">
@@ -1771,7 +1823,7 @@
                                     </div>
 
                                     {/* Sender vs Recipient metadata */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm font-sans">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm font-sans font-medium">
                                         <div className="space-y-1.5 font-sans">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span>
                                             <div className="font-bold text-slate-950 text-base">{clientRep}</div>
@@ -1837,12 +1889,12 @@
                                             All engagement pricing is flat-rate and outcome-driven, ensuring zero scope-creep adjustments, hourly calculations, or invoice surprises during project lifecycles.
                                             <div className="mt-4 pt-3 border-t border-slate-200">
                                                 <strong className="text-brandBlue-600 print-accent block mb-1 uppercase tracking-wider text-[10px] font-mono font-bold">B2B Financial ROI Projection:</strong>
-                                                <p className="text-[11px] text-slate-600 leading-relaxed mb-2">
+                                                <p className="text-[11px] text-slate-650 leading-relaxed mb-2">
                                                     Mid-sized PH enterprises with 25-50 personnel typically experience <strong>₱1,200,000+</strong> in operational waste annually. This leakage occurs through daily process friction (15% productivity loss), recruitment latency (costing ~₱150,000 per exit), and DOLE compliance risk exposure.
                                                 </p>
                                                 <span className="text-xs text-slate-700">
                                                     Estimated Annual Corporate Leakage: <strong className="text-slate-900 font-mono">{formatCurrency(annualInactionCost)}</strong>. 
-                                                    Expected Year 1 Profit Recovery: <strong className="text-emerald-600 font-mono font-bold">{formatCurrency(summary.netFirstYearSavings)}</strong> (ROI of <strong className="text-emerald-600 font-mono font-bold">+{summary.projectROI}%</strong>).
+                                                    Expected Year 1 Profit Recovery: <strong className="text-emerald-600 font-mono font-bold">{formatCurrency(summary.netFirstYearSavings)}</strong> (ROI of <strong className="text-emerald-600 font-mono font-bold font-sans">+{summary.projectROI}%</strong>).
                                                 </span>
                                             </div>
                                         </div>
@@ -1864,7 +1916,7 @@
                                     {/* Milestone Billing Grid */}
                                     {summary.isRetainerOnly ? (
                                         <div className="mb-8 font-sans">
-                                            <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">Structured Retainer Billing Schedule</h4>
+                                            <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 font-sans">Structured Retainer Billing Schedule</h4>
                                             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 print-pill">
                                                 <div className="flex justify-between items-center font-bold text-slate-800 text-sm">
                                                     <span>Ongoing Monthly Retainer Service</span>
@@ -1877,7 +1929,7 @@
                                         </div>
                                     ) : (
                                         <div className="mb-8 font-sans">
-                                            <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3">Structured Billing Milestones (30-40-30 schedule)</h4>
+                                            <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 font-sans">Structured Billing Milestones (30-40-30 schedule)</h4>
                                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
                                                     <div className="font-bold text-slate-800">1. Kickoff Mobilization (30%)</div>
@@ -1892,7 +1944,7 @@
                                                     </span>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-bold text-slate-800">3. Handover & Live Launch (30%)</div>
+                                                    <div className="font-bold text-slate-800">3. Handover & Training (30%)</div>
                                                     <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
                                                         {formatCurrency(summary.totalCost * 0.3)}
                                                     </span>
@@ -1923,10 +1975,10 @@
                                     </div>
 
                                     {/* Sign-off Agreement Blocks */}
-                                    <div className="pt-8 text-xs font-sans font-sans">
+                                    <div className="pt-8 text-xs font-sans">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-600 font-medium">Approved and Accepted by:</p>
+                                                <p className="text-slate-600 font-medium font-sans">Approved and Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
                                                     <div className="text-slate-500">Representative, {clientCompany}</div>
@@ -1934,7 +1986,7 @@
                                                 </div>
                                             </div>
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-600 font-medium">Submitted by:</p>
+                                                <p className="text-slate-600 font-medium font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-500">{preparerTitle}, Kolthoff Consulting</div>
