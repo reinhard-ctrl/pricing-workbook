@@ -20,7 +20,9 @@
                         brandNavy: {
                             950: '#020613', // Ultra-dark corporate space
                             900: '#09111F', // Rich navy base
+                            850: '#0C1626', // Elegant deep dark
                             800: '#0F1A2C', // Deep card background
+                            750: '#15233A', // Panel intermediate accent
                             700: '#1B2C46', // Panel borders and dividers
                             600: '#2E4567', // Subdued text and inactive strokes
                         },
@@ -103,21 +105,22 @@
                 border-bottom: 2px solid #1e40af !important;
                 padding-bottom: 1rem !important;
                 margin-bottom: 1.5rem !important;
+                margin-top: 0 !important;
             }
             .print-pill {
-                background: #f1f5f9 !important;
-                border: 1px solid #cbd5e1 !important;
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
                 color: #1e40af !important;
             }
             .print-accent {
                 color: #1e40af !important;
             }
             .print-divider {
-                border-color: #e2e8f0 !important;
+                border-color: #cbd5e1 !important;
             }
             @page {
                 size: portrait;
-                margin: 15mm;
+                margin: 18mm 15mm;
             }
         }
     </style>
@@ -191,8 +194,8 @@
             </svg>
         );
 
-        const IconTrash = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        const IconTrash = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 <path d="M3 6h18"/>
                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
                 <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
@@ -202,10 +205,9 @@
         );
 
         const IconPlus = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M8 12h8"/>
-                <path d="M12 8v8"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
         );
 
@@ -519,7 +521,6 @@
                 deliverable: 'Dashboard Integration', 
                 description: 'Friction-Adjusted setup of Visually automated, live tracking metrics and dashboards for leadership review.', 
                 estHours: 35, 
-                rate: 2500, 
                 selected: false,
                 scopeDetails: {
                     activities: "Connect and visually automate raw tracking spreadsheets into intuitive real-time performance dashboards.",
@@ -812,7 +813,6 @@
             };
 
             const toggleTask = (id) => {
-                // If a user manually changes task selections, preset profiles set to custom
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
             };
 
@@ -893,7 +893,7 @@
                 };
             }, [tasks, frictionBuffer, delegatePercent, annualInactionCost]);
 
-            // Robust check to determine if the calculated duration schedule is under 4 weeks (Truth Mode Billing Scheme)
+            // Robust check to determine if the calculated duration schedule is under 4 weeks
             const isUnder4Weeks = useMemo(() => {
                 if (summary.isRetainerOnly) return false;
                 const lowerTimeline = projectTimeline.toLowerCase();
@@ -952,13 +952,7 @@
                 window.print();
             };
 
-            // Dynamic Step highlight logic linked directly to active task categories
-            const isStep1Active = tasks.some(t => t.category.includes('1. Operational Diagnostics') && t.selected);
-            const isStep2Active = tasks.some(t => t.category.includes('2. Scale-Ready SOPs') && t.selected) || tasks.some(t => t.category.includes('5. Lark Suite') && t.selected);
-            const isStep3Active = tasks.some(t => t.category.includes('3. 90-Day Transformation') && t.selected) || tasks.some(t => t.category.includes('6. Project Management') && t.selected);
-            const isStep4Active = tasks.some(t => t.category.includes('4. Fractional COO') && t.selected) || tasks.some(t => t.category.includes('7. Managed Service') && t.selected);
-
-            // Individual category selectors for the newly engineered SOW Map (Land-and-Expand Upgrades)
+            // Individual category selectors for SOW mapping
             const activeDiag = tasks.some(t => t.category.includes('1. Operational Diagnostics') && t.selected);
             const activeSOP = tasks.some(t => t.category.includes('2. Scale-Ready SOPs') && t.selected);
             const activeTrans = tasks.some(t => t.category.includes('3. 90-Day Transformation') && t.selected);
@@ -1020,19 +1014,19 @@
                             <div className="bg-brandNavy-950/80 p-1.5 rounded-lg border border-brandNavy-700 flex gap-2">
                                 <button
                                     onClick={() => setActiveView('sandbox')}
-                                    className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'sandbox' ? 'bg-brandBlue-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'sandbox' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-slate-200'}`}
                                 >
                                     <IconCalculator className="" /> Scoping Sandbox
                                 </button>
                                 <button
                                     onClick={() => setActiveView('proposal')}
-                                    className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'proposal' ? 'bg-brandBlue-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'proposal' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-slate-200'}`}
                                 >
                                     <IconFileText className="" /> Scope Proposal (SOW)
                                 </button>
                                 <button
                                     onClick={() => setActiveView('quotation')}
-                                    className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'quotation' ? 'bg-brandBlue-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                                    className={`px-6 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 ${activeView === 'quotation' ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold' : 'text-slate-400 hover:text-slate-200'}`}
                                 >
                                     <IconPrint className="mr-1.5" /> Formal Client Quotation
                                 </button>
@@ -1050,7 +1044,7 @@
                                         </div>
                                         <div>
                                             <h3 className="text-xs font-bold font-mono tracking-wider text-slate-400 uppercase">Consultant Billing Base</h3>
-                                            <p className="text-xs text-slate-500 mt-0.5">Toggle rate basis between associate-led, senior-led, and principal executive frameworks.</p>
+                                            <p className="text-xs text-slate-550 mt-0.5">Toggle rate basis between associate-led, senior-led, and principal executive frameworks.</p>
                                         </div>
                                     </div>
                                     
@@ -1090,13 +1084,13 @@
                                                 <div className="flex gap-2">
                                                     <button 
                                                         onClick={handleSelectAllPresets} 
-                                                        className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-slate-100 text-slate-955 hover:bg-brandBlue-500 hover:text-slate-950 font-sans"
+                                                        className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-slate-100 text-slate-950 hover:bg-brandBlue-500 hover:text-slate-950 font-sans"
                                                     >
                                                         Select All
                                                     </button>
                                                     <button 
                                                         onClick={handleClearAllPresets} 
-                                                        className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-950 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans"
+                                                        className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans"
                                                     >
                                                         Clear All
                                                     </button>
@@ -1118,7 +1112,7 @@
                                                         <button 
                                                             key={preset.name}
                                                             onClick={() => handleTogglePreset(preset.name)} 
-                                                            className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-950 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
+                                                            className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-955 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border border-brandNavy-700 hover:bg-brandNavy-800'}`}
                                                         >
                                                             {isActive ? <IconCheck className="w-3 h-3 text-slate-950" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />}
                                                             {preset.label}
@@ -1133,21 +1127,28 @@
                                             <table className="w-full text-left border-collapse min-w-[1000px] table-fixed">
                                                 <thead>
                                                     <tr className="bg-brandNavy-950/80 text-[10px] uppercase font-mono tracking-wider text-slate-400 border-b border-brandNavy-700">
-                                                        <th className="py-4 px-5 text-center w-[5%]">Active</th>
+                                                        <th className="py-4 px-5 text-center w-[6%]">Active</th>
                                                         <th className="py-4 px-4 w-[16%]">Category</th>
-                                                        <th className="py-4 px-4 w-[43%]">Deliverable Specifications</th>
-                                                        <th className="py-4 px-4 text-center w-[11%]">Estimated Hours</th>
-                                                        <th className="py-4 px-4 text-center w-[11%]">Rate Basis</th>
-                                                        <th className="py-4 px-5 text-right w-[14%] font-bold text-brandBlue-400">Base Price</th>
+                                                        <th className="py-4 px-4 w-[41%]">Deliverable Specifications</th>
+                                                        <th className="py-4 px-4 text-center w-[12%]">Estimated Hours</th>
+                                                        <th className="py-4 px-4 text-center w-[12%]">Rate Basis</th>
+                                                        <th className="py-4 px-5 text-right w-[13%] font-bold text-brandBlue-400">Base Price</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody className="divide-y divide-brandNavy-700/40">
                                                     {tasks.map((task) => (
                                                         <tr key={task.id} className={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
                                                             <td className="py-4 px-5 text-center">
-                                                                <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
-                                                                    {task.selected ? <IconCheckSquare /> : <IconSquare />}
-                                                                </button>
+                                                                <div className="flex items-center justify-center gap-1">
+                                                                    <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
+                                                                        {task.selected ? <IconCheckSquare /> : <IconSquare />}
+                                                                    </button>
+                                                                    {task.id.startsWith('custom-') && (
+                                                                        <button onClick={() => removeTask(task.id)} className="p-1 text-rose-500 hover:text-rose-400 rounded transition-colors" title="Delete custom task">
+                                                                            <IconTrash className="w-3.5 h-3.5" />
+                                                                        </button>
+                                                                    )}
+                                                                </div>
                                                             </td>
                                                             <td className="py-4 px-4">
                                                                 <span className="text-[10px] font-mono bg-brandNavy-950 px-2.5 py-1 rounded border border-brandNavy-700/80 text-brandBlue-400 font-bold tracking-wide block text-center truncate">
@@ -1169,7 +1170,14 @@
                                                                 />
                                                             </td>
                                                             <td className="py-4 px-4">
-                                                                <input type="number" step="100" value={task.rate} onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} className="w-20 mx-auto bg-brandNavy-950 border border-brandNavy-700 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200 block focus:border-brandBlue-500 focus:outline-none" disabled={!task.selected} />
+                                                                <input 
+                                                                    type="number" 
+                                                                    step="100" 
+                                                                    value={task.rate} 
+                                                                    onChange={(e) => updateTaskField(task.id, 'rate', e.target.value)} 
+                                                                    className="w-20 mx-auto bg-brandNavy-950 border border-brandNavy-700 rounded px-2 py-1 text-xs text-center font-mono font-bold text-slate-200 block focus:border-brandBlue-500 focus:outline-none" 
+                                                                    disabled={!task.selected} 
+                                                                />
                                                             </td>
                                                             <td className="py-4 px-5 text-right">
                                                                 <span className="text-xs font-mono font-bold text-slate-100 whitespace-nowrap">
@@ -1197,8 +1205,8 @@
                                                 </select>
                                             </div>
                                             <div className="md:col-span-3">
-                                                <label className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1 font-sans">New Task / Deliverable</label>
-                                                <input type="text" placeholder="e.g., Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500 font-sans" />
+                                                <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1 font-sans">New Task / Deliverable</label>
+                                                <input type="text" placeholder="e.g., Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500 font-sans" required />
                                             </div>
                                             <div className="md:col-span-4">
                                                 <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1 font-sans">Operational SOW Description</label>
@@ -1249,7 +1257,7 @@
                                             <div className="py-4 border-b border-brandNavy-700">
                                                 <div className="flex justify-between items-center mb-1.5">
                                                     <span className="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold block">Friction / Hirit Buffer</span>
-                                                    <span className="text-xs font-mono font-bold text-brandBlue-300 font-mono">+{frictionBuffer}%</span>
+                                                    <span className="text-xs font-mono font-bold text-brandBlue-300">+{frictionBuffer}%</span>
                                                 </div>
                                                 <input 
                                                     type="range" 
@@ -1258,9 +1266,9 @@
                                                     step="5"
                                                     value={frictionBuffer} 
                                                     onChange={(e) => setFrictionBuffer(parseInt(e.target.value))}
-                                                    className="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
+                                                    className="w-full accent-brandBlue-400 bg-brandNavy-955 h-1 rounded-lg cursor-pointer"
                                                 />
-                                                <span className="text-[9px] text-slate-500 mt-1 block leading-relaxed">Insulates against PH client delays and scope-creep.</span>
+                                                <span className="text-[9px] text-slate-500 mt-1 block leading-relaxed font-medium">Insulates against PH client delays and scope-creep.</span>
                                             </div>
 
                                             {/* Project Timeline Control Panel */}
@@ -1392,7 +1400,7 @@
                                                     className="px-3 py-1.5 bg-brandNavy-950 hover:bg-brandNavy-800 rounded text-xs font-bold flex items-center transition-all text-brandBlue-400 border border-brandBlue-900/40"
                                                 >
                                                     {copied ? <IconCheckCircle /> : <IconCopy />}
-                                                    {copied ? 'Copy SOW' : 'Copy SOW'}
+                                                    {copied ? 'Copied!' : 'Copy SOW'}
                                                 </button>
                                             </div>
                                             <div className="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">
@@ -1407,7 +1415,7 @@
                             </div>
                         )}
 
-                        {/* 2. FORMAL CLIENT SOW PROPOSAL VIEW (BEFORE QUOTATION) */}
+                        {/* 2. FORMAL CLIENT SOW PROPOSAL VIEW */}
                         {activeView === 'proposal' && (
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 
@@ -1431,11 +1439,11 @@
                                             />
                                         </div>
                                         <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label>
+                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label>
                                             <input 
                                                 type="text" 
-                                                value={proposalSponsor} 
-                                                onChange={(e) => setProposalSponsor(e.target.value)}
+                                                value={clientRep} 
+                                                onChange={(e) => setClientRep(e.target.value)}
                                                 className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
@@ -1539,7 +1547,7 @@
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold font-sans">Prepared For:</span>
                                             <div className="font-bold text-slate-950 text-base">{clientRep}</div>
                                             <div className="text-slate-700 font-semibold font-sans">{clientCompany}</div>
-                                            <div className="text-xs text-slate-650"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div>
+                                            <div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div>
                                         </div>
                                         <div className="space-y-1.5 md:text-right font-sans font-medium">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold font-sans">Prepared By:</span>
@@ -1560,7 +1568,7 @@
                                     {/* Executive Objectives */}
                                     <div className="mb-8 font-sans font-medium">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2 font-sans">1. Engagement Objectives & Focus Strategy</h4>
-                                        <p className="text-xs text-slate-805 leading-relaxed font-sans bg-slate-50 p-4 rounded border border-slate-100 print-pill font-sans">
+                                        <p className="text-xs text-slate-800 leading-relaxed font-sans bg-slate-50 p-4 rounded border border-slate-100 print-pill">
                                             {proposalObjectives}
                                         </p>
                                     </div>
@@ -1647,7 +1655,7 @@
                                     {/* Pre-Diagnostic Requirements Section */}
                                     <div className="mb-8 font-sans">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2 font-sans">3. Pre-Diagnostic Information Requirements</h4>
-                                        <div className="text-xs text-slate-755 leading-relaxed font-sans bg-slate-50 p-5 rounded border border-slate-150 print-pill whitespace-pre-wrap">
+                                        <div className="text-xs text-slate-700 leading-relaxed font-sans bg-slate-50 p-5 rounded border border-slate-150 print-pill whitespace-pre-wrap font-medium">
                                             {preDiagnosticList}
                                         </div>
                                         <span className="text-[9px] text-slate-400 block mt-2 italic leading-normal">
@@ -1671,7 +1679,7 @@
                                                     <div key={task.id} className="border border-slate-200 rounded-lg p-5 bg-slate-50/40 shadow-sm print-pill">
                                                         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-200 mb-3 gap-2">
                                                             <h5 className="font-bold text-sm text-brandBlue-600 print-accent">{task.deliverable}</h5>
-                                                            <span className="text-[9px] font-mono uppercase tracking-wider bg-slate-200 text-slate-600 px-2 py-0.5 rounded-md self-start print-pill font-bold font-mono">
+                                                            <span className="text-[9px] font-mono uppercase tracking-wider bg-slate-200 text-slate-600 px-2 py-0.5 rounded-md self-start print-pill font-bold">
                                                                 {task.category.replace(/^\d+\.\s/, '')}
                                                             </span>
                                                         </div>
@@ -1680,15 +1688,15 @@
                                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1 text-[11px] font-sans font-medium">
                                                             <div className="space-y-1">
                                                                 <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Consultant Execution Tasks:</span>
-                                                                <p className="text-slate-800 leading-relaxed font-medium">{details.activities}</p>
+                                                                <p className="text-slate-800 leading-relaxed">{details.activities}</p>
                                                             </div>
                                                             <div className="space-y-1">
                                                                 <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Client Action Required:</span>
-                                                                <p className="text-slate-800 leading-relaxed font-medium">{details.expectations}</p>
+                                                                <p className="text-slate-800 leading-relaxed">{details.expectations}</p>
                                                             </div>
                                                             <div className="space-y-1">
                                                                 <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Expected Handover Asset:</span>
-                                                                <p className="text-slate-800 leading-relaxed font-medium">{details.output}</p>
+                                                                <p className="text-slate-800 leading-relaxed">{details.output}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1702,20 +1710,20 @@
                                         </div>
                                     </div>
 
-                                    {/* Collaboration Phases - Truth-Mode Optimized for 50-50 Payment Timelines */}
+                                    {/* Collaboration Phases */}
                                     <div className="mb-8 font-sans font-medium">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 font-sans">5. Estimated Execution Blueprint</h4>
                                         {isUnder4Weeks ? (
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-medium">
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-semibold text-slate-800">Phase 1: Assess & Kickoff (50%)</div>
-                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal">
+                                                    <div className="font-semibold text-slate-800 font-sans">Phase 1: Assess & Kickoff (50%)</div>
+                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal font-sans">
                                                         Initial project alignment, on-site diagnostics, baseline gathering, and setup of primary shared tools.
                                                     </p>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-semibold text-slate-800">Phase 2: Deliver & Handover (50%)</div>
-                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal">
+                                                    <div className="font-semibold text-slate-800 font-sans">Phase 2: Deliver & Handover (50%)</div>
+                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal font-sans">
                                                         Process map finalization, custom templates handover, playbook packaging, and target walkthrough training.
                                                     </p>
                                                 </div>
@@ -1723,20 +1731,20 @@
                                         ) : (
                                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium">
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-semibold text-slate-800">Phase 1: Assess (30%)</div>
-                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal">
+                                                    <div className="font-semibold text-slate-800 font-sans">Phase 1: Assess (30%)</div>
+                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal font-sans">
                                                         Kickoff alignment, on-site diagnostics tracking, and current-state risk blueprinting.
                                                     </p>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-semibold text-slate-800">Phase 2: Deploy (40%)</div>
-                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal">
+                                                    <div className="font-semibold text-slate-800 font-sans">Phase 2: Deploy (40%)</div>
+                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal font-sans">
                                                         Drafting playbooks, re-engineering standard work maps, and compliance handbook assembly.
                                                     </p>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-semibold text-slate-800">Phase 3: Embed (30%)</div>
-                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal">
+                                                    <div className="font-semibold text-slate-800 font-sans">Phase 3: Embed (30%)</div>
+                                                    <p className="text-[10px] text-slate-500 mt-1 leading-normal font-sans">
                                                         Interactive team alignment workshops, live dashboard integration, and ROI exit reviews.
                                                     </p>
                                                 </div>
@@ -1759,7 +1767,7 @@
                                     <div className="pt-8 border-t border-slate-200 print-divider text-xs font-sans">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12">
-                                                <p className="text-slate-600 font-medium font-sans">Scope Confirmed & Accepted by:</p>
+                                                <p className="text-slate-650 font-bold font-sans">Scope Confirmed & Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
                                                     <div className="text-slate-500">Representative, {clientCompany}</div>
@@ -1767,7 +1775,7 @@
                                                 </div>
                                             </div>
                                             <div className="space-y-12">
-                                                <p className="text-slate-600 font-medium font-sans">Drafted & Calibrated by:</p>
+                                                <p className="text-slate-650 font-bold font-sans">Drafted & Calibrated by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-500">{preparerTitle}, Kolthoff Consulting</div>
@@ -1810,7 +1818,7 @@
                                                 type="text" 
                                                 value={clientRep} 
                                                 onChange={(e) => setClientRep(e.target.value)}
-                                                className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div>
@@ -1819,7 +1827,7 @@
                                                 type="text" 
                                                 value={preparedBy} 
                                                 onChange={(e) => setPreparedBy(e.target.value)}
-                                                className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div>
@@ -1828,7 +1836,7 @@
                                                 type="text" 
                                                 value={preparerTitle} 
                                                 onChange={(e) => setPreparerTitle(e.target.value)}
-                                                className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 focus:outline-none focus:border-brandBlue-500 font-sans"
                                             />
                                         </div>
                                         <div>
@@ -1928,7 +1936,7 @@
                                     {/* Sender vs Recipient metadata */}
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm font-sans font-medium">
                                         <div className="space-y-1.5 font-sans font-medium">
-                                            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold font-sans font-medium">Prepared For:</span>
+                                            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold font-sans">Prepared For:</span>
                                             <div className="font-bold text-slate-950 text-base">{clientRep}</div>
                                             <div className="text-slate-700 font-semibold">{clientCompany}</div>
                                         </div>
@@ -1968,7 +1976,7 @@
                                                             <td className="py-3 px-4 align-top font-bold text-slate-700 text-[10px]">
                                                                 {task.category.replace(/^\d+\.\s/, '')}
                                                             </td>
-                                                            <td className="py-3 px-4 align-top text-slate-850">
+                                                            <td className="py-3 px-4 align-top text-slate-800">
                                                                 <div className="font-bold text-slate-900">{task.deliverable}</div>
                                                                 <div className="text-[10px] text-slate-500 mt-0.5 leading-relaxed">{task.description}</div>
                                                             </td>
@@ -1984,17 +1992,17 @@
                                         </table>
                                     </div>
 
-                                    {/* Subtotal and Grand Valuation Sheet with dynamic ROI Anchor (Diagnostic 1) */}
+                                    {/* Subtotal and Grand Valuation Sheet with dynamic ROI Anchor */}
                                     <div className="flex flex-col sm:flex-row sm:justify-between items-end gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm font-sans bg-slate-50/50 p-4 rounded-xl">
                                         <div className="text-xs text-slate-500 max-w-md leading-relaxed text-left font-sans">
                                             <strong className="text-slate-700 block mb-1 font-bold">Fixed Flat-Rate Guarantee:</strong>
                                             All engagement pricing is flat-rate and outcome-driven, ensuring zero scope-creep adjustments, hourly calculations, or invoice surprises during project lifecycles.
                                             <div className="mt-4 pt-3 border-t border-slate-200">
                                                 <strong className="text-brandBlue-600 print-accent block mb-1 uppercase tracking-wider text-[10px] font-mono font-bold">B2B Financial ROI Projection:</strong>
-                                                <p className="text-[11px] text-slate-650 leading-relaxed mb-2">
+                                                <p className="text-[11px] text-slate-600 leading-relaxed mb-2">
                                                     Mid-sized PH enterprises with 25-50 personnel typically experience <strong>₱1,200,000+</strong> in operational waste annually. This leakage occurs through daily process friction (15% productivity loss), recruitment latency (costing ~₱150,000 per exit), and DOLE compliance risk exposure.
                                                 </p>
-                                                <span className="text-xs text-slate-705">
+                                                <span className="text-xs text-slate-700">
                                                     Estimated Annual Corporate Leakage: <strong className="text-slate-900 font-mono font-bold">{formatCurrency(annualInactionCost)}</strong>. 
                                                     Expected Year 1 Profit Recovery: <strong className="text-emerald-600 font-mono font-bold">{formatCurrency(summary.netFirstYearSavings)}</strong> (ROI of <strong className="text-emerald-600 font-mono font-bold font-sans">+{summary.projectROI}%</strong>).
                                                 </span>
@@ -2005,13 +2013,13 @@
                                                 <span>Estimated Duration:</span>
                                                 <span className="font-bold text-slate-900">{projectTimeline}</span>
                                             </div>
-                                            <div className="flex justify-between items-center text-base font-bold text-slate-95 pt-2 border-t border-slate-200">
+                                            <div className="flex justify-between items-center text-base font-bold text-slate-950 pt-2 border-t border-slate-200">
                                                 <span>Total Project Investment:</span>
                                                 <span className="text-brandBlue-600 print-accent text-lg font-serif font-black">
                                                     {formatCurrency(summary.totalCost)}{summary.isRetainerOnly && " / Month"}
                                                 </span>
                                             </div>
-                                            <p className="text-[9px] text-slate-400 block italic font-medium font-sans font-medium">Total net flat-fee. Excludes standard local VAT.</p>
+                                            <p className="text-[9px] text-slate-400 block italic font-medium font-sans">Total net flat-fee. Excludes standard local VAT.</p>
                                         </div>
                                     </div>
 
@@ -2034,13 +2042,13 @@
                                             <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 font-sans">Structured Billing Milestones (50-50 schedule)</h4>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans font-medium">
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-bold text-slate-800">1. Kickoff Mobilization (50%)</div>
+                                                    <div className="font-bold text-slate-800 font-sans">1. Kickoff Mobilization (50%)</div>
                                                     <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
                                                         {formatCurrency(summary.totalCost * 0.5)}
                                                     </span>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-bold text-slate-800">2. Handover & Completion (50%)</div>
+                                                    <div className="font-bold text-slate-800 font-sans">2. Handover & Completion (50%)</div>
                                                     <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
                                                         {formatCurrency(summary.totalCost * 0.5)}
                                                     </span>
@@ -2052,19 +2060,19 @@
                                             <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 font-sans">Structured Billing Milestones (30-40-30 schedule)</h4>
                                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans font-medium">
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-bold text-slate-800 font-sans">1. Kickoff Mobilization (30%)</div>
+                                                    <div className="font-bold text-slate-800 font-sans font-medium">1. Kickoff Mobilization (30%)</div>
                                                     <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
                                                         {formatCurrency(summary.totalCost * 0.3)}
                                                     </span>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-bold text-slate-800 font-sans">2. Mid-point SOP Handover (40%)</div>
+                                                    <div className="font-bold text-slate-800 font-sans font-medium">2. Mid-point SOP Handover (40%)</div>
                                                     <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
                                                         {formatCurrency(summary.totalCost * 0.4)}
                                                     </span>
                                                 </div>
                                                 <div className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                    <div className="font-bold text-slate-800 font-sans">3. Handover & Training (30%)</div>
+                                                    <div className="font-bold text-slate-800 font-sans font-medium">3. Handover & Training (30%)</div>
                                                     <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">
                                                         {formatCurrency(summary.totalCost * 0.3)}
                                                     </span>
@@ -2075,7 +2083,7 @@
 
                                     {/* Terms and Conditions Section */}
                                     <div className="text-[9px] text-slate-500 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed font-sans font-medium">
-                                        <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold">Standard Professional Terms</strong>
+                                        <strong className="text-slate-750 block text-[10px] uppercase font-mono font-bold">Standard Professional Terms</strong>
                                         <p>1. <strong>Scope of Services & Scope Variations (Change Orders):</strong> Services are strictly limited to the SOW items selected. Any modifications, additions, or iterations requested by the Client outside this contract shall require a signed Change Order specifying additional hours, timeline extensions, and a separate service fee billed at ₱2,500/hr (or the agreed rate basis).</p>
                                         <p>2. <strong>Client Cooperation & Operational Timelines:</strong> The project timeline is dependent on prompt access to Client data, registries, systems, and personnel. Kolthoff Consulting is not liable for project delays caused by Client-side bottlenecks. If the Client delays requested data or cancels scheduled stakeholder sessions by more than five (5) business days, Kolthoff Consulting reserves the right to adjust delivery deadlines proportionally.</p>
                                         <p>3. <strong>Professional Compensation, Taxes, and Late Payments:</strong> Total professional fees are ex-VAT. All invoices are billed in Philippine Pesos (PHP) per the Milestone Billing Schedule. Payment must be cleared within seven (7) business days from the invoice date. Late payments will incur a financing charge of 1.5% per month on outstanding balances.</p>
@@ -2085,8 +2093,8 @@
                                         <p>7. <strong>Dispute Resolution & Jurisdiction:</strong> Any disputes arising from this contract shall be settled amicably through good-faith arbitration in Metro Manila, Philippines. Unresolved disputes shall fall under the exclusive jurisdiction of the courts of Taytay, Rizal, Calabarzon.</p>
                                         
                                         <div className="mt-4 pt-3 border-t border-slate-100">
-                                            <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold">Settlement & Bank Details</strong>
-                                            <div className="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-700 space-y-0.5 bg-slate-50 py-1.5 rounded">
+                                            <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans">Settlement & Bank Details</strong>
+                                            <div className="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-700 space-y-0.5 bg-slate-50 py-1.5 rounded font-mono">
                                                 <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                 <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
                                                 <div>Account Number: <strong>0039 5019 0761</strong></div>
@@ -2098,7 +2106,7 @@
                                     <div className="pt-8 text-xs font-sans">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-600 font-medium font-sans font-bold">Approved and Accepted by:</p>
+                                                <p className="text-slate-650 font-bold font-sans">Approved and Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
                                                     <div className="text-slate-500">{clientCompany} Representative</div>
@@ -2106,7 +2114,7 @@
                                                 </div>
                                             </div>
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-600 font-medium font-sans font-bold">Submitted by:</p>
+                                                <p className="text-slate-650 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-500">{preparerTitle}, Kolthoff Consulting</div>
