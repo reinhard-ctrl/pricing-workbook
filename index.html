@@ -265,13 +265,14 @@
             return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(val);
         };
 
+        // CLINICALLY STREAMLINED BASELINE HOURS FOR REALISTIC & EFFICIENT FLUX
         const INITIAL_TASKS = [
             { 
                 id: 'diag-1', 
                 category: '1. Operational Diagnostics', 
                 deliverable: 'Preparation & Onboarding', 
                 description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', 
-                estHours: 6, 
+                estHours: 4, // Compressed from 6
                 tier: 'associate', 
                 selected: true,
                 scopeDetails: {
@@ -285,7 +286,7 @@
                 category: '1. Operational Diagnostics', 
                 deliverable: 'Stakeholder Discovery', 
                 description: 'Friction-Adjusted discovery loop (structured interviews with 4-6 key leadership roles, accounts, and desk operators).', 
-                estHours: 12, 
+                estHours: 8, // Compressed from 12 (highly focused 1-hr sessions + rapid log)
                 tier: 'associate', 
                 selected: true,
                 scopeDetails: {
@@ -298,8 +299,8 @@
                 id: 'diag-3', 
                 category: '1. Operational Diagnostics', 
                 deliverable: 'On-Site Observation Audit', 
-                description: 'Two continuous days of in-person workflow shadowing, step-timing, and bottleneck mapping.', 
-                estHours: 24, 
+                description: 'In-person workflow shadowing, step-timing, and bottleneck mapping.', 
+                estHours: 16, // Compressed from 24 (Two highly structured 8-hr days on-site)
                 tier: 'senior', 
                 selected: true,
                 scopeDetails: {
@@ -313,7 +314,7 @@
                 category: '1. Operational Diagnostics', 
                 deliverable: 'Compliance & Technology Audit', 
                 description: 'Comprehensive audit of regulatory labor compliance (DOLE exposures) and technology software stack/subscription under-utilization.', 
-                estHours: 14, 
+                estHours: 8, // Compressed from 14 (focused check of SaaS sprawl + contracts)
                 tier: 'senior', 
                 selected: true,
                 scopeDetails: {
@@ -327,7 +328,7 @@
                 category: '1. Operational Diagnostics', 
                 deliverable: 'Risk Matrix Formulation', 
                 description: 'Synthesis of raw observation data into a highly prioritized B2B Operational Risk Matrix.', 
-                estHours: 10, 
+                estHours: 6, // Compressed from 10
                 tier: 'senior', 
                 selected: true,
                 scopeDetails: {
@@ -341,7 +342,7 @@
                 category: '1. Operational Diagnostics', 
                 deliverable: 'Debrief & Roadmap Handover', 
                 description: 'Boardroom-ready presentation of audit discoveries, immediate quick wins, and strategic options.', 
-                estHours: 8, 
+                estHours: 6, // Compressed from 8 (highly prepared deck + 1.5 hr presentation)
                 tier: 'principal', 
                 selected: true,
                 scopeDetails: {
@@ -355,7 +356,7 @@
                 category: '2. Scale-Ready SOPs & HR', 
                 deliverable: 'Org Structure & RACI Mapping', 
                 description: 'Systematic mapping of operational reporting lines, functional hierarchies, and cross-departmental RACI matrices.', 
-                estHours: 20, 
+                estHours: 12, // Compressed from 20
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
@@ -369,7 +370,7 @@
                 category: '2. Scale-Ready SOPs & HR', 
                 deliverable: 'Swimlane Process Mapping', 
                 description: 'Friction-Adjusted mapping of high-fidelity, cross-functional swimlane diagrams (up to 5 core business workflows).', 
-                estHours: 60, 
+                estHours: 40, // Compressed from 60 (8 hours per core path is highly optimized using templates)
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
@@ -383,7 +384,7 @@
                 category: '2. Scale-Ready SOPs & HR', 
                 deliverable: 'HR Templates & Compliance', 
                 description: 'Reviewing local contract standards, drafting standard employment templates and onboarding forms.', 
-                estHours: 24, 
+                estHours: 12, // Compressed from 24 (using pre-cleared legal templates)
                 tier: 'associate', 
                 selected: false,
                 scopeDetails: {
@@ -397,7 +398,7 @@
                 category: '2. Scale-Ready SOPs & HR', 
                 deliverable: 'Employee Handbook Assembly', 
                 description: 'Friction-Adjusted compilation of compliant behavioral regulations, local leaves, statutory benefits, and code of conduct manuals.', 
-                estHours: 30, 
+                estHours: 16, // Compressed from 30 (adjusting master manual templates)
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
@@ -411,7 +412,7 @@
                 category: '3. 90-Day Transformation Sprint', 
                 deliverable: 'Value Stream Mapping (VSM)', 
                 description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', 
-                estHours: 30, 
+                estHours: 16, // Compressed from 30 (4-hr workshop + 12-hr prep and map build)
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
@@ -425,7 +426,7 @@
                 category: '3. 90-Day Transformation Sprint', 
                 deliverable: 'Cycle-Time Bottleneck Sprint', 
                 description: 'Targeted tactical sprints focusing on reducing administrative waste and re-routing slow paths.', 
-                estHours: 25, 
+                estHours: 16, // Compressed from 25
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
@@ -439,7 +440,7 @@
                 category: '4. Fractional COO (Monthly Engagement)', 
                 deliverable: 'Operations Alignment Governance', 
                 description: 'Directing weekly leadership alignment loops, metrics tracking, and project accountability.', 
-                estHours: 10, 
+                estHours: 8, // Compressed from 10 (4 weeks of 1.5 hr syncs + prep)
                 tier: 'principal', 
                 selected: false,
                 isMonthlyRetainer: true,
@@ -454,7 +455,7 @@
                 category: '4. Fractional COO (Monthly Engagement)', 
                 deliverable: 'KPI & OKR Metric Governance Board', 
                 description: 'Evaluating monthly departmental execution scores and managing core governance KPIs.', 
-                estHours: 12, 
+                estHours: 8, // Compressed from 12
                 tier: 'principal', 
                 selected: false,
                 isMonthlyRetainer: true,
@@ -469,7 +470,7 @@
                 category: '5. Lark Suite Management',
                 deliverable: 'Lark Workspace Architecture & Provisioning',
                 description: 'Configuring multi-departmental structures, permission groups, and centralized cloud document repositories.',
-                estHours: 12,
+                estHours: 8, // Compressed from 12
                 tier: 'senior',
                 selected: false,
                 scopeDetails: {
@@ -483,7 +484,7 @@
                 category: '6. Project Management Training (HERMES 2022)',
                 deliverable: 'HERMES 2022 Methodology Implementation',
                 description: 'Structured onboarding covering project lifecycles, phase gates, role assignments, and scenario simulations.',
-                estHours: 16,
+                estHours: 12, // Compressed from 16 (Four rapid 2-hr workshops + prep)
                 tier: 'senior',
                 selected: false,
                 scopeDetails: {
@@ -497,7 +498,7 @@
                 category: '7. Managed Service Provider (MSP)',
                 deliverable: 'Active Cyber & Network Security Monitoring Retainer',
                 description: 'Continuous endpoint threat detection, automated backups, and proactive firewall audits. Delivered and executed by Kolthoff Consulting’s authorized strategic infrastructure partner.',
-                estHours: 15,
+                estHours: 10, // Compressed from 15
                 tier: 'partner',
                 selected: false,
                 isMonthlyRetainer: true,
@@ -808,7 +809,7 @@
                     
                     {/* Header: Isolated Navigation */}
                     <header className="border-b border-brandNavy-700/50 bg-brandNavy-950/95 sticky top-0 z-50 backdrop-blur-md no-print">
-                        <div className="max-[1600px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
+                        <div className="max-w-[1600px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <IconWebsiteLogo className="w-10 h-10 text-brandBlue-400" />
                                 <div>
@@ -840,7 +841,7 @@
                                         </div>
                                         <div>
                                             <h3 className="text-xs font-bold font-mono tracking-wider text-slate-400 uppercase">Interactive B2B Rate Card Configuration</h3>
-                                            <p className="text-xs text-slate-500 mt-0.5">Define hourly billing values per tier via horizontal sliders. Individual deliverables automatically query this table to calculate pricing.</p>
+                                            <p className="text-xs text-slate-505 mt-0.5">Define hourly billing values per tier via horizontal sliders. Individual deliverables automatically query this table to calculate pricing.</p>
                                         </div>
                                     </div>
 
@@ -920,7 +921,7 @@
                                                     <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-slate-100 text-slate-950 hover:bg-brandBlue-500 font-sans">Select All</button>
+                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-slate-100 text-slate-950 hover:bg-brandBlue-500 hover:text-slate-950 font-sans">Select All</button>
                                                     <button onClick={handleClearAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans">Clear All</button>
                                                 </div>
                                             </div>
@@ -962,7 +963,7 @@
                                                     {tasks.map((task) => {
                                                         const rate = getRateForTier(task.tier);
                                                         return (
-                                                            <tr key={task.id} className={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-955/10 opacity-30 hover:opacity-60'}`}>
+                                                            <tr key={task.id} className={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
                                                                 <td className="py-4 px-5 text-center">
                                                                     <div className="flex items-center justify-center gap-1">
                                                                         <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
@@ -1229,7 +1230,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Scope Confirmed & Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-555 font-semibold">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505 font-semibold">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1377,7 +1378,7 @@
                                         <p>6. <strong>Limitation of Liability & Operational Indemnity:</strong> In no event shall Kolthoff Consulting's liability exceed the total fees paid by the Client under this quotation.</p>
                                         <p>7. <strong>Dispute Resolution & Jurisdiction:</strong> Disputes arising from this contract shall fall under the exclusive jurisdiction of the courts of Taytay, Rizal, Calabarzon.</p>
                                         <div className="mt-4 pt-3 border-t border-slate-100">
-                                            <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans font-semibold">Settlement & Bank Details</strong>
+                                            <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans">Settlement & Bank Details</strong>
                                             <div className="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-700 space-y-0.5 bg-slate-50 py-1.5 rounded">
                                                 <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                 <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
@@ -1398,7 +1399,7 @@
                                             </div>
                                             <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
-                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
+                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
