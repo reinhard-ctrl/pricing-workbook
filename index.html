@@ -547,7 +547,7 @@
             const [partnerRate, setPartnerRate] = useState(savedRates.partner);
 
             // CACHED ACTIVE PRESETS RESTORATION
-            const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['diagnostics']));
+            const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['mod0']));
 
             const savedMeta = useMemo(() => loadSavedData('kc_planner_meta', {
                 clientCompany: 'Acme Corporation PH',
@@ -707,63 +707,39 @@
                 setTasks(prev => prev.filter(t => t.id !== id));
             };
 
-            // Helper function to dynamically adjust timeline details based on selected preset profiles
-            const calculateTimeline = (presets) => {
-                if (presets.includes('coo') || presets.includes('msp')) {
+            // DYNAMIC DETAILED TIMELINE CALCULATION FOR YEAR 1 VALUE PROPOSITION
+            const calculatedTimeline = useMemo(() => {
+                const selectedCategories = new Set(tasks.filter(t => t.selected).map(t => t.category));
+                if (selectedCategories.size === 0) return "N/A";
+                
+                const hasRetainers = selectedCategories.has('4. Fractional COO (Monthly Engagement)') || selectedCategories.has('7. Managed Service Provider (MSP)');
+                const hasProjectScope = Array.from(selectedCategories).some(cat => !cat.includes('Fractional COO') && !cat.includes('Managed Service Provider'));
+                
+                if (hasRetainers && !hasProjectScope) {
                     return "Ongoing (Monthly Retainer)";
                 }
-                if (presets.includes('transformation')) {
-                    return "12 Weeks (90 Days)";
-                }
-                let count = presets.length;
-                if (count === 0) return "N/A";
-                if (count === 1) {
-                    if (presets.includes('diagnostics')) return "1 - 2 Weeks";
-                    if (presets.includes('sop')) return "4 - 6 Weeks";
-                    if (presets.includes('lark')) return "2 - 3 Weeks";
-                    if (presets.includes('pm')) return "3 - 4 Weeks";
-                }
-                if (count <= 3) return "6 - 8 Weeks";
-                return "12 - 16 Weeks";
-            };
-
-            // Preset Trigger Logic (BUG RESOLVED: matchesActive replaced by matchesAnyActive)
-            const handleTogglePreset = (presetName) => {
-                let updatedPresets = activePresets.includes(presetName) 
-                    ? activePresets.filter(p => p !== presetName) 
-                    : [...activePresets, presetName];
                 
-                setActivePresets(updatedPresets);
-                setProjectTimeline(calculateTimeline(updatedPresets));
-
-                setTasks(prev => prev.map(t => {
-                    let matchesAnyActive = false;
-                    if (updatedPresets.includes('diagnostics') && t.category.includes('1. Operational Diagnostics')) matchesAnyActive = true;
-                    if (updatedPresets.includes('sop') && t.category.includes('2. Scale-Ready SOPs')) matchesAnyActive = true;
-                    if (updatedPresets.includes('transformation') && t.category.includes('3. 90-Day Transformation')) matchesAnyActive = true;
-                    if (updatedPresets.includes('coo') && t.category.includes('4. Fractional COO')) matchesAnyActive = true;
-                    if (updatedPresets.includes('lark') && t.category.includes('5. Lark Suite')) matchesAnyActive = true;
-                    if (updatedPresets.includes('pm') && t.category.includes('6. Project Management Training')) matchesAnyActive = true;
-                    if (updatedPresets.includes('msp') && t.category.includes('7. Managed Service Provider')) matchesAnyActive = true;
-                    
-                    return { ...t, selected: matchesAnyActive };
-                }));
-            };
-
-            const handleSelectAllPresets = () => {
-                const all = ['diagnostics', 'sop', 'transformation', 'coo', 'lark', 'pm', 'msp'];
-                setActivePresets(all);
-                setProjectTimeline("16 Weeks");
-                setTasks(prev => prev.map(t => ({ ...t, selected: true })));
-            };
-
-            const handleClearAllPresets = () => {
-                setActivePresets([]);
-                setProjectTimeline("N/A");
-                setTasks(prev => prev.map(t => ({ ...t, selected: false })));
-            };
+                let timelineStr = "";
+                if (selectedCategories.has('3. 90-Day Transformation Sprint')) {
+                    timelineStr = "12 Weeks (90-Day Sprint)";
+                } else if (selectedCategories.has('2. Scale-Ready SOPs & HR')) {
+                    timelineStr = "6 - 8 Weeks";
+                } else if (selectedCategories.has('5. Lark Suite Management') || selectedCategories.has('6. Project Management Training (HERMES 2022)')) {
+                    timelineStr = "3 - 4 Weeks";
+                } else if (selectedCategories.has('1. Operational Diagnostics')) {
+                    timelineStr = "1 - 2 Weeks";
+                } else {
+                    timelineStr = "2 - 4 Weeks"; 
+                }
+                
+                if (hasRetainers) {
+                    return `${timelineStr} + Ongoing Retainer`;
+                }
+                return timelineStr;
+            }, [tasks]);
 
             // SUMMARY CALCULATIONS WITH STRATEGIC PARTNER COST ARBITRAGE & WATERFALL DELEGATION
+            // MOVED DYNAMIC SUMMARY CALCULATION UPWARD TO RESOLVE INITIALIZATION LIFECYCLE ORDER ERROR
             const updatedSummary = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
                 const estHoursTotal = selectedTasks.reduce((acc, curr) => acc + curr.estHours, 0);
@@ -785,26 +761,21 @@
                 const partnerBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'partner').reduce((acc, curr) => acc + curr.estHours, 0) * bufferMultiplier);
 
                 // Apply dynamic delegation waterfall
-                // 1. Delegate Principal to Senior
                 const principalDelegatedHours = Math.round(principalBaseHours * (principalToSeniorDelegate / 100));
                 const principalFinalHours = principalBaseHours - principalDelegatedHours;
 
-                // 2. Delegate Senior (including newly delegated principal hours) to Associate
                 const seniorWorkingPool = seniorBaseHours + principalDelegatedHours;
                 const seniorDelegatedHours = Math.round(seniorWorkingPool * (seniorToAssociateDelegate / 100));
                 const seniorFinalHours = seniorWorkingPool - seniorDelegatedHours;
 
-                // 3. Associate hours receive the delegated senior hours
                 const associateFinalHours = associateBaseHours + seniorDelegatedHours;
-
-                // 4. Partner hours remain pass-through
                 const partnerFinalHours = partnerBaseHours;
 
                 // Execution Costs per hour to deliver work internally
                 const principalExecutionRate = 1500;
                 const seniorExecutionRate = 800;
                 const associateExecutionRate = 350;
-                const partnerExecutionRate = 1200; // pass-through cost
+                const partnerExecutionRate = 1200; 
 
                 const internalCost = Math.round(
                     (principalFinalHours * principalExecutionRate) +
@@ -825,9 +796,10 @@
                 return { count: selectedTasks.length, rawEstHours: estHoursTotal, estHours: bufferedTotalHours, subtotalCost, taxValue, totalCost, internalCost, netProfit, profitMarginPercent, netFirstYearSavings, projectROI, isRetainerOnly, partnerHours: partnerFinalHours, principalFinalHours, seniorFinalHours, associateFinalHours, partnerFinalHours };
             }, [tasks, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, annualInactionCost, includeTax, principalRate, seniorRate, associateRate, partnerRate]);
 
+            // DYNAMIC METRIC TO DETECT PROJECT TIMELINE THRESHOLD FOR BILLING MILESTONES (SAFE NOW BELOW UPDATEDSUMMARY)
             const isUnder4Weeks = useMemo(() => {
                 if (updatedSummary.isRetainerOnly) return false;
-                const lowerTimeline = projectTimeline.toLowerCase();
+                const lowerTimeline = calculatedTimeline.toLowerCase();
                 if (lowerTimeline.includes('monthly') || lowerTimeline.includes('ongoing')) return false;
                 const matches = lowerTimeline.match(/(\d+)/g);
                 if (matches && lowerTimeline.includes('week')) {
@@ -837,14 +809,44 @@
                     }
                 }
                 return false;
-            }, [projectTimeline, updatedSummary.isRetainerOnly]);
+            }, [calculatedTimeline, updatedSummary.isRetainerOnly]);
+
+            // Preset Trigger Logic (BUG RESOLVED: matchesActive replaced by matchesAnyActive)
+            const handleTogglePreset = (presetName) => {
+                let updatedPresets = activePresets.includes(presetName) 
+                    ? activePresets.filter(p => p !== presetName) 
+                    : [...activePresets, presetName];
+                
+                setActivePresets(updatedPresets);
+
+                setTasks(prev => prev.map(t => {
+                    let matchesAnyActive = false;
+                    if (updatedPresets.includes('mod0') && t.category.includes('1. Operational Diagnostics')) matchesAnyActive = true;
+                    if (updatedPresets.includes('mod1') && t.category.includes('2. Scale-Ready SOPs')) matchesAnyActive = true;
+                    if (updatedPresets.includes('mod2') && (t.category.includes('3. 90-Day Transformation') || t.category.includes('5. Lark Suite') || t.category.includes('6. Project Management Training'))) matchesAnyActive = true;
+                    if (updatedPresets.includes('mod3') && (t.category.includes('4. Fractional COO') || t.category.includes('7. Managed Service Provider'))) matchesAnyActive = true;
+                    
+                    return { ...t, selected: matchesAnyActive };
+                }));
+            };
+
+            const handleSelectAllPresets = () => {
+                const all = ['mod0', 'mod1', 'mod2', 'mod3'];
+                setActivePresets(all);
+                setTasks(prev => prev.map(t => ({ ...t, selected: true })));
+            };
+
+            const handleClearAllPresets = () => {
+                setActivePresets([]);
+                setTasks(prev => prev.map(t => ({ ...t, selected: false })));
+            };
 
             const proposalSummaryText = useMemo(() => {
                 const activeOnes = tasks.filter(t => t.selected);
                 let output = `### PROPOSAL SUMMARY - KOLTHOFF CONSULTING\n`;
                 output += `* **Total Selected Tasks**: ${updatedSummary.count}\n`;
                 output += `* **Effort Base Effort**: ${updatedSummary.estHours} Estimated Hours (Includes Operational Risk Contingency Reserve)\n`;
-                output += `* **Estimated Project Timeline**: ${projectTimeline}\n`;
+                output += `* **Estimated Project Timeline**: ${calculatedTimeline}\n`;
                 output += `* **Total Project Investment**: ${formatCurrency(updatedSummary.totalCost)} (PHP ${includeTax ? 'Inc. 12% VAT' : 'Ex-Tax'})\n\n`;
                 output += `#### SCOPE OF INCLUDED WORK ITEMS:\n`;
                 let currentCat = '';
@@ -856,7 +858,7 @@
                     output += `- [x] **${t.deliverable}**: ${t.description} (Approx. ${Math.round(t.estHours * (1 + frictionBuffer/100))} hrs)\n`;
                 });
                 return output;
-            }, [tasks, updatedSummary, frictionBuffer, projectTimeline, includeTax]);
+            }, [tasks, updatedSummary, frictionBuffer, calculatedTimeline, includeTax]);
 
             // Individual category selectors for SOW mapping
             const activeDiag = tasks.some(t => t.category.includes('1. Operational Diagnostics') && t.selected);
@@ -866,6 +868,10 @@
             const activeLark = tasks.some(t => t.category.includes('5. Lark Suite') && t.selected);
             const activePM = tasks.some(t => t.category.includes('6. Project Management Training') && t.selected);
             const activeMSP = tasks.some(t => t.category.includes('7. Managed Service Provider') && t.selected);
+
+            // High-level category flags for visual modules mapping
+            const activePMO = activeTrans || activeLark || activePM;
+            const activeGov = activeCOO || activeMSP;
 
             // SOW Markdown Copy block
             const copyToClipboard = () => {
@@ -886,21 +892,31 @@
             return (
                 <div className="font-sans min-h-screen text-slate-300 bg-brandNavy-950">
                     
-                    {/* Header: Isolated Navigation */}
+                    {/* Header: Isolated Navigation with contact email and url */}
                     <header className="border-b border-brandNavy-700/50 bg-brandNavy-950/95 sticky top-0 z-50 backdrop-blur-md no-print">
                         <div className="max-w-[1600px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <IconWebsiteLogo className="w-10 h-10 text-brandBlue-400" />
                                 <div>
-                                    <span className="font-sans font-extrabold tracking-wider text-base sm:text-lg uppercase block text-white">
+                                    <span className="font-sans font-extrabold tracking-wider text-base sm:text-lg uppercase block text-white leading-none">
                                         KOLTHOFF <span className="text-brandBlue-400">CONSULTING</span>
                                     </span>
-                                    <span className="text-[9px] text-brandBlue-400 font-mono tracking-[0.25em] uppercase block -mt-1 font-bold">Internal Partner Operations Portal</span>
+                                    <span className="text-[9px] text-brandBlue-400 font-mono tracking-[0.25em] uppercase block mt-1.5 font-bold">Internal Partner Operations Portal</span>
+                                </div>
+                                <div className="hidden lg:flex items-center gap-4 text-[10px] font-mono text-slate-400 border-l border-brandNavy-700/60 pl-4 ml-4">
+                                    <div className="flex items-center gap-1.5 hover:text-white transition-colors">
+                                        <IconMail className="w-3.5 h-3.5 text-brandBlue-500" />
+                                        <a href="mailto:contact@kolthoff-consulting.com">contact@kolthoff-consulting.com</a>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 hover:text-white transition-colors">
+                                        <IconGlobe className="w-3.5 h-3.5 text-brandBlue-500" />
+                                        <a href="https://www.kolthoff-consulting.com" target="_blank" rel="noopener noreferrer">www.kolthoff-consulting.com</a>
+                                    </div>
                                 </div>
                             </div>
                             
                             <nav className="flex items-center gap-4 sm:gap-6">
-                                <button onClick={() => setView('sandbox')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-950 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
+                                <button onClick={() => setView('sandbox')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
                                 <button onClick={() => setView('proposal')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
                                 <button onClick={() => setView('quotation')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quote Sheet</button>
                             </nav>
@@ -940,7 +956,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Senior Systems Architect</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{seniorRate.toLocaleString()} / hr</span>
@@ -970,7 +986,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div className="flex gap-1.5 items-center">
                                                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Strategic IT Partner</span>
@@ -997,22 +1013,19 @@
                                             <div className="flex items-center justify-between border-b border-brandNavy-700/50 pb-2">
                                                 <div className="flex items-center gap-2">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-brandBlue-500 animate-pulse"></span>
-                                                    <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
+                                                    <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles (Modules Aligned)</span>
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-950 border border-brandBlue-500/20 hover:bg-brandBlue-600 font-sans font-bold">Select All</button>
+                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-955 border border-brandBlue-500/20 hover:bg-brandBlue-600 font-sans font-bold">Select All Modules</button>
                                                     <button onClick={handleClearAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans">Clear All</button>
                                                 </div>
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {[
-                                                    { name: 'diagnostics', label: 'Diagnostics Audit' },
-                                                    { name: 'sop', label: 'SOP Foundations' },
-                                                    { name: 'transformation', label: '90-Day Sprint' },
-                                                    { name: 'coo', label: 'Fractional COO' },
-                                                    { name: 'lark', label: 'Lark Workspace' },
-                                                    { name: 'pm', label: 'HERMES PM Training' },
-                                                    { name: 'msp', label: 'Managed MSP' }
+                                                    { name: 'mod0', label: 'MOD 0 - Operational Diagnostics' },
+                                                    { name: 'mod1', label: 'MOD I - Structural SOP & RACI Foundations' },
+                                                    { name: 'mod2', label: 'MOD II - Enterprise PMO & Tech Automation' },
+                                                    { name: 'mod3', label: 'MOD III - Fractional COO & Infrastructure Retainers' }
                                                 ].map(preset => {
                                                     const isActive = activePresets.includes(preset.name);
                                                     return (
@@ -1104,7 +1117,7 @@
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SOW Brief Description</label>
-                                                        <input type="text" placeholder="Brief workflow summary..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-205 placeholder-slate-600 focus:outline-none focus:border-brandBlue-505" />
+                                                        <input type="text" placeholder="Brief workflow summary..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-205 placeholder-slate-650 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div className="md:col-span-2">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Billing Tier</label>
@@ -1123,11 +1136,11 @@
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Consultant Activities</label>
-                                                        <input type="text" placeholder="e.g. Set up custom secure folder maps..." value={newTaskActivities} onChange={(e) => setNewTaskActivities(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-505" />
+                                                        <input type="text" placeholder="e.g. Set up custom secure folder maps..." value={newTaskActivities} onChange={(e) => setNewTaskActivities(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-205 placeholder-slate-600 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Action Required</label>
-                                                        <input type="text" placeholder="e.g. Provide access credentials to drive..." value={newTaskExpectations} onChange={(e) => setNewTaskExpectations(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-205 placeholder-slate-650 focus:outline-none focus:border-brandBlue-505" />
+                                                        <input type="text" placeholder="e.g. Provide access credentials to drive..." value={newTaskExpectations} onChange={(e) => setNewTaskExpectations(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-205 placeholder-slate-655 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Handover Output Asset</label>
@@ -1148,7 +1161,9 @@
                                             <div className="space-y-4 pb-6 border-b border-brandNavy-700 text-xs text-slate-200">
                                                 <div className="flex justify-between items-center"><span>Total Tasks Selected:</span><span className="font-bold font-mono bg-brandNavy-950 px-2 py-0.5 rounded">{updatedSummary.count} / {tasks.length}</span></div>
                                                 <div className="flex justify-between items-center"><span>Cumulative Effort:</span><span className="font-bold font-mono flex items-center gap-1"><IconClock /> {updatedSummary.estHours} Target Hrs</span></div>
-                                                <div className="flex justify-between items-center text-slate-550 text-[10px]"><span>Base hours (unbuffered):</span><span>{updatedSummary.rawEstHours} hrs</span></div>
+                                                {/* TIMELINE DISPLAYED IN THE SANDBOX SUMMARY PANEL */}
+                                                <div className="flex justify-between items-center"><span>Estimated Duration:</span><span className="font-bold font-mono text-brandBlue-400">{calculatedTimeline}</span></div>
+                                                <div className="flex justify-between items-center text-slate-555 text-[10px]"><span>Base hours (unbuffered):</span><span>{updatedSummary.rawEstHours} hrs</span></div>
                                             </div>
 
                                             <div className="py-4 border-b border-brandNavy-700">
@@ -1280,11 +1295,13 @@
                                     <div className="space-y-4 text-xs">
                                         {/* RESET ALL SETTING FIELDS TO bg-brandNavy-950 MATCHING THE CARD BACKGROUND PERFECTION */}
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pre-Diagnostic Requirements</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 resize-none text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        {/* TIMELINE FIELD IN SETTINGS (READ-ONLY AUTO SYNCED FROM CORE CALCULATOR) */}
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Calculated Timeline (Auto)</label><input type="text" value={calculatedTimeline} disabled className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-400 font-mono font-semibold cursor-not-allowed" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pre-Diagnostic Requirements</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 resize-none text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-505" /></div>
                                     </div>
                                     <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Scope Proposal</button>
                                 </div>
@@ -1293,19 +1310,27 @@
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandBlue-500 mb-8 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 bg-gradient-to-tr from-brandBlue-700 to-brandBlue-500 rounded flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-10 h-10 text-white" /></div>
-                                            <div><h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1><span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span></div>
+                                            <div>
+                                                <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
+                                                <span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed">Operational Architecture & Strategy</span>
+                                                {/* HIGH STATUS STATIONERY CONTACT LETTERHEAD INSERTION */}
+                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-500 mt-2 font-semibold">
+                                                    <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
+                                                    <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> www.kolthoff-consulting.com</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="text-left sm:text-right font-mono text-[11px] text-slate-600 space-y-1">
                                             <div className="text-slate-900 font-bold text-sm tracking-wide font-sans">SCOPE PROPOSAL (SOW)</div>
                                             <div>Reference: <span className="font-bold text-slate-955">{quoteId}-DRAFT</span></div>
                                             <div>Date Issued: {quoteDate}</div>
-                                            <div>Timeline: <span className="font-bold text-slate-955">{projectTimeline}</span></div>
+                                            <div>Timeline: <span className="font-bold text-slate-955">{calculatedTimeline}</span></div>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm border-b border-slate-250 pb-6 print-divider font-semibold">
                                         <div className="space-y-1.5"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span><div className="font-bold text-slate-955 text-base">{clientRep}</div><div className="text-slate-705 font-bold font-sans">{clientCompany}</div><div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div></div>
-                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-xs text-slate-755 mt-1"><span className="font-semibold text-slate-800">Planned Launch:</span> {targetStartDate}</div></div>
+                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-xs text-slate-705 mt-1"><span className="font-semibold text-slate-800">Planned Launch:</span> {targetStartDate}</div></div>
                                     </div>
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4><p className="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">{proposalObjectives}</p></div>
@@ -1351,7 +1376,7 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeDiag ? 'border-slate-200 text-slate-505 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeDiag ? 'border-slate-200 text-slate-555 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
                                                     Outcome: Raw leakage mapped instantly to prioritizing quick wins.
                                                 </div>
                                             </div>
@@ -1386,77 +1411,77 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeSOP ? 'border-slate-200 text-slate-505 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeSOP ? 'border-slate-200 text-slate-555 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
                                                     Outcome: Clear reporting accountability and minimized employee turnover friction.
                                                 </div>
                                             </div>
 
                                             {/* Card MOD II - Enterprise PMO & Tech Automation */}
                                             <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[17.5rem] transition-all ${
-                                                activeTrans || activeLark || activePM
+                                                activePMO
                                                     ? 'border-brandBlue-500 bg-brandBlue-50/20 shadow-md text-slate-900' 
-                                                    : 'border-dashed border-slate-300 bg-slate-50/50 text-slate-400 opacity-60'
+                                                    : 'border-dashed border-slate-300 bg-slate-50/30 text-slate-400 opacity-60'
                                             }`}>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
-                                                            activeTrans || activeLark || activePM ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
+                                                            activePMO ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
                                                         }`}>MOD II</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                                                            activeTrans || activeLark || activePM ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
-                                                        }`}>{activeTrans || activeLark || activePM ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
+                                                            activePMO ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
+                                                        }`}>{activePMO ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeTrans || activeLark || activePM ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Enterprise PMO & Tech Automation</h3>
+                                                    <h3 className={`text-xs font-bold ${activePMO ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Enterprise PMO & Tech Automation</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
                                                         Equip your team with Swiss-standard PMO framework methodologies (HERMES 2022) and migrate manual procedures into automated Lark Suite cloud workspaces.
                                                     </p>
                                                     <ul className="text-[10px] space-y-2 pt-1 font-semibold">
                                                         <li className="flex items-center gap-2">
                                                             {tasks.find(t => t.id === 'pm-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'pm-1')?.selected && (activeTrans || activeLark || activePM) ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
+                                                            <span className={tasks.find(t => t.id === 'pm-1')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
                                                             {tasks.find(t => t.id === 'lark-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'lark-1')?.selected && (activeTrans || activeLark || activePM) ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
+                                                            <span className={tasks.find(t => t.id === 'lark-1')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeTrans || activeLark || activePM ? 'border-slate-200 text-slate-505 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activePMO ? 'border-slate-200 text-slate-555 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
                                                     Outcome: Complete visibility over project portfolios and multi-department approvals.
                                                 </div>
                                             </div>
 
                                             {/* Card MOD III - Fractional COO & Infrastructure SLA Retainers */}
                                             <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[17.5rem] transition-all ${
-                                                activeCOO || activeMSP
+                                                activeGov
                                                     ? 'border-brandBlue-500 bg-brandBlue-50/20 shadow-md text-slate-900' 
-                                                    : 'border-dashed border-slate-300 bg-slate-50/50 text-slate-400 opacity-60'
+                                                    : 'border-dashed border-slate-300 bg-slate-50/30 text-slate-400 opacity-60'
                                             }`}>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
-                                                            activeCOO || activeMSP ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
+                                                            activeGov ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
                                                         }`}>MOD III</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                                                            activeCOO || activeMSP ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
-                                                        }`}>{activeCOO || activeMSP ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
+                                                            activeGov ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
+                                                        }`}>{activeGov ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeCOO || activeMSP ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Fractional COO & Infrastructure Retainers</h3>
+                                                    <h3 className={`text-xs font-bold ${activeGov ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Fractional COO & Infrastructure Retainers</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
                                                         Establish continuous, 360° strategic governance with our Fractional COO advisory programs or fully managed cybersecurity SLA support infrastructures.
                                                     </p>
                                                     <ul className="text-[10px] space-y-2 pt-1 font-semibold">
                                                         <li className="flex items-center gap-2">
                                                             {tasks.find(t => t.category.includes('Fractional COO') && t.selected) ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.category.includes('Fractional COO') && t.selected) && (activeCOO || activeMSP) ? 'text-slate-800' : 'text-slate-400 font-normal'}>Fractional COO Board Chairs</span>
+                                                            <span className={tasks.find(t => t.category.includes('Fractional COO') && t.selected) && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>Fractional COO Board Chairs</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
                                                             {tasks.find(t => t.id === 'msp-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'msp-1')?.selected && (activeCOO || activeMSP) ? 'text-slate-800' : 'text-slate-400 font-normal'}>IT & Cyber Retainers (Strategic Partner)</span>
+                                                            <span className={tasks.find(t => t.id === 'msp-1')?.selected && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>IT & Cyber Retainers (Strategic Partner)</span>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeCOO || activeMSP ? 'border-slate-200 text-slate-555 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeGov ? 'border-slate-200 text-slate-555 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
                                                     Outcome: CEO relief through continuous executive execution tracking and tech backups.
                                                 </div>
                                             </div>
@@ -1544,14 +1569,22 @@
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandBlue-500 mb-8 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 bg-gradient-to-tr from-brandBlue-700 to-brandBlue-500 rounded flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-10 h-10 text-white" /></div>
-                                            <div><h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1><span className="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span></div>
+                                            <div>
+                                                <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
+                                                <span className="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span>
+                                                {/* HIGH STATUS STATIONERY CONTACT LETTERHEAD INSERTION */}
+                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-500 mt-2 font-semibold">
+                                                    <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
+                                                    <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> www.kolthoff-consulting.com</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="text-left sm:text-right font-mono text-[11px] text-slate-600 space-y-1">
                                             <div className="text-slate-900 font-bold text-sm tracking-wide font-sans">OFFICIAL QUOTATION</div>
                                             <div>Reference: <span className="font-bold text-slate-955">{quoteId}</span></div>
                                             <div>Date Issued: {quoteDate}</div>
                                             <div>Validity: {quoteValidity}</div>
-                                            <div>Timeline: <span className="font-bold text-slate-955">{projectTimeline}</span></div>
+                                            <div>Timeline: <span className="font-bold text-slate-955">{calculatedTimeline}</span></div>
                                         </div>
                                     </div>
 
@@ -1599,10 +1632,10 @@
                                                 </div>
                                             )}
 
-                                            <div className="mt-4 pt-3 border-t border-slate-200"><strong className="text-brandBlue-600 print-accent block mb-1 uppercase tracking-wider text-[10px] font-mono font-bold font-sans">B2B Financial ROI Projection:</strong><span className="text-xs text-slate-705 leading-normal">Estimated Annual Corporate Leakage: <strong className="text-slate-900 font-mono font-bold">{formatCurrency(annualInactionCost)}</strong>. Expected Year 1 Profit Recovery: <strong className="text-emerald-600 font-mono font-bold">{formatCurrency(updatedSummary.netFirstYearSavings)}</strong> (ROI of <strong className="text-emerald-600 font-mono font-bold font-sans">+{updatedSummary.projectROI}%</strong>).</span></div>
+                                            <div className="mt-4 pt-3 border-t border-slate-200"><strong className="text-brandBlue-600 print-accent block mb-1 uppercase tracking-wider text-[10px] font-mono font-bold font-sans">B2B Financial ROI Projection:</strong><span className="text-xs text-slate-705 leading-normal">Estimated Annual Corporate Leakage: <strong className="text-slate-900 font-mono font-bold">{formatCurrency(annualInactionCost)}</strong>. Expected Year 1 Profit Recovery: <strong className="text-emerald-600 font-mono font-bold">{formatCurrency(updatedSummary.netFirstYearSavings)}</strong> (ROI of <strong className="text-emerald-600 font-mono font-bold">{updatedSummary.projectROI}%</strong>).</span></div>
                                         </div>
                                         <div className="text-right space-y-1.5 shrink-0 min-w-[250px] border-l border-slate-200 pl-6 flex flex-col justify-center">
-                                            <div className="flex justify-between items-center text-slate-605 font-mono text-xs mb-1"><span>Estimated Duration:</span><span className="font-bold text-slate-900">{projectTimeline}</span></div>
+                                            <div className="flex justify-between items-center text-slate-605 font-mono text-xs mb-1"><span>Estimated Duration:</span><span className="font-bold text-slate-900">{calculatedTimeline}</span></div>
                                             <div className="flex justify-between items-center text-xs text-slate-605 border-t border-slate-200 pt-2 font-mono"><span>Scope Net Subtotal:</span><span className="font-bold text-slate-900">{formatCurrency(updatedSummary.subtotalCost)}</span></div>
                                             {includeTax && <div className="flex justify-between items-center text-xs text-slate-500 font-mono"><span>Philippine VAT (12%):</span><span className="font-bold">{formatCurrency(updatedSummary.taxValue)}</span></div>}
                                             <div className="flex justify-between items-center text-base font-bold text-slate-955 pt-2 border-t border-slate-200"><span>Total Investment:</span><span className="text-brandBlue-600 print-accent text-lg font-serif font-black">{formatCurrency(updatedSummary.totalCost)}{updatedSummary.isRetainerOnly && " / Month"}</span></div>
@@ -1657,7 +1690,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Approved and Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-555">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
