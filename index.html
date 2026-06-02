@@ -217,7 +217,7 @@
         );
 
         const IconCheckCircle = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-brandBlue-500">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
             </svg>
         );
@@ -727,7 +727,7 @@
                 return "12 - 16 Weeks";
             };
 
-            // Preset Trigger Logic
+            // Preset Trigger Logic (BUG RESOLVED: matchesActive replaced by matchesAnyActive)
             const handleTogglePreset = (presetName) => {
                 let updatedPresets = activePresets.includes(presetName) 
                     ? activePresets.filter(p => p !== presetName) 
@@ -858,6 +858,15 @@
                 return output;
             }, [tasks, updatedSummary, frictionBuffer, projectTimeline, includeTax]);
 
+            // Individual category selectors for SOW mapping
+            const activeDiag = tasks.some(t => t.category.includes('1. Operational Diagnostics') && t.selected);
+            const activeSOP = tasks.some(t => t.category.includes('2. Scale-Ready SOPs') && t.selected);
+            const activeTrans = tasks.some(t => t.category.includes('3. 90-Day Transformation') && t.selected);
+            const activeCOO = tasks.some(t => t.category.includes('4. Fractional COO') && t.selected);
+            const activeLark = tasks.some(t => t.category.includes('5. Lark Suite') && t.selected);
+            const activePM = tasks.some(t => t.category.includes('6. Project Management Training') && t.selected);
+            const activeMSP = tasks.some(t => t.category.includes('7. Managed Service Provider') && t.selected);
+
             // SOW Markdown Copy block
             const copyToClipboard = () => {
                 const el = document.createElement('textarea');
@@ -891,7 +900,7 @@
                             </div>
                             
                             <nav className="flex items-center gap-4 sm:gap-6">
-                                <button onClick={() => setView('sandbox')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
+                                <button onClick={() => setView('sandbox')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-950 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
                                 <button onClick={() => setView('proposal')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
                                 <button onClick={() => setView('quotation')} className={`px-4 py-2 rounded font-mono text-[10px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quote Sheet</button>
                             </nav>
@@ -902,7 +911,7 @@
                         {view === 'sandbox' && (
                             <div className="no-print space-y-8">
                                 
-                                {/* TIERED RATE CONFIGURATION CARD */}
+                                {/* TIERED RATE CONFIGURATION CARD (ALL 4 CARDS SHARING UNIFIED bg-brandNavy-950 BACKGROUND) */}
                                 <div className="bg-brandNavy-900 border border-brandNavy-700/80 p-6 rounded-xl shadow-2xl relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-brandBlue-500/5 blur-3xl rounded-full" />
                                     <div className="flex items-center gap-3 mb-4">
@@ -916,7 +925,7 @@
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-2">
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Principal Strategy Advisor</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{principalRate.toLocaleString()} / hr</span>
@@ -931,7 +940,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Senior Systems Architect</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{seniorRate.toLocaleString()} / hr</span>
@@ -946,7 +955,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Operations Associate</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{associateRate.toLocaleString()} / hr</span>
@@ -961,7 +970,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div className="flex gap-1.5 items-center">
                                                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Strategic IT Partner</span>
@@ -991,7 +1000,8 @@
                                                     <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles</span>
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-slate-100 text-slate-955 hover:bg-brandBlue-500 hover:text-slate-950 font-sans">Select All</button>
+                                                    {/* ALIGNED SELECT ALL BUTTON BACKGROUND COLOR WITH DESIGN PALETTE */}
+                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-950 border border-brandBlue-500/20 hover:bg-brandBlue-600 font-sans font-bold">Select All</button>
                                                     <button onClick={handleClearAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans">Clear All</button>
                                                 </div>
                                             </div>
@@ -1118,7 +1128,7 @@
                                                     </div>
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Action Required</label>
-                                                        <input type="text" placeholder="e.g. Provide access credentials to drive..." value={newTaskExpectations} onChange={(e) => setNewTaskExpectations(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-505" />
+                                                        <input type="text" placeholder="e.g. Provide access credentials to drive..." value={newTaskExpectations} onChange={(e) => setNewTaskExpectations(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-205 placeholder-slate-650 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Handover Output Asset</label>
@@ -1265,16 +1275,17 @@
                         )}
 
                         {view === 'proposal' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Draft Proposal Settings</h3>
                                     <div className="space-y-4 text-xs">
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pre-Diagnostic Requirements</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 text-xs font-semibold leading-relaxed" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 resize-none text-xs font-semibold leading-relaxed" /></div>
+                                        {/* RESET ALL SETTING FIELDS TO bg-brandNavy-950 MATCHING THE CARD BACKGROUND PERFECTION */}
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pre-Diagnostic Requirements</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 resize-none text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-500" /></div>
                                     </div>
                                     <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Scope Proposal</button>
                                 </div>
@@ -1295,14 +1306,133 @@
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm border-b border-slate-250 pb-6 print-divider font-semibold">
                                         <div className="space-y-1.5"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span><div className="font-bold text-slate-955 text-base">{clientRep}</div><div className="text-slate-705 font-bold font-sans">{clientCompany}</div><div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div></div>
-                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-xs text-slate-700 font-semibold">{preparerTitle}</div><div className="text-xs text-slate-500 mt-1"><span className="font-semibold text-slate-800">Planned Launch:</span> {targetStartDate}</div></div>
+                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-xs text-slate-700 font-semibold">{preparerTitle}</div><div className="text-xs text-slate-505 mt-1"><span className="font-semibold text-slate-800">Planned Launch:</span> {targetStartDate}</div></div>
                                     </div>
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4><p className="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">{proposalObjectives}</p></div>
-                                    <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">2. Pre-Diagnostic Information Requirements</h4><div className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-5 rounded border border-slate-150 print-pill whitespace-pre-wrap font-semibold font-sans">{preDiagnosticList}</div></div>
+                                    
+                                    {/* STRATEGIC LIFECYCLE ROADMAP - OPTIONAL EXPANSION MODULES GRID (ALIGNED TO LANDING PAGE SCREENSHOT WITH ELEVATED NAMES) */}
+                                    <div className="mb-8 page-break">
+                                        <div className="text-center max-w-xl mx-auto mb-6">
+                                            <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-brandBlue-600 uppercase block mb-1">360° Scale-Up Lifecycle</span>
+                                            <h4 className="text-base font-sans font-bold text-slate-900 leading-tight">Optional Expansion Modules Roadmap</h4>
+                                            <p className="text-[10px] text-slate-500 leading-relaxed mt-1 font-sans">
+                                                Following your baseline Diagnostics Audit, scale-ready organizations acquire targeted execution packages in any modular configuration.
+                                            </p>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
+                                            {/* Card A - MOD I: Operational SOP & RACI Foundations */}
+                                            <div className={`border rounded-xl p-5 flex flex-col justify-between min-h-[16.5rem] transition-all ${
+                                                activeSOP || activeDiag
+                                                    ? 'border-brandBlue-500 bg-brandBlue-50/10 shadow-sm text-slate-900' 
+                                                    : 'border-dashed border-slate-300 bg-slate-50/50 text-slate-400'
+                                            }`}>
+                                                <div className="space-y-3">
+                                                    <div className="flex justify-between items-center">
+                                                        <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
+                                                            activeSOP || activeDiag ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
+                                                        }`}>MOD I</div>
+                                                        <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                                                            activeSOP || activeDiag ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
+                                                        }`}>{activeSOP || activeDiag ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
+                                                    </div>
+                                                    <h3 className={`text-xs font-bold ${activeSOP || activeDiag ? 'text-slate-900' : 'text-slate-500'}`}>Structural SOP & RACI Foundations</h3>
+                                                    <p className="text-[10px] leading-relaxed font-semibold">
+                                                        Establish clear functional boundaries, department org charts, DOLE-compliant handbooks, and horizontal swimlane process diagrams to safeguard institutional knowledge.
+                                                    </p>
+                                                    <ul className="text-[10px] space-y-2 pt-1 font-semibold">
+                                                        <li className="flex items-center gap-2">
+                                                            {tasks.find(t => t.id === 'sop-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'sop-1')?.selected ? 'text-slate-800' : 'text-slate-400 font-normal'}>Org Structure & RACI Mapping</span>
+                                                        </li>
+                                                        <li className="flex items-center gap-2">
+                                                            {tasks.find(t => t.id === 'sop-2')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'sop-2')?.selected ? 'text-slate-800' : 'text-slate-400 font-normal'}>Swimlane Work Process Maps</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeSOP || activeDiag ? 'border-slate-200 text-slate-505' : 'border-slate-200/50 text-slate-400'}`}>
+                                                    Outcome: Clear reporting accountability and minimized employee turnover friction.
+                                                </div>
+                                            </div>
+
+                                            {/* Card B - MOD II: Enterprise PMO & Tech Automation */}
+                                            <div className={`border rounded-xl p-5 flex flex-col justify-between min-h-[16.5rem] transition-all ${
+                                                activeTrans || activeLark || activePM
+                                                    ? 'border-brandBlue-500 bg-brandBlue-50/10 shadow-sm text-slate-900' 
+                                                    : 'border-dashed border-slate-300 bg-slate-50/50 text-slate-400'
+                                            }`}>
+                                                <div className="space-y-3">
+                                                    <div className="flex justify-between items-center">
+                                                        <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
+                                                            activeTrans || activeLark || activePM ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
+                                                        }`}>MOD II</div>
+                                                        <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                                                            activeTrans || activeLark || activePM ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
+                                                        }`}>{activeTrans || activeLark || activePM ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
+                                                    </div>
+                                                    <h3 className={`text-xs font-bold ${activeTrans || activeLark || activePM ? 'text-slate-900' : 'text-slate-500'}`}>Enterprise PMO & Tech Automation</h3>
+                                                    <p className="text-[10px] leading-relaxed font-semibold">
+                                                        Equip your team with Swiss-standard PMO framework methodologies (HERMES 2022) and migrate manual procedures into automated Lark Suite cloud workspaces.
+                                                    </p>
+                                                    <ul className="text-[10px] space-y-2 pt-1 font-semibold">
+                                                        <li className="flex items-center gap-2">
+                                                            {tasks.find(t => t.id === 'pm-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'pm-1')?.selected ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
+                                                        </li>
+                                                        <li className="flex items-center gap-2">
+                                                            {tasks.find(t => t.id === 'lark-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'lark-1')?.selected ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeTrans || activeLark || activePM ? 'border-slate-200 text-slate-505' : 'border-slate-200/50 text-slate-400'}`}>
+                                                    Outcome: Complete visibility over project portfolios and multi-department approvals.
+                                                </div>
+                                            </div>
+
+                                            {/* Card C - MOD III: Executive COO Governance & SLA Retainers */}
+                                            <div className={`border rounded-xl p-5 flex flex-col justify-between min-h-[16.5rem] transition-all ${
+                                                activeCOO || activeMSP
+                                                    ? 'border-brandBlue-500 bg-brandBlue-50/10 shadow-sm text-slate-900' 
+                                                    : 'border-dashed border-slate-300 bg-slate-50/50 text-slate-400'
+                                            }`}>
+                                                <div className="space-y-3">
+                                                    <div className="flex justify-between items-center">
+                                                        <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
+                                                            activeCOO || activeMSP ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
+                                                        }`}>MOD III</div>
+                                                        <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                                                            activeCOO || activeMSP ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
+                                                        }`}>{activeCOO || activeMSP ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
+                                                    </div>
+                                                    <h3 className={`text-xs font-bold ${activeCOO || activeMSP ? 'text-slate-900' : 'text-slate-500'}`}>Fractional COO & Infrastructure Retainers</h3>
+                                                    <p className="text-[10px] leading-relaxed font-semibold">
+                                                        Establish continuous, 360° strategic governance with our Fractional COO advisory programs or fully managed cybersecurity SLA support infrastructures.
+                                                    </p>
+                                                    <ul className="text-[10px] space-y-2 pt-1 font-semibold">
+                                                        <li className="flex items-center gap-2">
+                                                            {tasks.find(t => t.category.includes('Fractional COO') && t.selected) ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.category.includes('Fractional COO') && t.selected) ? 'text-slate-800' : 'text-slate-400 font-normal'}>Fractional COO Board Chairs</span>
+                                                        </li>
+                                                        <li className="flex items-center gap-2">
+                                                            {tasks.find(t => t.id === 'msp-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'msp-1')?.selected ? 'text-slate-800' : 'text-slate-400 font-normal'}>IT & Cyber Retainers (Strategic Partner)</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeCOO || activeMSP ? 'border-slate-200 text-slate-555' : 'border-slate-200/50 text-slate-400'}`}>
+                                                    Outcome: CEO relief through continuous executive execution tracking and tech backups.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">3. Pre-Diagnostic Information Requirements</h4><div className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-5 rounded border border-slate-150 print-pill whitespace-pre-wrap font-semibold font-sans">{preDiagnosticList}</div></div>
 
                                     <div className="mb-8 page-break">
-                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">3. Detailed Scoping Particulars & Action Items</h4>
+                                        <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">4. Detailed Scoping Particulars & Action Items</h4>
                                         <div className="space-y-5">
                                             {tasks.filter(t => t.selected).map((task) => {
                                                 const details = task.scopeDetails || { activities: "Execute planned task steps and deliverable milestones in coordination with designated managers.", expectations: "Provide timely inputs, process data access, and constructive feedback on drafted materials.", output: "Finished deliverable asset aligned with custom SOW scope specifications." };
@@ -1326,19 +1456,19 @@
 
                                     <div className="pt-8 border-t border-slate-200 print-divider text-xs">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
-                                            <div className="space-y-12">
+                                            <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-655 font-bold font-sans">Scope Confirmed & Accepted by:</p>
-                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
+                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-505 font-semibold">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
-                                            <div className="space-y-12">
-                                                <p className="text-slate-655 font-bold font-sans">Drafted & Calibrated by:</p>
+                                            <div className="space-y-12 flex flex-col justify-between">
+                                                <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-550 font-semibold">{preparerTitle}, Kolthoff Consulting</div>
+                                                    <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
                                                 </div>
                                             </div>
@@ -1368,7 +1498,7 @@
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote ID</label><input type="text" value={quoteId} onChange={(e) => setQuoteId(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono" /></div>
-                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote Date</label><input type="text" value={quoteDate} onChange={(e) => setQuoteDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200" /></div>
+                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote Date</label><input type="text" value={quoteDate} onChange={(e) => setQuoteDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono" /></div>
                                         </div>
                                     </div>
                                     <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center"><IconPrint className="w-4 h-4 mr-1.5" /> Print or Save as PDF</button>
