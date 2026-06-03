@@ -78,12 +78,20 @@
 
         /* Print Media CSS Overrides for Pristine PDF Export */
         @media print {
-            body {
+            /* Strip paddings, margins, borders, and shadows from outer layout wrappers to remove the SOW card frame */
+            body, #root, #root > div, .animate-fade-in, .print-card {
                 background: white !important;
                 color: #0f172a !important;
                 font-family: "Montserrat", sans-serif !important;
                 margin: 0 !important;
                 padding: 0 !important;
+                border: none !important;
+                border-width: 0px !important;
+                border-style: none !important;
+                border-radius: 0px !important;
+                box-shadow: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
             }
             .luxury-gradient {
                 background: none !important;
@@ -93,16 +101,6 @@
             }
             .print-only {
                 display: block !important;
-            }
-            .print-card {
-                background: white !important;
-                border: none !important;
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                color: #0f172a !important;
             }
             .print-card * {
                 color: #0f172a !important;
@@ -968,7 +966,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Senior Systems Architect</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{seniorRate.toLocaleString()} / hr</span>
@@ -998,7 +996,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
+                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div className="flex gap-1.5 items-center">
                                                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Strategic IT Partner</span>
@@ -1180,7 +1178,7 @@
                                             <div className="py-4 border-b border-brandNavy-700">
                                                 <div className="flex justify-between items-center mb-1.5"><span className="text-[10px] font-mono tracking-widest text-brandBlue-400 uppercase font-bold">Strategic Operational Risk Contingency</span><span className="text-xs font-mono font-bold text-brandBlue-300">+{frictionBuffer}%</span></div>
                                                 <input type="range" min="0" max="30" step="5" value={frictionBuffer} onChange={(e) => setFrictionBuffer(parseInt(e.target.value))} className="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer" />
-                                                <span className="text-[9px] text-slate-505 block leading-relaxed mt-1 font-mono">Converts to "Operational Risk Contingency Reserve" on SOW.</span>
+                                                <span className="text-[9px] text-slate-555 block leading-relaxed mt-1 font-mono">Converts to "Operational Risk Contingency Reserve" on SOW.</span>
                                             </div>
 
                                             {/* WATERFALL DELEGATION SLIDERS */}
@@ -1233,7 +1231,7 @@
                                                         <span className="font-bold font-mono text-slate-200">{updatedSummary.seniorFinalHours} hrs</span>
                                                     </div>
                                                     <div className="flex justify-between">
-                                                        <span>Operations Associate (₱350/hr):</span>
+                                                        <span>Operations Advisor (₱350/hr):</span>
                                                         <span className="font-bold font-mono text-slate-200">{updatedSummary.associateFinalHours} hrs</span>
                                                     </div>
                                                     <div className="flex justify-between">
@@ -1341,7 +1339,7 @@
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm border-b border-slate-250 pb-6 print-divider font-semibold">
                                         <div className="space-y-1.5"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span><div className="font-bold text-slate-955 text-base">{clientRep}</div><div className="text-slate-705 font-bold font-sans">{clientCompany}</div><div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div></div>
-                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-slate-705 font-semibold text-xs">{preparerTitle}</div><div className="text-xs text-slate-400">Date: {quoteDate}</div></div>
+                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div><div className="text-xs text-slate-400">Date: {quoteDate}</div></div>
                                     </div>
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4><p className="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">{proposalObjectives}</p></div>
@@ -1351,7 +1349,7 @@
                                         <div className="text-center max-w-xl mx-auto mb-6">
                                             <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-brandBlue-600 uppercase block mb-1">360° Scale-Up Lifecycle</span>
                                             <h4 className="text-base font-sans font-bold text-slate-900 leading-tight">Optional Expansion Modules Roadmap</h4>
-                                            <p className="text-[10px] text-slate-500 leading-relaxed mt-1 font-sans">
+                                            <p className="text-[10px] text-slate-505 leading-relaxed mt-1 font-sans">
                                                 Following your baseline Diagnostics Audit, scale-ready organizations acquire targeted execution packages in any modular configuration.
                                             </p>
                                         </div>
@@ -1624,7 +1622,7 @@
                                                             <td className="py-3 px-4 align-top font-bold text-slate-755 text-[10px] uppercase font-sans">
                                                                 {task.tier === 'partner' ? 'Strategic Partner Managed' : task.category}
                                                             </td>
-                                                            <td className="py-3 px-4 align-top text-slate-800"><div className="font-bold text-slate-900 font-sans">{task.deliverable}</div><div className="text-[10px] text-slate-550 mt-0.5 leading-relaxed font-sans">{task.description}</div></td>
+                                                            <td className="py-3 px-4 align-top text-slate-800"><div className="font-bold text-slate-900 font-sans">{task.deliverable}</div><div className="text-[10px] text-slate-505 mt-0.5 leading-relaxed font-sans">{task.description}</div></td>
                                                         </tr>
                                                     );
                                                 })}
@@ -1707,8 +1705,8 @@
                                     </div>
 
                                     {/* Standard terms of service */}
-                                    <div className="text-[9px] text-slate-505 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed">
-                                        <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans">Standard Professional Terms</strong>
+                                    <div className="text-[9px] text-slate-555 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed">
+                                        <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans font-extrabold">Standard Professional Terms</strong>
                                         <p>1. <strong>Scope of Services & Scope Variations:</strong> Services are strictly limited to the SOW items selected. Any modifications requested by the Client shall require a signed Change Order specifying additional hours and timeline extensions.</p>
                                         <p>2. <strong>Client Cooperation & Operational Timelines:</strong> Project timelines remain suspended if critical data dependencies or stakeholder calendars are delayed by the Client by more than 5 business days.</p>
                                         <p>3. <strong>Professional Compensation, Taxes, and Late Payments:</strong> Total professional fees are ex-VAT. Invoice settlement is required within seven (7) business days of receipt.</p>
