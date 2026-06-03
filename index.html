@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kolthoff Consulting - Internal Pricing Engine</title>
     
-    <!-- Google Fonts: Montserrat (Website Primary) & Playfair Display (Editorial Accents) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 
-    <!-- Configure MathJax 3 globally before loading script to avoid compilation races -->
     <script>
         window.MathJax = {
             tex: {
@@ -24,7 +22,6 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-    <!-- Tailwind CSS CDN with Custom Brand Palette Config -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -62,11 +59,9 @@
         }
     </script>
     
-    <!-- React and ReactDOM CDNs (Production Builds) -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     
-    <!-- Babel CDN (Compiles JSX inside the browser dynamically) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
@@ -261,14 +256,27 @@
             </svg>
         );
 
-        const formatCurrency = (val) => {
+        // HOISTED UTILITY FUNCTIONS DECLARED BEFORE COMPONENT EVALUATION SCRIPT
+        function formatCurrency(val) {
             return new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', maximumFractionDigits: 0 }).format(val);
-        };
+        }
 
-        // CLINICALLY STREAMLINED BASELINE HOURS WITH ALIGNED MODULE-LEVEL CATEGORIES
-        // REORGANIZED & UPGRADED BASED ON STRATEGIC OUTCOME RECOMMENDATIONS
+        function loadSavedData(key, fallback) {
+            try {
+                const saved = localStorage.getItem(key);
+                return saved ? JSON.parse(saved) : fallback;
+            } catch (e) {
+                console.error("Local storage lookup failed safely. Using fallback.", e);
+                return fallback;
+            }
+        }
+
+        function getTodayDateString() {
+            const today = new Date();
+            return today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
         const INITIAL_TASKS = [
-            // --- MOD 0: DIAGNOSTICS ---
             { 
                 id: 'diag-1', 
                 category: 'MOD 0 - Diagnostics', 
@@ -353,8 +361,6 @@
                     output: "Finished audit slide deck, strategic roadmap options, and authorized scoping priorities."
                 }
             },
-
-            // --- MOD I: SOPS & RACI ---
             { 
                 id: 'sop-1', 
                 category: 'MOD I - SOPs & RACI', 
@@ -411,8 +417,6 @@
                     output: "Draft Employee Handbook Document ready for corporate distribution."
                 }
             },
-
-            // --- MOD II: PMO & AUTOMATION ---
             { 
                 id: 'trans-1', 
                 category: 'MOD II - PMO & Automation', 
@@ -441,36 +445,6 @@
                     output: "Elimination of targeted rework steps and documented speed improvements."
                 }
             },
-            {
-                id: 'lark-1',
-                category: 'MOD II - PMO & Automation',
-                deliverable: 'Enterprise Lark Collaboration Hub & Automated Operational Workflow Engine',
-                description: 'Migrating process swimlanes into automated Lark workspace collaboration structures, configuring permission groups, multi-tier approvals, and dynamic cloud document repositories.',
-                estHours: 8, 
-                tier: 'senior',
-                selected: false,
-                scopeDetails: {
-                    activities: "Design tailored folder taxonomies; set up advanced admin structures; align security clearance rules; provision enterprise domain mapping.",
-                    expectations: "Provide full organizational roster, role directories, and authorized domain administrator access credentials.",
-                    output: "Fully provisioned, secure, and structurally aligned enterprise Lark workspace directory."
-                }
-            },
-            {
-                id: 'pm-1',
-                category: 'MOD II - PMO & Automation',
-                deliverable: 'HERMES 2022 Methodology Implementation',
-                description: 'Structured PMO framework onboarding covering Swiss-standard project lifecycles, phase gates, role assignments, and scenario simulations.',
-                estHours: 12, 
-                tier: 'senior',
-                selected: false,
-                scopeDetails: {
-                    activities: "Deliver four (4) interactive workshops covering Swiss HERMES 2022 project gating; conduct mock case execution trials.",
-                    expectations: "Select and clear calendars for 3 to 5 internal project champions to attend all coaching cycles.",
-                    output: "Onboarded project execution leads with certified understanding of HERMES 2022 delivery lifecycle paths."
-                }
-            },
-
-            // --- MOD III: COO & RETAINERS ---
             { 
                 id: 'coo-1', 
                 category: 'MOD III - COO & Retainers', 
@@ -502,10 +476,38 @@
                 }
             },
             {
+                id: 'lark-1',
+                category: 'MOD II - PMO & Automation',
+                deliverable: 'Lark Workspace Architecture & Provisioning',
+                description: 'Configuring multi-departmental structures, permission groups, and centralized cloud document repositories.',
+                estHours: 8, 
+                tier: 'senior',
+                selected: false,
+                scopeDetails: {
+                    activities: "Design tailored folder taxonomies; set up advanced admin structures; align security clearance rules; provision enterprise domain mapping.",
+                    expectations: "Provide full organizational roster, role directories, and authorized domain administrator access credentials.",
+                    output: "Fully provisioned, secure, and structurally aligned enterprise Lark workspace directory."
+                }
+            },
+            {
+                id: 'pm-1',
+                category: 'MOD II - PMO & Automation',
+                deliverable: 'HERMES 2022 Methodology Implementation',
+                description: 'Structured onboarding covering project lifecycles, phase gates, role assignments, and scenario simulations.',
+                estHours: 12, 
+                tier: 'senior',
+                selected: false,
+                scopeDetails: {
+                    activities: "Deliver four (4) interactive workshops covering Swiss HERMES 2022 project gating; conduct mock case execution trials.",
+                    expectations: "Select and clear calendars for 3 to 5 internal project champions to attend all coaching cycles.",
+                    output: "Onboarded project execution leads with certified understanding of HERMES 2022 delivery lifecycle paths."
+                }
+            },
+            {
                 id: 'msp-1',
                 category: 'MOD III - COO & Retainers',
-                deliverable: 'Principal Operational Governance & Strategic Infrastructure Protection SLA',
-                description: 'Continuous endpoint threat detection, automated backups, and proactive firewall audits delivered under strategic partner managed execution.',
+                deliverable: 'Active Cyber & Network Security Monitoring Retainer',
+                description: 'Continuous endpoint threat detection, automated backups, and proactive firewall audits. Delivered and executed by Kolthoff Consulting’s authorized strategic infrastructure partner.',
                 estHours: 10, 
                 tier: 'partner',
                 selected: false,
@@ -517,22 +519,6 @@
                 }
             }
         ];
-
-        // LOCAL STORAGE CACHE UTILITY LOADER (TRUTH-MODE PERSISTENCE STABILIZER)
-        const loadSavedData = (key, fallback) => {
-            try {
-                const saved = localStorage.getItem(key);
-                return saved ? JSON.parse(saved) : fallback;
-            } catch (e) {
-                console.error("Local storage lookup failed safely. Using fallback.", e);
-                return fallback;
-            }
-        };
-
-        const getTodayDateString = () => {
-            const today = new Date();
-            return today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        };
 
         function App() {
             const [view, setView] = useState('sandbox');
@@ -607,6 +593,17 @@
             const [newTaskExpectations, setNewTaskExpectations] = useState('');
             const [newTaskOutput, setNewTaskOutput] = useState('');
 
+            // Helper for dynamic tier-to-rate lookup (DECLARED FIRST & HOISTED WITHIN COMPONENT TO RESOLVE TDZ EXCEPTIONS)
+            function getRateForTier(tier) {
+                switch(tier) {
+                    case 'principal': return principalRate;
+                    case 'senior': return seniorRate;
+                    case 'associate': return associateRate;
+                    case 'partner': return partnerRate;
+                    default: return associateRate;
+                }
+            }
+
             // 2. EFFECT HOOK WRITERS - CONTINUOUS BACKUP TO LOCAL STORAGE
             useEffect(() => {
                 localStorage.setItem('kc_planner_tasks', JSON.stringify(tasks));
@@ -660,17 +657,6 @@
                 window.location.reload();
             };
 
-            // Helper for dynamic tier-to-rate lookup
-            const getRateForTier = (tier) => {
-                switch(tier) {
-                    case 'principal': return principalRate;
-                    case 'senior': return seniorRate;
-                    case 'associate': return associateRate;
-                    case 'partner': return partnerRate;
-                    default: return associateRate;
-                }
-            };
-
             const toggleTask = (id) => {
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
             };
@@ -715,8 +701,7 @@
                 setTasks(prev => prev.filter(t => t.id !== id));
             };
 
-            // DYNAMIC DETAILED TIMELINE CALCULATION FOR YEAR 1 VALUE PROPOSITION
-            // RENEWED/IMPROVED ENGINE: CALCULATES ON RAW BUFFERED PROJECT EFFORT TO ENSURE MAXIMUM REALISM
+            // HIGH-STATUS FORMULA-DRIVEN TIMELINE ENGINE (DERIVED DIRECTLY FROM THE ADVISORY ARCHITECTURE REPORT)
             const calculatedTimeline = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
                 if (selectedTasks.length === 0) return "N/A";
@@ -724,20 +709,24 @@
                 const projectTasks = selectedTasks.filter(t => !t.isMonthlyRetainer);
                 const retainerTasks = selectedTasks.filter(t => t.isMonthlyRetainer);
                 
+                // Mathematical Core Architecture: T_hours = Sum(H_base * (1 + B_risk))
                 const totalProjectHours = projectTasks.reduce((acc, curr) => acc + curr.estHours, 0) * (1 + frictionBuffer / 100);
                 
                 let timelineStr = "";
                 if (projectTasks.length > 0) {
-                    if (totalProjectHours <= 16) {
-                        timelineStr = "1 - 2 Weeks";
-                    } else if (totalProjectHours <= 36) {
-                        timelineStr = "3 - 4 Weeks";
-                    } else if (totalProjectHours <= 75) {
-                        timelineStr = "6 - 8 Weeks";
-                    } else if (totalProjectHours <= 110) {
-                        timelineStr = "10 - 12 Weeks";
+                    // Delivery Velocity Parameter Cap (V_delivery = 32 hours per week productive client capacity)
+                    const deliveryVelocity = 32;
+                    const exactWeeks = totalProjectHours / deliveryVelocity;
+                    
+                    // Apply explicit corporate ceiling rounding functionality
+                    const ceilingWeeks = Math.ceil(exactWeeks);
+                    
+                    if (ceilingWeeks <= 1) {
+                        timelineStr = "1 - 2 Weeks"; // Hard floor minimum for onboarding
+                    } else if (ceilingWeeks <= 2) {
+                        timelineStr = "2 - 3 Weeks";
                     } else {
-                        timelineStr = "14 - 16 Weeks";
+                        timelineStr = `${ceilingWeeks - 1} - ${ceilingWeeks} Weeks`;
                     }
                 }
                 
@@ -979,7 +968,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Senior Systems Architect</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{seniorRate.toLocaleString()} / hr</span>
@@ -996,7 +985,7 @@
                                         </div>
                                         <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
                                             <div className="flex justify-between items-center mb-2">
-                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Operations Associate</span>
+                                                <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Operations Advisor</span>
                                                 <span className="text-xs font-mono font-bold text-brandBlue-300">₱{associateRate.toLocaleString()} / hr</span>
                                             </div>
                                             <input 
@@ -1009,7 +998,7 @@
                                                 className="w-full accent-brandBlue-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div className="flex gap-1.5 items-center">
                                                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Strategic IT Partner</span>
@@ -1039,6 +1028,7 @@
                                                     <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles (Modules Aligned)</span>
                                                 </div>
                                                 <div className="flex gap-2">
+                                                    {/* ALIGNED SELECT ALL BUTTON BACKGROUND COLOR WITH DESIGN PALETTE */}
                                                     <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-955 border border-brandBlue-500/20 hover:bg-brandBlue-600 font-sans font-bold">Select All Modules</button>
                                                     <button onClick={handleClearAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans">Clear All</button>
                                                 </div>
@@ -1151,7 +1141,7 @@
                                                     </div>
                                                     <div className="md:col-span-1">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1 text-center">Hours</label>
-                                                        <input type="number" value={newTaskHours} onChange={(e) => setNewTaskHours(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-205 focus:outline-none focus:border-brandBlue-505 font-mono font-bold" />
+                                                        <input type="number" value={newTaskHours} onChange={(e) => setNewTaskHours} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-205 focus:outline-none focus:border-brandBlue-505 font-mono font-bold" />
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1316,8 +1306,8 @@
                                     <div className="space-y-4 text-xs">
                                         {/* RESET ALL SETTING FIELDS TO bg-brandNavy-950 MATCHING THE CARD BACKGROUND PERFECTION */}
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         {/* TIMELINE FIELD IN SETTINGS (READ-ONLY AUTO SYNCED FROM CORE CALCULATOR) */}
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Calculated Timeline (Auto)</label><input type="text" value={calculatedTimeline} disabled className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-400 font-mono font-semibold cursor-not-allowed" /></div>
@@ -1351,7 +1341,7 @@
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm border-b border-slate-250 pb-6 print-divider font-semibold">
                                         <div className="space-y-1.5"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span><div className="font-bold text-slate-955 text-base">{clientRep}</div><div className="text-slate-705 font-bold font-sans">{clientCompany}</div><div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div></div>
-                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-xs text-slate-705 mt-1"><span className="font-semibold text-slate-800">Planned Launch:</span> {targetStartDate}</div></div>
+                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-slate-705 font-semibold text-xs">{preparerTitle}</div><div className="text-xs text-slate-400">Date: {quoteDate}</div></div>
                                     </div>
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4><p className="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">{proposalObjectives}</p></div>
@@ -1540,7 +1530,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Scope Confirmed & Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-550">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1634,7 +1624,7 @@
                                                             <td className="py-3 px-4 align-top font-bold text-slate-755 text-[10px] uppercase font-sans">
                                                                 {task.tier === 'partner' ? 'Strategic Partner Managed' : task.category}
                                                             </td>
-                                                            <td className="py-3 px-4 align-top text-slate-800"><div className="font-bold text-slate-900 font-sans">{task.deliverable}</div><div className="text-[10px] text-slate-505 mt-0.5 leading-relaxed font-sans">{task.description}</div></td>
+                                                            <td className="py-3 px-4 align-top text-slate-800"><div className="font-bold text-slate-900 font-sans">{task.deliverable}</div><div className="text-[10px] text-slate-550 mt-0.5 leading-relaxed font-sans">{task.description}</div></td>
                                                         </tr>
                                                     );
                                                 })}
@@ -1766,7 +1756,7 @@
 
         // Render the virtual DOM mount standard
         const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<App />);
+        root.render((<App />));
     </script>
 </body>
 </html>
