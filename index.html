@@ -598,7 +598,7 @@
             const [newTaskExpectations, setNewTaskExpectations] = useState('');
             const [newTaskOutput, setNewTaskOutput] = useState('');
 
-            // Helper for dynamic tier-to-rate lookup
+            // Helper for dynamic tier-to-rate lookup (DECLARED FIRST & HOISTED WITHIN COMPONENT TO RESOLVE TDZ EXCEPTIONS)
             function getRateForTier(tier) {
                 switch(tier) {
                     case 'principal': return principalRate;
@@ -726,7 +726,7 @@
                 setTasks(prev => prev.filter(t => t.id !== id));
             };
 
-            // HIGH-STATUS FORMULA-DRIVEN TIMELINE ENGINE (DERIVED DIRECTLY FROM THE ADVISORY ARCHITECTURE REPORT)
+            // HIGH-STATUS FORMULA-DRIVEN TIMELINE ENGINE (UPDATED STRICTLY TO 16 HOURS PER WEEK)
             const calculatedTimeline = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
                 if (selectedTasks.length === 0) return "N/A";
@@ -739,8 +739,8 @@
                 
                 let timelineStr = "";
                 if (projectTasks.length > 0) {
-                    // Delivery Velocity Parameter Cap (V_delivery = 32 hours per week productive client capacity)
-                    const deliveryVelocity = 32;
+                    // Delivery Velocity Parameter Cap (V_delivery = 16 hours per week productive client capacity)
+                    const deliveryVelocity = 16;
                     const exactWeeks = totalProjectHours / deliveryVelocity;
                     
                     // Apply explicit corporate ceiling rounding functionality
@@ -832,6 +832,25 @@
                 return { count: selectedTasks.length, rawEstHours: estHoursTotal, estHours: bufferedTotalHours, subtotalCost, taxValue, totalCost, internalCost, netProfit, profitMarginPercent, netFirstYearSavings, projectROI, isRetainerOnly, partnerHours: partnerFinalHours, principalFinalHours, seniorFinalHours, associateFinalHours, partnerFinalHours };
             }, [tasks, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, annualInactionCost, includeTax, projectCostBase, retainerCostBase]);
 
+            // DECOUPLED PROJECT VS RETAINER FINANCIAL DIVISION FOR DYNAMIC SOW BILLING
+            const projectCostPart = useMemo(() => {
+                const selectedProjTasks = tasks.filter(t => t.selected && !t.isMonthlyRetainer);
+                const bufferMultiplier = 1 + (frictionBuffer / 100);
+                const base = Math.round(selectedProjTasks.reduce((acc, curr) => {
+                    return acc + (curr.estHours * getRateForTier(curr.tier));
+                }, 0) * bufferMultiplier);
+                return base + (includeTax ? Math.round(base * 0.12) : 0);
+            }, [tasks, frictionBuffer, includeTax, principalRate, seniorRate, associateRate, partnerRate]);
+
+            const retainerCostPart = useMemo(() => {
+                const selectedRetTasks = tasks.filter(t => t.selected && t.isMonthlyRetainer);
+                const bufferMultiplier = 1 + (frictionBuffer / 100);
+                const base = Math.round(selectedRetTasks.reduce((acc, curr) => {
+                    return acc + (curr.estHours * getRateForTier(curr.tier));
+                }, 0) * bufferMultiplier);
+                return base + (includeTax ? Math.round(base * 0.12) : 0);
+            }, [tasks, frictionBuffer, includeTax, principalRate, seniorRate, associateRate, partnerRate]);
+
             // DYNAMIC METRIC TO DETECT PROJECT TIMELINE THRESHOLD FOR BILLING MILESTONES (SAFE NOW BELOW UPDATEDSUMMARY)
             const isUnder4Weeks = useMemo(() => {
                 if (updatedSummary.isRetainerOnly) return false;
@@ -872,7 +891,7 @@
                 const totalAmount = baseAmount + vatAmount;
 
                 return { baseAmount, vatAmount, totalAmount };
-            }, [invoiceMilestone, projectCostBase, retainerCostBase, customInvoiceAmount, includeTax]);
+            }, [invoiceMilestone, projectCostBase, retainerCostBase, projectCostPart, customInvoiceAmount, includeTax]);
 
             // DYNAMIC INVOICE DETAILED SPECIFICATIONS LINE ITEM DESCRIPTOR
             const invoiceLineItemDescription = useMemo(() => {
@@ -1001,8 +1020,8 @@
                             </div>
                             
                             <nav className="flex items-center gap-2 sm:gap-4">
-                                <button onClick={() => setView('sandbox')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
-                                <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
+                                <button onClick={() => setView('sandbox')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
+                                <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
                                 <button onClick={() => setView('quotation')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quote Sheet</button>
                                 <button onClick={() => setView('invoice')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>4. Invoice</button>
                             </nav>
@@ -1102,7 +1121,7 @@
                                                     <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles (Modules Aligned)</span>
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-955 border border-brandBlue-500/20 hover:bg-brandBlue-600 font-sans font-bold">Select All Modules</button>
+                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-955 border border-brandBlue-505 hover:bg-brandBlue-600 font-sans font-bold">Select All Modules</button>
                                                     <button onClick={handleClearAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans">Clear All</button>
                                                 </div>
                                             </div>
@@ -1115,7 +1134,7 @@
                                                 ].map(preset => {
                                                     const isActive = activePresets.includes(preset.name);
                                                     return (
-                                                        <button key={preset.name} onClick={() => handleTogglePreset(preset.name)} className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-955 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>
+                                                        <button key={preset.name} onClick={() => handleTogglePreset(preset.name)} className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-955 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-755 hover:bg-brandNavy-800'}`}>
                                                             {isActive ? <IconCheck className="w-3 h-3 text-slate-955 font-bold" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />}
                                                             {preset.label}
                                                         </button>
@@ -1150,7 +1169,6 @@
                                                                         {task.id.startsWith('custom-') && <button onClick={() => removeTask(task.id)} className="p-1 text-rose-505 hover:text-rose-400 rounded transition-colors"><IconTrash className="w-3.5 h-3.5" /></button>}
                                                                     </div>
                                                                 </td>
-                                                                {/* DYNAMIC CATEGORY AND PARTICULARS RE-ALIGNMENT WITH CLEAN MODULE HEADERS */}
                                                                 <td className="py-4 px-4">
                                                                     <span className="text-[10px] font-mono bg-brandNavy-950 px-2.5 py-1.5 rounded border border-brandNavy-700/80 text-brandBlue-400 font-bold block text-center truncate">{task.category}</span>
                                                                 </td>
@@ -1162,7 +1180,7 @@
                                                                     <input type="number" min="0" value={task.estHours} onChange={(e) => updateTaskHours(task.id, e.target.value)} className="w-16 bg-brandNavy-950 border border-brandNavy-700 rounded px-1.5 py-1 text-xs text-center font-mono font-bold text-slate-200 focus:border-brandBlue-500 focus:outline-none" disabled={!task.selected} />
                                                                 </td>
                                                                 <td className="py-4 px-4 text-center">
-                                                                    <select value={task.tier} onChange={(e) => updateTaskTier(task.id, e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded py-1 px-1.5 text-xs text-slate-200 font-mono uppercase focus:outline-none focus:border-brandBlue-500" disabled={!task.selected}>
+                                                                    <select value={task.tier} onChange={(e) => updateTaskTier(task.id, e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded py-1 px-1.5 text-xs text-slate-205 font-mono uppercase focus:outline-none focus:border-brandBlue-505" disabled={!task.selected}>
                                                                         <option value="associate">Associate</option>
                                                                         <option value="senior">Senior Architect</option>
                                                                         <option value="principal">Principal</option>
@@ -1197,7 +1215,7 @@
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">New Task / Deliverable</label>
-                                                        <input type="text" placeholder="e.g. Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" required />
+                                                        <input type="text" placeholder="e.g. Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" required />
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SOW Brief Description</label>
@@ -1220,7 +1238,7 @@
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Consultant Activities</label>
-                                                        <input type="text" placeholder="e.g. Set up custom secure folder maps..." value={newTaskActivities} onChange={(e) => setNewTaskActivities(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-205 placeholder-slate-655 focus:outline-none focus:border-brandBlue-505" />
+                                                        <input type="text" placeholder="e.g. Set up custom secure folder maps..." value={newTaskActivities} onChange={(e) => setNewTaskActivities(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-2 px-3 text-xs text-slate-205 placeholder-slate-650 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div>
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Action Required</label>
@@ -1242,7 +1260,7 @@
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-brandBlue-500/5 blur-2xl rounded-full" />
                                             <h3 className="text-xs font-bold tracking-wider text-brandBlue-400 uppercase font-mono mb-4 flex items-center gap-2"><IconCalculator /> Internal Scoping Audit</h3>
                                             
-                                            <div className="space-y-4 pb-6 border-b border-brandNavy-700 text-xs text-slate-200">
+                                            <div className="space-y-4 pb-6 border-b border-brandNavy-700 text-xs text-slate-205">
                                                 <div className="flex justify-between items-center"><span>Total Tasks Selected:</span><span className="font-bold font-mono bg-brandNavy-950 px-2 py-0.5 rounded">{updatedSummary.count} / {tasks.length}</span></div>
                                                 <div className="flex justify-between items-center"><span>Cumulative Effort:</span><span className="font-bold font-mono flex items-center gap-1"><IconClock /> {updatedSummary.estHours} Target Hrs</span></div>
                                                 {/* TIMELINE DISPLAYED IN THE SANDBOX SUMMARY PANEL */}
@@ -1272,7 +1290,7 @@
                                                         max="100" 
                                                         step="5"
                                                         value={principalToSeniorDelegate} 
-                                                        onChange={(e) => setPrincipalToSeniorDelegate(parseInt(e.target.value))}
+                                                        onChange={(e) => setProposalSponsor(parseInt(e.target.value))}
                                                         className="w-full accent-brandBlue-400 bg-brandNavy-950 h-1 rounded-lg cursor-pointer"
                                                     />
                                                 </div>
@@ -1322,16 +1340,15 @@
 
                                             <div className="py-4 border-b border-brandNavy-700 space-y-1.5 text-xs">
                                                 <div className="flex justify-between"><span>Scope Net Subtotal:</span><span className="font-mono font-semibold">{formatCurrency(updatedSummary.subtotalCost)}</span></div>
-                                                {includeTax && <div className="flex justify-between text-slate-400"><span>12% Philippine VAT:</span><span className="font-mono">{formatCurrency(updatedSummary.taxValue)}</span></div>}
+                                                {includeTax && <div className="flex justify-between text-slate-400"><span>12% VAT:</span><span className="font-mono">{formatCurrency(updatedSummary.taxValue)}</span></div>}
                                                 <div className="flex justify-between font-bold text-slate-100 pt-1.5"><span>Total Investment:</span><span className="text-brandBlue-300 font-mono font-bold">{formatCurrency(updatedSummary.totalCost)}</span></div>
                                             </div>
-                                            
+
                                             <div className="pt-4 pb-2 border-b border-brandNavy-700">
                                                 <span className="text-[10px] font-mono tracking-widest text-slate-400 uppercase block">Confidential Gross Profit ({updatedSummary.profitMarginPercent}%)</span>
                                                 <span className="text-2xl font-bold text-emerald-400 mt-1 block font-mono">{formatCurrency(updatedSummary.netProfit)}</span>
                                             </div>
 
-                                            {/* CUSTOM SECURE RESET WORKSPACE (IFRAME-SAFE INLINE CONFIRMATION MATRIX) */}
                                             <div className="pt-4">
                                                 {!showResetConfirm ? (
                                                     <button 
@@ -1363,7 +1380,7 @@
                                             </div>
                                         </div>
 
-                                        <div className="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl space-y-4 backdrop-blur-sm">
+                                        <div className="bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl space-y-4 backdrop-blur-sm mt-6">
                                             <div className="flex justify-between items-center"><h3 className="text-xs font-bold tracking-wider text-slate-300 uppercase font-mono">SOW Generator</h3><button onClick={copyToClipboard} className="px-3 py-1.5 bg-brandNavy-950 hover:bg-brandNavy-800 rounded text-xs font-bold flex items-center text-brandBlue-400 border border-brandBlue-900/40">{copied ? <IconCheckCircle /> : <IconCopy />} Copy SOW</button></div>
                                             <div className="bg-brandNavy-950 rounded p-4 border border-brandNavy-700/80 text-[11px] text-slate-400 font-mono overflow-y-auto max-h-48 whitespace-pre-line leading-relaxed">{proposalSummaryText}</div>
                                         </div>
@@ -1377,15 +1394,13 @@
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Draft Proposal Settings</h3>
                                     <div className="space-y-4 text-xs">
-                                        {/* RESET ALL SETTING FIELDS TO bg-brandNavy-950 MATCHING THE CARD BACKGROUND PERFECTION */}
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
-                                        {/* TIMELINE FIELD IN SETTINGS (READ-ONLY AUTO SYNCED FROM CORE CALCULATOR) */}
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Calculated Timeline (Auto)</label><input type="text" value={calculatedTimeline} disabled className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-400 font-mono font-semibold cursor-not-allowed" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pre-Diagnostic Requirements</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-505" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 resize-none text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Pre-Diagnostic Requirements</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-500" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 resize-none text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandBlue-500" /></div>
                                     </div>
                                     <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Scope Proposal</button>
                                 </div>
@@ -1397,7 +1412,6 @@
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
                                                 <span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed">Operational Architecture & Strategy</span>
-                                                {/* HIGH STATUS STATIONERY CONTACT LETTERHEAD INTEGRATION */}
                                                 <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-500 mt-2 font-semibold">
                                                     <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
                                                     <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> www.kolthoff-consulting.com</span>
@@ -1419,7 +1433,6 @@
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4><p className="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">{proposalObjectives}</p></div>
                                     
-                                    {/* STRATEGIC LIFECYCLE ROADMAP - OPTIONAL EXPANSION MODULES GRID (ALIGNED TO LANDING PAGE SCREENSHOT WITH ELEVATED NAMES) */}
                                     <div className="mb-8">
                                         <div className="text-center max-w-xl mx-auto mb-6">
                                             <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-brandBlue-600 uppercase block mb-1">360° Scale-Up Lifecycle</span>
@@ -1574,7 +1587,6 @@
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">3. Pre-Diagnostic Information Requirements</h4><div className="text-xs text-slate-700 leading-relaxed bg-slate-50 p-5 rounded border border-slate-150 print-pill whitespace-pre-wrap font-semibold font-sans">{preDiagnosticList}</div></div>
 
-                                    {/* REMOVED PAGE-BREAK CLASS FROM SCOPE PARTICULARS AND MILESTONE SCHEDULE WRAPPERS FOR CONTINUOUS PRINT FLOW */}
                                     <div className="mb-8">
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">4. Detailed Scoping Particulars & Action Items</h4>
                                         <div className="space-y-5">
@@ -1645,7 +1657,7 @@
                                             <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Quote Date</label><input type="text" value={quoteDate} onChange={(e) => setQuoteDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono" /></div>
                                         </div>
                                     </div>
-                                    <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center"><IconPrint className="w-4 h-4 mr-1.5" /> Print or Save as PDF</button>
+                                    <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Scope Proposal</button>
                                 </div>
 
                                 {/* Right Side: Stationery Client Quotation Sheet */}
@@ -1686,7 +1698,7 @@
                                     <div className="border border-slate-200 rounded-lg overflow-hidden mb-8 print-divider font-sans">
                                         <table className="w-full text-left border-collapse text-xs table-fixed font-sans">
                                             <thead>
-                                                <tr className="bg-slate-50 border-b border-slate-200 text-slate-605 uppercase font-mono text-[9px] tracking-wider font-bold font-sans font-extrabold">
+                                                <tr className="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase font-mono text-[9px] tracking-wider font-bold font-sans font-extrabold">
                                                     <th className="py-3 px-4 w-[30%]">Service Category</th>
                                                     <th className="py-3 px-4 w-[70%]">SOW Deliverables & Objectives</th>
                                                 </tr>
@@ -1918,15 +1930,15 @@
                                             <div className="w-14 h-14 bg-gradient-to-tr from-brandBlue-700 to-brandBlue-500 rounded flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-10 h-10 text-white" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
-                                                <span className="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span>
+                                                <span className="text-[9px] text-slate-505 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span>
                                                 {/* HIGH STATUS STATIONERY CONTACT LETTERHEAD INSERTION */}
-                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-500 mt-2 font-semibold">
+                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-505 mt-2 font-semibold">
                                                     <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
                                                     <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> www.kolthoff-consulting.com</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="text-left sm:text-right font-mono text-[11px] text-slate-600 space-y-1">
+                                        <div className="text-left sm:text-right font-mono text-[11px] text-slate-605 space-y-1">
                                             <div className="text-slate-900 font-bold text-sm tracking-wide font-sans">OFFICIAL TAX INVOICE</div>
                                             <div>Invoice No: <span className="font-bold text-slate-955">{quoteId.replace('KC', 'INV')}{invoiceNumberSuffix}</span></div>
                                             <div>Date Issued: {quoteDate}</div>
@@ -1990,7 +2002,7 @@
                                             </div>
                                             <div className="mt-4 pt-3 border-t border-slate-200">
                                                 <span className="text-[10px] font-mono tracking-widest text-brandBlue-600 print-accent block mb-1 uppercase font-bold">Philippine Bank Remittance:</span>
-                                                <div className="font-mono text-[9px] text-slate-700 space-y-0.5 bg-white p-2.5 rounded border border-slate-200">
+                                                <div className="font-mono text-[9px] text-slate-705 space-y-0.5 bg-white p-2.5 rounded border border-slate-200">
                                                     <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                     <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
                                                     <div>Account Number: <strong>0039 5019 0761</strong></div>
