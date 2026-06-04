@@ -62,6 +62,7 @@
     
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
@@ -162,7 +163,6 @@
             return today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         }
 
-        // DYNAMIC REFERENCE ID DEFAULT GENERATOR
         function getDefaultReference() {
             const today = new Date();
             const year = today.getFullYear();
@@ -231,7 +231,7 @@
         );
 
         const IconCheckCircle = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-brandBlue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-brandBlue-505">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
             </svg>
         );
@@ -559,7 +559,6 @@
         ];
 
         function App() {
-            // --- STREAMING_CHUNK: Initializing workspace state parameters... ---
             const [view, setView] = useState('sandbox');
             const [copied, setCopied] = useState(false);
             const [showResetConfirm, setShowResetConfirm] = useState(false);
@@ -567,7 +566,7 @@
             // 1. CORE DATA STATE
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
 
-            // EXPLICIT SELECTION EVALUATORS DECLARED TO PREVENT GAPS IN PRINT CONDITIONAL RENDERING
+            // ACTIVE MODULE BOOLEAN CHECKS FOR Symmetrical PRINTING CHECKMARKS
             const activeDiag = useMemo(() => tasks.some(t => t.category === 'MOD 0 - Operational Diagnostics' && t.selected), [tasks]);
             const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD I - Process Architecture' && t.selected), [tasks]);
             const activePMO = useMemo(() => tasks.some(t => t.category === 'MOD II - Workflow Automation' && t.selected), [tasks]);
@@ -585,7 +584,6 @@
             const [associateRate, setAssociateRate] = useState(savedRates.associate);
             const [partnerRate, setPartnerRate] = useState(savedRates.partner);
 
-            // CACHED ACTIVE PRESETS RESTORATION
             const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['mod0']));
 
             const savedMeta = useMemo(() => loadSavedData('kc_planner_meta', {
@@ -666,7 +664,6 @@
                 }
             };
 
-            // --- STREAMING_CHUNK: Binding handlers and custom workbook resets... ---
             const handlePrint = () => {
                 window.print();
             };
@@ -799,7 +796,6 @@
                 return Math.round(retainerCostBase * taxMultiplier);
             }, [retainerCostBase, includeTax]);
 
-            // --- STREAMING_CHUNK: Setting up billing milestone computations... ---
             const billingMilestones = useMemo(() => {
                 const milestonesList = [];
                 if (projectCostPart <= 0) return milestonesList;
@@ -1042,16 +1038,16 @@
                             
                             <nav className="flex items-center gap-2 sm:gap-4 font-sans font-semibold">
                                 <button onClick={() => setView('sandbox')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
-                                <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
-                                <button onClick={() => setView('quotation')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quote Sheet</button>
-                                <button onClick={() => setView('nda')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>4. NDA</button>
+                                <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. Proposal</button>
+                                <button onClick={() => setView('quotation')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-555 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>3. Quotation</button>
+                                <button onClick={() => setView('nda')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>4. NDA</button>
                                 <button onClick={() => setView('invoice')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>5. Invoice</button>
                             </nav>
                         </div>
                     </header>
 
                     {/* --- STREAMING_CHUNK: Rendering workspace sandbox panel... --- */}
-                    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
+                    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto font-sans">
                         {view === 'sandbox' && (
                             <div className="no-print space-y-8 animate-fade-in">
                                 
@@ -1158,7 +1154,7 @@
                                                     const isActive = activePresets.includes(preset.name);
                                                     return (
                                                         <button key={preset.name} onClick={() => handleTogglePreset(preset.name)} className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-955 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>
-                                                            {isActive ? <IconCheck className="w-3 h-3 text-slate-955 font-bold" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />}
+                                                             {isActive ? <IconCheck className="w-3 h-3 text-slate-955 font-bold" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />}
                                                             {preset.label}
                                                         </button>
                                                     );
@@ -1186,7 +1182,7 @@
                                                             <tr key={task.id} className={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
                                                                 <td className="py-4 px-5 text-center">
                                                                     <div className="flex items-center justify-center gap-1">
-                                                                        <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
+                                                                        <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-505 inline-flex transition-colors">
                                                                             {task.selected ? <IconCheckSquare /> : <IconSquare />}
                                                                         </button>
                                                                         {task.id.startsWith('custom-') && <button onClick={() => removeTask(task.id)} className="p-1 text-rose-505 hover:text-rose-400 rounded transition-colors"><IconTrash className="w-3.5 h-3.5" /></button>}
@@ -1241,7 +1237,7 @@
                                                         <input type="text" placeholder="e.g. Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-600 focus:outline-none focus:border-brandBlue-505" required />
                                                     </div>
                                                     <div className="md:col-span-3">
-                                                        <label className="text-[10px] font-mono text-slate-405 uppercase block mb-1">SOW Brief Description</label>
+                                                        <label className="text-[10px] font-mono text-slate-455 uppercase block mb-1">SOW Brief Description</label>
                                                         <input type="text" placeholder="Brief workflow summary..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-205 placeholder-slate-650 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div className="md:col-span-2">
@@ -1437,10 +1433,9 @@
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SOW Reference ID</label><input type="text" value={quoteId} onChange={(e) => setQuoteId(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-205 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-202 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         
-                                        {/* IN proposal setting form, allow editing of Prepared By & Preparer Title */}
                                         <div className="grid grid-cols-2 gap-3">
-                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Prepared By</label><input type="text" value={preparedBy} onChange={(e) => setPreparedBy(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none focus:border-brandBlue-505" /></div>
-                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Preparer Title</label><input type="text" value={preparerTitle} onChange={(e) => setPreparerTitle(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none focus:border-brandBlue-505" /></div>
+                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Prepared By</label><input type="text" value={preparedBy} onChange={(e) => setPreparedBy(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none" /></div>
+                                            <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Preparer Title</label><input type="text" value={preparerTitle} onChange={(e) => setPreparerTitle(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none" /></div>
                                         </div>
 
                                         <div>
@@ -1480,7 +1475,7 @@
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
                                                 <span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed">Operational Architecture & Strategy</span>
-                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-505 mt-2 font-semibold">
+                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-555 mt-2 font-semibold">
                                                     <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
                                                     <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> www.kolthoff-consulting.com</span>
                                                 </div>
@@ -1502,7 +1497,7 @@
                                             <div className="text-xs text-slate-655"><span className="font-semibold text-slate-800">Key Sponsor:</span> {proposalSponsor}</div>
                                             <div className="text-xs text-slate-655"><span className="font-semibold text-slate-800">Target Kickoff:</span> {targetStartDate}</div>
                                         </div>
-                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div><div className="text-xs text-slate-400">Date: {quoteDate}</div></div>
+                                        <div className="space-y-1.5 md:text-right"><span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span><div className="font-bold text-slate-955 text-base">{preparedBy}</div><div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div><div className="text-xs text-slate-400">Date: {quoteDate}</div></div>
                                     </div>
 
                                     <div className="mb-8"><h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-2">1. Engagement Objectives & Focus Strategy</h4><p className="text-xs text-slate-800 leading-relaxed bg-slate-50 p-4 rounded border border-slate-100 print-pill">{proposalObjectives}</p></div>
@@ -1518,7 +1513,7 @@
 
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 font-sans">
                                             {/* Card MOD 0 - Diagnostics */}
-                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19.5rem] transition-all duration-150 ${
+                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[22rem] transition-all duration-150 ${
                                                 activeDiag
                                                     ? 'border-2 border-brandBlue-500 bg-blue-50/40 text-slate-900 shadow-md print:bg-slate-50 print:border-brandBlue-700 font-bold' 
                                                     : 'border border-dashed border-slate-300 bg-slate-50/45 text-slate-400 opacity-50 print:opacity-40 print:border-slate-300 print:bg-white'
@@ -1557,7 +1552,7 @@
                                             </div>
 
                                             {/* Card MOD I - Process Architecture */}
-                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19.5rem] transition-all duration-150 ${
+                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[22rem] transition-all duration-150 ${
                                                 activeSOP
                                                     ? 'border-2 border-brandBlue-500 bg-blue-50/40 text-slate-900 shadow-md print:bg-slate-50 print:border-brandBlue-700' 
                                                     : 'border border-dashed border-slate-300 bg-slate-50/45 text-slate-400 opacity-50 print:opacity-40 print:border-slate-300 print:bg-white'
@@ -1596,7 +1591,7 @@
                                             </div>
 
                                             {/* Card MOD II - Workflow Automation */}
-                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19.5rem] transition-all duration-150 ${
+                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[22rem] transition-all duration-155 ${
                                                 activePMO
                                                     ? 'border-2 border-brandBlue-500 bg-blue-50/40 text-slate-900 shadow-md print:bg-slate-50 print:border-brandBlue-700' 
                                                     : 'border border-dashed border-slate-300 bg-slate-50/45 text-slate-400 opacity-50 print:opacity-40 print:border-slate-300 print:bg-white'
@@ -1635,7 +1630,7 @@
                                             </div>
 
                                             {/* Card MOD III - Strategic Advisory & Systems Retainer */}
-                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19.5rem] transition-all duration-150 ${
+                                            <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[22rem] transition-all duration-150 ${
                                                 activeGov
                                                     ? 'border-2 border-brandBlue-500 bg-blue-50/40 text-slate-900 shadow-md print:bg-slate-50 print:border-brandBlue-700' 
                                                     : 'border border-dashed border-slate-300 bg-slate-50/45 text-slate-400 opacity-50 print:opacity-40 print:border-slate-300 print:bg-white'
@@ -1714,7 +1709,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
+                                                    <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
                                                 </div>
                                             </div>
@@ -1726,7 +1721,7 @@
 
                         {/* --- VIEW 3: SYSTEMATIC QUOTATION SETTINGS SIDEBAR & CUSTOM FORM --- */}
                         {view === 'quotation' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in font-sans">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Customize Quotation Fields</h3>
                                     <div className="space-y-4 text-xs font-sans font-medium">
@@ -1867,7 +1862,7 @@
 
                                     {/* Standard terms of service */}
                                     <div className="text-[9px] text-slate-505 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed">
-                                        <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans">Standard Professional Terms</strong>
+                                        <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans font-extrabold">Standard Professional Terms</strong>
                                         <p>1. <strong>Scope of Services & Scope Variations:</strong> Services are strictly limited to the SOW items selected. Any modifications requested by the Client shall require a signed Change Order specifying additional hours and timeline extensions.</p>
                                         <p>2. <strong>Client Cooperation & Operational Timelines:</strong> Project timelines remain suspended if critical data dependencies or stakeholder calendars are delayed by the Client by more than 5 business days.</p>
                                         <p>3. <strong>Professional Compensation, Taxes, and Late Payments:</strong> Total professional fees are ex-VAT. Invoice settlement is required within seven (7) business days of receipt.</p>
@@ -1876,7 +1871,7 @@
                                         <p>6. <strong>Limitation of Liability & Operational Indemnity:</strong> In no event shall Kolthoff Consulting's liability exceed the total fees paid by the Client under this quotation.</p>
                                         <p>7. <strong>Dispute Resolution & Jurisdiction:</strong> Disputes arising from this contract shall fall under the exclusive jurisdiction of the courts of Taytay, Rizal, Calabarzon.</p>
                                         <div className="mt-4 pt-3 border-t border-slate-100">
-                                            <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans">Settlement & Bank Details</strong>
+                                            <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans font-extrabold font-bold font-sans">Settlement & Bank Details</strong>
                                             <div className="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-755 space-y-0.5 bg-slate-50 py-1.5 rounded">
                                                 <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                 <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
@@ -1899,7 +1894,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
+                                                    <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
                                                 </div>
                                             </div>
@@ -1911,7 +1906,7 @@
 
                         {/* --- VIEW 4: SYSTEMATIC NDA SETTINGS SIDEBAR & Viewport View --- */}
                         {view === 'nda' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in font-sans">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Customize NDA Fields</h3>
                                     <div className="space-y-4 text-xs font-sans font-medium">
@@ -1966,7 +1961,7 @@
 
                                     <div className="text-center space-y-2">
                                         <h2 className="text-lg font-bold text-slate-900 font-sans tracking-wide uppercase">MUTUAL NON-DISCLOSURE AGREEMENT</h2>
-                                        <p className="text-[11px] font-mono text-slate-505">Effective Date: {ndaEffectiveDate}</p>
+                                        <p className="text-[11px] font-mono text-slate-550">Effective Date: {ndaEffectiveDate}</p>
                                     </div>
 
                                     <p className="text-slate-800">
@@ -2056,10 +2051,10 @@
 
                         {/* --- VIEW 5: SYSTEMATIC TAX INVOICE SETTINGS SIDEBAR & VIEWPORT VIEW --- */}
                         {view === 'invoice' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in font-sans">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Customize Invoice Fields</h3>
-                                    <div className="space-y-4 text-xs font-sans">
+                                    <div className="space-y-4 text-xs font-sans font-medium">
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Billing Milestone</label>
                                             <select 
@@ -2085,7 +2080,7 @@
                                                         type="number" 
                                                         value={customInvoiceAmount} 
                                                         onChange={(e) => setCustomInvoiceAmount(Number(e.target.value))} 
-                                                        className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 pl-7 text-xs text-slate-202 font-mono font-medium focus:outline-none" 
+                                                        className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 pl-7 text-xs text-slate-202 font-mono font-medium" 
                                                     />
                                                 </div>
                                             </div>
@@ -2198,14 +2193,14 @@
                                             </div>
                                             <div className="mt-4 pt-3 border-t border-slate-200">
                                                 <span className="text-[10px] font-mono tracking-widest text-brandBlue-600 print-accent block mb-1 uppercase font-bold">Philippine Bank Remittance:</span>
-                                                <div className="font-mono text-[9px] text-slate-705 space-y-0.5 bg-white p-2.5 rounded border border-slate-200">
+                                                <div className="font-mono text-[9px] text-slate-755 space-y-0.5 bg-white p-2.5 rounded border border-slate-200">
                                                     <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                     <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
                                                     <div>Account Number: <strong>0039 5019 0761</strong></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="text-right space-y-1.5 shrink-0 min-w-[250px] border-l border-slate-200 pl-6 flex flex-col justify-center">
+                                        <div className="text-right space-y-1.5 shrink-0 min-w-[250px] border-l border-slate-200 pl-6 flex flex-col justify-center font-semibold">
                                             <div className="flex justify-between items-center text-xs text-slate-605 font-mono">
                                                 <span>Subtotal Ex-Tax:</span>
                                                 <span className="font-bold text-slate-900">{formatCurrency(computedInvoiceCost.baseAmount)}</span>
@@ -2216,7 +2211,7 @@
                                                     <span className="font-bold">{formatCurrency(computedInvoiceCost.vatAmount)}</span>
                                                 </div>
                                             )}
-                                            <div className="flex justify-between items-center text-base font-bold text-slate-955 pt-2 border-t border-brandBlue-500">
+                                            <div className="flex justify-between items-center text-base font-bold text-slate-955 pt-2 border-t border-slate-200">
                                                 <span>Total Amount Due:</span>
                                                 <span className="text-brandBlue-600 print-accent text-lg font-serif font-black">{formatCurrency(computedInvoiceCost.totalAmount)}</span>
                                             </div>
