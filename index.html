@@ -43,7 +43,6 @@
                             200: '#C2DBFF',
                             300: '#99C4FF',
                             400: '#60A1FA', // Highlighting element
-                            505: '#2563EB',
                             500: '#2563EB', // Premium solid corporate blue
                             600: '#1D4ED8',
                             700: '#1E40AF',
@@ -79,7 +78,7 @@
 
         /* Print Media CSS Overrides for Pristine PDF Export */
         @media print {
-            /* Strip paddings, margins, borders, and shadows from outer layout wrappers to remove the SOW card frame */
+            /* Strip paddings, margins, borders, and shadows from outer wrappers to remove the SOW card frame */
             body, #root, #root > div, .animate-fade-in, .print-card {
                 background: white !important;
                 color: #0f172a !important;
@@ -144,7 +143,6 @@
     <script type="text/babel">
         const { useState, useMemo, useEffect } = React;
 
-        // HIGH FIDELITY LOGO
         const IconWebsiteLogo = ({ className = "w-12 h-12" }) => (
             <svg className={`${className} transition-colors duration-250`} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50 10 C70 14 86 20 86 20 V54 C86 74 71 87 50 92 C29 87 14 74 14 54 V20 C14 20 30 14 50 10 Z" fill="currentColor" fillOpacity="0.12" stroke="currentColor" strokeWidth="4.5" strokeLinejoin="round"/>
@@ -431,31 +429,31 @@
 
             // --- MOD II: PMO & AUTOMATION ---
             { 
-                id: 'pmo-lark', 
+                id: 'trans-1', 
                 category: 'MOD II - PMO & Automation', 
-                deliverable: 'Lark Workspace Architecture & Provisioning', 
-                description: 'Configuring multi-departmental structures, permission groups, and centralized cloud document repositories.', 
+                deliverable: 'Value Stream Mapping (VSM)', 
+                description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', 
                 estHours: 16, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Design tailored folder taxonomies; set up advanced admin structures; align security clearance rules; provision enterprise domain mapping.",
-                    expectations: "Provide full organizational roster, role directories, and authorized domain administrator access credentials.",
-                    output: "Fully provisioned, secure, and structurally aligned enterprise Lark workspace directory."
+                    activities: "Lead intensive value stream mapping workshops to trace physical/informational paths and flag lean process wastes.",
+                    expectations: "Assembling cross-functional team members for a continuous 4-hour mapping session.",
+                    output: "High-fidelity current and future state Value Stream Maps."
                 }
             },
             { 
-                id: 'pmo-hermes', 
+                id: 'trans-2', 
                 category: 'MOD II - PMO & Automation', 
-                deliverable: 'HERMES 2022 Methodology Implementation', 
-                description: 'Structured onboarding covering project lifecycles, phase gates, role assignments, and scenario simulations.', 
-                estHours: 12, 
+                deliverable: 'Cycle-Time Bottleneck Sprint', 
+                description: 'Targeted tactical sprints focusing on reducing administrative waste and re-routing slow paths.', 
+                estHours: 16, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Deliver four (4) interactive workshops covering Swiss HERMES 2022 project gating; conduct mock case execution trials.",
-                    expectations: "Select and clear calendars for 3 to 5 internal project champions to attend all coaching cycles.",
-                    output: "Onboarded project execution leads with certified understanding of HERMES 2022 delivery lifecycle paths."
+                    activities: "Run rapid improvement sprints targeting high-rework paths and operational bottleneck traces.",
+                    expectations: "Operational team leads authorized to test modified workflows under direct consultant guidance.",
+                    output: "Elimination of targeted rework steps and documented speed improvements."
                 }
             },
             { 
@@ -470,6 +468,34 @@
                     activities: "Host cross-department adoption syncs; run standard-work simulations; provide feedback on active task adoption speeds.",
                     expectations: "Designate team advocates to champion behavior changes; schedule active training hours.",
                     output: "Staff adoption scorecards, behavioral playbook guides, and operational enablement trackers."
+                }
+            },
+            {
+                id: 'lark-1',
+                category: 'MOD II - PMO & Automation',
+                deliverable: 'Lark Workspace Architecture & Provisioning',
+                description: 'Configuring multi-departmental structures, permission groups, and centralized cloud document repositories.',
+                estHours: 8, 
+                tier: 'senior',
+                selected: false,
+                scopeDetails: {
+                    activities: "Design tailored folder taxonomies; set up advanced admin structures; align security clearance rules; provision enterprise domain mapping.",
+                    expectations: "Provide full organizational roster, role directories, and authorized domain administrator access credentials.",
+                    output: "Fully provisioned, secure, and structurally aligned enterprise Lark workspace directory."
+                }
+            },
+            {
+                id: 'pm-1',
+                category: 'MOD II - PMO & Automation',
+                deliverable: 'HERMES 2022 Methodology Implementation',
+                description: 'Structured onboarding covering project lifecycles, phase gates, role assignments, and scenario simulations.',
+                estHours: 12, 
+                tier: 'senior',
+                selected: false,
+                scopeDetails: {
+                    activities: "Deliver four (4) interactive workshops covering Swiss HERMES 2022 project gating; conduct mock case execution trials.",
+                    expectations: "Select and clear calendars for 3 to 5 internal project champions to attend all coaching cycles.",
+                    output: "Onboarded project execution leads with certified understanding of HERMES 2022 delivery lifecycle paths."
                 }
             },
 
@@ -490,6 +516,21 @@
                 }
             },
             { 
+                id: 'coo-2', 
+                category: 'MOD III - COO & Retainers', 
+                deliverable: 'KPI & OKR Metric Governance Board', 
+                description: 'Evaluating monthly departmental execution scores and managing core governance KPIs.', 
+                estHours: 8, 
+                tier: 'principal', 
+                selected: false,
+                isMonthlyRetainer: true,
+                scopeDetails: {
+                    activities: "Conduct formal monthly reviews of team performance scores, auditing results against targets.",
+                    expectations: "Provide operational raw data logs 48 hours prior to the monthly governance meeting.",
+                    output: "Monthly performance audit scorecard and variance mitigation plan."
+                }
+            },
+            { 
                 id: 'coo-drift', 
                 category: 'MOD III - COO & Retainers', 
                 deliverable: 'Process Drift Audit Retainer', 
@@ -504,14 +545,14 @@
                     output: "Semi-Annual Process Compliance Audit showing drift factors and recommended corrections."
                 }
             },
-            { 
-                id: 'coo-msp', 
-                category: 'MOD III - COO & Retainers', 
-                deliverable: 'Active Cyber & Network Security Monitoring Retainer', 
-                description: 'Continuous endpoint threat detection, automated backups, and proactive firewall audits. Delivered and executed by Kolthoff Consulting’s authorized strategic infrastructure partner.', 
+            {
+                id: 'msp-1',
+                category: 'MOD III - COO & Retainers',
+                deliverable: 'Active Cyber & Network Security Monitoring Retainer',
+                description: 'Continuous endpoint threat detection, automated backups, and proactive firewall audits. Delivered and executed by Kolthoff Consulting’s authorized strategic infrastructure partner.',
                 estHours: 10, 
-                tier: 'partner', 
-                selected: false, 
+                tier: 'partner',
+                selected: false,
                 isMonthlyRetainer: true,
                 scopeDetails: {
                     activities: "Deploy lightweight network security monitors; program daily cloud backups; conduct firewall vulnerability audits.",
@@ -526,14 +567,7 @@
             const [copied, setCopied] = useState(false);
             const [showResetConfirm, setShowResetConfirm] = useState(false);
 
-            // 1. CORE DATA STATE
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
-
-            // INDIVIDUAL CATEGORY SELECTORS HOISTED TO ENTIRE TOP OF APP COMPONENT TO VOID TEMPORAL DEAD ZONE (TDZ) ISSUES
-            const activeDiag = useMemo(() => tasks.some(t => t.category === 'MOD 0 - Diagnostics' && t.selected), [tasks]);
-            const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD I - SOPs & RACI' && t.selected), [tasks]);
-            const activePMO = useMemo(() => tasks.some(t => t.category === 'MOD II - PMO & Automation' && t.selected), [tasks]);
-            const activeGov = useMemo(() => tasks.some(t => t.category === 'MOD III - COO & Retainers' && t.selected), [tasks]);
 
             const savedRates = useMemo(() => loadSavedData('kc_planner_rates', {
                 principal: 3500,
@@ -593,12 +627,6 @@
             const [overrideTimeline, setOverrideTimeline] = useState(savedMeta.overrideTimeline || '');
             const [weeklyHours, setWeeklyHours] = useState(savedMeta.weeklyHours || 16);
 
-            // MUTUAL NDA-SPECIFIC PERSISTENT STATES
-            const [ndaEffectiveDate, setNdaEffectiveDate] = useState(() => loadSavedData('kc_planner_nda_effective_date', 'July 1, 2026'));
-            const [ndaPurpose, setNdaPurpose] = useState(() => loadSavedData('kc_planner_nda_purpose', 'Evaluation of Client operational workflows, technology subscriptions, regulatory general labor compliances, and joint exploration of re-engineering modules.'));
-            const [ndaTerm, setNdaTerm] = useState(() => loadSavedData('kc_planner_nda_term', '5 (Five) Years'));
-            const [ndaJurisdiction, setNdaJurisdiction] = useState(() => loadSavedData('kc_planner_nda_jurisdiction', 'Taytay, Rizal, Philippines'));
-
             // INVOICE-SPECIFIC STATE HOOKS (PERSISTED SECURELY)
             const [invoiceMilestone, setInvoiceMilestone] = useState(() => loadSavedData('kc_planner_invoice_milestone', 'full'));
             const [customInvoiceAmount, setCustomInvoiceAmount] = useState(() => loadSavedData('kc_planner_custom_invoice_amount', 150000));
@@ -627,13 +655,90 @@
                 }
             }
 
-            // --- DECLARED BEFORE THE RETURN (RESOLVES REFERENCEERRORS & TDZ) ---
-            const handlePrint = () => {
-                window.print();
+            useEffect(() => {
+                localStorage.setItem('kc_planner_tasks', JSON.stringify(tasks));
+            }, [tasks]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_rates', JSON.stringify({
+                    principal: principalRate,
+                    senior: seniorRate,
+                    associate: associateRate,
+                    partner: partnerRate
+                }));
+            }, [principalRate, seniorRate, associateRate, partnerRate]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_active_presets', JSON.stringify(activePresets));
+            }, [activePresets]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_invoice_milestone', JSON.stringify(invoiceMilestone));
+            }, [invoiceMilestone]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_custom_invoice_amount', JSON.stringify(customInvoiceAmount));
+            }, [customInvoiceAmount]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_invoice_number_suffix', JSON.stringify(invoiceNumberSuffix));
+            }, [invoiceNumberSuffix]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_invoice_due_date', JSON.stringify(invoiceDueDate));
+            }, [invoiceDueDate]);
+
+            useEffect(() => {
+                localStorage.setItem('kc_planner_meta', JSON.stringify({
+                    clientCompany,
+                    clientRep,
+                    quoteId,
+                    quoteDate,
+                    quoteValidity,
+                    annualInactionCost,
+                    includeTax,
+                    preparedBy,
+                    preparerTitle,
+                    targetStartDate,
+                    proposalObjectives,
+                    proposalSponsor,
+                    preDiagnosticList,
+                    frictionBuffer,
+                    principalToSeniorDelegate,
+                    seniorToAssociateDelegate,
+                    overrideTimeline,
+                    weeklyHours
+                }));
+            }, [
+                clientCompany, clientRep, quoteId, quoteDate, quoteValidity, annualInactionCost,
+                includeTax, preparedBy, preparerTitle, targetStartDate, proposalObjectives,
+                proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate,
+                seniorToAssociateDelegate, overrideTimeline, weeklyHours
+            ]);
+
+            // Custom secure state reset logic
+            const executeResetWorkbook = () => {
+                localStorage.removeItem('kc_planner_tasks');
+                localStorage.removeItem('kc_planner_rates');
+                localStorage.removeItem('kc_planner_active_presets');
+                localStorage.removeItem('kc_planner_meta');
+                localStorage.removeItem('kc_planner_invoice_milestone');
+                localStorage.removeItem('kc_planner_custom_invoice_amount');
+                localStorage.removeItem('kc_planner_invoice_number_suffix');
+                localStorage.removeItem('kc_planner_invoice_due_date');
+                window.location.reload();
             };
 
             const toggleTask = (id) => {
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
+            };
+
+            const updateTaskHours = (id, value) => {
+                setTasks(prev => prev.map(t => t.id === id ? { ...t, estHours: Number(value) } : t));
+            };
+
+            const updateTaskTier = (id, tier) => {
+                setTasks(prev => prev.map(t => t.id === id ? { ...t, tier: tier } : t));
             };
 
             const addNewTask = (e) => {
@@ -666,22 +771,6 @@
 
             const removeTask = (id) => {
                 setTasks(prev => prev.filter(t => t.id !== id));
-            };
-
-            const executeResetWorkbook = () => {
-                localStorage.removeItem('kc_planner_tasks');
-                localStorage.removeItem('kc_planner_rates');
-                localStorage.removeItem('kc_planner_active_presets');
-                localStorage.removeItem('kc_planner_meta');
-                localStorage.removeItem('kc_planner_invoice_milestone');
-                localStorage.removeItem('kc_planner_custom_invoice_amount');
-                localStorage.removeItem('kc_planner_invoice_number_suffix');
-                localStorage.removeItem('kc_planner_invoice_due_date');
-                localStorage.removeItem('kc_planner_nda_effective_date');
-                localStorage.removeItem('kc_planner_nda_purpose');
-                localStorage.removeItem('kc_planner_nda_term');
-                localStorage.removeItem('kc_planner_nda_jurisdiction');
-                window.location.reload();
             };
 
             // HIGH-STATUS FORMULA-DRIVEN TIMELINE ENGINE (CALCULATED IN 16 HOURS PER WEEK INCREMENTS)
@@ -741,17 +830,6 @@
                 }, 0) * bufferMultiplier);
             }, [tasks, frictionBuffer, principalRate, seniorRate, associateRate, partnerRate]);
 
-            // DYNAMIC PROJECT VS RETAINER FINANCIAL DIVISION WITH TAX FOR SOW SCHEDULES
-            const projectCostPart = useMemo(() => {
-                const taxMultiplier = includeTax ? 1.12 : 1.0;
-                return Math.round(projectCostBase * taxMultiplier);
-            }, [projectCostBase, includeTax]);
-
-            const retainerCostPart = useMemo(() => {
-                const taxMultiplier = includeTax ? 1.12 : 1.0;
-                return Math.round(retainerCostBase * taxMultiplier);
-            }, [retainerCostBase, includeTax]);
-
             // SUMMARY CALCULATIONS WITH STRATEGIC PARTNER COST ARBITRAGE & WATERFALL DELEGATION
             const updatedSummary = useMemo(() => {
                 const selectedTasks = tasks.filter(t => t.selected);
@@ -802,90 +880,58 @@
 
                 const bufferedTotalHours = Math.round(estHoursTotal * bufferMultiplier);
 
-                return { count: selectedTasks.length, rawEstHours: estHoursTotal, estHours: bufferedTotalHours, subtotalCost, taxValue, totalCost, internalCost, netProfit, profitMarginPercent, netFirstYearSavings, projectROI, isRetainerOnly, partnerHours: partnerFinalHours, principalFinalHours, seniorFinalHours, associateFinalHours, partnerFinalHours, principalBaseHours, seniorBaseHours, associateBaseHours, partnerBaseHours };
+                return { count: selectedTasks.length, rawEstHours: estHoursTotal, estHours: bufferedTotalHours, subtotalCost, taxValue, totalCost, internalCost, netProfit, profitMarginPercent, netFirstYearSavings, projectROI, isRetainerOnly, partnerHours: partnerFinalHours, principalFinalHours, seniorFinalHours, associateFinalHours, partnerFinalHours };
             }, [tasks, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, annualInactionCost, includeTax, projectCostBase, retainerCostBase]);
 
-            // DYNAMIC BILLING MILESTONES ENGINE
-            // SELF-HEALING MATRIX DETECTS SELECTED MODULES AND SPLITS THEM IN CORRESPONDING RATIOS
-            const billingMilestones = useMemo(() => {
-                const milestonesList = [];
-                if (projectCostPart <= 0) return milestonesList;
+            // DECOUPLED PROJECT VS RETAINER FINANCIAL DIVISION FOR DYNAMIC SOW BILLING
+            const projectCostPart = useMemo(() => {
+                const selectedProjTasks = tasks.filter(t => t.selected && !t.isMonthlyRetainer);
+                const bufferMultiplier = 1 + (frictionBuffer / 100);
+                const base = Math.round(selectedProjTasks.reduce((acc, curr) => {
+                    return acc + (curr.estHours * getRateForTier(curr.tier));
+                }, 0) * bufferMultiplier);
+                return base + (includeTax ? Math.round(base * 0.12) : 0);
+            }, [tasks, frictionBuffer, includeTax, principalRate, seniorRate, associateRate, partnerRate]);
 
-                const activeMod0 = tasks.some(t => t.category === 'MOD 0 - Diagnostics' && t.selected);
-                const activeMod1 = tasks.some(t => t.category === 'MOD I - SOPs & RACI' && t.selected);
-                const activeMod2 = tasks.some(t => t.category === 'MOD II - PMO & Automation' && t.selected);
+            const retainerCostPart = useMemo(() => {
+                const selectedRetTasks = tasks.filter(t => t.selected && t.isMonthlyRetainer);
+                const bufferMultiplier = 1 + (frictionBuffer / 100);
+                const base = Math.round(selectedRetTasks.reduce((acc, curr) => {
+                    return acc + (curr.estHours * getRateForTier(curr.tier));
+                }, 0) * bufferMultiplier);
+                return base + (includeTax ? Math.round(base * 0.12) : 0);
+            }, [tasks, frictionBuffer, includeTax, principalRate, seniorRate, associateRate, partnerRate]);
 
-                // Scenario A: ONLY MOD 0 is selected
-                if (activeMod0 && !activeMod1 && !activeMod2) {
-                    milestonesList.push({
-                        label: "1. MOD 0 Discovery, Shadows & Audits Kickoff (50%)",
-                        amount: Math.round(projectCostPart * 0.5),
-                        desc: "Mobilization fee due upon formal SOW contract execution."
-                    });
-                    milestonesList.push({
-                        label: "2. MOD 0 Risk Matrix Handover & Debrief Presentation (50%)",
-                        amount: Math.round(projectCostPart * 0.5),
-                        desc: "Due upon courtroom-ready delivery of the operational baseline risk matrix."
-                    });
+            // DYNAMIC METRIC TO DETECT PROJECT TIMELINE THRESHOLD FOR BILLING MILESTONES (SAFE NOW BELOW UPDATEDSUMMARY)
+            const isUnder4Weeks = useMemo(() => {
+                if (updatedSummary.isRetainerOnly) return false;
+                const lowerTimeline = displayTimeline.toLowerCase();
+                if (lowerTimeline.includes('monthly') || lowerTimeline.includes('ongoing')) return false;
+                const matches = lowerTimeline.match(/(\d+)/g);
+                if (matches && lowerTimeline.includes('week')) {
+                    const weekMatch = lowerTimeline.match(/(\d+)\s*(?:-\s*(\d+))?\s*week/);
+                    if (weekMatch) {
+                        return Math.max(parseInt(weekMatch[1], 10), weekMatch[2] ? parseInt(weekMatch[2], 10) : parseInt(weekMatch[1], 10)) <= 4; 
+                    }
                 }
-                // Scenario B: ONLY MOD I is selected
-                else if (!activeMod0 && activeMod1 && !activeMod2) {
-                    milestonesList.push({
-                        label: "1. MOD I Strategic Value Stream workshops & Kickoff (50%)",
-                        amount: Math.round(projectCostPart * 0.5),
-                        desc: "Mobilization fee due upon VSM workshop calendar lock-in."
-                    });
-                    milestonesList.push({
-                        label: "2. MOD I Swimlanes Process Maps & DOLE Handbook Handover (50%)",
-                        amount: Math.round(projectCostPart * 0.5),
-                        desc: "Due upon finalized delivery of SOP playbooks and compliant manuals."
-                    });
-                }
-                // Scenario C: ONLY MOD II is selected
-                else if (!activeMod0 && !activeMod1 && activeMod2) {
-                    milestonesList.push({
-                        label: "1. MOD II Workspace Architecture Provisioning & Kickoff (50%)",
-                        amount: Math.round(projectCostPart * 0.5),
-                        desc: "Mobilization fee due upon enterprise Lark folder tree setup."
-                    });
-                    milestonesList.push({
-                        label: "2. MOD II HERMES 2022 Setup & Workforce Adoption Sign-off (50%)",
-                        amount: Math.round(projectCostPart * 0.5),
-                        desc: "Due upon completion of team coaching cycles and approvals setup."
-                    });
-                }
-                // Scenario D: MULTI-MODULE COMBINATION SELECTIONS
-                else {
-                    milestonesList.push({
-                        label: "1. Phase 1 Project Discovery & Mobilization Milestone (30%)",
-                        amount: Math.round(projectCostPart * 0.3),
-                        desc: "Due upon contract execution and initial discover-shadowing launches."
-                    });
-                    milestonesList.push({
-                        label: "2. Phase 2 Core SOP & RACI Blueprint Handover Milestone (40%)",
-                        amount: Math.round(projectCostPart * 0.4),
-                        desc: "Due upon delivery of intermediate process models and handbook structures."
-                    });
-                    milestonesList.push({
-                        label: "3. Phase 3 Lark Workspace Sign-off & PMO Handover Milestone (30%)",
-                        amount: Math.round(projectCostPart * 0.3),
-                        desc: "Due upon finalized PMO coaching, Lark automation handover, and board alignment."
-                    });
-                }
+                return false;
+            }, [displayTimeline, updatedSummary.isRetainerOnly]);
 
-                return milestonesList;
-            }, [tasks, projectCostPart]);
-
-            // DYNAMICALLY COMPUTED ACTIVE INVOICE MILESTONE AMOUNTS
+            // DYNAMICALLY COMPUTED ACTIVE INVOICE MILESTONE AMOUNTS (ALIGNED PERFECTLY WITH THE EX-TAX BILLING SCHEDULE VALUES)
             const computedInvoiceCost = useMemo(() => {
                 let baseAmount = 0;
                 if (invoiceMilestone === 'full') {
                     baseAmount = projectCostBase + retainerCostBase;
-                } else if (invoiceMilestone.startsWith('milestone_')) {
-                    const idx = parseInt(invoiceMilestone.split('_')[1], 10);
-                    if (billingMilestones[idx]) {
-                        baseAmount = includeTax ? billingMilestones[idx].amount : Math.round(billingMilestones[idx].amount / 1.12);
-                    }
+                } else if (invoiceMilestone === 'kickoff_50') {
+                    baseAmount = Math.round(projectCostBase * 0.5);
+                } else if (invoiceMilestone === 'handover_50') {
+                    baseAmount = Math.round(projectCostBase * 0.5);
+                } else if (invoiceMilestone === 'kickoff_30') {
+                    baseAmount = Math.round(projectCostPart * 0.3);
+                } else if (invoiceMilestone === 'mid_40') {
+                    baseAmount = Math.round(projectCostPart * 0.4);
+                } else if (invoiceMilestone === 'final_30') {
+                    baseAmount = Math.round(projectCostPart * 0.3);
                 } else if (invoiceMilestone === 'retainer') {
                     baseAmount = retainerCostBase;
                 } else if (invoiceMilestone === 'custom') {
@@ -896,7 +942,7 @@
                 const totalAmount = baseAmount + vatAmount;
 
                 return { baseAmount, vatAmount, totalAmount };
-            }, [invoiceMilestone, projectCostBase, retainerCostBase, billingMilestones, customInvoiceAmount, includeTax]);
+            }, [invoiceMilestone, projectCostBase, retainerCostBase, projectCostPart, customInvoiceAmount, includeTax]);
 
             // DYNAMIC INVOICE DETAILED SPECIFICATIONS LINE ITEM DESCRIPTOR
             const invoiceLineItemDescription = useMemo(() => {
@@ -904,17 +950,109 @@
                 if (invoiceMilestone === 'full') {
                     return `100% Full Payment of Professional Fees under Scope of Work SOW-${quoteId} (Total Contract Value: ${formatCurrency(Math.round((projectCostBase + retainerCostBase) * taxMultiplier))})`;
                 }
-                if (invoiceMilestone.startsWith('milestone_')) {
-                    const idx = parseInt(invoiceMilestone.split('_')[1], 10);
-                    if (billingMilestones[idx]) {
-                        return `Milestone Payment: ${billingMilestones[idx].label} under Scope of Work SOW-${quoteId}`;
-                    }
+                if (invoiceMilestone === 'kickoff_50') {
+                    return `MOD 0 Operational Diagnostics Kickoff & Mobilization Milestone (50% of Project Contract: ${formatCurrency(Math.round(projectCostBase * taxMultiplier))})`;
+                }
+                if (invoiceMilestone === 'handover_50') {
+                    return `MOD 0 Operational Diagnostics Handover & Boardroom Debrief Milestone (50% of Project Contract: ${formatCurrency(Math.round(projectCostBase * taxMultiplier))})`;
+                }
+                if (invoiceMilestone === 'kickoff_30') {
+                    return `MOD 0 Discovery, Mobilization & Diagnostics Launch Milestone (30% of Project Contract: ${formatCurrency(Math.round(projectCostBase * taxMultiplier))})`;
+                }
+                if (invoiceMilestone === 'mid_40') {
+                    return `MOD I Scale-Ready SOPs & RACI Process Map Handover Milestone (40% of Project Contract: ${formatCurrency(Math.round(projectCostBase * taxMultiplier))})`;
+                }
+                if (invoiceMilestone === 'final_30') {
+                    return `MOD II PMO Methodologies & Lark Workspace Automation Completion Milestone (30% of Project Contract: ${formatCurrency(Math.round(projectCostBase * taxMultiplier))})`;
                 }
                 if (invoiceMilestone === 'retainer') {
                     return `MOD III Ongoing Monthly Retainer (Advisory Governance Board Chairs and Network Protection SLA)`;
                 }
                 return `Bespoke Operational Service Milestone Billing under SOW-${quoteId}`;
-            }, [invoiceMilestone, projectCostBase, retainerCostBase, billingMilestones, quoteId, includeTax]);
+            }, [invoiceMilestone, projectCostBase, retainerCostBase, quoteId, includeTax]);
+
+            // Preset Trigger Logic
+            const handleTogglePreset = (presetName) => {
+                let updatedPresets = activePresets.includes(presetName) 
+                    ? activePresets.filter(p => p !== presetName) 
+                    : [...activePresets, presetName];
+                
+                setActivePresets(updatedPresets);
+
+                setTasks(prev => prev.map(t => {
+                    let matchesAnyActive = false;
+                    if (presetName === 'mod0' && t.category === 'MOD 0 - Diagnostics') matchesAnyActive = true;
+                    if (presetName === 'mod1' && t.category === 'MOD I - SOPs & RACI') matchesAnyActive = true;
+                    if (presetName === 'mod2' && t.category === 'MOD II - PMO & Automation') matchesAnyActive = true;
+                    if (presetName === 'mod3' && t.category === 'MOD III - COO & Retainers') matchesAnyActive = true;
+                    
+                    // Fallback to preserve selections if toggling unrelated presets
+                    if (activePresets.includes('mod0') && t.category === 'MOD 0 - Diagnostics') matchesAnyActive = true;
+                    if (activePresets.includes('mod1') && t.category === 'MOD I - SOPs & RACI') matchesAnyActive = true;
+                    if (activePresets.includes('mod2') && t.category === 'MOD II - PMO & Automation') matchesAnyActive = true;
+                    if (activePresets.includes('mod3') && t.category === 'MOD III - COO & Retainers') matchesAnyActive = true;
+
+                    // Apply current toggle change state
+                    if (presetName === 'mod0' && t.category === 'MOD 0 - Diagnostics') matchesAnyActive = !activePresets.includes('mod0');
+                    if (presetName === 'mod1' && t.category === 'MOD I - SOPs & RACI') matchesAnyActive = !activePresets.includes('mod1');
+                    if (presetName === 'mod2' && t.category === 'MOD II - PMO & Automation') matchesAnyActive = !activePresets.includes('mod2');
+                    if (presetName === 'mod3' && t.category === 'MOD III - COO & Retainers') matchesAnyActive = !activePresets.includes('mod3');
+
+                    return { ...t, selected: matchesAnyActive };
+                }));
+            };
+
+            const handleSelectAllPresets = () => {
+                const all = ['mod0', 'mod1', 'mod2', 'mod3'];
+                setActivePresets(all);
+                setTasks(prev => prev.map(t => ({ ...t, selected: true })));
+            };
+
+            const handleClearAllPresets = () => {
+                setActivePresets([]);
+                setTasks(prev => prev.map(t => ({ ...t, selected: false })));
+            };
+
+            const proposalSummaryText = useMemo(() => {
+                const activeOnes = tasks.filter(t => t.selected);
+                let output = `### PROPOSAL SUMMARY - KOLTHOFF CONSULTING\n`;
+                output += `* **Total Selected Tasks**: ${updatedSummary.count}\n`;
+                output += `* **Effort Base Effort**: ${updatedSummary.estHours} Estimated Hours (Includes Operational Risk Contingency Reserve)\n`;
+                output += `* **Estimated Project Timeline**: ${displayTimeline}\n`;
+                output += `* **Total Project Investment**: ${formatCurrency(updatedSummary.totalCost)} (PHP ${includeTax ? 'Inc. 12% VAT' : 'Ex-Tax'})\n\n`;
+                output += `#### SCOPE OF INCLUDED WORK ITEMS:\n`;
+                let currentCat = '';
+                activeOnes.forEach(t => {
+                    if (t.category !== currentCat) {
+                        currentCat = t.category;
+                        output += `\n**${currentCat.toUpperCase()}**\n`;
+                    }
+                    output += `- [x] **${t.deliverable}**: ${t.description} (Approx. ${Math.round(t.estHours * (1 + frictionBuffer/100))} hrs)\n`;
+                });
+                return output;
+            }, [tasks, updatedSummary, frictionBuffer, displayTimeline, includeTax]);
+
+            // Individual category selectors for SOW mapping
+            const activeDiag = tasks.some(t => t.category === 'MOD 0 - Diagnostics' && t.selected);
+            const activeSOP = tasks.some(t => t.category === 'MOD I - SOPs & RACI' && t.selected);
+            const activePMO = tasks.some(t => t.category === 'MOD II - PMO & Automation' && t.selected);
+            const activeGov = tasks.some(t => t.category === 'MOD III - COO & Retainers' && t.selected);
+
+            // SOW Markdown Copy block
+            const copyToClipboard = () => {
+                const el = document.createElement('textarea');
+                el.value = proposalSummaryText;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+
+            const handlePrint = () => {
+                window.print();
+            };
 
             return (
                 <div className="font-sans min-h-screen text-slate-300 bg-brandNavy-950">
@@ -934,15 +1072,14 @@
                             
                             <nav className="flex items-center gap-2 sm:gap-4 font-sans font-semibold">
                                 <button onClick={() => setView('sandbox')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>1. Sandbox</button>
-                                <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. Proposal</button>
-                                <button onClick={() => setView('quotation')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quotation</button>
-                                <button onClick={() => setView('nda')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>4. NDA</button>
-                                <button onClick={() => setView('invoice')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>5. Invoice</button>
+                                <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
+                                <button onClick={() => setView('quotation')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-500 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quote Sheet</button>
+                                <button onClick={() => setView('invoice')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>4. Invoice</button>
                             </nav>
                         </div>
                     </header>
 
-                    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
+                    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto animate-fade-in">
                         {view === 'sandbox' && (
                             <div className="no-print space-y-8">
                                 
@@ -1035,7 +1172,8 @@
                                                     <span className="text-xs font-mono tracking-wider text-slate-300 uppercase font-semibold">Contract Preset Profiles (Modules Aligned)</span>
                                                 </div>
                                                 <div className="flex gap-2">
-                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-505 text-slate-955 border border-brandBlue-505 hover:bg-brandBlue-600 font-sans font-bold">Select All Modules</button>
+                                                    {/* ALIGNED SELECT ALL BUTTON BACKGROUND COLOR WITH DESIGN PALETTE */}
+                                                    <button onClick={handleSelectAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandBlue-500 text-slate-955 border border-brandBlue-505 hover:bg-brandBlue-600 font-sans font-bold">Select All Modules</button>
                                                     <button onClick={handleClearAllPresets} className="px-2.5 py-1 text-[10px] font-bold rounded transition-all bg-brandNavy-900 text-slate-400 border border-brandNavy-700 hover:text-slate-200 font-sans">Clear All</button>
                                                 </div>
                                             </div>
@@ -1048,7 +1186,7 @@
                                                 ].map(preset => {
                                                     const isActive = activePresets.includes(preset.name);
                                                     return (
-                                                        <button key={preset.name} onClick={() => handleTogglePreset(preset.name)} className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-955 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>
+                                                        <button key={preset.name} onClick={() => handleTogglePreset(preset.name)} className={`px-3.5 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandBlue-500 text-slate-955 shadow-md font-extrabold border border-brandBlue-400' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>
                                                             {isActive ? <IconCheck className="w-3 h-3 text-slate-955 font-bold" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-500 inline-block" />}
                                                             {preset.label}
                                                         </button>
@@ -1070,14 +1208,14 @@
                                                         <th className="py-4 px-5 text-right w-[13%] font-bold text-brandBlue-400 font-mono">Base Price</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="divide-y divide-brandNavy-700/50">
+                                                <tbody className="divide-y divide-brandNavy-700/40">
                                                     {tasks.map((task) => {
                                                         const rate = getRateForTier(task.tier);
                                                         return (
                                                             <tr key={task.id} className={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
                                                                 <td className="py-4 px-5 text-center">
                                                                     <div className="flex items-center justify-center gap-1">
-                                                                        <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-505 inline-flex transition-colors">
+                                                                        <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
                                                                             {task.selected ? <IconCheckSquare /> : <IconSquare />}
                                                                         </button>
                                                                         {task.id.startsWith('custom-') && <button onClick={() => removeTask(task.id)} className="p-1 text-rose-505 hover:text-rose-400 rounded transition-colors"><IconTrash className="w-3.5 h-3.5" /></button>}
@@ -1129,10 +1267,10 @@
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">New Task / Deliverable</label>
-                                                        <input type="text" placeholder="e.g. Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-600 focus:outline-none focus:border-brandBlue-505" required />
+                                                        <input type="text" placeholder="e.g. Advanced ERP Alignment" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-600 focus:outline-none focus:border-brandBlue-500" required />
                                                     </div>
                                                     <div className="md:col-span-3">
-                                                        <label className="text-[10px] font-mono text-slate-405 uppercase block mb-1">SOW Brief Description</label>
+                                                        <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SOW Brief Description</label>
                                                         <input type="text" placeholder="Brief workflow summary..." value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-205 placeholder-slate-650 focus:outline-none focus:border-brandBlue-505" />
                                                     </div>
                                                     <div className="md:col-span-2">
@@ -1145,8 +1283,8 @@
                                                         </select>
                                                     </div>
                                                     <div className="md:col-span-1">
-                                                        <label className="text-[10px] font-mono text-slate-404 uppercase block mb-1 text-center">Hours</label>
-                                                        <input type="number" value={newTaskHours} onChange={(e) => setNewTaskHours(Number(e.target.value))} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-205 focus:outline-none focus:border-brandBlue-505 font-mono font-bold" />
+                                                        <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1 text-center">Hours</label>
+                                                        <input type="number" value={newTaskHours} onChange={(e) => setNewTaskHours} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 text-center text-xs text-slate-205 focus:outline-none focus:border-brandBlue-505 font-mono font-bold" />
                                                     </div>
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1246,7 +1384,7 @@
 
                                                 {/* Post-Delegation Allocation Table */}
                                                 <div className="mt-3 space-y-1.5 text-[11px] text-slate-300 font-sans border-t border-brandNavy-750 pt-3">
-                                                    <span className="text-[9px] font-mono tracking-widest text-slate-405 uppercase block mb-1">Active Effort Allocation (Cost Rate)</span>
+                                                    <span className="text-[9px] font-mono tracking-widest text-slate-400 uppercase block mb-1">Active Effort Allocation (Cost Rate)</span>
                                                     <div className="flex justify-between">
                                                         <span>Principal Strategy (₱1,500/hr):</span>
                                                         <span className="font-bold font-mono text-slate-200">{updatedSummary.principalFinalHours} hrs</span>
@@ -1285,12 +1423,12 @@
                                                 {!showResetConfirm ? (
                                                     <button 
                                                         onClick={() => setShowResetConfirm(true)} 
-                                                        className="w-full py-2 bg-brandNavy-955 hover:bg-brandNavy-800 text-slate-400 hover:text-slate-200 text-[10px] tracking-wider font-mono font-semibold uppercase border border-brandNavy-700 rounded transition-all"
+                                                        className="w-full py-2 bg-brandNavy-950 hover:bg-brandNavy-800 text-slate-400 hover:text-slate-200 text-[10px] tracking-wider font-mono font-semibold uppercase border border-brandNavy-700 rounded transition-all"
                                                     >
                                                         Reset All Saved Cache
                                                     </button>
                                                 ) : (
-                                                    <div className="bg-rose-955/20 border border-rose-900/40 p-3 rounded-lg space-y-2 text-center animate-fade-in">
+                                                    <div className="bg-rose-950/20 border border-rose-900/40 p-3 rounded-lg space-y-2 text-center animate-fade-in">
                                                         <span className="text-[10px] font-mono font-bold text-rose-400 uppercase block">Confirm Complete Reset?</span>
                                                         <p className="text-[9px] text-slate-400 leading-normal">This will wipe out all custom tasks, rates, SOW edits, and local storage backups.</p>
                                                         <div className="flex justify-center gap-3 pt-1">
@@ -1323,7 +1461,7 @@
                                     <div className="space-y-4 text-xs">
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         
                                         {/* CUSTOMIZABLE TIMELINE OVERRIDE CONTROLLER INPUT */}
@@ -1370,7 +1508,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="text-left sm:text-right font-mono text-[11px] text-slate-605 space-y-1">
+                                        <div className="text-left sm:text-right font-mono text-[11px] text-slate-600 space-y-1">
                                             <div className="text-slate-900 font-bold text-sm tracking-wide font-sans">SCOPE PROPOSAL (SOW)</div>
                                             <div>Reference: <span className="font-bold text-slate-955">{quoteId}-DRAFT</span></div>
                                             <div>Date Issued: {quoteDate}</div>
@@ -1474,7 +1612,7 @@
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
-                                                            activePMO ? 'bg-brandBlue-500/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
+                                                            activePMO ? 'bg-brandBlue-505/10 text-brandBlue-600 border border-brandBlue-200' : 'bg-slate-100 text-slate-455 border border-slate-250'
                                                         }`}>MOD II</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                                                             activePMO ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
@@ -1486,12 +1624,12 @@
                                                     </p>
                                                     <ul className="text-[10px] space-y-2 pt-1 font-semibold">
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.id === 'pmo-hermes')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'pmo-hermes')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
+                                                            {tasks.find(t => t.id === 'pm-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'pm-1')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.id === 'pmo-lark')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'pmo-lark')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
+                                                            {tasks.find(t => t.id === 'lark-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'lark-1')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -1525,8 +1663,8 @@
                                                             <span className={tasks.find(t => t.category === 'MOD III - COO & Retainers' && t.id.startsWith('coo-') && t.selected) && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>Fractional COO Board Chairs</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.id === 'coo-msp')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'coo-msp')?.selected && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>IT & Cyber Retainers (Strategic Partner)</span>
+                                                            {tasks.find(t => t.id === 'msp-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'msp-1')?.selected && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>IT & Cyber Retainers (Strategic Partner)</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -1568,7 +1706,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Scope Confirmed & Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-550">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1588,9 +1726,9 @@
 
                         {view === 'quotation' && (
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
-                                <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 p-6 rounded-xl space-y-4 no-print">
+                                <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 p-6 rounded-xl space-y-4">
                                     <div className="flex items-center justify-between bg-brandNavy-950 p-3 rounded-lg"><span className="text-[10px] font-mono text-slate-400 uppercase font-bold">Include 12% PH VAT</span><button onClick={() => setIncludeTax(!includeTax)} className={`w-10 h-6 flex items-center rounded-full p-0.5 transition-all duration-300 ${includeTax ? 'bg-brandBlue-500' : 'bg-brandNavy-800 border border-brandNavy-700'}`}><span className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-all duration-300 ${includeTax ? 'translate-x-4' : 'translate-x-0'}`} /></button></div>
-                                    <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center"><IconPrint className="w-4 h-4 mr-1.5" /> Print or Save as PDF</button>
+                                    <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-950 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center"><IconPrint className="w-4 h-4 mr-1.5" /> Print or Save as PDF</button>
                                 </div>
                                 <div className="xl:col-span-8 bg-white text-slate-900 p-12 rounded-xl shadow-2xl print-card font-sans font-medium">
                                     
@@ -1612,7 +1750,7 @@
                                             <div>Reference: <span className="font-bold text-slate-955">{quoteId}</span></div>
                                             <div>Date Issued: {quoteDate}</div>
                                             <div>Validity: {quoteValidity}</div>
-                                            <div>Timeline: <span className="font-bold text-slate-900">{displayTimeline}</span></div>
+                                            <div>Timeline: <span className="font-bold text-slate-955">{displayTimeline}</span></div>
                                         </div>
                                     </div>
 
@@ -1663,7 +1801,7 @@
                                             <div className="mt-4 pt-3 border-t border-slate-200"><strong className="text-brandBlue-600 print-accent block mb-1 uppercase tracking-wider text-[10px] font-mono font-bold font-sans">B2B Financial ROI Projection:</strong><span className="text-xs text-slate-755 leading-normal">Estimated Annual Corporate Leakage: <strong className="text-slate-900 font-mono font-bold">{formatCurrency(annualInactionCost)}</strong>. Expected Year 1 Profit Recovery: <strong className="text-emerald-600 font-mono font-bold">{formatCurrency(updatedSummary.netFirstYearSavings)}</strong> (ROI of <strong className="text-emerald-600 font-mono font-bold">{updatedSummary.projectROI}%</strong>).</span></div>
                                         </div>
                                         <div className="text-right space-y-1.5 shrink-0 min-w-[250px] border-l border-slate-200 pl-6 flex flex-col justify-center">
-                                            <div className="flex justify-between items-center text-slate-605 font-mono text-xs mb-1"><span>Estimated Duration:</span><span className="font-bold text-slate-900">{calculatedTimeline}</span></div>
+                                            <div className="flex justify-between items-center text-slate-605 font-mono text-xs mb-1"><span>Estimated Duration:</span><span className="font-bold text-slate-900">{displayTimeline}</span></div>
                                             <div className="flex justify-between items-center text-xs text-slate-605 border-t border-slate-200 pt-2 font-mono"><span>Scope Net Subtotal:</span><span className="font-bold text-slate-900">{formatCurrency(updatedSummary.subtotalCost)}</span></div>
                                             {includeTax && <div className="flex justify-between items-center text-xs text-slate-500 font-mono"><span>Philippine VAT (12%):</span><span className="font-bold">{formatCurrency(updatedSummary.taxValue)}</span></div>}
                                             <div className="flex justify-between items-center text-base font-bold text-slate-955 pt-2 border-t border-slate-200"><span>Total Investment:</span><span className="text-brandBlue-600 print-accent text-lg font-serif font-black">{formatCurrency(updatedSummary.totalCost)}{updatedSummary.isRetainerOnly && " / Month"}</span></div>
@@ -1675,11 +1813,11 @@
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-3 font-sans">Structured Billing Schedule</h4>
                                         
                                         {/* RETAINER PORTION RUNNING CONCURRENTLY */}
-                                        {retainerCostPart > 0 && (
+                                        {retainerCostBase > 0 && (
                                             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 print-pill mb-4">
                                                 <div className="flex justify-between items-center font-bold text-slate-800 text-sm">
                                                     <span>MOD III - Ongoing Monthly Retainer Service</span>
-                                                    <span className="text-brandBlue-600 print-accent font-mono font-bold">{formatCurrency(Math.round(retainerCostPart * (includeTax ? 1.12 : 1.0)))} / Month</span>
+                                                    <span className="text-brandBlue-600 print-accent font-mono font-bold">{formatCurrency(Math.round(retainerCostBase * (includeTax ? 1.12 : 1.0)))} / Month</span>
                                                 </div>
                                                 <p className="text-[11px] text-slate-555 mt-2 leading-relaxed">
                                                     This operational service covers continuous fractional COO governance and partner-managed network SLA retainers. Billing is conducted flat-rate at the beginning of each active service month with a defined initial commitment period of <strong>six (6) months</strong>.
@@ -1687,23 +1825,45 @@
                                             </div>
                                         )}
 
-                                        {/* PROJECT-BASED MODULE BILLING PIPELINE (SELF-HEALING PERMUTATION ENGINE) */}
-                                        {projectCostPart > 0 && (
-                                            <div className={`grid grid-cols-1 sm:grid-cols-${billingMilestones.length} gap-4 text-xs font-sans font-medium`}>
-                                                {billingMilestones.map((milestone, idx) => (
-                                                    <div key={idx} className="p-3 bg-slate-50 rounded border border-slate-200">
-                                                        <div className="font-bold text-slate-800 font-sans font-semibold leading-snug">{milestone.label}</div>
-                                                        <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1.5 block">{formatCurrency(milestone.amount)}</span>
-                                                        <p className="text-[10px] text-slate-500 mt-1 font-sans font-medium leading-relaxed">{milestone.desc}</p>
+                                        {/* PROJECT-BASED MODULE BILLING PIPELINE */}
+                                        {projectCostBase > 0 && (
+                                            <div>
+                                                {/* CASE A: ONLY DIAGNOSTICS (MOD 0) SELECTED */}
+                                                {!activeSOP && !activePMO ? (
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-sans font-medium">
+                                                        <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                                                            <div className="font-bold text-slate-800 font-sans font-semibold">1. MOD 0 Kickoff & Mobilization (50%)</div>
+                                                            <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">{formatCurrency(Math.round((projectCostBase * 0.5) * (includeTax ? 1.12 : 1.0)))}</span>
+                                                        </div>
+                                                        <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                                                            <div className="font-bold text-slate-800 font-sans font-semibold">2. MOD 0 Handover & Boardroom Debrief (50%)</div>
+                                                            <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">{formatCurrency(Math.round((projectCostBase * 0.5) * (includeTax ? 1.12 : 1.0)))}</span>
+                                                        </div>
                                                     </div>
-                                                ))}
+                                                ) : (
+                                                    /* CASE B: MULTI-MODULE ENGAGEMENT (MOD 0 + MOD I / MOD II) */
+                                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans font-medium">
+                                                        <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                                                            <div className="font-bold text-slate-800 font-sans font-semibold">1. MOD 0 Mobilization & Discovery (30%)</div>
+                                                            <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">{formatCurrency(Math.round((projectCostBase * 0.3) * (includeTax ? 1.12 : 1.0)))}</span>
+                                                        </div>
+                                                        <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                                                            <div className="font-bold text-slate-800 font-sans font-semibold">2. MOD I SOP & RACI Handover (40%)</div>
+                                                            <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">{formatCurrency(Math.round((projectCostBase * 0.4) * (includeTax ? 1.12 : 1.0)))}</span>
+                                                        </div>
+                                                        <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                                                            <div className="font-bold text-slate-800 font-sans font-semibold">3. MOD II Systems Training Sign-off (30%)</div>
+                                                            <span className="font-mono text-brandBlue-600 print-accent font-bold mt-1 block">{formatCurrency(Math.round((projectCostBase * 0.3) * (includeTax ? 1.12 : 1.0)))}</span>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>
 
                                     {/* Standard terms of service */}
                                     <div className="text-[9px] text-slate-505 space-y-2 pb-6 border-b border-slate-200 mb-8 print-divider leading-relaxed">
-                                        <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans">Standard Professional Terms</strong>
+                                        <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans font-extrabold">Standard Professional Terms</strong>
                                         <p>1. <strong>Scope of Services & Scope Variations:</strong> Services are strictly limited to the SOW items selected. Any modifications requested by the Client shall require a signed Change Order specifying additional hours and timeline extensions.</p>
                                         <p>2. <strong>Client Cooperation & Operational Timelines:</strong> Project timelines remain suspended if critical data dependencies or stakeholder calendars are delayed by the Client by more than 5 business days.</p>
                                         <p>3. <strong>Professional Compensation, Taxes, and Late Payments:</strong> Total professional fees are ex-VAT. Invoice settlement is required within seven (7) business days of receipt.</p>
@@ -1712,7 +1872,7 @@
                                         <p>6. <strong>Limitation of Liability & Operational Indemnity:</strong> In no event shall Kolthoff Consulting's liability exceed the total fees paid by the Client under this quotation.</p>
                                         <p>7. <strong>Dispute Resolution & Jurisdiction:</strong> Disputes arising from this contract shall fall under the exclusive jurisdiction of the courts of Taytay, Rizal, Calabarzon.</p>
                                         <div className="mt-4 pt-3 border-t border-slate-100">
-                                            <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans font-extrabold">Settlement & Bank Details</strong>
+                                            <strong className="text-slate-700 block text-[10px] uppercase font-mono font-bold font-sans font-semibold font-bold font-sans font-extrabold">Settlement & Bank Details</strong>
                                             <div className="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-755 space-y-0.5 bg-slate-50 py-1.5 rounded">
                                                 <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                 <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
@@ -1727,7 +1887,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Approved and Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-550">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1745,157 +1905,7 @@
                             </div>
                         )}
 
-                        {/* --- VIEW 4: BRAND-NEW MUTUAL NDA CONTRACT TEMPLATE --- */}
-                        {view === 'nda' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
-                                
-                                {/* Left Side NDA Config Settings Panel */}
-                                <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
-                                    <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Customize NDA Fields</h3>
-                                    <div className="space-y-4 text-xs font-sans font-medium">
-                                        <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Effective Date</label>
-                                            <input type="text" value={ndaEffectiveDate} onChange={(e) => setNdaEffectiveDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Disclosing Party (Party A)</label>
-                                            <input type="text" value={preparedBy} disabled className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded p-2.5 text-slate-404 cursor-not-allowed" />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Receiving Party (Party B)</label>
-                                            <input type="text" value={clientCompany} disabled className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded p-2.5 text-slate-404 cursor-not-allowed" />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Confidentiality Term (Years)</label>
-                                            <input type="text" value={ndaTerm} onChange={(e) => setNdaTerm(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Purpose of Disclosure</label>
-                                            <textarea rows="4" value={ndaPurpose} onChange={(e) => setNdaPurpose(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 leading-relaxed font-sans" />
-                                        </div>
-                                        <div>
-                                            <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Governing Law Jurisdiction</label>
-                                            <input type="text" value={ndaJurisdiction} onChange={(e) => setNdaJurisdiction(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
-                                        </div>
-                                    </div>
-                                    <button onClick={handlePrint} className="w-full py-3 bg-brandBlue-500 hover:bg-brandBlue-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Mutual NDA</button>
-                                </div>
-
-                                {/* Right Side: Stationery Mutual Non-Disclosure Agreement Print Sheet */}
-                                <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-12 shadow-2xl print-card font-sans font-medium text-xs leading-relaxed space-y-6">
-                                    
-                                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandBlue-500 mb-6 print-card-header gap-6">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-gradient-to-tr from-brandBlue-700 to-brandBlue-505 rounded flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-10 h-10 text-white" /></div>
-                                            <div>
-                                                <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
-                                                <span className="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span>
-                                                <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-500 mt-2 font-semibold">
-                                                    <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
-                                                    <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> www.kolthoff-consulting.com</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="text-left sm:text-right font-mono text-[11px] text-slate-605 space-y-1">
-                                            <div className="text-slate-900 font-bold text-sm tracking-wide font-sans uppercase">CONFIDENTIAL AGREEMENT</div>
-                                            <div>Reference: <span className="font-bold text-slate-955">{quoteId}-NDA</span></div>
-                                            <div>Date: {quoteDate}</div>
-                                            <div>Governing Law: PH</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center space-y-2">
-                                        <h2 className="text-lg font-bold text-slate-900 font-sans tracking-wide uppercase">MUTUAL NON-DISCLOSURE AGREEMENT</h2>
-                                        <p className="text-[11px] font-mono text-slate-505">Effective Date: {ndaEffectiveDate}</p>
-                                    </div>
-
-                                    <p className="text-slate-800">
-                                        This Mutual Non-Disclosure Agreement (the "Agreement") is entered into and made effective as of the date written above (the "Effective Date") by and between:
-                                    </p>
-
-                                    <div className="pl-6 space-y-3 text-slate-800 font-sans font-semibold border-l-2 border-brandBlue-500 bg-slate-50 p-4 rounded">
-                                        <div>
-                                            <strong>Party A (Disclosing/Receiving):</strong> <span className="text-slate-955">{preparedBy}</span>, representing <span className="font-bold">Kolthoff Consulting</span>, with registered contact coordinates of Taytay, Rizal, Philippines; and
-                                        </div>
-                                        <div>
-                                            <strong>Party B (Disclosing/Receiving):</strong> <span className="text-slate-955">{clientRep}</span>, representing <span className="font-bold">{clientCompany}</span>.
-                                        </div>
-                                    </div>
-
-                                    <p className="text-slate-800 italic">
-                                        Party A and Party B are hereinafter individually referred to as a "Party" and collectively as the "Parties."
-                                    </p>
-
-                                    <div className="space-y-4 text-slate-800">
-                                        <div className="space-y-1">
-                                            <h3 className="font-bold text-slate-955 font-sans uppercase">1. Purpose of Disclosure</h3>
-                                            <p className="leading-relaxed">
-                                                The Parties wish to explore and evaluate a prospective business relationship and joint service implementation program, specifically relating to: <strong className="text-slate-900">{ndaPurpose}</strong>. In connection with this Purpose, each Party may disclose proprietary, confidential, or sensitive trade secrets and records (the "Confidential Information") to the other Party.
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-1">
-                                            <h3 className="font-bold text-slate-955 font-sans uppercase">2. Definition of Confidential Information</h3>
-                                            <p className="leading-relaxed">
-                                                "Confidential Information" shall mean all proprietary, strategic, operational, tech, and financial information disclosed by one Party (the "Disclosing Party") to the other Party (the "Receiving Party"), whether orally or in writing, that is designated as confidential, marked with restrictive legends, or which by its very nature should reasonably be understood to be confidential.
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-1">
-                                            <h3 className="font-bold text-slate-955 font-sans uppercase">3. Non-Disclosure Obligations</h3>
-                                            <p className="leading-relaxed">
-                                                The Receiving Party agrees to: (a) hold all Confidential Information in strict confidence and use at least the same degree of care to protect it as it uses to protect its own sensitive records, but in no event less than a reasonable standard of care; (b) use the Confidential Information solely for the Purpose defined in Section 1; and (c) restrict access to the Confidential Information to its employees, advisors, and authorized IT partners who have a strict need-to-know and are bound by confidentiality terms at least as restrictive as this Agreement.
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-1">
-                                            <h3 className="font-bold text-slate-955 font-sans uppercase">4. Exclusions from Confidentiality</h3>
-                                            <p className="leading-relaxed">
-                                                Confidential Information does not include information that: (a) is or becomes publicly known through no breach of this Agreement by the Receiving Party; (b) was already in the lawful possession of the Receiving Party prior to disclosure; (c) is independently developed by the Receiving Party without reference to or reliance on the Disclosing Party's Confidential Information; or (d) is rightfully obtained from an independent third party without restrictive covenants.
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-1">
-                                            <h3 className="font-bold text-slate-955 font-sans uppercase">5. Return or Destruction of Materials</h3>
-                                            <p className="leading-relaxed">
-                                                Upon the Disclosing Party's written request, or upon the termination of this Agreement, the Receiving Party shall immediately return or securely destroy all physical and digital copies containing Confidential Information and provide written certification of such destruction within five (5) business days.
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-1">
-                                            <h3 className="font-bold text-slate-955 font-sans uppercase">6. Term & Governing Law</h3>
-                                            <p className="leading-relaxed">
-                                                This Agreement and the Receiving Party's duty to protect Confidential Information shall remain in full force and effect for a period of <strong className="text-slate-900">{ndaTerm}</strong> from the Effective Date. This Agreement shall be governed by, and construed in accordance with, the laws of the Republic of the Philippines. Any dispute arising under this Agreement shall fall under the exclusive jurisdiction of the courts of <strong className="text-slate-900">{ndaJurisdiction}</strong>.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="pt-8 text-xs font-sans font-semibold">
-                                        <div className="grid grid-cols-2 gap-12 sm:gap-24">
-                                            <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-655 font-bold font-sans">Accepted & Authorized on behalf of Party B:</p>
-                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
-                                                    <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-550">Representative, {clientCompany}</div>
-                                                    <div className="text-slate-400">Date: ________________________</div>
-                                                </div>
-                                            </div>
-                                            <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-655 font-bold font-sans">Accepted & Authorized on behalf of Party A:</p>
-                                                <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
-                                                    <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
-                                                    <div className="text-slate-400">Date: {quoteDate}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- VIEW 5: OFFICIAL TAX INVOICE GENERATOR VIEW --- */}
+                        {/* --- VIEW 4: OFFICIAL TAX INVOICE GENERATOR VIEW --- */}
                         {view === 'invoice' && (
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 
@@ -1913,10 +1923,12 @@
                                                 className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500 font-sans"
                                             >
                                                 <option value="full">100% Full SOW Contract Payment</option>
-                                                {billingMilestones.map((milestone, idx) => (
-                                                    <option key={idx} value={`milestone_${idx}`}>{milestone.label}</option>
-                                                ))}
-                                                {retainerCostPart > 0 && <option value="retainer">MOD III Ongoing Monthly Retainer</option>}
+                                                {activeDiag && <option value="kickoff_50">MOD 0 Kickoff / Mobilization (50% of diagnostics)</option>}
+                                                {activeDiag && <option value="handover_50">MOD 0 Handover / Boardroom Debrief (50% of diagnostics)</option>}
+                                                {projectCostBase > 0 && <option value="kickoff_30">Multi-Module Kickoff / Mobilization (30% of project)</option>}
+                                                {projectCostBase > 0 && <option value="mid_40">MOD I SOP & RACI Handover (40% of project)</option>}
+                                                {projectCostBase > 0 && <option value="final_30">MOD II Lark & Automation Sign-off (30% of project)</option>}
+                                                {retainerCostBase > 0 && <option value="retainer">MOD III Ongoing Monthly Retainer</option>}
                                                 <option value="custom">Bespoke / Custom Billing Amount</option>
                                             </select>
                                         </div>
@@ -2052,7 +2064,7 @@
 
                                     {/* Financial Breakdown & Totals */}
                                     <div className="flex flex-col sm:flex-row sm:justify-between items-stretch gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm bg-slate-50/50 p-4 rounded-xl font-semibold">
-                                        <div className="text-[11px] text-slate-555 max-w-md leading-relaxed text-left font-sans font-medium flex flex-col justify-between">
+                                        <div className="text-[11px] text-slate-505 max-w-md leading-relaxed text-left font-sans font-medium flex flex-col justify-between">
                                             <div>
                                                 <strong className="text-slate-700 block mb-1 font-bold font-sans">Payment Terms & Instructions:</strong>
                                                 Please settle the milestone amount using the bank remittance details provided below within <strong>seven (7) business days</strong> of this tax invoice date.
@@ -2116,7 +2128,7 @@
 
         // Render the virtual DOM mount standard
         const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<App />);
+        root.render((<App />));
     </script>
 </body>
 </html>
