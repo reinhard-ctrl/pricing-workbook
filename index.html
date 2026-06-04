@@ -79,7 +79,6 @@
 
         /* Print Media CSS Overrides for Pristine PDF Export */
         @media print {
-            /* Strip paddings, margins, borders, and shadows from outer layout wrappers to remove the SOW card frame */
             body, #root, #root > div, .animate-fade-in, .print-card {
                 background: white !important;
                 color: #0f172a !important;
@@ -126,7 +125,6 @@
             .print-divider {
                 border-color: #cbd5e1 !important;
             }
-            /* Retain class mapping structure but prevent manual forced page-break rules */
             .page-break {
                 page-break-before: auto !important;
             }
@@ -205,7 +203,7 @@
         );
 
         const IconCheckCircle = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-brandBlue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-brandBlue-500 font-bold">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
             </svg>
         );
@@ -271,10 +269,10 @@
         }
 
         const INITIAL_TASKS = [
-            // --- MOD 0: DIAGNOSTICS ---
+            // --- MOD 0: OPERATIONAL DIAGNOSTICS ---
             { 
                 id: 'diag-1', 
-                category: 'MOD 0 - Diagnostics', 
+                category: 'MOD 0 - Operational Diagnostics', 
                 deliverable: 'Preparation & Onboarding', 
                 description: 'Client kickoff meeting, data security brief, and initial corporate baseline data acquisition.', 
                 estHours: 4, 
@@ -288,7 +286,7 @@
             },
             { 
                 id: 'diag-2', 
-                category: 'MOD 0 - Diagnostics', 
+                category: 'MOD 0 - Operational Diagnostics', 
                 deliverable: 'Stakeholder Discovery', 
                 description: 'Friction-Adjusted discovery loop (structured interviews with 4-6 key leadership roles, accounts, and desk operators).', 
                 estHours: 8, 
@@ -302,7 +300,7 @@
             },
             { 
                 id: 'diag-3', 
-                category: 'MOD 0 - Diagnostics', 
+                category: 'MOD 0 - Operational Diagnostics', 
                 deliverable: 'On-Site Observation Audit', 
                 description: 'In-person workflow shadowing, step-timing, and bottleneck mapping.', 
                 estHours: 16, 
@@ -316,7 +314,7 @@
             },
             { 
                 id: 'diag-4', 
-                category: 'MOD 0 - Diagnostics', 
+                category: 'MOD 0 - Operational Diagnostics', 
                 deliverable: 'DOLE Exposure Assessment & SaaS License Rationalization Review', 
                 description: 'Comprehensive audit of regulatory labor compliance (DOLE exposures) and technology software stack/subscription under-utilization to eliminate duplicate software licenses.', 
                 estHours: 8, 
@@ -330,7 +328,7 @@
             },
             { 
                 id: 'diag-5', 
-                category: 'MOD 0 - Diagnostics', 
+                category: 'MOD 0 - Operational Diagnostics', 
                 deliverable: 'Risk Matrix Formulation', 
                 description: 'Synthesis of raw observation data into a highly prioritized B2B Operational Risk Matrix.', 
                 estHours: 6, 
@@ -344,7 +342,7 @@
             },
             { 
                 id: 'diag-6', 
-                category: 'MOD 0 - Diagnostics', 
+                category: 'MOD 0 - Operational Diagnostics', 
                 deliverable: 'Debrief & Roadmap Handover', 
                 description: 'Boardroom-ready presentation of audit discoveries, immediate quick wins, and strategic options.', 
                 estHours: 6, 
@@ -357,10 +355,10 @@
                 }
             },
 
-            // --- MOD I: SOPS & RACI ---
+            // --- MOD I: PROCESS ARCHITECTURE ---
             { 
                 id: 'sop-vsm', 
-                category: 'MOD I - SOPs & RACI', 
+                category: 'MOD I - Process Architecture', 
                 deliverable: 'Macro Value Stream Mapping', 
                 description: 'Leading intensive VSM workshops with executive sponsors to map macro informational flows before micro swimlane design.', 
                 estHours: 16, 
@@ -374,7 +372,7 @@
             },
             { 
                 id: 'sop-1', 
-                category: 'MOD I - SOPs & RACI', 
+                category: 'MOD I - Process Architecture', 
                 deliverable: 'Org Structure & RACI Mapping', 
                 description: 'Systematic mapping of operational reporting lines, functional hierarchies, and cross-departmental RACI matrices.', 
                 estHours: 12, 
@@ -388,7 +386,7 @@
             },
             { 
                 id: 'sop-2', 
-                category: 'MOD I - SOPs & RACI', 
+                category: 'MOD I - Process Architecture', 
                 deliverable: 'Swimlane Process Mapping', 
                 description: 'Friction-Adjusted mapping of high-fidelity, cross-functional swimlane diagrams (up to 5 core business workflows).', 
                 estHours: 40, 
@@ -402,7 +400,7 @@
             },
             { 
                 id: 'sop-3', 
-                category: 'MOD I - SOPs & RACI', 
+                category: 'MOD I - Process Architecture', 
                 deliverable: 'HR Templates & Compliance', 
                 description: 'Reviewing local contract standards, drafting standard employment templates and onboarding forms.', 
                 estHours: 12, 
@@ -416,7 +414,7 @@
             },
             { 
                 id: 'sop-4', 
-                category: 'MOD I - SOPs & RACI', 
+                category: 'MOD I - Process Architecture', 
                 deliverable: 'DOLE-Aligned Operational Code of Conduct & GLS Manual', 
                 description: 'Friction-Adjusted compilation of compliant behavioral regulations, local leaves, statutory benefits, and code of conduct manuals protecting against local labor litigation.', 
                 estHours: 16, 
@@ -429,38 +427,38 @@
                 }
             },
 
-            // --- MOD II: PMO & AUTOMATION ---
+            // --- MOD II: WORKFLOW AUTOMATION ---
             { 
-                id: 'pmo-lark', 
-                category: 'MOD II - PMO & Automation', 
-                deliverable: 'Lark Workspace Architecture & Provisioning', 
-                description: 'Configuring multi-departmental structures, permission groups, and centralized cloud document repositories.', 
+                id: 'trans-1', 
+                category: 'MOD II - Workflow Automation', 
+                deliverable: 'Value Stream Mapping (VSM)', 
+                description: 'Hosting dedicated value stream workshops to expose administrative and operational waste.', 
                 estHours: 16, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Design tailored folder taxonomies; set up advanced admin structures; align security clearance rules; provision enterprise domain mapping.",
-                    expectations: "Provide full organizational roster, role directories, and authorized domain administrator access credentials.",
-                    output: "Fully provisioned, secure, and structurally aligned enterprise Lark workspace directory."
+                    activities: "Lead intensive value stream mapping workshops to trace physical/informational paths and flag lean process wastes.",
+                    expectations: "Assembling cross-functional team members for a continuous 4-hour mapping session.",
+                    output: "High-fidelity current and future state Value Stream Maps."
                 }
             },
             { 
-                id: 'pmo-hermes', 
-                category: 'MOD II - PMO & Automation', 
-                deliverable: 'HERMES 2022 Methodology Implementation', 
-                description: 'Structured onboarding covering project lifecycles, phase gates, role assignments, and scenario simulations.', 
-                estHours: 12, 
+                id: 'trans-2', 
+                category: 'MOD II - Workflow Automation', 
+                deliverable: 'Cycle-Time Bottleneck Sprint', 
+                description: 'Targeted tactical sprints focusing on reducing administrative waste and re-routing slow paths.', 
+                estHours: 16, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Deliver four (4) interactive workshops covering Swiss HERMES 2022 project gating; conduct mock case execution trials.",
-                    expectations: "Select and clear calendars for 3 to 5 internal project champions to attend all coaching cycles.",
-                    output: "Onboarded project execution leads with certified understanding of HERMES 2022 delivery lifecycle paths."
+                    activities: "Run rapid improvement sprints targeting high-rework paths and operational bottleneck traces.",
+                    expectations: "Operational team leads authorized to test modified workflows under direct consultant guidance.",
+                    output: "Elimination of targeted rework steps and documented speed improvements."
                 }
             },
             { 
                 id: 'pmo-change', 
-                category: 'MOD II - PMO & Automation', 
+                category: 'MOD II - Workflow Automation', 
                 deliverable: 'Workforce Change Management & Standard Work Enablement', 
                 description: 'Coaching loops and enablement sprints designed to prevent process drift and secure behavioral change.', 
                 estHours: 12, 
@@ -472,11 +470,39 @@
                     output: "Staff adoption scorecards, behavioral playbook guides, and operational enablement trackers."
                 }
             },
+            {
+                id: 'lark-1',
+                category: 'MOD II - Workflow Automation',
+                deliverable: 'Lark Workspace Architecture & Provisioning',
+                description: 'Configuring multi-departmental structures, permission groups, and centralized cloud document repositories.',
+                estHours: 8, 
+                tier: 'senior',
+                selected: false,
+                scopeDetails: {
+                    activities: "Design tailored folder taxonomies; set up advanced admin structures; align security clearance rules; provision enterprise domain mapping.",
+                    expectations: "Provide full organizational roster, role directories, and authorized domain administrator access credentials.",
+                    output: "Fully provisioned, secure, and structurally aligned enterprise Lark workspace directory."
+                }
+            },
+            {
+                id: 'pm-1',
+                category: 'MOD II - Workflow Automation',
+                deliverable: 'HERMES 2022 Methodology Implementation',
+                description: 'Structured onboarding covering project lifecycles, phase gates, role assignments, and scenario simulations.',
+                estHours: 12, 
+                tier: 'senior',
+                selected: false,
+                scopeDetails: {
+                    activities: "Deliver four (4) interactive workshops covering Swiss HERMES 2022 project gating; conduct mock case execution trials.",
+                    expectations: "Select and clear calendars for 3 to 5 internal project champions to attend all coaching cycles.",
+                    output: "Onboarded project execution leads with certified understanding of HERMES 2022 delivery lifecycle paths."
+                }
+            },
 
-            // --- MOD III: COO & RETAINERS ---
+            // --- MOD III: STRATEGIC ADVISORY & SYSTEMS RETAINER ---
             { 
                 id: 'coo-1', 
-                category: 'MOD III - COO & Retainers', 
+                category: 'MOD III - Strategic Advisory & Systems Retainer', 
                 deliverable: 'Operations Alignment Governance', 
                 description: 'Directing weekly leadership alignment loops, metrics tracking, and project accountability.', 
                 estHours: 8, 
@@ -491,7 +517,7 @@
             },
             { 
                 id: 'coo-drift', 
-                category: 'MOD III - COO & Retainers', 
+                category: 'MOD III - Strategic Advisory & Systems Retainer', 
                 deliverable: 'Process Drift Audit Retainer', 
                 description: 'Bi-annual on-site reviews and compliance inspections to trace and correct SOP execution dropoffs.', 
                 estHours: 8, 
@@ -505,18 +531,63 @@
                 }
             },
             { 
-                id: 'coo-msp', 
-                category: 'MOD III - COO & Retainers', 
-                deliverable: 'Active Cyber & Network Security Monitoring Retainer', 
-                description: 'Continuous endpoint threat detection, automated backups, and proactive firewall audits. Delivered and executed by Kolthoff Consulting’s authorized strategic infrastructure partner.', 
-                estHours: 10, 
+                id: 'coo-lark-admin', 
+                category: 'MOD III - Strategic Advisory & Systems Retainer', 
+                deliverable: 'Lark Enterprise Administration Retainer', 
+                description: 'Strategic Partner Managed administrative support covering customized seat provisioning, field mappings, and security policy sweeps.', 
+                estHours: 8, 
                 tier: 'partner', 
                 selected: false, 
                 isMonthlyRetainer: true,
                 scopeDetails: {
-                    activities: "Deploy lightweight network security monitors; program daily cloud backups; conduct firewall vulnerability audits.",
-                    expectations: "Authorize temporary network administrative privileges; facilitate basic hardware asset log mapping.",
-                    output: "Live, proactive threat containment report and operational network uptime dashboard under master SLA governance."
+                    activities: "Manage customized Lark Suite administrator controls, update folder tree permissions, and coordinate active domain settings.",
+                    expectations: "Client Super-Admin to clear security clearance scopes for strategic partner representatives.",
+                    output: "Optimized corporate directories, clean permission groups, and active domain security matrices."
+                }
+            },
+            { 
+                id: 'coo-pipedrive-admin', 
+                category: 'MOD III - Strategic Advisory & Systems Retainer', 
+                deliverable: 'Pipedrive CRM Management Retainer', 
+                description: 'Strategic Partner Managed CRM alignment covering dynamic trigger automation scripts and database field sweeps.', 
+                estHours: 8, 
+                tier: 'partner', 
+                selected: false, 
+                isMonthlyRetainer: true,
+                scopeDetails: {
+                    activities: "Create automated email triggers, coordinate customer pipeline stages, and rationalise duplicate contact records.",
+                    expectations: "Revenue leads to provide current pipeline structures and reporting needs.",
+                    output: "Fully automated, high-visibility sales funnel directories and sanitized customer databases."
+                }
+            },
+            { 
+                id: 'coo-endpoint-sec', 
+                category: 'MOD III - Strategic Advisory & Systems Retainer', 
+                deliverable: 'Endpoint Threat Security Retainer', 
+                description: 'Strategic Partner Managed terminal threat detection, active firewall monitoring, and regular vulnerability sweeps.', 
+                estHours: 6, 
+                tier: 'partner', 
+                selected: false, 
+                isMonthlyRetainer: true,
+                scopeDetails: {
+                    activities: "Deploy localized threat monitoring scripts, scan workspace networks, and evaluate active firewall records.",
+                    expectations: "Provide secure access to local administrative network nodes and cloud environments.",
+                    output: "Vulnerability audit scores and active patch logs keeping employee hardware protected."
+                }
+            },
+            { 
+                id: 'coo-network-infra', 
+                category: 'MOD III - Strategic Advisory & Systems Retainer', 
+                deliverable: 'Network & Cloud Infrastructure Retainer', 
+                description: 'Strategic Partner Managed cloud architecture maintenance, offsite automated backup routines, and uptime monitoring.', 
+                estHours: 6, 
+                tier: 'partner', 
+                selected: false, 
+                isMonthlyRetainer: true,
+                scopeDetails: {
+                    activities: "Program daily offsite cloud backup routines, monitor hosting nodes, and optimize server load response metrics.",
+                    expectations: "Provide master credential parameters for authorized cloud infrastructure registries.",
+                    output: "Continuous offsite data archives, automated database logs, and server health check registers."
                 }
             }
         ];
@@ -529,12 +600,6 @@
             // 1. CORE DATA STATE
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
 
-            // INDIVIDUAL CATEGORY SELECTORS HOISTED TO ENTIRE TOP OF APP COMPONENT TO VOID TEMPORAL DEAD ZONE (TDZ) ISSUES
-            const activeDiag = useMemo(() => tasks.some(t => t.category === 'MOD 0 - Diagnostics' && t.selected), [tasks]);
-            const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD I - SOPs & RACI' && t.selected), [tasks]);
-            const activePMO = useMemo(() => tasks.some(t => t.category === 'MOD II - PMO & Automation' && t.selected), [tasks]);
-            const activeGov = useMemo(() => tasks.some(t => t.category === 'MOD III - COO & Retainers' && t.selected), [tasks]);
-
             const savedRates = useMemo(() => loadSavedData('kc_planner_rates', {
                 principal: 3500,
                 senior: 2500,
@@ -546,6 +611,17 @@
             const [seniorRate, setSeniorRate] = useState(savedRates.senior);
             const [associateRate, setAssociateRate] = useState(savedRates.associate);
             const [partnerRate, setPartnerRate] = useState(savedRates.partner);
+
+            // --- CRITICAL HOISTED CORE LOOKUP FUNCTION (SOLVES THE REFERENCEERROR IN TEMPORAL DEAD ZONE) ---
+            const getRateForTier = (tier) => {
+                switch(tier) {
+                    case 'principal': return principalRate;
+                    case 'senior': return seniorRate;
+                    case 'associate': return associateRate;
+                    case 'partner': return partnerRate;
+                    default: return associateRate;
+                }
+            };
 
             const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['mod0']));
 
@@ -606,7 +682,7 @@
             const [invoiceDueDate, setInvoiceDueDate] = useState(() => loadSavedData('kc_planner_invoice_due_date', 'July 15, 2026'));
 
             // Placeholder states for custom input structures
-            const [newTaskCategory, setNewTaskCategory] = useState('MOD 0 - Diagnostics');
+            const [newTaskCategory, setNewTaskCategory] = useState('MOD 0 - Operational Diagnostics');
             const [newTaskDeliv, setNewTaskDeliv] = useState('');
             const [newTaskDesc, setNewTaskDesc] = useState('');
             const [newTaskHours, setNewTaskHours] = useState(12);
@@ -616,16 +692,11 @@
             const [newTaskExpectations, setNewTaskExpectations] = useState('');
             const [newTaskOutput, setNewTaskOutput] = useState('');
 
-            // Helper for dynamic tier-to-rate lookup
-            function getRateForTier(tier) {
-                switch(tier) {
-                    case 'principal': return principalRate;
-                    case 'senior': return seniorRate;
-                    case 'associate': return associateRate;
-                    case 'partner': return partnerRate;
-                    default: return associateRate;
-                }
-            }
+            // INDIVIDUAL CATEGORY SELECTORS HOISTED FOR MODULE TRACKS
+            const activeDiag = useMemo(() => tasks.some(t => t.category === 'MOD 0 - Operational Diagnostics' && t.selected), [tasks]);
+            const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD I - Process Architecture' && t.selected), [tasks]);
+            const activePMO = useMemo(() => tasks.some(t => t.category === 'MOD II - Workflow Automation' && t.selected), [tasks]);
+            const activeGov = useMemo(() => tasks.some(t => t.category === 'MOD III - Strategic Advisory & Systems Retainer' && t.selected), [tasks]);
 
             // --- DECLARED BEFORE THE RETURN (RESOLVES REFERENCEERRORS & TDZ) ---
             const handlePrint = () => {
@@ -656,7 +727,7 @@
                     estHours: Number(newTaskHours),
                     tier: newTaskTier,
                     selected: true,
-                    isMonthlyRetainer: newTaskCategory === 'MOD III - COO & Retainers',
+                    isMonthlyRetainer: newTaskCategory === 'MOD III - Strategic Advisory & Systems Retainer',
                     scopeDetails: {
                         activities: newTaskActivities || "Execute planned task steps and deliverable milestones in coordination with designated managers.",
                         expectations: newTaskExpectations || "Provide timely inputs, process data access, and constructive feedback on drafted materials.",
@@ -701,22 +772,22 @@
 
                 setTasks(prev => prev.map(t => {
                     let matchesAnyActive = false;
-                    if (presetName === 'mod0' && t.category === 'MOD 0 - Diagnostics') matchesAnyActive = true;
-                    if (presetName === 'mod1' && t.category === 'MOD I - SOPs & RACI') matchesAnyActive = true;
-                    if (presetName === 'mod2' && t.category === 'MOD II - PMO & Automation') matchesAnyActive = true;
-                    if (presetName === 'mod3' && t.category === 'MOD III - COO & Retainers') matchesAnyActive = true;
+                    if (presetName === 'mod0' && t.category === 'MOD 0 - Operational Diagnostics') matchesAnyActive = true;
+                    if (presetName === 'mod1' && t.category === 'MOD I - Process Architecture') matchesAnyActive = true;
+                    if (presetName === 'mod2' && t.category === 'MOD II - Workflow Automation') matchesAnyActive = true;
+                    if (presetName === 'mod3' && t.category === 'MOD III - Strategic Advisory & Systems Retainer') matchesAnyActive = true;
                     
                     // Fallback to preserve selections if toggling unrelated presets
-                    if (activePresets.includes('mod0') && t.category === 'MOD 0 - Diagnostics') matchesAnyActive = true;
-                    if (activePresets.includes('mod1') && t.category === 'MOD I - SOPs & RACI') matchesAnyActive = true;
-                    if (activePresets.includes('mod2') && t.category === 'MOD II - PMO & Automation') matchesAnyActive = true;
-                    if (activePresets.includes('mod3') && t.category === 'MOD III - COO & Retainers') matchesAnyActive = true;
+                    if (activePresets.includes('mod0') && t.category === 'MOD 0 - Operational Diagnostics') matchesAnyActive = true;
+                    if (activePresets.includes('mod1') && t.category === 'MOD I - Process Architecture') matchesAnyActive = true;
+                    if (activePresets.includes('mod2') && t.category === 'MOD II - Workflow Automation') matchesAnyActive = true;
+                    if (activePresets.includes('mod3') && t.category === 'MOD III - Strategic Advisory & Systems Retainer') matchesAnyActive = true;
 
                     // Apply current toggle change state
-                    if (presetName === 'mod0' && t.category === 'MOD 0 - Diagnostics') matchesAnyActive = !activePresets.includes('mod0');
-                    if (presetName === 'mod1' && t.category === 'MOD I - SOPs & RACI') matchesAnyActive = !activePresets.includes('mod1');
-                    if (presetName === 'mod2' && t.category === 'MOD II - PMO & Automation') matchesAnyActive = !activePresets.includes('mod2');
-                    if (presetName === 'mod3' && t.category === 'MOD III - COO & Retainers') matchesAnyActive = !activePresets.includes('mod3');
+                    if (presetName === 'mod0' && t.category === 'MOD 0 - Operational Diagnostics') matchesAnyActive = !activePresets.includes('mod0');
+                    if (presetName === 'mod1' && t.category === 'MOD I - Process Architecture') matchesAnyActive = !activePresets.includes('mod1');
+                    if (presetName === 'mod2' && t.category === 'MOD II - Workflow Automation') matchesAnyActive = !activePresets.includes('mod2');
+                    if (presetName === 'mod3' && t.category === 'MOD III - Strategic Advisory & Systems Retainer') matchesAnyActive = !activePresets.includes('mod3');
 
                     return { ...t, selected: matchesAnyActive };
                 }));
@@ -813,10 +884,10 @@
                 const totalCost = subtotalCost + taxValue;
 
                 // Extract base hours per tier with buffer multiplier applied
-                const principalBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'principal').reduce((acc, t) => acc + t.estHours, 0) * bufferMultiplier);
-                const seniorBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'senior').reduce((acc, t) => acc + t.estHours, 0) * bufferMultiplier);
-                const associateBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'associate').reduce((acc, t) => acc + t.estHours, 0) * bufferMultiplier);
-                const partnerBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'partner').reduce((acc, t) => acc + t.estHours, 0) * bufferMultiplier);
+                const principalBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'principal').reduce((acc, curr) => acc + curr.estHours, 0) * bufferMultiplier);
+                const seniorBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'senior').reduce((acc, curr) => acc + curr.estHours, 0) * bufferMultiplier);
+                const associateBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'associate').reduce((acc, curr) => acc + curr.estHours, 0) * bufferMultiplier);
+                const partnerBaseHours = Math.round(selectedTasks.filter(t => t.tier === 'partner').reduce((acc, curr) => acc + curr.estHours, 0) * bufferMultiplier);
 
                 // Apply dynamic delegation waterfall
                 const principalDelegatedHours = Math.round(principalBaseHours * (principalToSeniorDelegate / 100));
@@ -860,9 +931,9 @@
                 const milestonesList = [];
                 if (projectCostPart <= 0) return milestonesList;
 
-                const activeMod0 = tasks.some(t => t.category === 'MOD 0 - Diagnostics' && t.selected);
-                const activeMod1 = tasks.some(t => t.category === 'MOD I - SOPs & RACI' && t.selected);
-                const activeMod2 = tasks.some(t => t.category === 'MOD II - PMO & Automation' && t.selected);
+                const activeMod0 = tasks.some(t => t.category === 'MOD 0 - Operational Diagnostics' && t.selected);
+                const activeMod1 = tasks.some(t => t.category === 'MOD I - Process Architecture' && t.selected);
+                const activeMod2 = tasks.some(t => t.category === 'MOD II - Workflow Automation' && t.selected);
 
                 // Scenario A: ONLY MOD 0 is selected
                 if (activeMod0 && !activeMod1 && !activeMod2) {
@@ -1082,7 +1153,7 @@
                         </div>
                     </header>
 
-                    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto">
+                    <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] mx-auto animate-fade-in">
                         {view === 'sandbox' && (
                             <div className="no-print space-y-8">
                                 
@@ -1095,7 +1166,7 @@
                                         </div>
                                         <div>
                                             <h3 className="text-xs font-bold font-mono tracking-wider text-slate-400 uppercase">Interactive B2B Rate Card Configuration</h3>
-                                            <p className="text-xs text-slate-505 mt-0.5">Define hourly billing values per tier via horizontal sliders. Individual deliverables automatically query this table to calculate pricing.</p>
+                                            <p className="text-xs text-slate-555 mt-0.5">Define hourly billing values per tier via horizontal sliders. Individual deliverables automatically query this table to calculate pricing.</p>
                                         </div>
                                     </div>
 
@@ -1181,10 +1252,10 @@
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {[
-                                                    { name: 'mod0', label: 'MOD 0 - Diagnostics' },
-                                                    { name: 'mod1', label: 'MOD I - SOPs & RACI' },
-                                                    { name: 'mod2', label: 'MOD II - PMO & Automation' },
-                                                    { name: 'mod3', label: 'MOD III - COO & Retainers' }
+                                                    { name: 'mod0', label: 'MOD 0 - Operational Diagnostics' },
+                                                    { name: 'mod1', label: 'MOD I - Process Architecture' },
+                                                    { name: 'mod2', label: 'MOD II - Workflow Automation' },
+                                                    { name: 'mod3', label: 'MOD III - Strategic Advisory & Systems Retainer' }
                                                 ].map(preset => {
                                                     const isActive = activePresets.includes(preset.name);
                                                     return (
@@ -1217,7 +1288,7 @@
                                                             <tr key={task.id} className={`transition-all duration-150 ${task.selected ? 'bg-brandNavy-900/40' : 'bg-brandNavy-950/10 opacity-30 hover:opacity-60'}`}>
                                                                 <td className="py-4 px-5 text-center">
                                                                     <div className="flex items-center justify-center gap-1">
-                                                                        <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-505 inline-flex transition-colors">
+                                                                        <button onClick={() => toggleTask(task.id)} className="p-1 rounded text-slate-400 hover:text-brandBlue-500 inline-flex transition-colors">
                                                                             {task.selected ? <IconCheckSquare /> : <IconSquare />}
                                                                         </button>
                                                                         {task.id.startsWith('custom-') && <button onClick={() => removeTask(task.id)} className="p-1 text-rose-505 hover:text-rose-400 rounded transition-colors"><IconTrash className="w-3.5 h-3.5" /></button>}
@@ -1261,10 +1332,10 @@
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Category</label>
                                                         <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandBlue-500">
-                                                            <option value="MOD 0 - Diagnostics">MOD 0 - Diagnostics</option>
-                                                            <option value="MOD I - SOPs & RACI">MOD I - SOPs & RACI</option>
-                                                            <option value="MOD II - PMO & Automation">MOD II - PMO & Automation</option>
-                                                            <option value="MOD III - COO & Retainers">MOD III - COO & Retainers</option>
+                                                            <option value="MOD 0 - Operational Diagnostics">MOD 0 - Operational Diagnostics</option>
+                                                            <option value="MOD I - Process Architecture">MOD I - Process Architecture</option>
+                                                            <option value="MOD II - Workflow Automation">MOD II - Workflow Automation</option>
+                                                            <option value="MOD III - Strategic Advisory & Systems Retainer">MOD III - Strategic Advisory & Systems Retainer</option>
                                                         </select>
                                                     </div>
                                                     <div className="md:col-span-3">
@@ -1460,10 +1531,11 @@
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Draft Proposal Settings</h3>
-                                    <div className="space-y-4 text-xs">
+                                    <div className="space-y-4 text-xs font-sans">
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        {/* CORRECT SPONSOR INPUT CONTAINER STYLED TO HARMONIZE SEAMLESSLY WITH DEEP DARK BRAND BACKGROUNDS */}
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         
                                         {/* CUSTOMIZABLE TIMELINE OVERRIDE CONTROLLER INPUT */}
@@ -1514,7 +1586,7 @@
                                             <div className="text-slate-900 font-bold text-sm tracking-wide font-sans">SCOPE PROPOSAL (SOW)</div>
                                             <div>Reference: <span className="font-bold text-slate-955">{quoteId}-DRAFT</span></div>
                                             <div>Date Issued: {quoteDate}</div>
-                                            <div>Timeline: <span className="font-bold text-slate-955">{displayTimeline}</span></div>
+                                            <div>Timeline: <span className="font-bold text-slate-655">{displayTimeline}</span></div>
                                         </div>
                                     </div>
 
@@ -1529,7 +1601,7 @@
                                         <div className="text-center max-w-xl mx-auto mb-6">
                                             <span className="text-[9px] font-mono font-bold tracking-[0.25em] text-brandBlue-600 uppercase block mb-1">360° Scale-Up Lifecycle</span>
                                             <h4 className="text-base font-sans font-bold text-slate-900 leading-tight">Optional Expansion Modules Roadmap</h4>
-                                            <p className="text-[10px] text-slate-505 leading-relaxed mt-1 font-sans">
+                                            <p className="text-[10px] text-slate-555 leading-relaxed mt-1 font-sans">
                                                 Following your baseline Diagnostics Audit, scale-ready organizations acquire targeted execution packages in any modular configuration.
                                             </p>
                                         </div>
@@ -1550,7 +1622,7 @@
                                                             activeDiag ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
                                                         }`}>{activeDiag ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeDiag ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Diagnostics</h3>
+                                                    <h3 className={`text-xs font-bold ${activeDiag ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Operational Diagnostics</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
                                                         Conduct partner-led discover interviews, trace step-shadow bottlenecks, audit DOLE labor compliant records, and prioritized risks.
                                                     </p>
@@ -1585,7 +1657,7 @@
                                                             activeSOP ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
                                                         }`}>{activeSOP ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeSOP ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>SOPs & RACI</h3>
+                                                    <h3 className={`text-xs font-bold ${activeSOP ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Process Architecture</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
                                                         Establish clear functional boundaries, department org charts, DOLE-compliant handbooks, and horizontal swimlane process diagrams to safeguard institutional knowledge.
                                                     </p>
@@ -1620,18 +1692,18 @@
                                                             activePMO ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
                                                         }`}>{activePMO ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activePMO ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>PMO & Automation</h3>
+                                                    <h3 className={`text-xs font-bold ${activePMO ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Workflow Automation</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
                                                         Equip your team with Swiss-standard PMO framework methodologies (HERMES 2022) and migrate manual procedures into automated Lark Suite cloud workspaces.
                                                     </p>
                                                     <ul className="text-[10px] space-y-2 pt-1 font-semibold">
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.id === 'pmo-hermes')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'pmo-hermes')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
+                                                            {tasks.find(t => t.id === 'pm-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'pm-1')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.id === 'pmo-lark')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'pmo-lark')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
+                                                            {tasks.find(t => t.id === 'lark-1')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.id === 'lark-1')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Workspace Provisioning</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -1655,18 +1727,18 @@
                                                             activeGov ? 'bg-brandBlue-100 text-brandBlue-700' : 'bg-slate-200 text-slate-500'
                                                         }`}>{activeGov ? 'ACTIVE IN SOW' : 'UPCOMING ROADMAP'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeGov ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>COO & Retainers</h3>
+                                                    <h3 className={`text-xs font-bold ${activeGov ? 'text-slate-900 font-extrabold' : 'text-slate-500'}`}>Advisory & Systems</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
-                                                        Establish continuous, 360° strategic governance with our Fractional COO advisory programs or fully managed cybersecurity SLA support infrastructures.
+                                                        Establish continuous, 360° strategic governance with our Fractional COO advisory programs, partner cloud operations, and managed endpoint protection systems.
                                                     </p>
                                                     <ul className="text-[10px] space-y-2 pt-1 font-semibold">
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.category === 'MOD III - COO & Retainers' && t.id.startsWith('coo-') && t.selected) ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.category === 'MOD III - COO & Retainers' && t.id.startsWith('coo-') && t.selected) && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>Fractional COO Board Chairs</span>
+                                                            {tasks.find(t => t.category === 'MOD III - Strategic Advisory & Systems Retainer' && t.id === 'coo-1' && t.selected) ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.category === 'MOD III - Strategic Advisory & Systems Retainer' && t.id === 'coo-1' && t.selected) && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>Fractional COO Board Chairs</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
-                                                            {tasks.find(t => t.id === 'coo-msp')?.selected ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'coo-msp')?.selected && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>IT & Cyber Retainers (Strategic Partner)</span>
+                                                            {tasks.find(t => t.category === 'MOD III - Strategic Advisory & Systems Retainer' && t.id === 'coo-lark-admin' && t.selected) ? <IconCheckCircle /> : <span className="text-slate-300">○</span>}
+                                                            <span className={tasks.find(t => t.category === 'MOD III - Strategic Advisory & Systems Retainer' && t.id === 'coo-lark-admin' && t.selected) && activeGov ? 'text-slate-800' : 'text-slate-400 font-normal'}>Lark Enterprise Administration</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -1708,7 +1780,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Scope Confirmed & Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-550">Representative, {clientCompany}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1739,7 +1811,7 @@
                                             <div className="w-14 h-14 bg-gradient-to-tr from-brandBlue-700 to-brandBlue-500 rounded flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-10 h-10 text-white" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandBlue-600 print-accent font-black">CONSULTING</span></h1>
-                                                <span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold font-sans font-extrabold leading-relaxed">Operational Architecture & Strategy</span>
+                                                <span className="text-[9px] text-slate-505 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture & Strategy</span>
                                                 {/* HIGH STATUS STATIONERY CONTACT LETTERHEAD INSERTION */}
                                                 <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-505 mt-2 font-semibold">
                                                     <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandBlue-600 print-accent" /> contact@kolthoff-consulting.com</span>
@@ -1748,7 +1820,7 @@
                                             </div>
                                         </div>
                                         <div className="text-left sm:text-right font-mono text-[11px] text-slate-605 space-y-1">
-                                            <div className="text-slate-900 font-bold text-sm tracking-wide font-sans uppercase">OFFICIAL QUOTATION</div>
+                                            <div className="text-slate-900 font-bold text-sm tracking-wide font-sans">OFFICIAL QUOTATION</div>
                                             <div>Reference: <span className="font-bold text-slate-955">{quoteId}</span></div>
                                             <div>Date Issued: {quoteDate}</div>
                                             <div>Validity: {quoteValidity}</div>
@@ -1852,7 +1924,7 @@
                                         <p>6. <strong>Limitation of Liability & Operational Indemnity:</strong> In no event shall Kolthoff Consulting's liability exceed the total fees paid by the Client under this quotation.</p>
                                         <p>7. <strong>Dispute Resolution & Jurisdiction:</strong> Disputes arising from this contract shall fall under the exclusive jurisdiction of the courts of Taytay, Rizal, Calabarzon.</p>
                                         <div className="mt-4 pt-3 border-t border-slate-100">
-                                            <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans">Settlement & Bank Details</strong>
+                                            <strong className="text-slate-705 block text-[10px] uppercase font-mono font-bold font-sans font-extrabold">Settlement & Bank Details</strong>
                                             <div className="ml-4 pl-3 border-l-2 border-brandBlue-500 font-mono text-[9px] text-slate-755 space-y-0.5 bg-slate-50 py-1.5 rounded">
                                                 <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                 <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
@@ -2071,7 +2143,7 @@
                                                         type="number" 
                                                         value={customInvoiceAmount} 
                                                         onChange={(e) => setCustomInvoiceAmount(Number(e.target.value))} 
-                                                        className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 pl-7 text-xs text-slate-200 font-mono font-medium focus:outline-none focus:border-brandBlue-500" 
+                                                        className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 pl-7 text-xs text-slate-202 font-mono font-medium focus:outline-none focus:border-brandBlue-500" 
                                                     />
                                                 </div>
                                             </div>
@@ -2084,7 +2156,7 @@
                                                 type="text" 
                                                 value={invoiceNumberSuffix} 
                                                 onChange={(e) => setInvoiceNumberSuffix(e.target.value)} 
-                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" 
+                                                className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" 
                                                     />
                                         </div>
 
@@ -2190,14 +2262,14 @@
 
                                     {/* Financial Breakdown & Totals */}
                                     <div className="flex flex-col sm:flex-row sm:justify-between items-stretch gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm bg-slate-50/50 p-4 rounded-xl font-semibold">
-                                        <div className="text-[11px] text-slate-555 max-w-md leading-relaxed text-left font-sans font-medium flex flex-col justify-between">
+                                        <div className="text-[11px] text-slate-505 max-w-md leading-relaxed text-left font-sans font-medium flex flex-col justify-between">
                                             <div>
                                                 <strong className="text-slate-700 block mb-1 font-bold font-sans">Payment Terms & Instructions:</strong>
                                                 Please settle the milestone amount using the bank remittance details provided below within <strong>seven (7) business days</strong> of this tax invoice date.
                                             </div>
                                             <div className="mt-4 pt-3 border-t border-slate-200">
                                                 <span className="text-[10px] font-mono tracking-widest text-brandBlue-600 print-accent block mb-1 uppercase font-bold">Philippine Bank Remittance:</span>
-                                                <div className="font-mono text-[9px] text-slate-705 space-y-0.5 bg-white p-2.5 rounded border border-slate-200">
+                                                <div className="font-mono text-[9px] text-slate-755 space-y-0.5 bg-white p-2.5 rounded border border-slate-200">
                                                     <div>Bank Name: <strong>BDO Unibank Inc.</strong></div>
                                                     <div>Account Name: <strong>Reinhard Ludwig A. Kolthoff</strong></div>
                                                     <div>Account Number: <strong>0039 5019 0761</strong></div>
