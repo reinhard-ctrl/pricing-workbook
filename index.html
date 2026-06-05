@@ -886,12 +886,12 @@
                 const milestonesList = [];
                 if (projectCostPart <= 0) return milestonesList;
 
-                const activeMod1 = tasks.some(t => t.category === 'MOD 1 - Operational Diagnostics' && t.selected);
-                const activeMod2 = tasks.some(t => t.category === 'MOD 2 - Process Architecture' && t.selected);
-                const activeMod3 = tasks.some(t => t.category === 'MOD 3 - Workflow Automation' && t.selected);
+                const activeDiag = tasks.some(t => t.category === 'MOD 1 - Operational Diagnostics' && t.selected);
+                const activeSOP = tasks.some(t => t.category === 'MOD 2 - Process Architecture' && t.selected);
+                const activePMO = tasks.some(t => t.category === 'MOD 3 - Workflow Automation' && t.selected);
 
                 // Scenario A: ONLY MOD 1 is selected
-                if (activeMod1 && !activeMod2 && !activeMod3) {
+                if (activeDiag && !activeSOP && !activePMO) {
                     milestonesList.push({
                         label: "1. MOD 1 Diagnostics Kickoff & DPA Onboarding (50%)",
                         amount: Math.round(projectCostPart * 0.5),
@@ -904,7 +904,7 @@
                     });
                 }
                 // Scenario B: ONLY MOD 2 is selected
-                else if (!activeMod1 && activeMod2 && !activeMod3) {
+                else if (!activeDiag && activeSOP && !activePMO) {
                     milestonesList.push({
                         label: "1. MOD 2 Process Architecture VSM Workshop Gating (50%)",
                         amount: Math.round(projectCostPart * 0.5),
@@ -917,7 +917,7 @@
                     });
                 }
                 // Scenario C: ONLY MOD 3 is selected
-                else if (!activeMod1 && !activeMod2 && activeMod3) {
+                else if (!activeDiag && !activeSOP && activePMO) {
                     milestonesList.push({
                         label: "1. MOD 3 Workflow Lark Workspace Architecture Provisioning (50%)",
                         amount: Math.round(projectCostPart * 0.5),
@@ -1042,7 +1042,7 @@
                                 <button onClick={() => setView('proposal')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>2. Proposal</button>
                                 <button onClick={() => setView('quotation')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-555 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>3. Quotation</button>
                                 <button onClick={() => setView('nda')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>4. NDA</button>
-                                <button onClick={() => setView('invoice')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800'}`}>5. Invoice</button>
+                                <button onClick={() => setView('invoice')} className={`px-3 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandBlue-500 text-slate-955 border-brandBlue-505 font-extrabold shadow-lg shadow-brandBlue-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-750 hover:bg-brandNavy-800 font-bold'}`}>5. Invoice</button>
                             </nav>
                         </div>
                     </header>
@@ -1410,12 +1410,12 @@
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandBlue-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Draft Proposal Settings</h3>
-                                    <div className="space-y-4 text-xs font-sans font-medium">
+                                    <div className="space-y-4 text-xs">
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SOW Reference ID</label><input type="text" value={quoteId} onChange={(e) => setQuoteId(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500 font-mono" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Company Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-500" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Client Representative</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Role</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200 font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-202 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Start Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-200 font-mono font-semibold focus:outline-none focus:border-brandBlue-505" /></div>
                                         
                                         {/* CUSTOMIZABLE TIMELINE OVERRIDE CONTROLLER INPUT */}
                                         <div>
@@ -1605,7 +1605,7 @@
                                                         </li>
                                                         <li className="flex items-center gap-2">
                                                             {tasks.find(t => t.id === 'pmo-hermes')?.selected ? <IconCheckCircle /> : <span className="text-slate-350">○</span>}
-                                                            <span className={tasks.find(t => t.id === 'pmo-hermes')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Implementation</span>
+                                                            <span className={tasks.find(t => t.id === 'pmo-hermes')?.selected && activePMO ? 'text-slate-800' : 'text-slate-400 font-normal'}>HERMES 2022 Gating Paths</span>
                                                         </li>
                                                         <li className="flex items-center gap-2">
                                                             {tasks.find(t => t.id === 'pmo-change')?.selected ? <IconCheckCircle /> : <span className="text-slate-350">○</span>}
@@ -1698,7 +1698,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
+                                                    <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
                                                 </div>
                                             </div>
@@ -1890,7 +1890,7 @@
                                                 <p className="text-slate-655 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-550">{preparerTitle}, Kolthoff Consulting</div>
+                                                    <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
                                                 </div>
                                             </div>
