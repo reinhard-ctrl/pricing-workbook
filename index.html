@@ -176,25 +176,25 @@
         // DYNAMIC ABBREVIATION HELPER
         function getShortDeliverableName(name) {
             const mappings = {
-                'Secure Business Setup & Consent Process': 'Consent & Data Privacy',
-                'Friction-Free Team Feedback Catch-up': 'Team Feedback Catch-up',
-                'Real-World Workplace Walkthrough & Observations': 'Process Walkthrough',
-                'App & Software Subscription Review': 'SaaS Audit & Cleanup',
-                'Your Leak Report & Priority Action Plan': 'Operations Leak Audit',
-                'Your Work-Journey Mapping Workshop': 'Work-Journey Map',
-                'Who-Does-What & Reporting Lines Blueprint': 'Responsibility Matrix',
-                'Clear Step-by-Step SOP Playbooks': 'Step-by-Step SOPs',
-                'Friendly HR Templates & Onboarding Guides': 'Onboarding Templates',
-                'DOLE-Friendly Code of Conduct & Employee Handbook': 'DOLE Handbook',
-                'Your Centralized Shared Workspace Setup (Lark/Slack/Teams)': 'Central Workspace Setup',
-                'Simple Project & Task Tracker Setup': 'Task Tracker Config',
-                'Team Support & Training Sprints': 'Team Onboarding Training',
-                'Part-Time COO Growth Syncs': 'COO Growth Syncs',
-                'Every-6-Months Workspace Check-up': '6-Month Workspace Audit',
-                'Lark Workspace Admin & Organization Care': 'Lark Workspace Admin',
-                'Pipedrive CRM Cleanup & Automation Care': 'Pipedrive CRM Optimization',
-                'Office Computers Security & Defense Care': 'Hardware Threat Security',
-                'Hosting, Domain & Cloud Maintenance Care': 'Cloud Infrastructure Care'
+                'DPA-Compliant Information Security & Consent Protocol': 'Consent & Data Privacy',
+                'Cultural Silence Breaker: Async Team Friction Audits': 'Team Feedback Audits',
+                'Shadow Waste Walkthrough & Physical Process Audit': 'Process Walkthrough',
+                'Shadow IT Audit & Redundant SaaS Cleanup': 'SaaS Shadow IT Audit',
+                'Financial Leakage Quantification & SOW Action Roadmap': 'Operations Leak Audit',
+                'Order-to-Cash Workflow Blueprinting': 'Work-Journey Map',
+                'Role-Overlap & Accountability Matrix': 'Responsibility Matrix',
+                'Key-Employee Resignation Proof SOP Playbooks': 'Step-by-Step SOPs',
+                'DOLE-Compliant Recruitment & Onboarding Pack': 'Onboarding Templates',
+                'DOLE-Shielded Code of Conduct & Policy Playbook': 'DOLE Handbook',
+                'Viber-Exclusion Central Workspace Setup': 'Central Workspace Setup',
+                'Deadlock-Proof Visual Task-Board Setup': 'Task Tracker Config',
+                'Change Management & Team Adoption Training Sprints': 'Team Onboarding Training',
+                'Fractional COO Strategic Accountability Syncs': 'COO Strategic Syncs',
+                'Bi-Annual Workspace Decay & Process Audit': '6-Month Workspace Audit',
+                'Continuous Lark Workspace Admin SLA': 'Lark Workspace Admin',
+                'CRM Sales Pipeline Performance SLA': 'CRM Sales Pipeline SLA',
+                'Device Security Compliance & Endpoint Cyber Care': 'Hardware Threat Security',
+                'Cloud Infrastructure & Website Maintenance Care': 'Cloud Infrastructure Care'
             };
             if (mappings[name]) return mappings[name];
             return name.length > 25 ? name.substring(0, 25) + '...' : name;
@@ -313,83 +313,112 @@
         );
 
         const INITIAL_TASKS = [
+            // --- MOD 1: Workflow Diagnosis & Roadblock Mapping ---
             { 
-                id: 'fin-1', 
-                category: 'Financial Clarity & Recovery (Finance)', 
-                deliverable: 'App & Software Subscription Review', 
-                description: 'Review all SaaS systems paid by the company to detect duplicate, unused, or misallocated accounts and protect cash flow margins.', 
-                estHours: 8, 
-                tier: 'senior', 
+                id: 'diag-1', 
+                category: 'MOD 1 - Workflow Diagnosis & Roadblock Mapping', 
+                deliverable: 'DPA-Compliant Information Security & Consent Protocol', 
+                description: 'Stop company files and customer data from leaking onto personal Viber chats. We set up DPA-compliant security bounds to protect you from RA 10173 liabilities.', 
+                estHours: 4, 
+                tier: 'associate', 
                 selected: true,
                 scopeDetails: {
-                    activities: "Audit current software bills, map active app accounts, and cross-reference user matrices to eliminate payment redundancy.",
-                    expectations: "Share list of SaaS systems paid, pricing structures, and raw employee permission rosters.",
-                    output: "Subscription Optimization Report detailing clear immediate cash flow recovery opportunities."
+                    activities: "Prepare and distribute RA 10173 data privacy consent agreements, set up secure directories, and launch onboarding checks.",
+                    expectations: "Review administrative file rosters and sign the standard DPA consent formats.",
+                    output: "Signed data privacy release records, safe file-sharing folders, and an active business directory."
                 }
             },
             { 
-                id: 'fin-2', 
-                category: 'Financial Clarity & Recovery (Finance)', 
-                deliverable: 'Your Leak Report & Priority Action Plan', 
-                description: 'Deliver the finalized Annual Operational Leakage (Chaos Tax) analysis paired with an actionable 6-month budget-protection roadmap.', 
-                estHours: 12, 
-                tier: 'principal', 
+                id: 'diag-2', 
+                category: 'MOD 1 - Workflow Diagnosis & Roadblock Mapping', 
+                deliverable: 'Cultural Silence Breaker: Async Team Friction Audits', 
+                description: 'PH employees rarely voice operational bottlenecks face-to-face (pakikisama). We extract honest, anonymous friction logs without disruptive corporate meetings.', 
+                estHours: 8, 
+                tier: 'associate', 
                 selected: true,
                 scopeDetails: {
-                    activities: "Map out operational leaks, run detailed ROI projection calculations, and record a 10-minute principal strategy walkthrough video.",
-                    expectations: "Review operational parameters with the lead management team in an unhurried asynchronously alignment sync.",
-                    output: "Official Operations Scorecard, customized 6-month SOW project roadmap, and async video walk."
+                    activities: "Send out private, frictionless feedback forms to team leaders to safely capture operational realities.",
+                    expectations: "Coordinate with staff to complete anonymous logs within 3 business days.",
+                    output: "Operational Friction Summary mapping core daily team frustrations."
                 }
             },
             { 
-                id: 'fin-3', 
-                category: 'Financial Clarity & Recovery (Finance)', 
-                deliverable: 'Every-6-Months Workspace Check-up', 
-                description: 'Ongoing audits to prevent file dilution, reset custom templates, verify platform billings, and assure continuous financial efficiency.', 
-                estHours: 8, 
-                tier: 'principal', 
-                selected: false,
-                isMonthlyRetainer: true,
-                scopeDetails: {
-                    activities: "Evaluate workspace data structure integrity, audit billing lists, and adjust folder permissions to keep files clean and secure.",
-                    expectations: "Allow administrative review access to active business dashboards during audit periods.",
-                    output: "Semiannual Operational Diagnostic Assessment detailing active cash protection status."
-                }
-            },
-
-            { 
-                id: 'ops-1', 
-                category: 'Operational Flow & Automation (Operations)', 
-                deliverable: 'Real-World Workplace Walkthrough & Observations', 
-                description: 'An observation audit tracking manual paperwork loops, Viber-based order routing patterns, and data transfer friction points.', 
+                id: 'diag-3', 
+                category: 'MOD 1 - Workflow Diagnosis & Roadblock Mapping', 
+                deliverable: 'Shadow Waste Walkthrough & Physical Process Audit', 
+                description: 'We physically shadow your daily operations to catch silent waste—like employees printing digital PDFs just to manually re-type them into unlinked Excel sheets.', 
                 estHours: 16, 
                 tier: 'senior', 
-                selected: false,
+                selected: true,
                 scopeDetails: {
-                    activities: "Analyze unrecorded daily workplace workflows, document file-transfer patterns, and capture task-handover bottlenecks.",
-                    expectations: "Grant access to the team's standard execution tools and allow our consultants to observe actual operational rhythms.",
+                    activities: "On-site shadow audit mapping manual workflows, physical routing delays, and paperwork bottlenecks.",
+                    expectations: "Grant physical space access and allow normal operational rhythms during observation.",
                     output: "Workplace Coordination Map identifying specific delay triggers and tracking loops."
                 }
             },
             { 
-                id: 'ops-2', 
-                category: 'Operational Flow & Automation (Operations)', 
-                deliverable: 'Your Work-Journey Mapping Workshop', 
-                description: 'Interactive workshop mapping how client requirements and projects pass across departments to replace unrecorded Viber chats.', 
+                id: 'diag-4', 
+                category: 'MOD 1 - Workflow Diagnosis & Roadblock Mapping', 
+                deliverable: 'Shadow IT Audit & Redundant SaaS Cleanup', 
+                description: 'Identify forgotten software trials, duplicate paid seats, or tools used by ex-employees that are silently draining your corporate credit cards.', 
+                estHours: 8, 
+                tier: 'senior', 
+                selected: true,
+                scopeDetails: {
+                    activities: "Audit active app accounts and bills, cross-referencing user permissions to find redundancy.",
+                    expectations: "Share list of paid SaaS systems, raw permission rosters, and pricing structures.",
+                    output: "Subscription Optimization Report detailing clear immediate cash flow recovery opportunities."
+                }
+            },
+            { 
+                id: 'diag-5', 
+                category: 'MOD 1 - Workflow Diagnosis & Roadblock Mapping', 
+                deliverable: 'Financial Leakage Quantification & SOW Action Roadmap', 
+                description: 'Get a clear, direct report calculating your exact monthly Chaos Tax in pesos, paired with a 10-minute explanation video and an immediate recovery plan.', 
+                estHours: 12, 
+                tier: 'principal', 
+                selected: true,
+                scopeDetails: {
+                    activities: "Record a strategic walkthrough, compute dynamic ROI calculations, and build the 6-month roadmap.",
+                    expectations: "Review operational parameters with the lead management team in an unhurried asynchronously alignment sync.",
+                    output: "Official Operations Scorecard, customized 6-month SOW project roadmap, and async video walk."
+                }
+            },
+
+            // --- MOD 2: Organizing How You Work (SOP Playbooks) ---
+            { 
+                id: 'sop-vsm', 
+                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                deliverable: 'Order-to-Cash Workflow Blueprinting', 
+                description: 'Map out the exact path an order takes from intake to payment, eliminating the delays of who is supposed to approve what.', 
                 estHours: 16, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Conduct alignment workshops with department heads to map work transitions, file flows, and approval requirements.",
-                    expectations: "Appoint team leads to join the mapping workshop and provide samples of past deliverables.",
+                    activities: "Host hands-on blueprint sessions with team leads to map transitions, file flows, and approval chains.",
+                    expectations: "Designate team leads to attend alignment sessions and supply sample operational formats.",
                     output: "Unified Work-Journey Chart clarifying how deliverables travel from intake to final client delivery."
                 }
             },
             { 
-                id: 'ops-3', 
-                category: 'Operational Flow & Automation (Operations)', 
-                deliverable: 'Clear Step-by-Step SOP Playbooks', 
-                description: 'Convert critical unwritten operations into easy-to-follow, written standard instructions (SOPs) for up to 5 core business tasks.', 
+                id: 'sop-1', 
+                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                deliverable: 'Role-Overlap & Accountability Matrix', 
+                description: 'Stop the blame-shifting culture (turuan). We define precise job boundaries and reporting lines so everyone owns their outcomes.', 
+                estHours: 12, 
+                tier: 'senior', 
+                selected: false,
+                scopeDetails: {
+                    activities: "Define precise job boundaries and reporting structures to prevent toe-stepping.",
+                    expectations: "Provide feedback on current reporting lines and operational friction.",
+                    output: "Corporate Organization Chart and a clear, aligned Who-Does-What Matrix."
+                }
+            },
+            { 
+                id: 'sop-2', 
+                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                deliverable: 'Key-Employee Resignation Proof SOP Playbooks', 
+                description: 'If your key manager resigns tomorrow, does your business collapse? We document up to 5 critical operational workflows into dummy-proof instructions.', 
                 estHours: 48, 
                 tier: 'senior', 
                 selected: false,
@@ -400,169 +429,144 @@
                 }
             },
             { 
-                id: 'ops-4', 
-                category: 'Operational Flow & Automation (Operations)', 
-                deliverable: 'Your Centralized Shared Workspace Setup (Lark/Slack/Teams)', 
-                description: 'Deploy an organized workspace with secure department drives, clear communication protocols, and automated activity logs.', 
-                estHours: 16, 
-                tier: 'senior', 
-                selected: false,
-                scopeDetails: {
-                    activities: "Configure centralized online directories, structure access-group permissions, and build primary automated task rules.",
-                    expectations: "Provide corporate domain credentials and structural workspace permission outlines.",
-                    output: "A fully configured, secure, and clean digital operations hub replacing Viber groups."
-                }
-            },
-            { 
-                id: 'ops-5', 
-                category: 'Operational Flow & Automation (Operations)', 
-                deliverable: 'Simple Project & Task Tracker Setup', 
-                description: 'Configure high-performance task tracking boards with automatic notifications to replace daily manual status follow-ups.', 
-                estHours: 12, 
-                tier: 'senior', 
-                selected: false,
-                scopeDetails: {
-                    activities: "Set up intuitive visual task boards, define tracking tags, and deploy status-change notification rules.",
-                    expectations: "Identify key processes and staff members who will champion task-board usage.",
-                    output: "Live automated project tracker customized for the company's delivery framework."
-                }
-            },
-
-            { 
-                id: 'hr-1', 
-                category: 'Structured Team Onboarding & Compliance (HR)', 
-                deliverable: 'Secure Business Setup & Consent Process', 
-                description: 'Verify employee consent routines, structure folder security, and ensure strict data protection alignment.', 
-                estHours: 4, 
-                tier: 'associate', 
-                selected: false,
-                scopeDetails: {
-                    activities: "Analyze active file storage access layers and prepare standard data privacy consent forms for company personnel.",
-                    expectations: "Review administrative file rosters and sign the standard DPA consent formats.",
-                    output: "DPA release registries, secure encrypted directories, and active personnel access folders."
-                }
-            },
-            { 
-                id: 'hr-2', 
-                category: 'Structured Team Onboarding & Compliance (HR)', 
-                deliverable: 'Friction-Free Team Feedback Catch-up', 
-                description: 'Asynchronously collect honest, private workflow friction points from your team leaders without losing productive hours.', 
-                estHours: 8, 
-                tier: 'associate', 
-                selected: false,
-                scopeDetails: {
-                    activities: "Distribute easy feedback logs to team leaders to catalog bottlenecks and coordination friction.",
-                    expectations: "Coordinate with staff to complete the anonymous feedback logs within the requested timeline.",
-                    output: "Operational Friction Summary mapping core daily team frustrations."
-                }
-            },
-            { 
-                id: 'hr-3', 
-                category: 'Structured Team Onboarding & Compliance (HR)', 
-                deliverable: 'Who-Does-What & Reporting Lines Blueprint', 
-                description: 'Establish clear job scope bounds, reporting lines, and accountability maps to resolve role overlaps and team confusion.', 
-                estHours: 12, 
-                tier: 'senior', 
-                selected: false,
-                scopeDetails: {
-                    activities: "Define visual team accountability structures and build job-boundary matrices for core personnel.",
-                    expectations: "Discuss operational boundaries and primary daily responsibilities of key employees.",
-                    output: "Corporate Organization Chart and a clear, aligned Who-Does-What Matrix."
-                }
-            },
-            { 
-                id: 'hr-4', 
-                category: 'Structured Team Onboarding & Compliance (HR)', 
-                deliverable: 'Friendly HR Templates & Onboarding Guides', 
-                description: 'Pragmatic employment contracts, 201 file check sheets, and new-hire onboarding checklists aligned with DOLE general labor standards.', 
+                id: 'sop-3', 
+                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                deliverable: 'DOLE-Compliant Recruitment & Onboarding Pack', 
+                description: 'Settle hiring uncertainty with bulletproof employment templates, clear onboarding steps, and 201 file check sheets aligned with local standards.', 
                 estHours: 12, 
                 tier: 'associate', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Build clear employment agreement templates, 201 record checklists, and initial personnel onboarding checklists.",
+                    activities: "Draft clean employment formats, onboarding steps, and 201 compliance registries.",
                     expectations: "Share existing hiring standards, contract templates, and basic benefits protocols.",
                     output: "Complete DOLE-aligned recruitment templates, onboarding structures, and files checklists."
                 }
             },
             { 
-                id: 'hr-5', 
-                category: 'Structured Team Onboarding & Compliance (HR)', 
-                deliverable: 'DOLE-Friendly Code of Conduct & Employee Handbook', 
-                description: 'Protect your business from labor litigation. Reinhard compiles employee manuals detailing clear rules, policies, and standard benefits.', 
+                id: 'sop-4', 
+                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                deliverable: 'DOLE-Shielded Code of Conduct & Policy Playbook', 
+                description: 'Protect your business from costly illegal dismissal claims at NLRC. We compile a clear handbook detailing policies, leaves, and discipline rules.', 
                 estHours: 16, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Compile a warm, professional employee handbook addressing leaves, rules, standard benefits, and DOLE disciplinary guidelines.",
+                    activities: "Compile an employee handbook covering leaves, office conduct rules, benefits, and DOLE disciplinary guidelines.",
                     expectations: "Formally review and adjust the compiled workspace parameters and internal rules.",
                     output: "Fully aligned, ready-to-issue Employee Handbook safeguarding local operations."
                 }
             },
+
+            // --- MOD 3: Workspace Tracking & Workflow Automation ---
             { 
-                id: 'hr-6', 
-                category: 'Structured Team Onboarding & Compliance (HR)', 
-                deliverable: 'Team Support & Training Sprints', 
-                description: 'Deliver custom onboarding video syncs, checklists, and Q&A resources to ensure smooth team transition into the new systems.', 
+                id: 'pmo-lark', 
+                category: 'MOD 3 - Workspace Tracking & Workflow Automation', 
+                deliverable: 'Viber-Exclusion Central Workspace Setup', 
+                description: 'Move your daily company files and conversations off of unsecure Viber chat chains into a single, organized digital corporate workspace.', 
+                estHours: 16, 
+                tier: 'senior', 
+                selected: false,
+                scopeDetails: {
+                    activities: "Configure digital workspace directories, set file permissions, and establish central guidelines.",
+                    expectations: "Provide corporate domain credentials and structural workspace permission outlines.",
+                    output: "A fully configured, secure, and clean digital operations hub replacing Viber groups."
+                }
+            },
+            { 
+                id: 'pmo-hermes', 
+                category: 'MOD 3 - Workspace Tracking & Workflow Automation', 
+                deliverable: 'Deadlock-Proof Visual Task-Board Setup', 
+                description: "Replace daily verbal follow-ups ('Gawa na ba?') with intuitive, visual tracking boards that show who is working on what in real-time.", 
                 estHours: 12, 
                 tier: 'senior', 
                 selected: false,
                 scopeDetails: {
-                    activities: "Publish quick-start training screenwalks, deploy change check sheets, and run remote review sprints.",
+                    activities: "Configure visual project boards, status flags, and automatic status-change notification rules.",
+                    expectations: "Identify key processes and staff members who will champion task-board usage.",
+                    output: "Live automated project tracker customized for the company's delivery framework."
+                }
+            },
+            { 
+                id: 'pmo-change', 
+                category: 'MOD 3 - Workspace Tracking & Workflow Automation', 
+                deliverable: 'Change Management & Team Adoption Training Sprints', 
+                description: 'New systems fail if employees refuse to use them. We run high-touch remote training sprints to ensure your team actually adopts the trackers.', 
+                estHours: 12, 
+                tier: 'senior', 
+                selected: false,
+                scopeDetails: {
+                    activities: "Deliver walkthrough training, publish reference guides, and build active adoption trackers.",
                     expectations: "Ensure team leads review reference guides and log questions during onboarding.",
                     output: "Team adoption scorecard, platform reference guides, and short, recorded training walk sheets."
                 }
             },
 
+            // --- MOD 4: Ongoing Operations Support ---
             { 
-                id: 'sla-1', 
-                category: 'Strategic IT Partner Maintenance SLA (Operations)', 
-                deliverable: 'Part-Time COO Growth Syncs', 
-                description: 'Experienced fractional COO reviews project progress matrices, clears tech blockers, and monitors operational accountability.', 
+                id: 'coo-1', 
+                category: 'MOD 4 - Ongoing Operations Support', 
+                deliverable: 'Fractional COO Strategic Accountability Syncs', 
+                description: 'Principal consultant joins your weekly alignment check-ins to monitor visual progress trackers, keep managers accountable, and resolve blockers.', 
                 estHours: 8, 
                 tier: 'principal', 
                 selected: false,
                 isMonthlyRetainer: true,
                 scopeDetails: {
-                    activities: "Join weekly operations reviews to optimize workflows, address bottlenecks, and preserve process accountability.",
+                    activities: "Directly led checks focusing on bottlenecks, visual pipeline reviews, and priority mapping.",
                     expectations: "Provide weekly task board summaries prior to our scheduled strategic advisory syncs.",
                     output: "Weekly progress log, operational health checkups, and priority task actions."
                 }
             },
             { 
-                id: 'sla-2', 
-                category: 'Strategic IT Partner Maintenance SLA (Operations)', 
-                deliverable: 'Lark Workspace Admin & Organization Care', 
-                description: 'Backend workspace maintenance including folder permissions management and license configurations as your team scales.', 
+                id: 'coo-drift', 
+                category: 'MOD 4 - Ongoing Operations Support', 
+                deliverable: 'Bi-Annual Workspace Decay & Process Audit', 
+                description: 'Prevent systemic relapse back into Viber and messy spreadsheets. We audit files, retrain new staff, and reset custom templates twice a year.', 
+                estHours: 8, 
+                tier: 'principal', 
+                selected: false,
+                isMonthlyRetainer: true,
+                scopeDetails: {
+                    activities: "Hygiene audits of active folders, SOP verification, and template reset updates.",
+                    expectations: "Allow administrative review access to active business dashboards during audit periods.",
+                    output: "Semiannual Operational Diagnostic Assessment detailing active cash protection status."
+                }
+            },
+            { 
+                id: 'sp-lark-admin', 
+                category: 'MOD 4 - Ongoing Operations Support', 
+                deliverable: 'Continuous Lark Workspace Admin SLA', 
+                description: 'Strategic IT Partner manages your backend directory settings, folder permissions, and software licensing as your team grows.', 
                 estHours: 8, 
                 tier: 'partner', 
                 selected: false, 
                 isMonthlyRetainer: true,
                 scopeDetails: {
-                    activities: "Manage workspace security configurations, adjust user directories, and provide continuous troubleshooting care.",
+                    activities: "User directory configurations, license provisioning, and active backend directory troubleshooting.",
                     expectations: "Grant secondary administrator credentials to our specialized tech support team.",
                     output: "Clean folder access permissions, optimized user license structures, and active directory maintenance."
                 }
             },
             { 
-                id: 'sla-3', 
-                category: 'Strategic IT Partner Maintenance SLA (Operations)', 
-                deliverable: 'Pipedrive CRM Cleanup & Automation Care', 
-                description: 'Sales CRM pipeline maintenance, lead routing optimization, and customer notification adjustments.', 
+                id: 'sp-pipedrive-admin', 
+                category: 'MOD 4 - Ongoing Operations Support', 
+                deliverable: 'CRM Sales Pipeline Performance SLA', 
+                description: 'Strategic IT Partner keeps your sales CRM organized, archives cold leads, and tests automated customer email reminders.', 
                 estHours: 8, 
                 tier: 'partner', 
                 selected: false, 
                 isMonthlyRetainer: true,
                 scopeDetails: {
-                    activities: "Refine CRM pipeline stages, audit client records, and test automated emails.",
+                    activities: "Pipeline cleanup, lead routing optimizations, and CRM email workflow validation.",
                     expectations: "Relay customer interface templates and pipeline routing expectations.",
                     output: "Clean customer pipeline dashboard and reliable automated buyer touchpoints."
                 }
             },
             { 
-                id: 'sla-4', 
-                category: 'Strategic IT Partner Maintenance SLA (Operations)', 
-                deliverable: 'Office Computers Security & Defense Care', 
-                description: 'Technical threat monitoring to secure employee devices, configure firewalls, and prevent unauthorized client data leaks.', 
+                id: 'sp-endpoint-sec', 
+                category: 'MOD 4 - Ongoing Operations Support', 
+                deliverable: 'Device Security Compliance & Endpoint Cyber Care', 
+                description: 'Protect sensitive customer files from malware or leaks. Strategic IT Partner runs remote security scans on employee devices.', 
                 estHours: 6, 
                 tier: 'partner', 
                 selected: false, 
@@ -574,16 +578,16 @@
                 }
             },
             { 
-                id: 'sla-5', 
-                category: 'Strategic IT Partner Maintenance SLA (Operations)', 
-                deliverable: 'Hosting, Domain & Cloud Maintenance Care', 
-                description: 'Ongoing technical upkeep for hosting environments, secure certificates, DNS configs, and offsite database backups.', 
+                id: 'sp-network-infra', 
+                category: 'MOD 4 - Ongoing Operations Support', 
+                deliverable: 'Cloud Infrastructure & Website Maintenance Care', 
+                description: 'Ensure 100% corporate website speed and security with daily server backups, domain SSL updates, and DNS protection.', 
                 estHours: 6, 
                 tier: 'partner', 
                 selected: false, 
                 isMonthlyRetainer: true,
                 scopeDetails: {
-                    activities: "Monitor server parameters, run daily system backups, and secure corporate domains.",
+                    activities: "Uptime monitoring, daily database offsite cloud backups, and active SSL certifications.",
                     expectations: "Grant technical domain and hosting panel access codes.",
                     output: "Reliable website uptime records and structured secure archive backups."
                 }
@@ -596,15 +600,16 @@
             const [showResetConfirm, setShowResetConfirm] = useState(false);
             const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
 
+            // CORE DATA STATE
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
 
-            // ACTIVE MODULE MODULE CHECKS
-            const activeDiag = useMemo(() => tasks.some(t => t.category === 'Financial Clarity & Recovery (Finance)' && t.selected), [tasks]);
-            const activeSOP = useMemo(() => tasks.some(t => t.category === 'Operational Flow & Automation (Operations)' && t.selected), [tasks]);
-            const activePMO = useMemo(() => tasks.some(t => t.category === 'Structured Team Onboarding & Compliance (HR)' && t.selected), [tasks]);
-            const activeGov = useMemo(() => tasks.some(t => t.category === 'Strategic IT Partner Maintenance SLA (Operations)' && t.selected), [tasks]);
+            // ACTIVE MODULE BOOLEAN CHECKS
+            const activeDiag = useMemo(() => tasks.some(t => t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping' && t.selected), [tasks]);
+            const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)' && t.selected), [tasks]);
+            const activePMO = useMemo(() => tasks.some(t => t.category === 'MOD 3 - Workspace Tracking & Workflow Automation' && t.selected), [tasks]);
+            const activeGov = useMemo(() => tasks.some(t => t.category === 'MOD 4 - Ongoing Operations Support' && t.selected), [tasks]);
 
-            // RATES DATA HOOKS
+            // RATES DATA STATE (ALIGNED EXPERT TITLES)
             const savedRates = useMemo(() => loadSavedData('kc_planner_rates', {
                 principal: 3500,
                 senior: 2500,
@@ -629,32 +634,56 @@
 
             const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['mod1']));
 
-            // STATE VARIABLES (CLEAN BASELINE DEFAULTS)
-            const [clientCompany, setClientCompany] = useState(() => loadSavedData('kc_planner_client_company', ""));
-            const [clientRep, setClientRep] = useState(() => loadSavedData('kc_planner_client_rep', ""));
-            const [clientAddress, setClientAddress] = useState(() => loadSavedData('kc_planner_client_address', ""));
-            const [clientTin, setClientTin] = useState(() => loadSavedData('kc_planner_client_tin', ""));
-            const [quoteId, setQuoteId] = useState(() => loadSavedData('kc_planner_quote_id', getDefaultReference()));
-            const [quoteDate, setQuoteDate] = useState(() => loadSavedData('kc_planner_quote_date', getTodayDateString()));
-            const [quoteValidity, setQuoteValidity] = useState(() => loadSavedData('kc_planner_quote_validity', '30 Days'));
-            const [annualOperationalLeakage, setAnnualOperationalLeakage] = useState(() => loadSavedData('kc_planner_annual_leakage', getInitialLeakage()));
-            const [includeTax, setIncludeTax] = useState(() => loadSavedData('kc_planner_include_tax', true));
+            // METADATA STATE
+            const savedMeta = useMemo(() => loadSavedData('kc_planner_meta', {
+                clientCompany: '',
+                clientRep: '',
+                clientAddress: '',
+                clientTin: '',
+                quoteId: getDefaultReference(),
+                quoteDate: getTodayDateString(),
+                quoteValidity: '30 Days',
+                annualOperationalLeakage: getInitialLeakage(),
+                includeTax: true,
+                preparedBy: 'Reinhard Ludwig A. Kolthoff',
+                preparerTitle: 'Chief Operations Strategist',
+                preparerTin: '337-945-806-000',
+                targetStartDate: '',
+                proposalObjectives: 'Establish financial clarity, remove Viber and spreadsheet tracking bottlenecks, implement DOLE-friendly accountability guidelines, and launch secure, automated trackers to save your team hours of daily manual effort.',
+                proposalSponsor: '',
+                preDiagnosticList: "• Basic team setup outline (who currently reports to whom)\n• Any existing task lists, Viber agreements, spreadsheets, or instructions you currently use\n• Basic HR files (current employee handbooks, draft contracts, or common leave rules)\n• An informal list of active software tools or app subscriptions you currently pay for\n• Sample daily activity reports, delivery sheets, or client order formats",
+                frictionBuffer: 15,
+                principalToSeniorDelegate: 20,
+                seniorToAssociateDelegate: 40,
+                overrideTimeline: '',
+                weeklyHours: 16
+            }), []);
 
-            const [preparedBy, setPreparedBy] = useState(() => loadSavedData('kc_planner_prepared_by', 'Reinhard Ludwig A. Kolthoff'));
-            const [preparerTitle, setPreparerTitle] = useState(() => loadSavedData('kc_planner_preparer_title', 'Chief Operations Strategist'));
-            const [preparerTin, setPreparerTin] = useState(() => loadSavedData('kc_planner_preparer_tin', '337-945-806-000'));
-            const [targetStartDate, setTargetStartDate] = useState(() => loadSavedData('kc_planner_target_start_date', ""));
+            const [clientCompany, setClientCompany] = useState(savedMeta.clientCompany);
+            const [clientRep, setClientRep] = useState(savedMeta.clientRep);
+            const [clientAddress, setClientAddress] = useState(savedMeta.clientAddress);
+            const [clientTin, setClientTin] = useState(savedMeta.clientTin);
+            const [quoteId, setQuoteId] = useState(savedMeta.quoteId);
+            const [quoteDate, setQuoteDate] = useState(savedMeta.quoteDate);
+            const [quoteValidity, setQuoteValidity] = useState(savedMeta.quoteValidity);
+            const [annualOperationalLeakage, setAnnualOperationalLeakage] = useState(savedMeta.annualOperationalLeakage);
+            const [includeTax, setIncludeTax] = useState(savedMeta.includeTax);
 
-            const [proposalObjectives, setProposalObjectives] = useState(() => loadSavedData('kc_planner_objectives', 'Establish financial clarity, remove Viber and spreadsheet tracking bottlenecks, implement DOLE-friendly accountability guidelines, and launch secure, automated trackers to save your team hours of daily manual effort.'));
-            const [proposalSponsor, setProposalSponsor] = useState(() => loadSavedData('kc_planner_proposal_sponsor', ""));
-            const [preDiagnosticList, setPreDiagnosticList] = useState(() => loadSavedData('kc_planner_pre_diagnostic_list', "• Basic corporate parameters outline (reporting lines & key roles)\n• Current task lists, Viber agreements, spreadsheets, or folders\n• Initial personnel folders (existing handbooks or leave guidelines)\n• Inventory of paid software accounts and app subscriptions\n• Standard client invoices and delivery file formats"));
+            const [preparedBy, setPreparedBy] = useState(savedMeta.preparedBy);
+            const [preparerTitle, setPreparerTitle] = useState(savedMeta.preparerTitle);
+            const [preparerTin, setPreparerTin] = useState(savedMeta.preparerTin);
+            const [targetStartDate, setTargetStartDate] = useState(savedMeta.targetStartDate);
 
-            const [frictionBuffer, setFrictionBuffer] = useState(() => loadSavedData('kc_planner_friction_buffer', 15));
-            const [principalToSeniorDelegate, setPrincipalToSeniorDelegate] = useState(() => loadSavedData('kc_planner_p_to_s_delegate', 20));
-            const [seniorToAssociateDelegate, setSeniorToAssociateDelegate] = useState(() => loadSavedData('kc_planner_s_to_a_delegate', 40));
+            const [proposalObjectives, setProposalObjectives] = useState(savedMeta.proposalObjectives);
+            const [proposalSponsor, setProposalSponsor] = useState(savedMeta.proposalSponsor);
+            const [preDiagnosticList, setPreDiagnosticList] = useState(savedMeta.preDiagnosticList);
 
-            const [overrideTimeline, setOverrideTimeline] = useState(() => loadSavedData('kc_planner_override_timeline', ""));
-            const [weeklyHours, setWeeklyHours] = useState(() => loadSavedData('kc_planner_weekly_hours', 16));
+            const [frictionBuffer, setFrictionBuffer] = useState(savedMeta.frictionBuffer);
+            const [principalToSeniorDelegate, setPrincipalToSeniorDelegate] = useState(savedMeta.principalToSeniorDelegate);
+            const [seniorToAssociateDelegate, setSeniorToAssociateDelegate] = useState(savedMeta.seniorToAssociateDelegate);
+
+            const [overrideTimeline, setOverrideTimeline] = useState(savedMeta.overrideTimeline || '');
+            const [weeklyHours, setWeeklyHours] = useState(savedMeta.weeklyHours || 16);
 
             // NDA PARAMETERS (DPA COMPLIANT)
             const [ndaEffectiveDate, setNdaEffectiveDate] = useState(() => loadSavedData('kc_planner_nda_effective_date', ''));
@@ -669,7 +698,7 @@
             const [invoiceDueDate, setInvoiceDueDate] = useState(() => loadSavedData('kc_planner_invoice_due_date', ''));
 
             // Placeholder states for custom input structures
-            const [newTaskCategory, setNewTaskCategory] = useState('Financial Clarity & Recovery (Finance)');
+            const [newTaskCategory, setNewTaskCategory] = useState('MOD 1 - Workflow Diagnosis & Roadblock Mapping');
             const [newTaskDeliv, setNewTaskDeliv] = useState('');
             const [newTaskDesc, setNewTaskDesc] = useState('');
             const [newTaskHours, setNewTaskHours] = useState(12);
@@ -679,9 +708,8 @@
             const [newTaskExpectations, setNewTaskExpectations] = useState('');
             const [newTaskOutput, setNewTaskOutput] = useState('');
 
-            const handlePrint = () => {
-                window.print();
-            };
+            // HANDLERS
+            const handlePrint = () => { window.print(); };
 
             const toggleTask = (id) => {
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
@@ -707,9 +735,9 @@
                     estHours: Number(newTaskHours),
                     tier: newTaskTier,
                     selected: true,
-                    isMonthlyRetainer: newTaskCategory === 'Strategic IT Partner Maintenance SLA (Operations)',
+                    isMonthlyRetainer: newTaskCategory === 'MOD 4 - Ongoing Operations Support',
                     scopeDetails: {
-                        activities: newTaskActivities || "Work closely with Reinhard to review and complete planned milestone tasks.",
+                        activities: newTaskActivities || "Work closely with your team to review and complete planned milestone tasks.",
                         expectations: "Provide basic information access and honest feedback on drafted guidelines.",
                         output: "A completed SOW deliverable asset aligned with custom specifications."
                     }
@@ -728,36 +756,35 @@
             };
 
             const executeResetWorkbook = () => {
-                try {
-                    localStorage.clear();
-                } catch (e) {
-                    console.error("Local storage clear failed safely.", e);
-                }
-                window.location.href = window.location.pathname; // Reload clear query string configs
+                localStorage.clear();
+                window.location.reload();
             };
 
             const handleTogglePreset = (presetName) => {
-                const isSelected = activePresets.includes(presetName);
-                const nextPresets = isSelected 
+                let updatedPresets = activePresets.includes(presetName) 
                     ? activePresets.filter(p => p !== presetName) 
                     : [...activePresets, presetName];
                 
-                setActivePresets(nextPresets);
-
-                const presetToCategory = {
-                    'mod1': 'Financial Clarity & Recovery (Finance)',
-                    'mod2': 'Operational Flow & Automation (Operations)',
-                    'mod3': 'Structured Team Onboarding & Compliance (HR)',
-                    'mod4': 'Strategic IT Partner Maintenance SLA (Operations)'
-                };
-
-                const targetCategory = presetToCategory[presetName];
+                setActivePresets(updatedPresets);
 
                 setTasks(prev => prev.map(t => {
-                    if (t.category === targetCategory) {
-                        return { ...t, selected: !isSelected };
-                    }
-                    return t;
+                    let matchesAnyActive = false;
+                    if (presetName === 'mod1' && t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping') matchesAnyActive = true;
+                    if (presetName === 'mod2' && t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)') matchesAnyActive = true;
+                    if (presetName === 'mod3' && t.category === 'MOD 3 - Workspace Tracking & Workflow Automation') matchesAnyActive = true;
+                    if (presetName === 'mod4' && t.category === 'MOD 4 - Ongoing Operations Support') matchesAnyActive = true;
+                    
+                    if (activePresets.includes('mod1') && t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping') matchesAnyActive = true;
+                    if (activePresets.includes('mod2') && t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)') matchesAnyActive = true;
+                    if (activePresets.includes('mod3') && t.category === 'MOD 3 - Workspace Tracking & Workflow Automation') matchesAnyActive = true;
+                    if (activePresets.includes('mod4') && t.category === 'MOD 4 - Ongoing Operations Support') matchesAnyActive = true;
+
+                    if (presetName === 'mod1' && t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping') matchesAnyActive = !activePresets.includes('mod1');
+                    if (presetName === 'mod2' && t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)') matchesAnyActive = !activePresets.includes('mod2');
+                    if (presetName === 'mod3' && t.category === 'MOD 3 - Workspace Tracking & Workflow Automation') matchesAnyActive = !activePresets.includes('mod3');
+                    if (presetName === 'mod4' && t.category === 'MOD 4 - Ongoing Operations Support') matchesAnyActive = !activePresets.includes('mod4');
+
+                    return { ...t, selected: matchesAnyActive };
                 }));
             };
 
@@ -886,55 +913,55 @@
 
                 if (activeDiag && !activeSOP && !activePMO) {
                     milestonesList.push({
-                        label: "1. Financial Clarity & Recovery (Finance) Setup (50%)",
+                        label: "1. Workflow Diagnosis & Roadblock Mapping Kickoff & Safe Setup (50%)",
                         amount: Math.round(projectCostPart * 0.5),
                         desc: "VAT Sales Invoice issued upon SOW contract approval."
                     });
                     milestonesList.push({
-                        label: "2. Financial Diagnostics Map & Action Plan Handover (50%)",
+                        label: "2. Roadblocks Map & SOW Action Roadmap Handover (50%)",
                         amount: Math.round(projectCostPart * 0.5),
-                        desc: "VAT Sales Invoice issued upon delivery of operations scorecard."
+                        desc: "VAT Sales Invoice issued upon delivery of risk report and priority checklist."
                     });
                 }
                 else if (!activeDiag && activeSOP && !activePMO) {
                     milestonesList.push({
-                        label: "1. Operational Flow & Automation Workshop Phase (50%)",
+                        label: "1. Organizing How You Work (SOP Playbooks) Project Launch & Workflow Workshop (50%)",
                         amount: Math.round(projectCostPart * 0.5),
                         desc: "VAT Sales Invoice issued upon workshop launch."
                     });
                     milestonesList.push({
-                        label: "2. Operational SOP Playbooks & Shared Trackers Handover (50%)",
+                        label: "2. Step-by-Step SOP Playbooks & DOLE Handbook Handover (50%)",
                         amount: Math.round(projectCostPart * 0.5),
-                        desc: "VAT Sales Invoice issued upon delivery of SOP documents."
+                        desc: "VAT Sales Invoice issued upon delivery of playbooks and DOLE manual."
                     });
                 }
                 else if (!activeDiag && !activeSOP && activePMO) {
                     milestonesList.push({
-                        label: "1. Structured Onboarding Workspace Preparation (50%)",
+                        label: "1. Workspace Tracking & Workflow Automation Setup & Shared Tracker Prep (50%)",
                         amount: Math.round(projectCostPart * 0.5),
-                        desc: "VAT Sales Invoice issued upon initial directory configs."
+                        desc: "VAT Sales Invoice issued upon initial tracker configurations."
                     });
                     milestonesList.push({
-                        label: "2. Team Training & Onboarding Handover (50%)",
+                        label: "2. Team Training & Digital Workspace Handover (50%)",
                         amount: Math.round(projectCostPart * 0.5),
-                        desc: "VAT Sales Invoice issued upon completed training."
+                        desc: "VAT Sales Invoice issued upon completion of staff training sprints."
                     });
                 }
                 else {
                     milestonesList.push({
-                        label: "1. Aligned SOW Launch: Diagnostics & Onboarding Discovery (30%)",
+                        label: "1. SOW Project Launch: Setup & Discovery (30%)",
                         amount: Math.round(projectCostPart * 0.3),
-                        desc: "VAT Sales Invoice issued upon kickoff."
+                        desc: "VAT Sales Invoice issued upon onboarding launch."
                     });
                     milestonesList.push({
-                        label: "2. Operations Playbooks & Aligned HR Guidelines Handover (40%)",
+                        label: "2. SOP Playbooks & Order-to-Cash Workflow Blueprint Handover (40%)",
                         amount: Math.round(projectCostPart * 0.4),
-                        desc: "VAT Sales Invoice issued upon delivery of handbook drafts."
+                        desc: "VAT Sales Invoice issued upon delivery of playbooks and DOLE manuals."
                     });
                     milestonesList.push({
-                        label: "3. Central Aligned Workspace Launch & Training Sprints (30%)",
+                        label: "3. Digital Workspace Launch & Team Handover (30%)",
                         amount: Math.round(projectCostPart * 0.3),
-                        desc: "VAT Sales Invoice issued upon completed onboarding."
+                        desc: "VAT Sales Invoice issued upon completed training."
                     });
                 }
 
@@ -974,57 +1001,21 @@
                     }
                 }
                 if (invoiceMilestone === 'retainer') {
-                    return `Ongoing Strategic IT Partner Maintenance SLA (Part-time Strategy Advisory Huddles and Workspace Care)`;
+                    return `MOD 4 Ongoing Operations Support (Part-time Strategy Advisory Huddles and Workspace Maintenance SLA)`;
                 }
                 return `Bespoke Operational Service Milestone Billing under SOW-${quoteId}`;
             }, [invoiceMilestone, projectCostBase, retainerCostBase, billingMilestones, quoteId, includeTax]);
 
             // AUTO-SAVE EFFECT
             useEffect(() => {
-                try {
-                    localStorage.setItem('kc_planner_tasks', JSON.stringify(tasks));
-                    localStorage.setItem('kc_planner_client_company', clientCompany);
-                    localStorage.setItem('kc_planner_client_rep', clientRep);
-                    localStorage.setItem('kc_planner_client_address', clientAddress);
-                    localStorage.setItem('kc_planner_client_tin', clientTin);
-                    localStorage.setItem('kc_planner_quote_id', quoteId);
-                    localStorage.setItem('kc_planner_quote_date', quoteDate);
-                    localStorage.setItem('kc_planner_quote_validity', quoteValidity);
-                    localStorage.setItem('kc_planner_annual_leakage', String(annualOperationalLeakage));
-                    localStorage.setItem('kc_planner_include_tax', String(includeTax));
-                    localStorage.setItem('kc_planner_prepared_by', preparedBy);
-                    localStorage.setItem('kc_planner_preparer_title', preparerTitle);
-                    localStorage.setItem('kc_planner_preparer_tin', preparerTin);
-                    localStorage.setItem('kc_planner_target_start_date', targetStartDate);
-                    localStorage.setItem('kc_planner_objectives', proposalObjectives);
-                    localStorage.setItem('kc_planner_proposal_sponsor', proposalSponsor);
-                    localStorage.setItem('kc_planner_pre_diagnostic_list', preDiagnosticList);
-                    localStorage.setItem('kc_planner_friction_buffer', String(frictionBuffer));
-                    localStorage.setItem('kc_planner_p_to_s_delegate', String(principalToSeniorDelegate));
-                    localStorage.setItem('kc_planner_s_to_a_delegate', String(seniorToAssociateDelegate));
-                    localStorage.setItem('kc_planner_override_timeline', overrideTimeline);
-                    localStorage.setItem('kc_planner_weekly_hours', String(weeklyHours));
-                    localStorage.setItem('kc_planner_nda_effective_date', ndaEffectiveDate);
-                    localStorage.setItem('kc_planner_nda_purpose', ndaPurpose);
-                    localStorage.setItem('kc_planner_nda_term', ndaTerm);
-                    localStorage.setItem('kc_planner_nda_jurisdiction', ndaJurisdiction);
-                    localStorage.setItem('kc_planner_invoice_milestone', invoiceMilestone);
-                    localStorage.setItem('kc_planner_custom_invoice_amount', String(customInvoiceAmount));
-                    localStorage.setItem('kc_planner_invoice_number_suffix', invoiceNumberSuffix);
-                    localStorage.setItem('kc_planner_invoice_due_date', invoiceDueDate);
-                } catch (e) {
-                    console.error("Local storage serialization write blocked safely.", e);
-                }
-            }, [tasks, clientCompany, clientRep, clientAddress, clientTin, quoteId, quoteDate, quoteValidity, annualOperationalLeakage, includeTax, preparedBy, preparerTitle, preparerTin, targetStartDate, proposalObjectives, proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, overrideTimeline, weeklyHours, ndaEffectiveDate, ndaPurpose, ndaTerm, ndaJurisdiction, invoiceMilestone, customInvoiceAmount, invoiceNumberSuffix, invoiceDueDate]);
-
-            // Trigger typesetting upon modal opening
-            useEffect(() => {
-                if (isFormulaModalOpen && window.MathJax && window.MathJax.typesetPromise) {
-                    setTimeout(() => {
-                        window.MathJax.typesetPromise([document.getElementById('modal-math-roi')]).catch(err => console.warn(err));
-                    }, 50);
-                }
-            }, [isFormulaModalOpen]);
+                localStorage.setItem('kc_planner_tasks', JSON.stringify(tasks));
+                localStorage.setItem('kc_planner_meta', JSON.stringify({
+                    clientCompany, clientRep, clientAddress, clientTin, quoteId, quoteDate, quoteValidity,
+                    annualOperationalLeakage, includeTax, preparedBy, preparerTitle, preparerTin, targetStartDate,
+                    proposalObjectives, proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate,
+                    seniorToAssociateDelegate, overrideTimeline, weeklyHours
+                }));
+            }, [tasks, clientCompany, clientRep, clientAddress, clientTin, quoteId, quoteDate, quoteValidity, annualOperationalLeakage, includeTax, preparedBy, preparerTitle, preparerTin, targetStartDate, proposalObjectives, proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, overrideTimeline, weeklyHours]);
 
             return (
                 <div className="font-sans min-h-screen text-slate-300 bg-brandNavy-950">
@@ -1138,15 +1129,15 @@
                                             </div>
                                             <div className="flex flex-wrap gap-2">
                                                 {[
-                                                    { name: 'mod1', label: 'Pillar 1: Financial Clarity & Recovery (Finance)' },
-                                                    { name: 'mod2', label: 'Pillar 2: Operational Flow & Automation (Operations)' },
-                                                    { name: 'mod3', label: 'Pillar 3: Structured Team Onboarding & Compliance (HR)' },
-                                                    { name: 'mod4', label: 'Pillar 4: Strategic IT Partner Maintenance SLA (Operations)' }
+                                                    { name: 'mod1', label: 'MOD 1: Workflow Diagnosis & Roadblock Mapping' },
+                                                    { name: 'mod2', label: 'MOD 2: Organizing How You Work (SOP Playbooks)' },
+                                                    { name: 'mod3', label: 'MOD 3: Workspace Tracking & Workflow Automation' },
+                                                    { name: 'mod4', label: 'MOD 4: Ongoing Operations Support' }
                                                 ].map(preset => {
                                                     const isActive = activePresets.includes(preset.name);
                                                     return (
                                                         <button key={preset.name} onClick={() => handleTogglePreset(preset.name)} className={`px-3 py-1.5 text-xs font-bold rounded transition-all flex items-center gap-1.5 ${isActive ? 'bg-brandTeal-500 text-white shadow-md font-extrabold border border-brandTeal-400' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>
-                                                            {isActive ? <IconCheck className="w-3 h-3 text-white font-bold" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-505 inline-block" />}
+                                                            {isActive ? <IconCheck className="w-3 h-3 text-white font-bold" /> : <span className="w-1.5 h-1.5 rounded-full bg-slate-550 inline-block" />}
                                                             {preset.label}
                                                         </button>
                                                     );
@@ -1219,15 +1210,15 @@
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Category Block</label>
                                                         <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandTeal-500">
-                                                            <option value="Financial Clarity & Recovery (Finance)">Financial Clarity & Recovery (Finance)</option>
-                                                            <option value="Operational Flow & Automation (Operations)">Operational Flow & Automation (Operations)</option>
-                                                            <option value="Structured Team Onboarding & Compliance (HR)">Structured Team Onboarding & Compliance (HR)</option>
-                                                            <option value="Strategic IT Partner Maintenance SLA (Operations)">Strategic IT Partner Maintenance SLA (Operations)</option>
+                                                            <option value="MOD 1 - Workflow Diagnosis & Roadblock Mapping">MOD 1 - Workflow Diagnosis & Roadblock Mapping</option>
+                                                            <option value="MOD 2 - Organizing How You Work (SOP Playbooks)">MOD 2 - Organizing How You Work (SOP Playbooks)</option>
+                                                            <option value="MOD 3 - Workspace Tracking & Workflow Automation">MOD 3 - Workspace Tracking & Workflow Automation</option>
+                                                            <option value="MOD 4 - Ongoing Operations Support">MOD 4 - Ongoing Operations Support</option>
                                                         </select>
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Custom Task Deliverable</label>
-                                                        <input type="text" placeholder="e.g. Aligned local shipping checks" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-500 focus:outline-none focus:border-brandTeal-505" required />
+                                                        <input type="text" placeholder="e.g. Clean up physical routing logs" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-500 focus:outline-none focus:border-brandTeal-505" required />
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Short Description of Task</label>
@@ -1287,7 +1278,7 @@
                                             <div className="py-4 border-b border-brandNavy-700">
                                                 <button 
                                                     onClick={() => setIsFormulaModalOpen(true)}
-                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brandNavy-955 hover:bg-brandNavy-800 text-brandTeal-400 hover:text-brandTeal-300 border border-brandNavy-700 rounded-lg text-xs font-mono font-bold transition-all bg-brandNavy-905 animate-pulse"
+                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brandNavy-955 hover:bg-brandNavy-800 text-brandTeal-400 hover:text-brandTeal-300 border border-brandNavy-700 rounded-lg text-xs font-mono font-bold transition-all bg-brandNavy-905"
                                                 >
                                                     <IconCalculator className="w-4 h-4" /> View Calculation Formula
                                                 </button>
@@ -1300,7 +1291,7 @@
                                                     <span className="text-xs font-mono font-bold text-brandTeal-300">+{frictionBuffer}% Hours</span>
                                                 </div>
                                                 <input type="range" min="0" max="30" step="5" value={frictionBuffer} onChange={(e) => setFrictionBuffer(parseInt(e.target.value))} className="w-full accent-brandTeal-400 bg-brandNavy-955 h-1 rounded-lg cursor-pointer bg-brandNavy-950" />
-                                                <span className="text-[9px] text-slate-400 block leading-relaxed mt-1 font-sans">Allocates a risk mitigation margin to perform complete, unhurried observation catch-ups without surprise billing adjustments.</span>
+                                                <span className="text-[9px] text-slate-400 block leading-relaxed mt-1 font-sans">Allocates a risk mitigation margin to perform complete, unhurried observation audits without surprise billing adjustments.</span>
                                             </div>
 
                                             {/* Weekly Hours Slider */}
@@ -1317,7 +1308,7 @@
                                                 <span className="text-[9px] text-slate-400 block leading-relaxed mt-1 font-mono">Total hours we will dedicate to your project every week.</span>
                                             </div>
 
-                                            {/* SOW Support Mix delegation details */}
+                                            {/* Team SOW Support Mix */}
                                             <div className="py-4 border-b border-brandNavy-700 space-y-4">
                                                 <h4 className="text-[10px] font-mono tracking-widest text-brandTeal-400 uppercase font-bold block">Team SOW Support Mix</h4>
                                                 <div>
@@ -1509,17 +1500,17 @@
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
                                                             activeDiag ? 'bg-brandTeal-500/10 text-brandTeal-600 border border-brandTeal-200' : 'bg-slate-100 text-slate-400 border border-slate-200'
-                                                        }`}>PILLAR 1</div>
+                                                        }`}>MOD 1</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                                                             activeDiag ? 'bg-brandTeal-100 text-brandTeal-700' : 'bg-slate-202 text-slate-555'
                                                         }`}>{activeDiag ? 'ACTIVE IN SOW' : 'ROADMAP OPTIONS'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeDiag ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Financial Clarity &amp; Recovery</h3>
+                                                    <h3 className={`text-xs font-bold ${activeDiag ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Workflow Diagnosis &amp; Roadblock Mapping</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
-                                                        Identify operating margin leaks, audit current app overhead billing cycles, and align tax models with BIR EOPT guidelines.
+                                                        Audit and map out your current work patterns, and discover exactly where your business is wasting payroll hours or software costs.
                                                     </p>
                                                     <ul className="text-[10px] space-y-1.5 pt-1 font-semibold max-h-[120px] overflow-y-auto">
-                                                        {tasks.filter(t => t.category === 'Financial Clarity & Recovery (Finance)').map(t => (
+                                                        {tasks.filter(t => t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping').map(t => (
                                                             <li key={t.id} className="flex items-start gap-2">
                                                                 {t.selected ? <IconCheckCircle /> : <span className="text-slate-300 shrink-0">○</span>}
                                                                 <span className={t.selected && activeDiag ? 'text-slate-800 font-bold' : 'text-slate-400 font-normal'}>{getShortDeliverableName(t.deliverable)}</span>
@@ -1528,7 +1519,7 @@
                                                     </ul>
                                                 </div>
                                                 <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeDiag ? 'border-slate-200 text-slate-600 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
-                                                    Outcome: Clear report highlighting cash flow recovery opportunities.
+                                                    Outcome: Clear report highlighting manual business bottlenecks.
                                                 </div>
                                             </div>
 
@@ -1542,17 +1533,17 @@
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
                                                             activeSOP ? 'bg-brandTeal-500/10 text-brandTeal-600 border border-brandTeal-200' : 'bg-slate-100 text-slate-400 border border-slate-200'
-                                                        }`}>PILLAR 2</div>
+                                                        }`}>MOD 2</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                                                             activeSOP ? 'bg-brandTeal-100 text-brandTeal-700' : 'bg-slate-200 text-slate-555'
                                                         }`}>{activeSOP ? 'ACTIVE IN SOW' : 'ROADMAP OPTIONS'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeSOP ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Operational Flow &amp; Automation</h3>
+                                                    <h3 className={`text-xs font-bold ${activeSOP ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Organizing How You Work (SOP Playbooks)</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
-                                                        Transition team workflows out of Viber sprawl into automated visual trackers and clear step-by-step written SOP playbooks.
+                                                        Get your team on the same page, clarify everyone's daily work duties, and write down clear, step-by-step instructions.
                                                     </p>
                                                     <ul className="text-[10px] space-y-1.5 pt-1 font-semibold max-h-[120px] overflow-y-auto">
-                                                        {tasks.filter(t => t.category === 'Operational Flow & Automation (Operations)').map(t => (
+                                                        {tasks.filter(t => t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)').map(t => (
                                                             <li key={t.id} className="flex items-start gap-2">
                                                                 {t.selected ? <IconCheckCircle /> : <span className="text-slate-300 shrink-0">○</span>}
                                                                 <span className={t.selected && activeSOP ? 'text-slate-800 font-bold' : 'text-slate-400 font-normal'}>{getShortDeliverableName(t.deliverable)}</span>
@@ -1561,7 +1552,7 @@
                                                     </ul>
                                                 </div>
                                                 <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activeSOP ? 'border-slate-200 text-slate-600 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
-                                                    Outcome: Aligned trackers replacing manual daily check-ins.
+                                                    Outcome: Employee Handbooks protecting your business.
                                                 </div>
                                             </div>
 
@@ -1575,17 +1566,17 @@
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
                                                             activePMO ? 'bg-brandTeal-500/10 text-brandTeal-600 border border-brandTeal-200' : 'bg-slate-100 text-slate-400 border border-slate-200'
-                                                        }`}>PILLAR 3</div>
+                                                        }`}>MOD 3</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                                                             activePMO ? 'bg-brandTeal-100 text-brandTeal-700' : 'bg-slate-200 text-slate-555'
                                                         }`}>{activePMO ? 'ACTIVE IN SOW' : 'ROADMAP OPTIONS'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activePMO ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Structured Team Onboarding</h3>
+                                                    <h3 className={`text-xs font-bold ${activePMO ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Workspace Tracking &amp; Workflow Automation</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
-                                                        Mitigate personnel litigation through DOLE-friendly employee conduct policies, structured matrices, and DPA-compliant rosters.
+                                                        Ditch chaotic chat groups. Set up a secure, organized central workspace with automatic reminders and task trackers.
                                                     </p>
                                                     <ul className="text-[10px] space-y-1.5 pt-1 font-semibold max-h-[120px] overflow-y-auto">
-                                                        {tasks.filter(t => t.category === 'Structured Team Onboarding & Compliance (HR)').map(t => (
+                                                        {tasks.filter(t => t.category === 'MOD 3 - Workspace Tracking & Workflow Automation').map(t => (
                                                             <li key={t.id} className="flex items-start gap-2">
                                                                 {t.selected ? <IconCheckCircle /> : <span className="text-slate-300 shrink-0">○</span>}
                                                                 <span className={t.selected && activePMO ? 'text-slate-800 font-bold' : 'text-slate-400 font-normal'}>{getShortDeliverableName(t.deliverable)}</span>
@@ -1594,7 +1585,7 @@
                                                     </ul>
                                                 </div>
                                                 <div className={`pt-4 border-t text-[9px] font-sans font-semibold ${activePMO ? 'border-slate-200 text-slate-600 font-bold' : 'border-slate-200/50 text-slate-400'}`}>
-                                                    Outcome: Employee Conduct Handbook protecting your operations.
+                                                    Outcome: Automated digital workflows replacing Viber chains.
                                                 </div>
                                             </div>
 
@@ -1608,17 +1599,17 @@
                                                     <div className="flex justify-between items-center">
                                                         <div className={`w-14 h-8 rounded-lg flex items-center justify-center font-bold font-sans text-[10px] tracking-wider ${
                                                             activeGov ? 'bg-brandTeal-500/10 text-brandTeal-600 border border-brandTeal-200' : 'bg-slate-100 text-slate-400 border border-slate-200'
-                                                        }`}>PILLAR 4</div>
+                                                        }`}>MOD 4</div>
                                                         <span className={`text-[8px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                                                             activeGov ? 'bg-brandTeal-100 text-brandTeal-700' : 'bg-slate-202 text-slate-555'
                                                         }`}>{activeGov ? 'ACTIVE IN SOW' : 'ROADMAP OPTIONS'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeGov ? 'text-slate-900 font-extrabold' : 'text-slate-555'}`}>Strategic IT Partner Maintenance</h3>
+                                                    <h3 className={`text-xs font-bold ${activeGov ? 'text-slate-900 font-extrabold' : 'text-slate-555'}`}>Ongoing Operations Support</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
-                                                        Continuous tech partner upkeep including CRM maintenance, workspace audits, cloud server backups, and employee laptop scans.
+                                                        Part-time business strategist check-ins paired with regular workspace updates and file audits to keep you organized.
                                                     </p>
                                                     <ul className="text-[10px] space-y-1.5 pt-1 font-semibold max-h-[120px] overflow-y-auto">
-                                                        {tasks.filter(t => t.category === 'Strategic IT Partner Maintenance SLA (Operations)').map(t => (
+                                                        {tasks.filter(t => t.category === 'MOD 4 - Ongoing Operations Support').map(t => (
                                                             <li key={t.id} className="flex items-start gap-2">
                                                                 {t.selected ? <IconCheckCircle /> : <span className="text-slate-300 shrink-0">○</span>}
                                                                 <span className={t.selected && activeGov ? 'text-slate-800 font-bold' : 'text-slate-400 font-normal'}>{getShortDeliverableName(t.deliverable)}</span>
@@ -1751,7 +1742,7 @@
                                         </div>
                                     </div>
 
-                                    <div className="text-xs text-slate-600 mb-6 italic leading-relaxed font-sans font-semibold">
+                                    <div className="text-xs text-slate-605 mb-6 italic leading-relaxed font-sans font-semibold">
                                         We are pleased to submit our formal flat-rate pricing proposal for reorganizing your business operations, automating manual workflows, and preparing step-by-step SOP templates:
                                     </div>
 
@@ -1870,7 +1861,7 @@
                                                 </div>
                                             </div>
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-705 font-bold font-sans">Submitted by:</p>
+                                                <p className="text-slate-755 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
                                                     <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
@@ -1883,7 +1874,7 @@
                             </div>
                         )}
 
-                        {/* VIEW 4: MUTUAL NDA CONTRACT TEMPLATE (DPA RA 10173 BINDED) */}
+                        {/* VIEW 4: MUTUAL NDA CONTRACT TEMPLATE */}
                         {view === 'nda' && (
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in font-sans">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
@@ -2133,7 +2124,7 @@
                                             <div className="font-bold text-slate-900 text-base">{clientRep || "________________________"}</div>
                                             <div className="text-slate-705 font-bold font-sans">{clientCompany || "________________________"}</div>
                                             <div className="text-xs text-slate-500 font-mono">TIN: {clientTin || "________________________"}</div>
-                                            <div className="text-xs text-slate-500 leading-snug">{clientAddress || "________________________"}</div>
+                                            <div className="text-xs text-slate-505 leading-snug">{clientAddress || "________________________"}</div>
                                         </div>
                                         <div className="space-y-1.5 md:text-right">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">ISSUED BY (Sellers Information):</span>
@@ -2173,7 +2164,7 @@
                                         </table>
                                     </div>
 
-                                    {/* Breakdown */}
+                                    {/* Financial Breakdown */}
                                     <div className="flex flex-col sm:flex-row sm:justify-between items-stretch gap-6 py-6 border-t border-b border-slate-200 mb-8 print-divider text-sm bg-slate-50/50 p-4 rounded-xl font-semibold">
                                         <div className="text-[11px] text-slate-550 max-w-md leading-relaxed text-left font-sans font-medium flex flex-col justify-between">
                                             <div>
