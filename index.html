@@ -6,7 +6,7 @@
     <title>Kolthoff Consulting - Operational Diagnostic & SOW Planner</title>
     
     <!-- Custom SVG Logo Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 12 C72 16 84 22 84 22 V54 C84 72 70 85 50 90 C30 85 16 72 16 54 V22 C16 22 28 16 50 12 Z' fill='%230d9488' fill-opacity='0.08' stroke='url(%23concept4-shield-grad)' stroke-width='4.5' stroke-linejoin='round' /><path d='M36 50 L46 60 L66 36' stroke='url(%23concept4-check-grad)' stroke-width='7.5' stroke-linecap='round' stroke-linejoin='round' /><defs><linearGradient id='concept4-shield-grad' x1='16' y1='12' x2='84' y2='90' gradientUnits='userSpaceOnUse'><stop stop-color='%230d9488' stop-opacity='0.4' /><stop offset='1' stop-color='%230284c7' stop-opacity='0.1' /></linearGradient><linearGradient id='concept4-check-grad' x1='36' y1='36' x2='66' y2='60' gradientUnits='userSpaceOnUse'><stop stop-color='%230d9488' /><stop offset='1' stop-color='%230284c7' /></linearGradient></defs></svg>">
+    <link class="no-print" rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 12 C72 16 84 22 84 22 V54 C84 72 70 85 50 90 C30 85 16 72 16 54 V22 C16 22 28 16 50 12 Z' fill='%230d9488' fill-opacity='0.08' stroke='url(%23concept4-shield-grad)' stroke-width='4.5' stroke-linejoin='round' /><path d='M36 50 L46 60 L66 36' stroke='url(%23concept4-check-grad)' stroke-width='7.5' stroke-linecap='round' stroke-linejoin='round' /><defs><linearGradient id='concept4-shield-grad' x1='16' y1='12' x2='84' y2='90' gradientUnits='userSpaceOnUse'><stop stop-color='%230d9488' stop-opacity='0.4' /><stop offset='1' stop-color='%230284c7' stop-opacity='0.1' /></linearGradient><linearGradient id='concept4-check-grad' x1='36' y1='36' x2='66' y2='60' gradientUnits='userSpaceOnUse'><stop stop-color='%230d9488' /><stop offset='1' stop-color='%230284c7' /></linearGradient></defs></svg>">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -488,7 +488,7 @@
                 id: 'coo-1', 
                 category: 'MOD 4 - Ongoing Operations Support', 
                 deliverable: 'Fractional COO Strategic Accountability Syncs', 
-                description: 'Principal consultant joins your weekly alignment check-ins to monitor visual progress trackers, keep managers accountable, and resolve blockers.', 
+                description: 'Principal consultant joins your weekly huddles to monitor progress and keep managers accountable, paired with managed IT tech support to protect our Anti-Decay SLA.', 
                 estHours: 8, 
                 tier: 'principal', 
                 selected: false,
@@ -971,10 +971,10 @@
                             </div>
                             
                             <nav className="flex items-center gap-2 sm:gap-3 font-sans font-semibold">
-                                <button onClick={() => setView('sandbox')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>1. Scope Planner</button>
-                                <button onClick={() => setView('proposal')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
+                                <button onClick={() => setView('sandbox')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>1. Scope Planner</button>
+                                <button onClick={() => setView('proposal')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
                                 <button onClick={() => setView('quotation')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>3. Price Quote</button>
-                                <button onClick={() => setView('nda')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>4. Private NDA</button>
+                                <button onClick={() => setView('nda')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>4. Private NDA</button>
                                 <button onClick={() => setView('invoice')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>5. VAT Invoice</button>
                             </nav>
                         </div>
@@ -1000,7 +1000,7 @@
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-2">
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Chief Operations Strategist</span>
                                                 <span className="text-xs font-mono font-bold text-brandTeal-300">₱{principalRate.toLocaleString()} / hr</span>
@@ -1011,7 +1011,7 @@
                                                 className="w-full accent-brandTeal-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Operations Architect</span>
                                                 <span className="text-xs font-mono font-bold text-brandTeal-300">₱{seniorRate.toLocaleString()} / hr</span>
@@ -1022,7 +1022,7 @@
                                                 className="w-full accent-brandTeal-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Operations Specialist</span>
                                                 <span className="text-xs font-mono font-bold text-brandTeal-300">₱{associateRate.toLocaleString()} / hr</span>
@@ -1033,7 +1033,7 @@
                                                 className="w-full accent-brandTeal-400 bg-brandNavy-900 h-1 rounded-lg cursor-pointer"
                                             />
                                         </div>
-                                        <div className="bg-brandNavy-950 p-4 rounded-lg border border-brandNavy-700">
+                                        <div className="bg-brandNavy-955 p-4 rounded-lg border border-brandNavy-700 bg-brandNavy-950">
                                             <div className="flex justify-between items-center mb-2">
                                                 <div className="flex gap-1.5 items-center">
                                                     <span className="text-[10px] font-mono text-slate-400 uppercase font-bold font-sans">Strategic IT Partner</span>
@@ -1146,7 +1146,7 @@
                                                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Category Block</label>
-                                                        <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandTeal-500">
+                                                        <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandTeal-505">
                                                             <option value="MOD 1 - Workflow Diagnosis & Roadblock Mapping">MOD 1 - Workflow Diagnosis & Roadblock Mapping</option>
                                                             <option value="MOD 2 - Organizing How You Work / SOP Playbooks">MOD 2 - Organizing How You Work / SOP Playbooks</option>
                                                             <option value="MOD 3 - Workspace Tracking & Workflow Automation">MOD 3 - Workspace Tracking & Workflow Automation</option>
@@ -1215,7 +1215,7 @@
                                             <div className="py-4 border-b border-brandNavy-700">
                                                 <button 
                                                     onClick={() => setIsFormulaModalOpen(true)}
-                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brandNavy-955 hover:bg-brandNavy-800 text-brandTeal-400 hover:text-brandTeal-300 border border-brandNavy-700 rounded-lg text-xs font-mono font-bold transition-all bg-brandNavy-905"
+                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brandNavy-955 hover:bg-brandNavy-800 text-brandTeal-400 hover:text-brandTeal-300 border border-brandNavy-700 rounded-lg text-xs font-mono font-bold transition-all bg-brandNavy-950"
                                                 >
                                                     <IconCalculator className="w-4 h-4" /> View Calculation Formula
                                                 </button>
@@ -1380,7 +1380,7 @@
                                 <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans font-medium">
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandTeal-500 mb-8 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-brandTeal-50/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-11 h-11" /></div>
+                                            <div className="w-14 h-14 bg-brandTeal-5/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0 bg-brandTeal-50"><IconWebsiteLogo className="w-11 h-11" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandTeal-600 print-accent font-black">CONSULTING</span></h1>
                                                 <span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed">Operational Architecture &amp; Strategy</span>
@@ -1430,8 +1430,8 @@
                                             {/* Card MOD 1 */}
                                             <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19rem] transition-all duration-300 ${
                                                 activeDiag
-                                                    ? 'border-2 border-brandTeal-500 bg-teal-50/40 text-slate-900 shadow-md font-bold' 
-                                                    : 'border border-dashed border-slate-300 bg-slate-50/30 text-slate-400 opacity-50'
+                                                    ? 'border-2 border-brandTeal-500 bg-teal-5/40 text-slate-900 shadow-md font-bold bg-teal-50' 
+                                                    : 'border border-dashed border-slate-300 bg-slate-5/30 text-slate-400 opacity-50 bg-slate-50'
                                             }`}>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
@@ -1463,8 +1463,8 @@
                                             {/* Card MOD 2 */}
                                             <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19rem] transition-all duration-300 ${
                                                 activeSOP
-                                                    ? 'border-2 border-brandTeal-500 bg-teal-50/40 text-slate-900 shadow-md font-bold' 
-                                                    : 'border border-dashed border-slate-300 bg-slate-50/30 text-slate-400 opacity-50'
+                                                    ? 'border-2 border-brandTeal-500 bg-teal-5/40 text-slate-900 shadow-md font-bold bg-teal-50' 
+                                                    : 'border border-dashed border-slate-300 bg-slate-5/30 text-slate-400 opacity-50 bg-slate-50'
                                             }`}>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
@@ -1496,8 +1496,8 @@
                                             {/* Card MOD 3 */}
                                             <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19rem] transition-all duration-300 ${
                                                 activePMO
-                                                    ? 'border-2 border-brandTeal-500 bg-teal-50/40 text-slate-900 shadow-md font-bold' 
-                                                    : 'border border-dashed border-slate-300 bg-slate-50/30 text-slate-400 opacity-50'
+                                                    ? 'border-2 border-brandTeal-500 bg-teal-5/40 text-slate-900 shadow-md font-bold bg-teal-50' 
+                                                    : 'border border-dashed border-slate-300 bg-slate-5/30 text-slate-400 opacity-50 bg-slate-50'
                                             }`}>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
@@ -1529,8 +1529,8 @@
                                             {/* Card MOD 4 */}
                                             <div className={`border rounded-xl p-4 flex flex-col justify-between min-h-[19rem] transition-all duration-300 ${
                                                 activeGov
-                                                    ? 'border-2 border-brandTeal-500 bg-teal-50/40 text-slate-900 shadow-md font-bold' 
-                                                    : 'border border-dashed border-slate-300 bg-slate-50/30 text-slate-400 opacity-50'
+                                                    ? 'border-2 border-brandTeal-500 bg-teal-5/40 text-slate-900 shadow-md font-bold bg-teal-50' 
+                                                    : 'border border-dashed border-slate-300 bg-slate-5/30 text-slate-400 opacity-50 bg-slate-50'
                                             }`}>
                                                 <div className="space-y-3">
                                                     <div className="flex justify-between items-center">
@@ -1617,7 +1617,7 @@
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandTeal-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Customize Quotation Fields</h3>
                                     <div className="space-y-4 text-xs font-sans font-medium">
-                                        <div className="flex items-center justify-between bg-brandNavy-955 border border-brandNavy-700/80 p-3 rounded-lg">
+                                        <div className="flex items-center justify-between bg-brandNavy-955 border border-brandNavy-700/80 p-3 rounded-lg bg-brandNavy-950">
                                             <span className="text-[10px] font-mono tracking-wider uppercase text-slate-400 font-bold">Include 12% PH VAT</span>
                                             <button onClick={() => setIncludeTax(!includeTax)} className={`w-10 h-6 flex items-center rounded-full p-0.5 transition-all duration-300 ${includeTax ? 'bg-brandTeal-500' : 'bg-brandNavy-800 border border-brandNavy-700'}`}><span className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-all duration-300 ${includeTax ? 'translate-x-4' : 'translate-x-0'}`} /></button>
                                         </div>
@@ -1642,7 +1642,7 @@
                                 <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans font-medium">
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandTeal-505 mb-8 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-brandTeal-50/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-11 h-11" /></div>
+                                            <div className="w-14 h-14 bg-brandTeal-5/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0 bg-brandTeal-50"><IconWebsiteLogo className="w-11 h-11" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandTeal-600 print-accent font-black">CONSULTING</span></h1>
                                                 <span className="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed font-sans">Operational Architecture &amp; Strategy</span>
@@ -1675,7 +1675,7 @@
                                             <div className="font-bold text-slate-900 text-base">{preparedBy}</div>
                                             <div className="text-slate-705 font-bold text-xs">{preparerTitle}</div>
                                             <div className="text-xs text-slate-505 font-mono">TIN: {preparerTin}</div>
-                                            <div className="text-xs text-slate-505">Taytay, Rizal, Calabarzon, Philippines</div>
+                                            <div className="text-xs text-slate-555">Taytay, Rizal, Calabarzon, Philippines</div>
                                         </div>
                                     </div>
 
@@ -1835,7 +1835,7 @@
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Confidentiality Term (Years)</label>
-                                            <input type="text" value={ndaTerm} onChange={(e) => setNdaTerm(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-mono bg-brandNavy-950" />
+                                            <input type="text" value={ndaTerm} onChange={(e) => setNdaTerm(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 bg-brandNavy-950" />
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Purpose of Disclosure</label>
@@ -1852,7 +1852,7 @@
                                 <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-12 shadow-2xl print-card font-sans font-medium text-xs leading-relaxed space-y-6">
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandTeal-500 mb-6 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-brandTeal-50/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-11 h-11" /></div>
+                                            <div className="w-14 h-14 bg-brandTeal-5/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0 bg-brandTeal-50"><IconWebsiteLogo className="w-11 h-11" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandTeal-600 print-accent font-black">CONSULTING</span></h1>
                                                 <span className="text-[9px] text-slate-505 tracking-widest uppercase block mt-1 font-mono font-bold">Operational Architecture &amp; Strategy</span>
@@ -1872,7 +1872,7 @@
 
                                     <div className="text-center space-y-2">
                                         <h2 className="text-lg font-bold text-slate-900 font-sans tracking-wide uppercase">MUTUAL NON-DISCLOSURE AGREEMENT</h2>
-                                        <p className="text-[11px] font-mono text-slate-505">Effective Date: {ndaEffectiveDate || "________________________"}</p>
+                                        <p className="text-[11px] font-mono text-slate-555">Effective Date: {ndaEffectiveDate || "________________________"}</p>
                                     </div>
 
                                     <p className="text-slate-800">
@@ -2032,7 +2032,7 @@
                                 <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans font-medium">
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandTeal-500 mb-8 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-14 h-14 bg-brandTeal-50/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-11 h-11" /></div>
+                                            <div className="w-14 h-14 bg-brandTeal-5/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0 bg-brandTeal-50"><IconWebsiteLogo className="w-11 h-11" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandTeal-600 print-accent font-black">CONSULTING</span></h1>
                                                 <span className="text-[9px] text-slate-500 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed font-sans">Operational Architecture &amp; Strategy</span>
@@ -2066,7 +2066,7 @@
                                             <div className="font-bold text-slate-900 text-base">{preparedBy}</div>
                                             <div className="text-slate-705 font-bold text-xs">{preparerTitle}</div>
                                             <div className="text-xs text-slate-555 font-mono">TIN: {preparerTin}</div>
-                                            <div className="text-xs text-slate-505">Taytay, Rizal, Calabarzon, Philippines</div>
+                                            <div className="text-xs text-slate-505 font-semibold">Taytay, Rizal, Calabarzon, Philippines</div>
                                         </div>
                                     </div>
 
@@ -2126,7 +2126,7 @@
                                                     <span className="font-bold">{formatCurrency(computedInvoiceCost.vatAmount)}</span>
                                                 </div>
                                             )}
-                                            <div className="flex justify-between items-center text-base font-bold text-slate-900 pt-2 border-t border-slate-200">
+                                            <div className="flex justify-between items-center text-base font-bold text-slate-900 pt-2 border-t border-brandTeal-500">
                                                 <span>Total Amount Due:</span>
                                                 <span className="text-brandTeal-600 print-accent text-lg font-serif font-black">{formatCurrency(computedInvoiceCost.totalAmount)}</span>
                                             </div>
@@ -2160,41 +2160,41 @@
 
                         {/* FORMULA MODAL POPUP */}
                         {isFormulaModalOpen && (
-                            <div className="fixed inset-0 bg-brandNavy-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+                            <div className="fixed inset-0 bg-brandNavy-955/80 backdrop-blur-md z-50 flex items-center justify-center p-4 bg-brandNavy-950/80">
                                 <div className="bg-brandNavy-900 border border-brandNavy-700 max-w-xl w-full rounded-xl p-6 sm:p-8 space-y-6 shadow-2xl relative animate-fade-in text-slate-305">
                                     <button 
                                         onClick={() => setIsFormulaModalOpen(false)} 
                                         className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
                                         aria-label="Close modal"
                                     >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
                                     </button>
                                     
                                     <div className="space-y-2">
                                         <span className="text-xs font-mono font-extrabold tracking-widest text-brandTeal-400 uppercase">Operational Leakage Model</span>
-                                        <h3 className="text-xl font-serif font-black text-white">How We Audit Your "Chaos Tax"</h3>
+                                        <h3 class="text-xl font-serif font-black text-white">How We Audit Your "Chaos Tax"</h3>
                                     </div>
 
-                                    <div className="p-4 bg-brandNavy-950 border border-brandNavy-700 rounded-lg overflow-x-auto text-center" id="modal-math-roi">
-                                        <p className="text-sm font-mono leading-relaxed text-slate-100 mb-2">Mathematical Core Model:</p>
-                                        <div className="text-brandTeal-400 text-sm overflow-x-auto py-2">
-                                            {"$$\\text{Annual Operational Leakage (Chaos Tax)} = \\text{Staff Count} \\times \\text{Avg Monthly Salary} \\times 12 \\times \\frac{\\text{Daily Lost Hours}}{8}$$"}
+                                    <div class="p-4 bg-brandNavy-950 border border-brandNavy-700 rounded-lg overflow-x-auto text-center" id="modal-math-roi">
+                                        <p class="text-sm font-mono leading-relaxed text-slate-100 mb-2">Mathematical Core Model:</p>
+                                        <div class="text-brandTeal-400 text-sm overflow-x-auto py-2">
+                                            {"\\\\[\\\\text{Annual Operational Leakage (Chaos Tax)} = \\\\text{Staff Count} \\\\times \\\\text{Avg Monthly Salary} \\\\times 12 \\\\times \\\\frac{\\\\text{Daily Lost Hours}}{8}\\\\]"}
                                         </div>
                                     </div>
 
-                                    <div className="space-y-3 text-xs leading-relaxed font-sans font-medium text-slate-300">
-                                        <p><strong className="text-white">Staff Count:</strong> Total headcount directly involved in workflows, coordination, and administration.</p>
-                                        <p><strong className="text-white">Avg Monthly Salary:</strong> Average base salary plus statutory benefits (13th month, SSS, PhilHealth, Pag-IBIG).</p>
-                                        <p><strong className="text-white">Daily Lost Hours:</strong> The estimated hours spent daily on administrative coordination drag (e.g., chasing updates on Viber, resolving Excel mismatches, and rectifying unwritten operational procedures).</p>
-                                        <p className="text-slate-450 italic">This formula captures the direct opportunity cost of unoptimized administration, allowing us to align your SOW to reclaim high-value payroll capacity.</p>
+                                    <div class="space-y-3 text-xs leading-relaxed font-sans font-medium text-slate-305">
+                                        <p><strong class="text-white">Staff Count:</strong> Total headcount directly involved in workflows, coordination, and administration.</p>
+                                        <p><strong class="text-white">Avg Monthly Salary:</strong> Average base salary plus statutory benefits (13th month, SSS, PhilHealth, Pag-IBIG).</p>
+                                        <p><strong class="text-white">Daily Lost Hours:</strong> The estimated hours spent daily on administrative coordination drag (e.g., chasing updates on Viber, resolving Excel mismatches, and rectifying unwritten operational procedures).</p>
+                                        <p class="text-slate-450 italic">This formula captures the direct opportunity cost of unoptimized administration, allowing us to align your SOW to reclaim high-value payroll capacity.</p>
                                     </div>
 
-                                    <div className="pt-4 border-t border-brandNavy-700 flex justify-end">
+                                    <div class="pt-4 border-t border-brandNavy-700 flex justify-end">
                                         <button 
                                             onClick={() => setIsFormulaModalOpen(false)} 
-                                            className="px-6 py-2 bg-brandTeal-500 hover:bg-brandTeal-600 text-white font-extrabold text-xs uppercase tracking-wider rounded"
+                                            class="px-6 py-2 bg-brandTeal-500 hover:bg-brandTeal-600 text-white font-extrabold text-xs uppercase tracking-wider rounded"
                                         >
                                             Got it, Close
                                         </button>
