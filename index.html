@@ -35,13 +35,13 @@
                 extend: {
                     colors: {
                         brandNavy: {
-                            950: '#070b19', // Executive dark background
-                            900: '#0f172a', // Clean slate card backdrop
-                            850: '#14213d', // Intermediate panel gray
-                            800: '#1e293b', // Subdued dark blue border base
-                            750: '#1e293b', 
-                            700: '#334155', // Layout borders
-                            600: '#475569',
+                            950: '#020613', // Deep slate navy workspace
+                            900: '#09111F', // Executive dark navy backdrop
+                            850: '#0C1626', // Intermediate card backdrop
+                            800: '#0F1A2C', // Container borders
+                            750: '#15233A', 
+                            700: '#1B2C46', // Dividers
+                            600: '#2E4567',
                         },
                         brandTeal: {
                             50: '#f0fdfa',
@@ -49,7 +49,7 @@
                             200: '#99f6e4',
                             300: '#5eead4',
                             400: '#2dd4bf',
-                            500: '#0d9488', // Core trustworthy teal
+                            500: '#0d9488', // Premium executive teal
                             600: '#0f766e',
                             700: '#115e59',
                             850: '#134e4a',
@@ -57,12 +57,12 @@
                         },
                         brandBlue: {
                             400: '#38bdf8',
-                            500: '#0284c7', // Growth blue
+                            500: '#0284c7', 
                             600: '#0369a1',
                         },
                         brandAmber: {
                             400: '#fbbf24',
-                            500: '#f59e0b', // Aligned warm accent
+                            500: '#f59e0b', // High-end amber accent
                             600: '#d97706',
                         }
                     },
@@ -84,12 +84,12 @@
 
     <style>
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #070b19; }
-        ::-webkit-scrollbar-thumb { background: #0f172a; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #020613; }
+        ::-webkit-scrollbar-thumb { background: #0F1A2C; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #0d9488; }
         
         .luxury-gradient {
-            background: radial-gradient(circle at 50% -20%, #115e59 0%, #070b19 100%);
+            background: radial-gradient(circle at 50% -20%, #115e59 0%, #020613 100%);
         }
 
         @media print {
@@ -364,7 +364,7 @@
                 description: 'An observation audit tracking manual paperwork loops, Viber-based order routing patterns, and data transfer friction points.', 
                 estHours: 16, 
                 tier: 'senior', 
-                selected: true,
+                selected: false,
                 scopeDetails: {
                     activities: "Analyze unrecorded daily workplace workflows, document file-transfer patterns, and capture task-handover bottlenecks.",
                     expectations: "Grant access to the team's standard execution tools and allow our consultants to observe actual operational rhythms.",
@@ -435,7 +435,7 @@
                 description: 'Verify employee consent routines, structure folder security, and ensure strict data protection alignment.', 
                 estHours: 4, 
                 tier: 'associate', 
-                selected: true,
+                selected: false,
                 scopeDetails: {
                     activities: "Analyze active file storage access layers and prepare standard data privacy consent forms for company personnel.",
                     expectations: "Review administrative file rosters and sign the standard DPA consent formats.",
@@ -449,7 +449,7 @@
                 description: 'Asynchronously collect honest, private workflow friction points from your team leaders without losing productive hours.', 
                 estHours: 8, 
                 tier: 'associate', 
-                selected: true,
+                selected: false,
                 scopeDetails: {
                     activities: "Distribute easy feedback logs to team leaders to catalog bottlenecks and coordination friction.",
                     expectations: "Coordinate with staff to complete the anonymous feedback logs within the requested timeline.",
@@ -598,13 +598,13 @@
 
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
 
-            // ACTIVE MODULE BOOLEAN CHECKS
+            // ACTIVE MODULE MODULE CHECKS
             const activeDiag = useMemo(() => tasks.some(t => t.category === 'Financial Clarity & Recovery (Finance)' && t.selected), [tasks]);
             const activeSOP = useMemo(() => tasks.some(t => t.category === 'Operational Flow & Automation (Operations)' && t.selected), [tasks]);
             const activePMO = useMemo(() => tasks.some(t => t.category === 'Structured Team Onboarding & Compliance (HR)' && t.selected), [tasks]);
             const activeGov = useMemo(() => tasks.some(t => t.category === 'Strategic IT Partner Maintenance SLA (Operations)' && t.selected), [tasks]);
 
-            // RATES DATA STATE (ALIGNED EXPERT TITLES)
+            // RATES DATA HOOKS
             const savedRates = useMemo(() => loadSavedData('kc_planner_rates', {
                 principal: 3500,
                 senior: 2500,
@@ -629,6 +629,7 @@
 
             const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['mod1']));
 
+            // STATE VARIABLES (CLEAN BASELINE DEFAULTS)
             const [clientCompany, setClientCompany] = useState(() => loadSavedData('kc_planner_client_company', ""));
             const [clientRep, setClientRep] = useState(() => loadSavedData('kc_planner_client_rep', ""));
             const [clientAddress, setClientAddress] = useState(() => loadSavedData('kc_planner_client_address', ""));
@@ -663,7 +664,7 @@
 
             // INVOICE PARAMETERS (EOPT COMPLIANT)
             const [invoiceMilestone, setInvoiceMilestone] = useState(() => loadSavedData('kc_planner_invoice_milestone', 'full'));
-            const [customInvoiceAmount, setCustomInvoiceAmount] = useState(() => loadSavedData('kc_planner_custom_invoice_amount', 0));
+            const [customInvoiceAmount, setCustomInvoiceAmount] = useState(() => loadSavedData('kc_planner_custom_invoice_amount', 150000));
             const [invoiceNumberSuffix, setInvoiceNumberSuffix] = useState(() => loadSavedData('kc_planner_invoice_number_suffix', '01'));
             const [invoiceDueDate, setInvoiceDueDate] = useState(() => loadSavedData('kc_planner_invoice_due_date', ''));
 
@@ -677,6 +678,10 @@
             const [newTaskActivities, setNewTaskActivities] = useState('');
             const [newTaskExpectations, setNewTaskExpectations] = useState('');
             const [newTaskOutput, setNewTaskOutput] = useState('');
+
+            const handlePrint = () => {
+                window.print();
+            };
 
             const toggleTask = (id) => {
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
@@ -1282,7 +1287,7 @@
                                             <div className="py-4 border-b border-brandNavy-700">
                                                 <button 
                                                     onClick={() => setIsFormulaModalOpen(true)}
-                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brandNavy-955 hover:bg-brandNavy-800 text-brandTeal-400 hover:text-brandTeal-300 border border-brandNavy-700 rounded-lg text-xs font-mono font-bold transition-all bg-brandNavy-905"
+                                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-brandNavy-955 hover:bg-brandNavy-800 text-brandTeal-400 hover:text-brandTeal-300 border border-brandNavy-700 rounded-lg text-xs font-mono font-bold transition-all bg-brandNavy-905 animate-pulse"
                                                 >
                                                     <IconCalculator className="w-4 h-4" /> View Calculation Formula
                                                 </button>
@@ -1441,7 +1446,7 @@
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Onboarding Requirements Checklist</label><textarea rows="4" value={preDiagnosticList} onChange={(e) => setPreDiagnosticList(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandTeal-500 bg-brandNavy-950" /></div>
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Core SOW Project Objectives</label><textarea rows="3" value={proposalObjectives} onChange={(e) => setProposalObjectives(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 resize-none text-xs font-semibold leading-relaxed focus:outline-none focus:border-brandTeal-500 bg-brandNavy-950" /></div>
                                     </div>
-                                    <button onClick={handlePrint} className="w-full py-3 bg-brandTeal-500 hover:bg-brandTeal-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Project Proposal</button>
+                                    <button onClick={handlePrint} className="w-full py-3 bg-brandTeal-500 hover:bg-brandTeal-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print SOW Proposal</button>
                                 </div>
 
                                 <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans font-medium">
@@ -1450,7 +1455,7 @@
                                             <div className="w-14 h-14 bg-brandTeal-50/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-11 h-11" /></div>
                                             <div>
                                                 <h1 className="font-sans font-black tracking-wider text-xl uppercase text-slate-900 leading-none">KOLTHOFF <span className="text-brandTeal-600 print-accent font-black">CONSULTING</span></h1>
-                                                <span className="text-[9px] text-slate-505 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed">Operational Architecture &amp; Strategy</span>
+                                                <span className="text-[9px] text-slate-555 tracking-widest uppercase block mt-1 font-mono font-bold leading-relaxed">Operational Architecture &amp; Strategy</span>
                                                 <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-slate-500 mt-2 font-semibold">
                                                     <span className="flex items-center gap-1"><IconMail className="w-3.5 h-3.5 text-brandTeal-600 print-accent" /> contact@kolthoff-consulting.com</span>
                                                     <span className="flex items-center gap-1"><IconGlobe className="w-3.5 h-3.5 text-brandTeal-600 print-accent" /> www.kolthoff-consulting.com</span>
@@ -2223,12 +2228,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                         )}
 
-                        {}
+                        {/* FORMULA MODAL POPUP */}
                         {isFormulaModalOpen && (
                             <div className="fixed inset-0 bg-brandNavy-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
                                 <div className="bg-brandNavy-900 border border-brandNavy-700 max-w-xl w-full rounded-xl p-6 sm:p-8 space-y-6 shadow-2xl relative animate-fade-in text-slate-305">
