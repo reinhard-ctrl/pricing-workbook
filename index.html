@@ -178,23 +178,19 @@
             const mappings = {
                 'DPA-Compliant Information Security & Consent Protocol': 'Consent & Data Privacy',
                 'Cultural Silence Breaker: Async Team Friction Audits': 'Team Feedback Audits',
-                'Shadow Waste Walkthrough & Physical Process Audit': 'Process Walkthrough',
+                'Ghost Waste Audit & Physical Process Shadowing': 'Process Shadowing',
                 'Shadow IT Audit & Redundant SaaS Cleanup': 'SaaS Shadow IT Audit',
                 'Financial Leakage Quantification & SOW Action Roadmap': 'Operations Leak Audit',
                 'Order-to-Cash Workflow Blueprinting': 'Work-Journey Map',
                 'Role-Overlap & Accountability Matrix': 'Responsibility Matrix',
-                'Key-Employee Resignation Proof SOP Playbooks': 'Step-by-Step SOPs',
-                'DOLE-Compliant Recruitment & Onboarding Pack': 'Onboarding Templates',
-                'DOLE-Shielded Code of Conduct & Policy Playbook': 'DOLE Handbook',
-                'Viber-Exclusion Central Workspace Setup': 'Central Workspace Setup',
-                'Deadlock-Proof Visual Task-Board Setup': 'Task Tracker Config',
-                'Change Management & Team Adoption Training Sprints': 'Team Onboarding Training',
+                'Key-Employee Resignation Proofing SOPs': 'Resignation Proofing SOPs',
+                'DOLE-Shielded Handbooks & Onboarding Guides': 'DOLE Handbooks',
+                'Viber-Exclusion Protocols & Central Setup': 'Central Workspace Setup',
+                'Deadlock-Proof Visual Task-Boards': 'Task Tracker Config',
+                'Change Management Adoption Training Sprints': 'Team Onboarding Training',
                 'Fractional COO Strategic Accountability Syncs': 'COO Strategic Syncs',
-                'Bi-Annual Workspace Decay & Process Audit': '6-Month Workspace Audit',
-                'Continuous Lark Workspace Admin SLA': 'Lark Workspace Admin',
-                'CRM Sales Pipeline Performance SLA': 'CRM Sales Pipeline SLA',
-                'Device Security Compliance & Endpoint Cyber Care': 'Hardware Threat Security',
-                'Cloud Infrastructure & Website Maintenance Care': 'Cloud Infrastructure Care'
+                'Bi-Annual Anti-Decay SLA Workspace Audits': 'Anti-Decay SOW Audits',
+                'Continuous Cloud & Secure Infrastructure Support': 'Cloud & Infrastructure Care'
             };
             if (mappings[name]) return mappings[name];
             return name.length > 25 ? name.substring(0, 25) + '...' : name;
@@ -345,7 +341,7 @@
             { 
                 id: 'diag-3', 
                 category: 'MOD 1 - Workflow Diagnosis & Roadblock Mapping', 
-                deliverable: 'Shadow Waste Walkthrough & Physical Process Audit', 
+                deliverable: 'Ghost Waste Audit & Physical Process Shadowing', 
                 description: 'We physically shadow your daily operations to catch silent waste—like employees printing digital PDFs just to manually re-type them into unlinked Excel sheets.', 
                 estHours: 16, 
                 tier: 'senior', 
@@ -385,10 +381,10 @@
                 }
             },
 
-            // --- MOD 2: Organizing How You Work (SOP Playbooks) ---
+            // --- MOD 2: Organizing How You Work / SOP Playbooks ---
             { 
                 id: 'sop-vsm', 
-                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                category: 'MOD 2 - Organizing How You Work / SOP Playbooks', 
                 deliverable: 'Order-to-Cash Workflow Blueprinting', 
                 description: 'Map out the exact path an order takes from intake to payment, eliminating the delays of who is supposed to approve what.', 
                 estHours: 16, 
@@ -402,7 +398,7 @@
             },
             { 
                 id: 'sop-1', 
-                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
+                category: 'MOD 2 - Organizing How You Work / SOP Playbooks', 
                 deliverable: 'Role-Overlap & Accountability Matrix', 
                 description: 'Stop the blame-shifting culture (turuan). We define precise job boundaries and reporting lines so everyone owns their outcomes.', 
                 estHours: 12, 
@@ -416,8 +412,8 @@
             },
             { 
                 id: 'sop-2', 
-                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
-                deliverable: 'Key-Employee Resignation Proof SOP Playbooks', 
+                category: 'MOD 2 - Organizing How You Work / SOP Playbooks', 
+                deliverable: 'Key-Employee Resignation Proofing SOPs', 
                 description: 'If your key manager resigns tomorrow, does your business collapse? We document up to 5 critical operational workflows into dummy-proof instructions.', 
                 estHours: 48, 
                 tier: 'senior', 
@@ -430,22 +426,8 @@
             },
             { 
                 id: 'sop-3', 
-                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
-                deliverable: 'DOLE-Compliant Recruitment & Onboarding Pack', 
-                description: 'Settle hiring uncertainty with bulletproof employment templates, clear onboarding steps, and 201 file check sheets aligned with local standards.', 
-                estHours: 12, 
-                tier: 'associate', 
-                selected: false,
-                scopeDetails: {
-                    activities: "Draft clean employment formats, onboarding steps, and 201 compliance registries.",
-                    expectations: "Share existing hiring standards, contract templates, and basic benefits protocols.",
-                    output: "Complete DOLE-aligned recruitment templates, onboarding structures, and files checklists."
-                }
-            },
-            { 
-                id: 'sop-4', 
-                category: 'MOD 2 - Organizing How You Work (SOP Playbooks)', 
-                deliverable: 'DOLE-Shielded Code of Conduct & Policy Playbook', 
+                category: 'MOD 2 - Organizing How You Work / SOP Playbooks', 
+                deliverable: 'DOLE-Shielded Handbooks & Onboarding Guides', 
                 description: 'Protect your business from costly illegal dismissal claims at NLRC. We compile a clear handbook detailing policies, leaves, and discipline rules.', 
                 estHours: 16, 
                 tier: 'senior', 
@@ -461,7 +443,7 @@
             { 
                 id: 'pmo-lark', 
                 category: 'MOD 3 - Workspace Tracking & Workflow Automation', 
-                deliverable: 'Viber-Exclusion Central Workspace Setup', 
+                deliverable: 'Viber-Exclusion Protocols & Central Setup', 
                 description: 'Move your daily company files and conversations off of unsecure Viber chat chains into a single, organized digital corporate workspace.', 
                 estHours: 16, 
                 tier: 'senior', 
@@ -475,7 +457,7 @@
             { 
                 id: 'pmo-hermes', 
                 category: 'MOD 3 - Workspace Tracking & Workflow Automation', 
-                deliverable: 'Deadlock-Proof Visual Task-Board Setup', 
+                deliverable: 'Deadlock-Proof Visual Task-Boards', 
                 description: "Replace daily verbal follow-ups ('Gawa na ba?') with intuitive, visual tracking boards that show who is working on what in real-time.", 
                 estHours: 12, 
                 tier: 'senior', 
@@ -489,7 +471,7 @@
             { 
                 id: 'pmo-change', 
                 category: 'MOD 3 - Workspace Tracking & Workflow Automation', 
-                deliverable: 'Change Management & Team Adoption Training Sprints', 
+                deliverable: 'Change Management Adoption Training Sprints', 
                 description: 'New systems fail if employees refuse to use them. We run high-touch remote training sprints to ensure your team actually adopts the trackers.', 
                 estHours: 12, 
                 tier: 'senior', 
@@ -520,7 +502,7 @@
             { 
                 id: 'coo-drift', 
                 category: 'MOD 4 - Ongoing Operations Support', 
-                deliverable: 'Bi-Annual Workspace Decay & Process Audit', 
+                deliverable: 'Bi-Annual Anti-Decay SLA Workspace Audits', 
                 description: 'Prevent systemic relapse back into Viber and messy spreadsheets. We audit files, retrain new staff, and reset custom templates twice a year.', 
                 estHours: 8, 
                 tier: 'principal', 
@@ -535,61 +517,16 @@
             { 
                 id: 'sp-lark-admin', 
                 category: 'MOD 4 - Ongoing Operations Support', 
-                deliverable: 'Continuous Lark Workspace Admin SLA', 
-                description: 'Strategic IT Partner manages your backend directory settings, folder permissions, and software licensing as your team grows.', 
+                deliverable: 'Continuous Cloud & Secure Infrastructure Support', 
+                description: 'Strategic IT Partner manages your backend directory settings, folder permissions, website hosting, daily backups, and software licensing as your team grows.', 
                 estHours: 8, 
                 tier: 'partner', 
                 selected: false, 
                 isMonthlyRetainer: true,
                 scopeDetails: {
-                    activities: "User directory configurations, license provisioning, and active backend directory troubleshooting.",
-                    expectations: "Grant secondary administrator credentials to our specialized tech support team.",
-                    output: "Clean folder access permissions, optimized user license structures, and active directory maintenance."
-                }
-            },
-            { 
-                id: 'sp-pipedrive-admin', 
-                category: 'MOD 4 - Ongoing Operations Support', 
-                deliverable: 'CRM Sales Pipeline Performance SLA', 
-                description: 'Strategic IT Partner keeps your sales CRM organized, archives cold leads, and tests automated customer email reminders.', 
-                estHours: 8, 
-                tier: 'partner', 
-                selected: false, 
-                isMonthlyRetainer: true,
-                scopeDetails: {
-                    activities: "Pipeline cleanup, lead routing optimizations, and CRM email workflow validation.",
-                    expectations: "Relay customer interface templates and pipeline routing expectations.",
-                    output: "Clean customer pipeline dashboard and reliable automated buyer touchpoints."
-                }
-            },
-            { 
-                id: 'sp-endpoint-sec', 
-                category: 'MOD 4 - Ongoing Operations Support', 
-                deliverable: 'Device Security Compliance & Endpoint Cyber Care', 
-                description: 'Protect sensitive customer files from malware or leaks. Strategic IT Partner runs remote security scans on employee devices.', 
-                estHours: 6, 
-                tier: 'partner', 
-                selected: false, 
-                isMonthlyRetainer: true,
-                scopeDetails: {
-                    activities: "Install data protection settings, inspect local routers, and enforce regular operating system updates.",
-                    expectations: "Authorize remote configuration support to inspect business endpoints.",
-                    output: "Device compliance reports and threat-prevention activity logs."
-                }
-            },
-            { 
-                id: 'sp-network-infra', 
-                category: 'MOD 4 - Ongoing Operations Support', 
-                deliverable: 'Cloud Infrastructure & Website Maintenance Care', 
-                description: 'Ensure 100% corporate website speed and security with daily server backups, domain SSL updates, and DNS protection.', 
-                estHours: 6, 
-                tier: 'partner', 
-                selected: false, 
-                isMonthlyRetainer: true,
-                scopeDetails: {
-                    activities: "Uptime monitoring, daily database offsite cloud backups, and active SSL certifications.",
-                    expectations: "Grant technical domain and hosting panel access codes.",
-                    output: "Reliable website uptime records and structured secure archive backups."
+                    activities: "User directory configurations, license provisioning, uptime monitoring, cloud server backups, and backend troubleshooting.",
+                    expectations: "Grant primary administrative and web hosting panel access credentials.",
+                    output: "Clean folder permissions, optimized licenses, secure backups, and uptime protection."
                 }
             }
         ];
@@ -605,7 +542,7 @@
 
             // ACTIVE MODULE BOOLEAN CHECKS
             const activeDiag = useMemo(() => tasks.some(t => t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping' && t.selected), [tasks]);
-            const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)' && t.selected), [tasks]);
+            const activeSOP = useMemo(() => tasks.some(t => t.category === 'MOD 2 - Organizing How You Work / SOP Playbooks' && t.selected), [tasks]);
             const activePMO = useMemo(() => tasks.some(t => t.category === 'MOD 3 - Workspace Tracking & Workflow Automation' && t.selected), [tasks]);
             const activeGov = useMemo(() => tasks.some(t => t.category === 'MOD 4 - Ongoing Operations Support' && t.selected), [tasks]);
 
@@ -770,17 +707,17 @@
                 setTasks(prev => prev.map(t => {
                     let matchesAnyActive = false;
                     if (presetName === 'mod1' && t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping') matchesAnyActive = true;
-                    if (presetName === 'mod2' && t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)') matchesAnyActive = true;
+                    if (presetName === 'mod2' && t.category === 'MOD 2 - Organizing How You Work / SOP Playbooks') matchesAnyActive = true;
                     if (presetName === 'mod3' && t.category === 'MOD 3 - Workspace Tracking & Workflow Automation') matchesAnyActive = true;
                     if (presetName === 'mod4' && t.category === 'MOD 4 - Ongoing Operations Support') matchesAnyActive = true;
                     
                     if (activePresets.includes('mod1') && t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping') matchesAnyActive = true;
-                    if (activePresets.includes('mod2') && t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)') matchesAnyActive = true;
+                    if (activePresets.includes('mod2') && t.category === 'MOD 2 - Organizing How You Work / SOP Playbooks') matchesAnyActive = true;
                     if (activePresets.includes('mod3') && t.category === 'MOD 3 - Workspace Tracking & Workflow Automation') matchesAnyActive = true;
                     if (activePresets.includes('mod4') && t.category === 'MOD 4 - Ongoing Operations Support') matchesAnyActive = true;
 
                     if (presetName === 'mod1' && t.category === 'MOD 1 - Workflow Diagnosis & Roadblock Mapping') matchesAnyActive = !activePresets.includes('mod1');
-                    if (presetName === 'mod2' && t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)') matchesAnyActive = !activePresets.includes('mod2');
+                    if (presetName === 'mod2' && t.category === 'MOD 2 - Organizing How You Work / SOP Playbooks') matchesAnyActive = !activePresets.includes('mod2');
                     if (presetName === 'mod3' && t.category === 'MOD 3 - Workspace Tracking & Workflow Automation') matchesAnyActive = !activePresets.includes('mod3');
                     if (presetName === 'mod4' && t.category === 'MOD 4 - Ongoing Operations Support') matchesAnyActive = !activePresets.includes('mod4');
 
@@ -925,7 +862,7 @@
                 }
                 else if (!activeDiag && activeSOP && !activePMO) {
                     milestonesList.push({
-                        label: "1. Organizing How You Work (SOP Playbooks) Project Launch & Workflow Workshop (50%)",
+                        label: "1. Organizing How You Work / SOP Playbooks Project Launch & Workflow Workshop (50%)",
                         amount: Math.round(projectCostPart * 0.5),
                         desc: "VAT Sales Invoice issued upon workshop launch."
                     });
@@ -1036,7 +973,7 @@
                             <nav className="flex items-center gap-2 sm:gap-3 font-sans font-semibold">
                                 <button onClick={() => setView('sandbox')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'sandbox' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>1. Scope Planner</button>
                                 <button onClick={() => setView('proposal')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'proposal' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>2. SOW Proposal</button>
-                                <button onClick={() => setView('quotation')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>3. Price Quote</button>
+                                <button onClick={() => setView('quotation')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'quotation' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>3. Price Quote</button>
                                 <button onClick={() => setView('nda')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'nda' ? 'bg-brandTeal-500 text-brandNavy-950 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>4. Private NDA</button>
                                 <button onClick={() => setView('invoice')} className={`px-2.5 py-1.5 rounded font-mono text-[9px] uppercase font-bold border tracking-wider transition-all ${view === 'invoice' ? 'bg-brandTeal-500 text-brandNavy-955 border-brandTeal-500 font-extrabold shadow-lg shadow-brandTeal-500/10' : 'bg-brandNavy-900 text-slate-300 border-brandNavy-700 hover:bg-brandNavy-800 font-bold'}`}>5. VAT Invoice</button>
                             </nav>
@@ -1130,7 +1067,7 @@
                                             <div className="flex flex-wrap gap-2">
                                                 {[
                                                     { name: 'mod1', label: 'MOD 1: Workflow Diagnosis & Roadblock Mapping' },
-                                                    { name: 'mod2', label: 'MOD 2: Organizing How You Work (SOP Playbooks)' },
+                                                    { name: 'mod2', label: 'MOD 2: Organizing How You Work / SOP Playbooks' },
                                                     { name: 'mod3', label: 'MOD 3: Workspace Tracking & Workflow Automation' },
                                                     { name: 'mod4', label: 'MOD 4: Ongoing Operations Support' }
                                                 ].map(preset => {
@@ -1158,7 +1095,7 @@
                                                         <th className="py-4 px-5 text-right w-[13%] font-bold text-brandTeal-400 font-mono">Base Price</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="divide-y divide-brandNavy-700/50 font-medium">
+                                                <tbody className="divide-y divide-brandNavy-700/50 font-medium font-sans">
                                                     {tasks.map((task) => {
                                                         const rate = getRateForTier(task.tier);
                                                         return (
@@ -1211,14 +1148,14 @@
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Target Category Block</label>
                                                         <select value={newTaskCategory} onChange={(e) => setNewTaskCategory(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-2 text-xs text-slate-200 focus:outline-none focus:border-brandTeal-500">
                                                             <option value="MOD 1 - Workflow Diagnosis & Roadblock Mapping">MOD 1 - Workflow Diagnosis & Roadblock Mapping</option>
-                                                            <option value="MOD 2 - Organizing How You Work (SOP Playbooks)">MOD 2 - Organizing How You Work (SOP Playbooks)</option>
+                                                            <option value="MOD 2 - Organizing How You Work / SOP Playbooks">MOD 2 - Organizing How You Work / SOP Playbooks</option>
                                                             <option value="MOD 3 - Workspace Tracking & Workflow Automation">MOD 3 - Workspace Tracking & Workflow Automation</option>
                                                             <option value="MOD 4 - Ongoing Operations Support">MOD 4 - Ongoing Operations Support</option>
                                                         </select>
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Custom Task Deliverable</label>
-                                                        <input type="text" placeholder="e.g. Clean up physical routing logs" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-500 focus:outline-none focus:border-brandTeal-505" required />
+                                                        <input type="text" placeholder="e.g. Customize local shipping steps" value={newTaskDeliv} onChange={(e) => setNewTaskDeliv(e.target.value)} className="w-full bg-brandNavy-900 border border-brandNavy-700 rounded py-1.5 px-3 text-xs text-slate-202 placeholder-slate-500 focus:outline-none focus:border-brandTeal-505" required />
                                                     </div>
                                                     <div className="md:col-span-3">
                                                         <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Short Description of Task</label>
@@ -1267,7 +1204,7 @@
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-brandTeal-500/5 blur-2xl rounded-full" />
                                             <h3 className="text-xs font-bold tracking-wider text-brandTeal-400 uppercase font-mono mb-4 flex items-center gap-2"><IconCalculator /> Estimated SOW Metrics</h3>
                                             
-                                            <div className="space-y-4 pb-6 border-b border-brandNavy-700 text-xs text-slate-300">
+                                            <div className="space-y-4 pb-6 border-b border-brandNavy-700 text-xs text-slate-300 font-sans">
                                                 <div className="flex justify-between items-center"><span>Selected SOW Tasks:</span><span className="font-bold font-mono bg-brandNavy-950 px-2 py-0.5 rounded">{updatedSummary.count} / {tasks.length}</span></div>
                                                 <div className="flex justify-between items-center"><span>Total Target Effort:</span><span className="font-bold font-mono flex items-center gap-1"><IconClock /> {updatedSummary.estHours} Hours</span></div>
                                                 <div className="flex justify-between items-center"><span>Expected Timeline:</span><span className="font-bold font-mono text-brandTeal-400">{displayTimeline}</span></div>
@@ -1348,7 +1285,7 @@
                                             </div>
 
                                             {/* Calculations totals block */}
-                                            <div className="py-4 border-b border-brandNavy-700 space-y-1.5 text-xs">
+                                            <div className="py-4 border-b border-brandNavy-700 space-y-1.5 text-xs font-sans">
                                                 <div className="flex justify-between"><span>SOW Subtotal:</span><span className="font-mono font-semibold">{formatCurrency(updatedSummary.subtotalCost)}</span></div>
                                                 {includeTax && <div className="flex justify-between text-slate-400"><span>PH VAT (12%):</span><span className="font-mono">{formatCurrency(updatedSummary.taxValue)}</span></div>}
                                                 <div className="flex justify-between font-bold text-slate-100 pt-1.5"><span>Project Total Quote:</span><span className="text-brandTeal-300 font-mono font-bold">{formatCurrency(updatedSummary.totalCost)}</span></div>
@@ -1397,7 +1334,7 @@
 
                         {/* VIEW 2: DRAFT PROPOSAL DISPLAY */}
                         {view === 'proposal' && (
-                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in">
+                            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in font-sans">
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandTeal-400 uppercase font-mono flex items-center gap-2"><IconEdit /> SOW Proposal Settings</h3>
                                     <div className="space-y-4 text-xs font-sans">
@@ -1538,12 +1475,12 @@
                                                             activeSOP ? 'bg-brandTeal-100 text-brandTeal-700' : 'bg-slate-200 text-slate-555'
                                                         }`}>{activeSOP ? 'ACTIVE IN SOW' : 'ROADMAP OPTIONS'}</span>
                                                     </div>
-                                                    <h3 className={`text-xs font-bold ${activeSOP ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Organizing How You Work (SOP Playbooks)</h3>
+                                                    <h3 className={`text-xs font-bold ${activeSOP ? 'text-slate-900 font-extrabold' : 'text-slate-505'}`}>Organizing How You Work / SOP Playbooks</h3>
                                                     <p className="text-[10px] leading-relaxed font-semibold">
                                                         Get your team on the same page, clarify everyone's daily work duties, and write down clear, step-by-step instructions.
                                                     </p>
                                                     <ul className="text-[10px] space-y-1.5 pt-1 font-semibold max-h-[120px] overflow-y-auto">
-                                                        {tasks.filter(t => t.category === 'MOD 2 - Organizing How You Work (SOP Playbooks)').map(t => (
+                                                        {tasks.filter(t => t.category === 'MOD 2 - Organizing How You Work / SOP Playbooks').map(t => (
                                                             <li key={t.id} className="flex items-start gap-2">
                                                                 {t.selected ? <IconCheckCircle /> : <span className="text-slate-300 shrink-0">○</span>}
                                                                 <span className={t.selected && activeSOP ? 'text-slate-800 font-bold' : 'text-slate-400 font-normal'}>{getShortDeliverableName(t.deliverable)}</span>
@@ -1653,7 +1590,7 @@
                                     <div className="pt-8 text-xs font-sans font-semibold border-t border-slate-200 print-divider">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-705 font-bold font-sans">Scope Confirmed &amp; Approved by:</p>
+                                                <p className="text-slate-750 font-bold font-sans">Scope Confirmed &amp; Approved by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep || "________________________"}</div>
                                                     <div className="text-slate-555">Representative, {clientCompany || "________________________"}</div>
@@ -2002,7 +1939,7 @@
                                     <div className="pt-8 text-xs font-sans font-semibold">
                                         <div className="grid grid-cols-2 gap-12 sm:gap-24">
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-700 font-bold font-sans">Accepted &amp; Authorized on behalf of Party B:</p>
+                                                <p className="text-slate-705 font-bold font-sans">Accepted &amp; Authorized on behalf of Party B:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
                                                     <div className="font-bold text-slate-900">{clientRep || "________________________"}</div>
                                                     <div className="text-slate-555">Representative, {clientCompany || "________________________"}</div>
@@ -2010,7 +1947,7 @@
                                                 </div>
                                             </div>
                                             <div className="space-y-12 flex flex-col justify-between">
-                                                <p className="text-slate-700 font-bold font-sans">Accepted &amp; Authorized on behalf of Party A:</p>
+                                                <p className="text-slate-705 font-bold font-sans">Accepted &amp; Authorized on behalf of Party A:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900">{preparedBy}</div>
                                                     <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
@@ -2026,7 +1963,6 @@
                         {/* VIEW 5: LEGALLY COMPLIANT VAT SALES INVOICE (EOPT ALIGNED) */}
                         {view === 'invoice' && (
                             <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start animate-fade-in font-sans">
-                                
                                 <div className="xl:col-span-4 bg-brandNavy-900 border border-brandNavy-700 rounded-xl p-6 shadow-2xl backdrop-blur-sm no-print space-y-5">
                                     <h3 className="text-sm font-bold tracking-wider text-brandTeal-400 uppercase font-mono flex items-center gap-2"><IconEdit /> Customize Invoice Fields</h3>
                                     <div className="space-y-4 text-xs font-sans">
@@ -2094,7 +2030,6 @@
                                 </div>
 
                                 <div className="xl:col-span-8 bg-white text-slate-900 border border-slate-200 rounded-xl p-8 sm:p-12 shadow-2xl print-card font-sans font-medium">
-                                    
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-8 border-b-2 border-brandTeal-500 mb-8 print-card-header gap-6">
                                         <div className="flex items-center gap-4">
                                             <div className="w-14 h-14 bg-brandTeal-50/80 border border-brandTeal-100 rounded-lg flex items-center justify-center shrink-0"><IconWebsiteLogo className="w-11 h-11" /></div>
@@ -2124,7 +2059,7 @@
                                             <div className="font-bold text-slate-900 text-base">{clientRep || "________________________"}</div>
                                             <div className="text-slate-705 font-bold font-sans">{clientCompany || "________________________"}</div>
                                             <div className="text-xs text-slate-500 font-mono">TIN: {clientTin || "________________________"}</div>
-                                            <div className="text-xs text-slate-505 leading-snug">{clientAddress || "________________________"}</div>
+                                            <div className="text-xs text-slate-555 leading-snug">{clientAddress || "________________________"}</div>
                                         </div>
                                         <div className="space-y-1.5 md:text-right">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">ISSUED BY (Sellers Information):</span>
@@ -2269,13 +2204,13 @@
                         )}
 
                         {/* Footer legal links */}
-                        <div className="no-print mt-12 pt-6 border-t border-brandNavy-700/50 flex flex-wrap justify-between items-center gap-4 text-xs font-mono text-slate-500">
-                            <div className="flex gap-4">
+                        <div className="no-print mt-12 pt-6 border-t border-brandNavy-700/50 flex flex-wrap justify-between items-center gap-4 text-xs font-mono text-slate-505">
+                            <div className="flex gap-4 font-semibold">
                                 <a href="#sandbox" onClick={() => setView('sandbox')} className="hover:text-brandTeal-400 transition-colors">Privacy Policy Notice</a>
                                 <span>|</span>
                                 <a href="#sandbox" onClick={() => setView('sandbox')} className="hover:text-brandTeal-400 transition-colors">Terms of Service</a>
                             </div>
-                            <div>
+                            <div className="font-semibold">
                                 Bound strictly to Republic Act No. 10173 (Data Privacy Act of 2012) guidelines.
                             </div>
                         </div>
