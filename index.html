@@ -35,7 +35,7 @@
                 extend: {
                     colors: {
                         brandNavy: {
-                            950: '#070b19', // Aligned executive dark background
+                            950: '#070b19', // Executive dark background
                             900: '#0f172a', // Clean slate card backdrop
                             850: '#14213d', // Intermediate panel gray
                             800: '#1e293b', // Subdued dark blue border base
@@ -312,7 +312,6 @@
             </svg>
         );
 
-        // DELIVERABLES INITIAL CONFIGURATION MATRIX (ALIGNED TO THREE PILLARS + SECURITY MAINTENANCE)
         const INITIAL_TASKS = [
             { 
                 id: 'fin-1', 
@@ -597,7 +596,6 @@
             const [showResetConfirm, setShowResetConfirm] = useState(false);
             const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
 
-            // CORE DATA STATE
             const [tasks, setTasks] = useState(() => loadSavedData('kc_planner_tasks', INITIAL_TASKS));
 
             // ACTIVE MODULE BOOLEAN CHECKS
@@ -631,68 +629,43 @@
 
             const [activePresets, setActivePresets] = useState(() => loadSavedData('kc_planner_active_presets', ['mod1']));
 
-            // METADATA STATE
-            const savedMeta = useMemo(() => loadSavedData('kc_planner_meta', {
-                clientCompany: 'A local growing company in the Philippines',
-                clientRep: 'SME Business Owner',
-                clientAddress: 'Ortigas, Pasig City, Metro Manila, Philippines',
-                clientTin: '000-000-000-000',
-                quoteId: getDefaultReference(),
-                quoteDate: getTodayDateString(),
-                quoteValidity: '30 Days',
-                annualOperationalLeakage: getInitialLeakage(),
-                includeTax: true,
-                preparedBy: 'Reinhard Ludwig A. Kolthoff',
-                preparerTitle: 'Chief Operations Strategist',
-                preparerTin: '337-945-806-000',
-                targetStartDate: 'July 1, 2026',
-                proposalObjectives: 'Establish financial clarity, remove Viber and spreadsheet tracking bottlenecks, implement DOLE-friendly accountability guidelines, and launch secure, automated trackers to save your team hours of daily manual effort.',
-                proposalSponsor: 'Business Owner / General Manager',
-                preDiagnosticList: "• Basic corporate parameters outline (reporting lines & key roles)\n• Current task lists, Viber agreements, spreadsheets, or folders\n• Initial personnel folders (existing handbooks or leave guidelines)\n• Inventory of paid software accounts and app subscriptions\n• Standard client invoices and delivery file formats",
-                frictionBuffer: 15,
-                principalToSeniorDelegate: 20,
-                seniorToAssociateDelegate: 40,
-                overrideTimeline: '',
-                weeklyHours: 16
-            }), []);
+            const [clientCompany, setClientCompany] = useState(() => loadSavedData('kc_planner_client_company', ""));
+            const [clientRep, setClientRep] = useState(() => loadSavedData('kc_planner_client_rep', ""));
+            const [clientAddress, setClientAddress] = useState(() => loadSavedData('kc_planner_client_address', ""));
+            const [clientTin, setClientTin] = useState(() => loadSavedData('kc_planner_client_tin', ""));
+            const [quoteId, setQuoteId] = useState(() => loadSavedData('kc_planner_quote_id', getDefaultReference()));
+            const [quoteDate, setQuoteDate] = useState(() => loadSavedData('kc_planner_quote_date', getTodayDateString()));
+            const [quoteValidity, setQuoteValidity] = useState(() => loadSavedData('kc_planner_quote_validity', '30 Days'));
+            const [annualOperationalLeakage, setAnnualOperationalLeakage] = useState(() => loadSavedData('kc_planner_annual_leakage', getInitialLeakage()));
+            const [includeTax, setIncludeTax] = useState(() => loadSavedData('kc_planner_include_tax', true));
 
-            const [clientCompany, setClientCompany] = useState(savedMeta.clientCompany);
-            const [clientRep, setClientRep] = useState(savedMeta.clientRep);
-            const [clientAddress, setClientAddress] = useState(savedMeta.clientAddress);
-            const [clientTin, setClientTin] = useState(savedMeta.clientTin);
-            const [quoteId, setQuoteId] = useState(savedMeta.quoteId);
-            const [quoteDate, setQuoteDate] = useState(savedMeta.quoteDate);
-            const [quoteValidity, setQuoteValidity] = useState(savedMeta.quoteValidity);
-            const [annualOperationalLeakage, setAnnualOperationalLeakage] = useState(savedMeta.annualOperationalLeakage);
-            const [includeTax, setIncludeTax] = useState(savedMeta.includeTax);
+            const [preparedBy, setPreparedBy] = useState(() => loadSavedData('kc_planner_prepared_by', 'Reinhard Ludwig A. Kolthoff'));
+            const [preparerTitle, setPreparerTitle] = useState(() => loadSavedData('kc_planner_preparer_title', 'Chief Operations Strategist'));
+            const [preparerTin, setPreparerTin] = useState(() => loadSavedData('kc_planner_preparer_tin', '337-945-806-000'));
+            const [targetStartDate, setTargetStartDate] = useState(() => loadSavedData('kc_planner_target_start_date', ""));
 
-            const [preparedBy, setPreparedBy] = useState(savedMeta.preparedBy);
-            const [preparerTitle, setPreparerTitle] = useState(savedMeta.preparerTitle);
-            const [preparerTin, setPreparerTin] = useState(savedMeta.preparerTin);
-            const [targetStartDate, setTargetStartDate] = useState(savedMeta.targetStartDate);
+            const [proposalObjectives, setProposalObjectives] = useState(() => loadSavedData('kc_planner_objectives', 'Establish financial clarity, remove Viber and spreadsheet tracking bottlenecks, implement DOLE-friendly accountability guidelines, and launch secure, automated trackers to save your team hours of daily manual effort.'));
+            const [proposalSponsor, setProposalSponsor] = useState(() => loadSavedData('kc_planner_proposal_sponsor', ""));
+            const [preDiagnosticList, setPreDiagnosticList] = useState(() => loadSavedData('kc_planner_pre_diagnostic_list', "• Basic corporate parameters outline (reporting lines & key roles)\n• Current task lists, Viber agreements, spreadsheets, or folders\n• Initial personnel folders (existing handbooks or leave guidelines)\n• Inventory of paid software accounts and app subscriptions\n• Standard client invoices and delivery file formats"));
 
-            const [proposalObjectives, setProposalObjectives] = useState(savedMeta.proposalObjectives);
-            const [proposalSponsor, setProposalSponsor] = useState(savedMeta.proposalSponsor);
-            const [preDiagnosticList, setPreDiagnosticList] = useState(savedMeta.preDiagnosticList);
+            const [frictionBuffer, setFrictionBuffer] = useState(() => loadSavedData('kc_planner_friction_buffer', 15));
+            const [principalToSeniorDelegate, setPrincipalToSeniorDelegate] = useState(() => loadSavedData('kc_planner_p_to_s_delegate', 20));
+            const [seniorToAssociateDelegate, setSeniorToAssociateDelegate] = useState(() => loadSavedData('kc_planner_s_to_a_delegate', 40));
 
-            const [frictionBuffer, setFrictionBuffer] = useState(savedMeta.frictionBuffer);
-            const [principalToSeniorDelegate, setPrincipalToSeniorDelegate] = useState(savedMeta.principalToSeniorDelegate);
-            const [seniorToAssociateDelegate, setSeniorToAssociateDelegate] = useState(savedMeta.seniorToAssociateDelegate);
-
-            const [overrideTimeline, setOverrideTimeline] = useState(savedMeta.overrideTimeline || '');
-            const [weeklyHours, setWeeklyHours] = useState(savedMeta.weeklyHours || 16);
+            const [overrideTimeline, setOverrideTimeline] = useState(() => loadSavedData('kc_planner_override_timeline', ""));
+            const [weeklyHours, setWeeklyHours] = useState(() => loadSavedData('kc_planner_weekly_hours', 16));
 
             // NDA PARAMETERS (DPA COMPLIANT)
-            const [ndaEffectiveDate, setNdaEffectiveDate] = useState(() => loadSavedData('kc_planner_nda_effective_date', 'July 1, 2026'));
+            const [ndaEffectiveDate, setNdaEffectiveDate] = useState(() => loadSavedData('kc_planner_nda_effective_date', ''));
             const [ndaPurpose, setNdaPurpose] = useState(() => loadSavedData('kc_planner_nda_purpose', 'Reviewing active workplace workflows, technology subscriptions, general labor practices, and identifying operational time leaks in strict compliance with the Data Privacy Act (RA 10173).'));
             const [ndaTerm, setNdaTerm] = useState(() => loadSavedData('kc_planner_nda_term', '5 (Five) Years'));
             const [ndaJurisdiction, setNdaJurisdiction] = useState(() => loadSavedData('kc_planner_nda_jurisdiction', 'Taytay, Rizal, Philippines'));
 
             // INVOICE PARAMETERS (EOPT COMPLIANT)
             const [invoiceMilestone, setInvoiceMilestone] = useState(() => loadSavedData('kc_planner_invoice_milestone', 'full'));
-            const [customInvoiceAmount, setCustomInvoiceAmount] = useState(() => loadSavedData('kc_planner_custom_invoice_amount', 150005));
+            const [customInvoiceAmount, setCustomInvoiceAmount] = useState(() => loadSavedData('kc_planner_custom_invoice_amount', 0));
             const [invoiceNumberSuffix, setInvoiceNumberSuffix] = useState(() => loadSavedData('kc_planner_invoice_number_suffix', '01'));
-            const [invoiceDueDate, setInvoiceDueDate] = useState(() => loadSavedData('kc_planner_invoice_due_date', 'July 15, 2026'));
+            const [invoiceDueDate, setInvoiceDueDate] = useState(() => loadSavedData('kc_planner_invoice_due_date', ''));
 
             // Placeholder states for custom input structures
             const [newTaskCategory, setNewTaskCategory] = useState('Financial Clarity & Recovery (Finance)');
@@ -704,8 +677,6 @@
             const [newTaskActivities, setNewTaskActivities] = useState('');
             const [newTaskExpectations, setNewTaskExpectations] = useState('');
             const [newTaskOutput, setNewTaskOutput] = useState('');
-
-            const handlePrint = () => { window.print(); };
 
             const toggleTask = (id) => {
                 setTasks(prev => prev.map(t => t.id === id ? { ...t, selected: !t.selected } : t));
@@ -752,8 +723,12 @@
             };
 
             const executeResetWorkbook = () => {
-                localStorage.clear();
-                window.location.reload();
+                try {
+                    localStorage.clear();
+                } catch (e) {
+                    console.error("Local storage clear failed safely.", e);
+                }
+                window.location.href = window.location.pathname; // Reload clear query string configs
             };
 
             const handleTogglePreset = (presetName) => {
@@ -1001,14 +976,41 @@
 
             // AUTO-SAVE EFFECT
             useEffect(() => {
-                localStorage.setItem('kc_planner_tasks', JSON.stringify(tasks));
-                localStorage.setItem('kc_planner_meta', JSON.stringify({
-                    clientCompany, clientRep, clientAddress, clientTin, quoteId, quoteDate, quoteValidity,
-                    annualOperationalLeakage, includeTax, preparedBy, preparerTitle, preparerTin, targetStartDate,
-                    proposalObjectives, proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate,
-                    seniorToAssociateDelegate, overrideTimeline, weeklyHours
-                }));
-            }, [tasks, clientCompany, clientRep, clientAddress, clientTin, quoteId, quoteDate, quoteValidity, annualOperationalLeakage, includeTax, preparedBy, preparerTitle, preparerTin, targetStartDate, proposalObjectives, proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, overrideTimeline, weeklyHours]);
+                try {
+                    localStorage.setItem('kc_planner_tasks', JSON.stringify(tasks));
+                    localStorage.setItem('kc_planner_client_company', clientCompany);
+                    localStorage.setItem('kc_planner_client_rep', clientRep);
+                    localStorage.setItem('kc_planner_client_address', clientAddress);
+                    localStorage.setItem('kc_planner_client_tin', clientTin);
+                    localStorage.setItem('kc_planner_quote_id', quoteId);
+                    localStorage.setItem('kc_planner_quote_date', quoteDate);
+                    localStorage.setItem('kc_planner_quote_validity', quoteValidity);
+                    localStorage.setItem('kc_planner_annual_leakage', String(annualOperationalLeakage));
+                    localStorage.setItem('kc_planner_include_tax', String(includeTax));
+                    localStorage.setItem('kc_planner_prepared_by', preparedBy);
+                    localStorage.setItem('kc_planner_preparer_title', preparerTitle);
+                    localStorage.setItem('kc_planner_preparer_tin', preparerTin);
+                    localStorage.setItem('kc_planner_target_start_date', targetStartDate);
+                    localStorage.setItem('kc_planner_objectives', proposalObjectives);
+                    localStorage.setItem('kc_planner_proposal_sponsor', proposalSponsor);
+                    localStorage.setItem('kc_planner_pre_diagnostic_list', preDiagnosticList);
+                    localStorage.setItem('kc_planner_friction_buffer', String(frictionBuffer));
+                    localStorage.setItem('kc_planner_p_to_s_delegate', String(principalToSeniorDelegate));
+                    localStorage.setItem('kc_planner_s_to_a_delegate', String(seniorToAssociateDelegate));
+                    localStorage.setItem('kc_planner_override_timeline', overrideTimeline);
+                    localStorage.setItem('kc_planner_weekly_hours', String(weeklyHours));
+                    localStorage.setItem('kc_planner_nda_effective_date', ndaEffectiveDate);
+                    localStorage.setItem('kc_planner_nda_purpose', ndaPurpose);
+                    localStorage.setItem('kc_planner_nda_term', ndaTerm);
+                    localStorage.setItem('kc_planner_nda_jurisdiction', ndaJurisdiction);
+                    localStorage.setItem('kc_planner_invoice_milestone', invoiceMilestone);
+                    localStorage.setItem('kc_planner_custom_invoice_amount', String(customInvoiceAmount));
+                    localStorage.setItem('kc_planner_invoice_number_suffix', invoiceNumberSuffix);
+                    localStorage.setItem('kc_planner_invoice_due_date', invoiceDueDate);
+                } catch (e) {
+                    console.error("Local storage serialization write blocked safely.", e);
+                }
+            }, [tasks, clientCompany, clientRep, clientAddress, clientTin, quoteId, quoteDate, quoteValidity, annualOperationalLeakage, includeTax, preparedBy, preparerTitle, preparerTin, targetStartDate, proposalObjectives, proposalSponsor, preDiagnosticList, frictionBuffer, principalToSeniorDelegate, seniorToAssociateDelegate, overrideTimeline, weeklyHours, ndaEffectiveDate, ndaPurpose, ndaTerm, ndaJurisdiction, invoiceMilestone, customInvoiceAmount, invoiceNumberSuffix, invoiceDueDate]);
 
             // Trigger typesetting upon modal opening
             useEffect(() => {
@@ -1404,10 +1406,10 @@
                                     <h3 className="text-sm font-bold tracking-wider text-brandTeal-400 uppercase font-mono flex items-center gap-2"><IconEdit /> SOW Proposal Settings</h3>
                                     <div className="space-y-4 text-xs font-sans">
                                         <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">SOW Project Reference ID</label><input type="text" value={quoteId} onChange={(e) => setQuoteId(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-500 font-mono bg-brandNavy-950" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Legal/Business Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-500 bg-brandNavy-950" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Representative Name</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-505 bg-brandNavy-950" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Title</label><input type="text" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-505 bg-brandNavy-950" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Target Launch Date</label><input type="text" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-202 font-mono font-semibold focus:outline-none focus:border-brandTeal-505 bg-brandNavy-950" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Legal/Business Name</label><input type="text" placeholder="Dela Cruz Enterprises" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-500 bg-brandNavy-950" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Representative Name</label><input type="text" placeholder="Juan Dela Cruz" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-505 bg-brandNavy-950" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Sponsor Title</label><input type="text" placeholder="e.g. Managing Director" value={proposalSponsor} onChange={(e) => setProposalSponsor(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-505 bg-brandNavy-950" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Target Launch Date</label><input type="text" placeholder="e.g. July 1, 2026" value={targetStartDate} onChange={(e) => setTargetStartDate(e.target.value)} className="w-full bg-brandNavy-955 border border-brandNavy-700 rounded p-2.5 text-xs text-slate-202 font-mono font-semibold focus:outline-none focus:border-brandTeal-505 bg-brandNavy-950" /></div>
                                         
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Project Timeline Duration</label>
@@ -1466,10 +1468,10 @@
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm border-b border-slate-200 pb-6 print-divider font-semibold">
                                         <div className="space-y-1.5">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared For:</span>
-                                            <div className="font-bold text-slate-900 text-base">{clientRep}</div>
-                                            <div className="text-slate-705 font-bold font-sans">{clientCompany}</div>
-                                            <div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Primary Sponsor:</span> {proposalSponsor}</div>
-                                            <div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Target Kickoff:</span> {targetStartDate}</div>
+                                            <div className="font-bold text-slate-900 text-base">{clientRep || "________________________"}</div>
+                                            <div className="text-slate-705 font-bold font-sans">{clientCompany || "________________________"}</div>
+                                            <div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Primary Sponsor:</span> {proposalSponsor || "________________________"}</div>
+                                            <div className="text-xs text-slate-600"><span className="font-semibold text-slate-800">Target Kickoff:</span> {targetStartDate || "________________________"}</div>
                                         </div>
                                         <div className="space-y-1.5 md:text-right">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">Prepared By:</span>
@@ -1632,7 +1634,7 @@
                                         <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold mb-4">4. Plan Particulars &amp; What You Receive</h4>
                                         <div className="space-y-5">
                                             {tasks.filter(t => t.selected).map((task) => {
-                                                const details = task.scopeDetails || { activities: "Work closely with your team to review and complete planned milestone tasks.", expectations: "Provide basic information access and honest feedback on drafted guidelines.", output: "A completed SOW deliverable asset aligned with custom specifications." };
+                                                const details = task.scopeDetails || { activities: "Work closely with Reinhard to review and complete planned milestone tasks.", expectations: "Provide basic information access and honest feedback on drafted guidelines.", output: "A completed SOW deliverable asset aligned with custom specifications." };
                                                 return (
                                                     <div key={task.id} className="border border-slate-200 rounded-lg p-5 bg-slate-5/40 shadow-sm print-pill">
                                                         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-200 mb-3 gap-2">
@@ -1657,8 +1659,8 @@
                                             <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-705 font-bold font-sans">Scope Confirmed &amp; Approved by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
-                                                    <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-555">Representative, {clientCompany}</div>
+                                                    <div className="font-bold text-slate-900">{clientRep || "________________________"}</div>
+                                                    <div className="text-slate-555">Representative, {clientCompany || "________________________"}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1686,10 +1688,10 @@
                                             <span className="text-[10px] font-mono tracking-wider uppercase text-slate-400 font-bold">Include 12% PH VAT</span>
                                             <button onClick={() => setIncludeTax(!includeTax)} className={`w-10 h-6 flex items-center rounded-full p-0.5 transition-all duration-300 ${includeTax ? 'bg-brandTeal-500' : 'bg-brandNavy-800 border border-brandNavy-700'}`}><span className={`w-5 h-5 rounded-full bg-white shadow-md transform transition-all duration-300 ${includeTax ? 'translate-x-4' : 'translate-x-0'}`} /></button>
                                         </div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Legal/Business Name</label><input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Representative Name</label><input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Registered Address (BIR EOPT mandated)</label><input type="text" value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company TIN (BIR EOPT mandated)</label><input type="text" value={clientTin} onChange={(e) => setClientTin(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-mono font-semibold" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Legal/Business Name</label><input type="text" placeholder="Dela Cruz Enterprises" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Representative Name</label><input type="text" placeholder="Juan Dela Cruz" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Registered Address (BIR EOPT mandated)</label><input type="text" placeholder="Ortigas, Pasig City, Metro Manila" value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company TIN (BIR EOPT mandated)</label><input type="text" placeholder="000-000-000-000" value={clientTin} onChange={(e) => setClientTin(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-mono font-semibold" /></div>
                                         
                                         <div className="grid grid-cols-2 gap-3">
                                             <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Prepared By</label><input type="text" value={preparedBy} onChange={(e) => setPreparedBy(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202" /></div>
@@ -1730,10 +1732,10 @@
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm font-sans font-medium border-b border-slate-200 pb-6 print-divider">
                                         <div className="space-y-1.5">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">SOLD TO (Customer Corporate Registry):</span>
-                                            <div className="font-bold text-slate-900 text-base">{clientRep}</div>
-                                            <div className="text-slate-705 font-bold font-sans">{clientCompany}</div>
-                                            <div className="text-xs text-slate-500 font-mono">TIN: {clientTin}</div>
-                                            <div className="text-xs text-slate-555 leading-snug">{clientAddress}</div>
+                                            <div className="font-bold text-slate-900 text-base">{clientRep || "________________________"}</div>
+                                            <div className="text-slate-705 font-bold font-sans">{clientCompany || "________________________"}</div>
+                                            <div className="text-xs text-slate-500 font-mono">TIN: {clientTin || "________________________"}</div>
+                                            <div className="text-xs text-slate-555 leading-snug">{clientAddress || "________________________"}</div>
                                         </div>
                                         <div className="space-y-1.5 md:text-right">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">ISSUED BY (Sellers Information):</span>
@@ -1857,8 +1859,8 @@
                                             <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-705 font-bold font-sans">Approved and Accepted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
-                                                    <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-505">Representative, {clientCompany}</div>
+                                                    <div className="font-bold text-slate-900">{clientRep || "________________________"}</div>
+                                                    <div className="text-slate-505">Representative, {clientCompany || "________________________"}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -1866,7 +1868,7 @@
                                                 <p className="text-slate-705 font-bold font-sans">Submitted by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5">
                                                     <div className="font-bold text-slate-900 font-sans">{preparedBy}</div>
-                                                    <div className="text-slate-500">{preparerTitle}, Kolthoff Consulting</div>
+                                                    <div className="text-slate-555">{preparerTitle}, Kolthoff Consulting</div>
                                                     <div className="text-slate-400">Date: {quoteDate}</div>
                                                 </div>
                                             </div>
@@ -1884,7 +1886,7 @@
                                     <div className="space-y-4 text-xs font-sans font-medium">
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Effective Date</label>
-                                            <input type="text" value={ndaEffectiveDate} onChange={(e) => setNdaEffectiveDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
+                                            <input type="text" placeholder="e.g. July 1, 2026" value={ndaEffectiveDate} onChange={(e) => setNdaEffectiveDate(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Disclosing Party (Party A)</label>
@@ -1892,11 +1894,11 @@
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Receiving Party (Party B)</label>
-                                            <input type="text" value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
+                                            <input type="text" placeholder="Enter Company Registered Name..." value={clientCompany} onChange={(e) => setClientCompany(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Party B Representative</label>
-                                            <input type="text" value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
+                                            <input type="text" placeholder="Enter Company Representative..." value={clientRep} onChange={(e) => setClientRep(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-200" />
                                         </div>
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Confidentiality Term (Years)</label>
@@ -1937,7 +1939,7 @@
 
                                     <div className="text-center space-y-2">
                                         <h2 className="text-lg font-bold text-slate-900 font-sans tracking-wide uppercase">MUTUAL NON-DISCLOSURE AGREEMENT</h2>
-                                        <p className="text-[11px] font-mono text-slate-505">Effective Date: {ndaEffectiveDate}</p>
+                                        <p className="text-[11px] font-mono text-slate-505">Effective Date: {ndaEffectiveDate || "________________________"}</p>
                                     </div>
 
                                     <p className="text-slate-800">
@@ -1949,7 +1951,7 @@
                                             <strong>Party A (Disclosing/Receiving):</strong> <span className="text-slate-900">{preparedBy}</span>, representing <span className="font-bold">Kolthoff Consulting</span>, with registered coordinates of Taytay, Rizal, Philippines; and
                                         </div>
                                         <div>
-                                            <strong>Party B (Disclosing/Receiving):</strong> <span className="text-slate-900">{clientRep}</span>, representing <span className="font-bold">{clientCompany}</span>.
+                                            <strong>Party B (Disclosing/Receiving):</strong> <span className="text-slate-900">{clientRep || "________________________"}</span>, representing <span className="font-bold">{clientCompany || "________________________"}</span>.
                                         </div>
                                     </div>
 
@@ -2006,8 +2008,8 @@
                                             <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-700 font-bold font-sans">Accepted &amp; Authorized on behalf of Party B:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
-                                                    <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-555">Representative, {clientCompany}</div>
+                                                    <div className="font-bold text-slate-900">{clientRep || "________________________"}</div>
+                                                    <div className="text-slate-555">Representative, {clientCompany || "________________________"}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -2074,7 +2076,7 @@
                                         <div>
                                             <label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Payment Due Date</label>
                                             <input 
-                                                type="text" value={invoiceDueDate} onChange={(e) => setInvoiceDueDate(e.target.value)} 
+                                                type="text" placeholder="e.g. July 15, 2026" value={invoiceDueDate} onChange={(e) => setInvoiceDueDate(e.target.value)} 
                                                 className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 font-semibold focus:outline-none focus:border-brandTeal-500 bg-brandNavy-950" 
                                             />
                                         </div>
@@ -2089,8 +2091,8 @@
                                             </button>
                                         </div>
 
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company TIN (BIR mandated)</label><input type="text" value={clientTin} onChange={(e) => setClientTin(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none bg-brandNavy-950" /></div>
-                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Address (BIR mandated)</label><input type="text" value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none bg-brandNavy-950" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company TIN (BIR mandated)</label><input type="text" placeholder="000-000-000-000" value={clientTin} onChange={(e) => setClientTin(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none bg-brandNavy-950" /></div>
+                                        <div><label className="text-[10px] font-mono text-slate-400 uppercase block mb-1">Company Address (BIR mandated)</label><input type="text" placeholder="Enter Company Registered Address..." value={clientAddress} onChange={(e) => setClientAddress(e.target.value)} className="w-full bg-brandNavy-950 border border-brandNavy-700 rounded p-2.5 text-slate-202 focus:outline-none bg-brandNavy-950" /></div>
                                     </div>
                                     <button onClick={handlePrint} className="w-full py-3 bg-brandTeal-500 hover:bg-brandTeal-400 text-slate-955 font-bold rounded-lg text-xs uppercase tracking-wider flex items-center justify-center shadow-lg"><IconPrint className="w-4 h-4 mr-1.5" /> Print Tax Invoice</button>
                                 </div>
@@ -2114,7 +2116,7 @@
                                             <div className="text-[9px] text-rose-600 font-semibold block mb-1">RA 11976 (EOPT) Compliant Billing</div>
                                             <div>Invoice No: <span className="font-bold text-slate-900">{quoteId.replace('KC', 'INV')}{invoiceNumberSuffix}</span></div>
                                             <div>Date Issued: {quoteDate}</div>
-                                            <div>Payment Due: <span className="font-bold text-slate-900">{invoiceDueDate}</span></div>
+                                            <div>Payment Due: <span className="font-bold text-slate-900">{invoiceDueDate || "________________________"}</span></div>
                                             <div>Reference SOW: <span className="font-bold text-slate-900">{quoteId}</span></div>
                                         </div>
                                     </div>
@@ -2123,10 +2125,10 @@
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm font-sans font-medium">
                                         <div className="space-y-1.5 border-l-2 border-brandTeal-500 pl-4 py-1">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">SOLD TO (Customer Information):</span>
-                                            <div className="font-bold text-slate-900 text-base">{clientRep}</div>
-                                            <div className="text-slate-705 font-bold font-sans">{clientCompany}</div>
-                                            <div className="text-xs text-slate-500 font-mono">TIN: {clientTin}</div>
-                                            <div className="text-xs text-slate-500 leading-snug">{clientAddress}</div>
+                                            <div className="font-bold text-slate-900 text-base">{clientRep || "________________________"}</div>
+                                            <div className="text-slate-705 font-bold font-sans">{clientCompany || "________________________"}</div>
+                                            <div className="text-xs text-slate-500 font-mono">TIN: {clientTin || "________________________"}</div>
+                                            <div className="text-xs text-slate-500 leading-snug">{clientAddress || "________________________"}</div>
                                         </div>
                                         <div className="space-y-1.5 md:text-right">
                                             <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-bold">ISSUED BY (Sellers Information):</span>
@@ -2206,8 +2208,8 @@
                                             <div className="space-y-12 flex flex-col justify-between">
                                                 <p className="text-slate-705 font-bold font-sans">Received &amp; Authorized by:</p>
                                                 <div className="border-t border-slate-300 pt-2 text-[10px] space-y-0.5 font-sans">
-                                                    <div className="font-bold text-slate-900">{clientRep}</div>
-                                                    <div className="text-slate-500">Representative, {clientCompany}</div>
+                                                    <div className="font-bold text-slate-900">{clientRep || "________________________"}</div>
+                                                    <div className="text-slate-500">Representative, {clientCompany || "________________________"}</div>
                                                     <div className="text-slate-400">Date: ________________________</div>
                                                 </div>
                                             </div>
@@ -2226,11 +2228,10 @@
                             </div>
                         )}
 
-                        {/* --- STREAMING_CHUNK: Preparing formula dialog popup layer... --- */}
-                        {/* --- EXTRACED MATHEMATICAL FORMULA MODAL DIALOGUE --- */}
+                        {}
                         {isFormulaModalOpen && (
                             <div className="fixed inset-0 bg-brandNavy-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-                                <div className="bg-brandNavy-900 border border-brandNavy-700 max-w-xl w-full rounded-xl p-6 sm:p-8 space-y-6 shadow-2xl relative animate-fade-in text-slate-300">
+                                <div className="bg-brandNavy-900 border border-brandNavy-700 max-w-xl w-full rounded-xl p-6 sm:p-8 space-y-6 shadow-2xl relative animate-fade-in text-slate-305">
                                     <button 
                                         onClick={() => setIsFormulaModalOpen(false)} 
                                         className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
@@ -2253,7 +2254,7 @@
                                         </div>
                                     </div>
 
-                                    <div className="space-y-3 text-xs leading-relaxed font-sans font-medium text-slate-305">
+                                    <div className="space-y-3 text-xs leading-relaxed font-sans font-medium text-slate-300">
                                         <p><strong className="text-white">Staff Count:</strong> Total headcount directly involved in workflows, coordination, and administration.</p>
                                         <p><strong className="text-white">Avg Monthly Salary:</strong> Average base salary plus statutory benefits (13th month, SSS, PhilHealth, Pag-IBIG).</p>
                                         <p><strong className="text-white">Daily Lost Hours:</strong> The estimated hours spent daily on administrative coordination drag (e.g., chasing updates on Viber, resolving Excel mismatches, and rectifying unwritten operational procedures).</p>
